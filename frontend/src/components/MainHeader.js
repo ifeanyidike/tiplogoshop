@@ -8,12 +8,20 @@ import {
         hamburgerItemsVariants
     } from "../animationVariants/HeaderVariants"
 import {motion} from "framer-motion"
-import {Link, useLocation} from "react-router-dom"
+import {Link, useHistory, useLocation} from "react-router-dom"
+import {useSelector, useDispatch} from "react-redux"
+import {logout} from "../redux/actions/userActions"
 
 
 const MainHeader = ({setShowDrawer}) => {
     const location = useLocation()
+    const history = useHistory()
+    const dispatch = useDispatch()
+    
     const path = location.pathname
+    
+    const userLogin  = useSelector(state => state.userLogin)
+    const {userInfo} = userLogin
     
     const animateDrawer = () =>{
         const navLinks = document.querySelectorAll("nav ul li.item");
@@ -25,8 +33,10 @@ const MainHeader = ({setShowDrawer}) => {
         animateDrawer()
         setShowDrawer(true)        
     }
-    
-
+    const logoutHandler = () =>{
+        dispatch(logout())
+        history.push('/auth')
+    }
     
     
     return (
@@ -64,8 +74,8 @@ const MainHeader = ({setShowDrawer}) => {
                         whileHover="onHover"
                         >
                         <Link
-                            to="/"
-                            style={{fontWeight: path === '/buy-pin' && 'bold' }}
+                            to="/cards"
+                            style={{fontWeight: path === '/cards' && 'bold' }}
                         >
                         Buy Pin
                         </Link>
@@ -97,12 +107,27 @@ const MainHeader = ({setShowDrawer}) => {
                         initial="initial"
                         whileHover="onHover"
                         >
-                        <Link 
-                            to="/"
-                            style={{fontWeight: path=== '/join' && 'bold' }}
-                        >
-                        Join
-                        </Link>
+                        
+                        {userInfo ?                         
+                            (
+                                <Link                                     
+                                    onClick={logoutHandler}                                                                  
+                                >
+                                    Logout
+                                </Link>
+                            )                            
+                            :
+                            (
+                                <Link 
+                                    to="/auth"
+                                    style={{fontWeight: path=== '/join' && 'bold' }}
+                                >
+                                    Join
+                                </Link>
+                            )
+                            
+                        }
+                        
                     </motion.li>
                     
                 </ul>

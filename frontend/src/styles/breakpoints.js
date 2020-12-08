@@ -38,6 +38,7 @@ export const colors = {
   darkblue: '#172B4D',
   lightgreen: '#79F2C0',
   lightblue: '#0052CC',
-  goldish: '#FFC400'
+  goldish: '#FFC400',
+  facebookColor: "#3B5998"
 }
 

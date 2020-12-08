@@ -1,10 +1,10 @@
 export const svgVariants = {
-    hidden: {rotate: -60, scale: 2},
+    hidden: {rotate: 0, scale: 1.1},
     visible: {
       scale: 1,
-      rotate: 0,
+      rotate: [-5, 5, 0, 5, -5, 0],
       transition: {
-        duration: 1
+        duration: 3
       }
     }
   }
@@ -25,11 +25,11 @@ export const svgVariants = {
   }
   
   export const headerRightVariants = {
-    hidden: {rotate: -60, scale: 2},
+    hidden: {rotate: 0, scale: 1.1},
     visible: {
       scale: 1,
-      rotate: 0,
-      transition: {
+      rotate: [-5, 5, 0],
+      transition: {        
         duration: 1
       }
     }

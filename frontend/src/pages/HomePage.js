@@ -47,6 +47,7 @@ const HomePage = ({setShowDrawer}) => {
                             <AltCard
                                 key={index}
                                 icon = {feature.icon}
+                                src = {feature.src}
                                 title={feature.title}
                                 desc = {feature.desc}
                                 anchor = {feature.anchor}

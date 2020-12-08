@@ -4,6 +4,10 @@ import {
     thirdCardContainerVariants,
     fourthCardContainerVariants
 } from '../animationVariants/CardVariants'
+import WaecLogo from "../images/Waeclogo.png"
+import NecoLogo from "../images/Necologo.png"
+import NabtebLogo from "../images/Nabteblogo.png"
+import JambLogo from "../images/Jamblogo.png"
 
 
 export const cardFeatures =[
@@ -57,7 +61,8 @@ export const cardFeatures =[
 export const altCardFeatures = [
     {
         icon: 'fas fa-undo',
-        title: 'React/NodeJS Training Classes',
+        src: WaecLogo,
+        title: 'Buy Waec Scratch Cards, Tokens, e-PIN',
         desc: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Velit, odio?",
         anchor: "See More",
         color: 'darkblue',
@@ -66,7 +71,8 @@ export const altCardFeatures = [
     },
     {
         icon: 'fas fa-chess',
-        title: 'Live Web/Mobile Coaching',
+        src: NabtebLogo,
+        title: 'Buy Nabteb Cards, Tokens, and PINs',
         desc: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Velit, odio?",
         anchor: "See More",
         color: 'lightgreen',
@@ -75,7 +81,8 @@ export const altCardFeatures = [
     },
     {
         icon: 'fas fa-chart-pie',
-        title: 'Digital marketing',
+        src: NecoLogo,
+        title: 'Buy Neco Cards, Result Checker, PINs',
         desc: "Let's take your busines a notch higher with digital marketing services",
         anchor: "See More",
         color: 'lightblue',
@@ -84,7 +91,8 @@ export const altCardFeatures = [
     },
     {
         icon: 'fas fa-layer-group',
-        title: "Let's Build an App for You",
+        src: JambLogo,
+        title: "Get Jamb UTME, Jamb DE, Cards, PINs",
         desc: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Velit, odio?",
         anchor: "See More",
         color: 'goldish',

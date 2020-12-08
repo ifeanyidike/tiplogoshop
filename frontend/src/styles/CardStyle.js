@@ -141,6 +141,22 @@ export const CardContainer = styled(motion.div)`
                 props.variant === 'goldish' ? colors.darktext
                 : null
             };
+    .cardimage__panel{
+        border-radius: 50%;
+        width: 140px;
+        background-color: ${props => 
+                props.variant === 'darkblue' ? colors.lightergray :
+                props.variant === 'lightgreen' ? colors.bluetext :
+                props.variant === 'lightblue' ? colors.lightgray :
+                props.variant === 'goldish' ? colors.bluetext
+                : null
+            };                                
+        padding: 15px;
+        img{            
+            width: 100%;
+        }
+    }
+        
     i{
         border-radius: 50%;
         color: ${colors.white};

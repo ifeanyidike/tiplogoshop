@@ -64,22 +64,22 @@ export default function FullWidthTabs({firstChild, secondChild, thirdChild, four
           indicatorColor="primary"
           textColor="primary"
           variant="fullWidth"
-          aria-label="full width tabs example"
+          aria-label="Features tabs"
           
         >
-          <Tab label="Web/Mobile Dev Training" 
+          <Tab label="Buy Tokens/Pins" 
             {...a11yProps(0)} 
             style={{backgroundColor: activeFirst && colors.lightergray}}
             onClick={handleFirstTab} />
-          <Tab label="One-on-one training " 
+          <Tab label="Correction of Data " 
             {...a11yProps(1)}             
             style={{backgroundColor: activeSecond && colors.lightergray}}
             onClick={handleSecondTab} />
-          <Tab label="Create Awesome Apps" 
+          <Tab label="Result Upload" 
             {...a11yProps(2)}
             style={{backgroundColor: activeThird && colors.lightergray}}
             onClick={handleThirdTab} />   
-          <Tab label="Digital marketing services" 
+          <Tab label="Other Services" 
             {...a11yProps(2)}
             style={{backgroundColor: activeFourth && colors.lightergray}}
             onClick={handleFourthTab} />           

@@ -3,7 +3,7 @@ import {CardContainer} from "../../styles/CardStyle"
 import {Link} from 'react-router-dom'
 
 
-const AltCard = ({icon,title, desc, href, anchor, color, variants}) => {
+const AltCard = ({icon, src, title, desc, href, anchor, color, variants}) => {
     return (
         <CardContainer 
             variants={variants}
@@ -12,7 +12,11 @@ const AltCard = ({icon,title, desc, href, anchor, color, variants}) => {
             whileHover='onHover'
             variant={color}
         >
-            <i className={icon}></i>
+            
+            {/* <i className={icon}></i> */}
+            <div className="cardimage__panel">
+                <img src={src} alt={title} />
+            </div> 
             <h4>{title}</h4>
             <p>{desc}</p>
             <Link to={href}>{anchor}</Link>

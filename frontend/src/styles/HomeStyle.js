@@ -219,7 +219,7 @@ export const Image = styled.img`
                 || '500px'};
     height: ${props => 
                 props.height ||                
-                (props.variant === 'homeTopVector' && '400px')
+                (props.variant === 'homeTopVector' && '500px')
                 || '500px'};
     
     margin: ${props =>  props.variant === 'homeTopVector' && '50px 80px' };
