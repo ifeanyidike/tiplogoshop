@@ -73,3 +73,42 @@ export const FacebookButton = styled(motion.div)`
 `
 
 export const GoogleButton = styled(Button)``
+
+export const EmailConfirmation = styled(motion.div)`
+    
+    height: 90vh;    
+    display: grid;
+    place-items: center;
+    div{
+        display: grid;
+        place-items: center;
+    }
+`;
+
+export const PasswordResetContainer = styled(motion.div)`
+    height: 90vh;    
+    display: grid;
+    place-items: center;
+    font-family: 'Jost', sans-serif;    
+    .content{
+        .MuiInputLabel-root, .content, input, .message{
+            font-family: 'Jost', sans-serif;
+        }
+        .MuiFormControl-root, h2{
+            margin-bottom: 15px;
+        }
+        .message{
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        -webkit-box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12);
+        -moz-box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12);
+        box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12);
+        padding: 50px;
+        border-radius: 10px
+    }
+`
+
+export const ResetButton = styled(Button)`
+    width: 100% !important;
+`

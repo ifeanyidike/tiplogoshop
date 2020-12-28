@@ -6,7 +6,7 @@ export const Header = styled.div`
     display: flex;
     justify-content: space-around;
     align-items: center;
-    padding: 10px 0;        
+    padding: 10px 0;            
     @media ${device.tablet}{
         margin-bottom: 10px;
         justify-content: unset;
@@ -69,6 +69,11 @@ export const Hamburger = styled(motion.div)`
     }
     .line3{
         top: 25px
+    }
+    
+    .avatar{
+        width: 12px !important;
+        height: 12px !important;
     }
     
     @media ${device.desktop}{

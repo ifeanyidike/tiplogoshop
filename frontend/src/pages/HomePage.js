@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useEffect} from 'react'
 import Header from "../components/MainHeader"
 import {
     HomeTopContainer, 
@@ -10,7 +10,7 @@ import {
 } from "../styles/HomeStyle"
 import {Divider} from "../styles/globalStyles"
 import {size} from "../styles/breakpoints"
-import Wavebottom from "../images/svg/wavebottom.js"
+import Wavebottom from "../svg/wavebottom.js"
 import Card from "../components/Cards/Card"
 import AltCard from "../components/Cards/AltCard"
 import Counter from "../components/Counter"
@@ -19,9 +19,22 @@ import Testimonial from "../components/Testimonial"
 import TopSection from "../components/TopSection"
 import {cardFeatures, altCardFeatures, counter} from "../components/JsonAPIs"
 import Footer from "../components/Footer"
-
+import {useDispatch, useSelector} from "react-redux"
+import { listFewCards } from '../redux/actions/cardActions'
+import LoadCards from "../components/LoadCards"
 
 const HomePage = ({setShowDrawer}) => {
+    const dispatch = useDispatch()
+    
+    useEffect(()=>{
+        dispatch(listFewCards(4))
+    }, [dispatch])
+    
+    const cardListFew  = useSelector(state => state.cardListFew)
+    const {loading: cardsLoading, cards, error: cardsError} = cardListFew
+    
+    
+    
     return (
         <React.Fragment>
             <HomeTopContainer>
@@ -37,27 +50,14 @@ const HomePage = ({setShowDrawer}) => {
             
             <HomeAltCardContainer>
                 <Divider />
-                <h2>What We Offer</h2>
-                <p className="top__paragraph">
-                    Lorem ipsum dolor sit amet consectetur, adipisicing elit. Debitis alias officiis, 
-                    autem dolores nihil repellat rem voluptas ducimus quibusdam saepe.</p>
-            
-                    <div className="card__container">
-                        {altCardFeatures.map((feature, index) =>(
-                            <AltCard
-                                key={index}
-                                icon = {feature.icon}
-                                src = {feature.src}
-                                title={feature.title}
-                                desc = {feature.desc}
-                                anchor = {feature.anchor}
-                                color = {feature.color}
-                                variants={feature.variants}
-                                href = {feature.href}                        
-                            />
-                        ))}
-                    </div>                
-                </HomeAltCardContainer>
+                <LoadCards 
+                    loading={cardsLoading} 
+                    cards = {cards}        
+                    error = {cardsError}
+                    href = "all"
+                />
+                                   
+            </HomeAltCardContainer>
             
             {/* <HomeCardContainer>                                                                    
                 

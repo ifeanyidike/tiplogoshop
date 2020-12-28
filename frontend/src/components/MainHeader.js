@@ -1,5 +1,7 @@
-import React from 'react'
-import SvgIcon from '../images/svg/sitelogo.js'
+import React,{useEffect, useState} from 'react'
+import SvgIcon from '../svg/sitelogo.js'
+import {Avatar} from "@material-ui/core"
+import { makeStyles } from '@material-ui/core/styles';
 import {Header, HeaderRightItems, Hamburger} from "../styles/HeaderStyle"
 import {
         headerRightVariants, 
@@ -11,17 +13,35 @@ import {motion} from "framer-motion"
 import {Link, useHistory, useLocation} from "react-router-dom"
 import {useSelector, useDispatch} from "react-redux"
 import {logout} from "../redux/actions/userActions"
+import {DRAWER_OPEN, DRAWER_CLOSE} from "../redux/constants/elementConstants"
+import {setUserImage} from "../redux/actions/userActions"
 
+const useStyles = makeStyles((theme) => ({
+    small: {
+        width: theme.spacing(4),
+        height: theme.spacing(4),
+    },
+}));
 
 const MainHeader = ({setShowDrawer}) => {
+    const classes = useStyles();
     const location = useLocation()
     const history = useHistory()
     const dispatch = useDispatch()
     
+    
     const path = location.pathname
     
+    const photo = useSelector(state => state.photo)
+    const {imageUrl} = photo
+    
     const userLogin  = useSelector(state => state.userLogin)
-    const {userInfo} = userLogin
+    const {userInfo} = userLogin  
+     
+    
+    useEffect(()=>{
+        dispatch(setUserImage())
+    }, [dispatch])               
     
     const animateDrawer = () =>{
         const navLinks = document.querySelectorAll("nav ul li.item");
@@ -31,7 +51,7 @@ const MainHeader = ({setShowDrawer}) => {
     }
     const handleHamburgerClick = () =>{
         animateDrawer()
-        setShowDrawer(true)        
+        dispatch({type: DRAWER_OPEN})     
     }
     const logoutHandler = () =>{
         dispatch(logout())
@@ -74,8 +94,8 @@ const MainHeader = ({setShowDrawer}) => {
                         whileHover="onHover"
                         >
                         <Link
-                            to="/cards"
-                            style={{fontWeight: path === '/cards' && 'bold' }}
+                            to="/allcards"
+                            style={{fontWeight: path === '/allcards' && 'bold' }}
                         >
                         Buy Pin
                         </Link>
@@ -129,8 +149,31 @@ const MainHeader = ({setShowDrawer}) => {
                         }
                         
                     </motion.li>
-                    
-                </ul>
+                        
+                        {userInfo && (
+                            <motion.li 
+                                variants={headerTextVariants}
+                                initial="initial"
+                                whileHover="onHover"
+                            >
+                                <Link 
+                                    to="/profile"
+                                    style={{fontWeight: path === '/profile' && 'bold' }}
+                                >
+                                    <Avatar
+                                        className={classes.small}                                    
+                                        src={
+                                            imageUrl ? imageUrl :
+                                            userInfo.profile && userInfo.profile.picture ? 
+                                            userInfo.profile.picture
+                                            :
+                                            'https://www.minervastrategies.com/wp-content/uploads/2016/03/default-avatar.jpg'
+                                        }
+                                    />
+                                </Link>
+                            </motion.li>
+                        )}
+                    </ul>
             </HeaderRightItems>
         </Header>
         </>

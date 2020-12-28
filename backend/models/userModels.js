@@ -1,5 +1,6 @@
 import mongoose from "mongoose"
 import bcrypt from "bcryptjs"
+import CryptoJS from 'crypto-js'
 
 const userSchema = mongoose.Schema({
     name: { 
@@ -13,6 +14,25 @@ const userSchema = mongoose.Schema({
         trim: true,
         lowercase: true
         },
+    wallet:{
+        type: Number,
+        default: 0.0
+    },
+    profile:{        
+        picture:{
+            type: String,
+        },
+        phoneNo:{
+            type: String
+        },
+        address:{
+            type:String
+        }
+    },
+    confirmed:{
+        type:  Boolean,
+        default: false
+    },
     password: {
         type: String,
         required: true
@@ -21,6 +41,10 @@ const userSchema = mongoose.Schema({
         type: Boolean,
         required: true,
         default: false,
+    },
+    resetLink:{
+        type: String,        
+        default: '',
     },    
 },{
     timestamps: true
@@ -39,6 +63,16 @@ userSchema.pre('save', async function(next){
     
     const salt = await bcrypt.genSalt(10);
     this.password = await bcrypt.hash(this.password, salt)
+})
+
+//hash the wallet. Pre runs before the model.
+userSchema.pre('save', async function(next){
+    if(!this.isModified('wallet')){
+        next()
+    }
+    
+    const cipherText = await CryptoJS.AES.encrypt(this.wallet, process.env.WALLET_SECRET_KEY).toString();
+    this.wallet = cipherText
 })
 
 const User = mongoose.model("User", userSchema);

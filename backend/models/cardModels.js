@@ -11,6 +11,19 @@ const cardSchema = mongoose.Schema({
         type: String,
         required: true
     },
+    items:[
+        {
+           pin: {
+               type: String
+           },
+           serialNo: {
+               type: String
+           },
+           token:{
+               type: String
+           }            
+        }
+    ],
     price:{
         type: Number,
         required: true,

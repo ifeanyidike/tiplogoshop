@@ -11,7 +11,14 @@ import Loader from "../Loaders/SimpleLoader"
 import Message from "../../components/Message"
 import {useDispatch, useSelector} from "react-redux"
 import {login} from "../../redux/actions/userActions"
-import {useHistory} from "react-router-dom"
+import {useHistory, Link} from "react-router-dom"
+
+const ConfirmLink = () => (
+  <div>
+    <span>You should first confirm your email </span>
+    <Link to="/auth/resendemail">Resend Code</Link>
+    </div>
+)
 
 export default function SignIn() {
     const [values, setValues] = useState({        
@@ -66,7 +73,11 @@ export default function SignIn() {
         <p>
             Signin to get started
             {values.message && <Message variant="info">{values.message}</Message>}         
-            {error && <Message>{error}</Message>}  
+            {error && <Message variant="error">
+              {error.includes('not confirmed') ? 
+              <ConfirmLink />
+              : error}
+            </Message>}  
             
         </p>  
       </Box>
@@ -119,6 +130,16 @@ export default function SignIn() {
                             ),
                         }}
           />
+         <div style={{width: '100%', textAlign: 'right'}}>
+            <Link 
+              to="/auth/forgotpassword"
+              style={{textDecoration: 'none'}}>
+              <small>
+                Forgot password? 
+              </small>
+            </Link>
+         </div>
+          
         </Grid>
         
         <AuthButton>Sign In</AuthButton>

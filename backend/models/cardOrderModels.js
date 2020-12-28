@@ -10,7 +10,7 @@ const orderSchema = mongoose.Schema({
         {
             name: {
                 type: String,
-                required: true
+                required: true,                
             },
             qty: {
                 type: Number,
@@ -23,12 +23,12 @@ const orderSchema = mongoose.Schema({
             price: {
                 type:Number,
                 required: true
-            },
-            card:{
+            }, 
+            card: {
                 type: mongoose.Schema.Types.ObjectId,
                 required: true,
-                ref: 'Card'
-            },            
+                ref: 'Cards',
+            },           
         },
     ],
     paymentMethod:{
@@ -42,7 +42,7 @@ const orderSchema = mongoose.Schema({
         status:{
             type: String
         },
-        updated_time:{
+        update_time:{
             type: String
         },
         email:{

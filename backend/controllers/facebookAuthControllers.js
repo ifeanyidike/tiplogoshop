@@ -1,23 +1,25 @@
 import User from "../models/userModels.js"
-
+import asyncHandler from "express-async-handler"
 import generateToken from "../utils/generateToken.js"
 import fetch from "node-fetch"
 
 
 
 
-export const facebooklogin =  (req, res) =>{
+export const facebooklogin =  asyncHandler(async(req, res) =>{
     const {userID, accessToken} = req.body
     
-    let urlGraphFacebook = `https://graph.facebook.com/v2.11/${userID}/?fields=id,name,email,picture&access_token=${accessToken}`
+    let urlGraphFacebook = `https://graph.facebook.com/v2.11/${userID}/?fields=id,name,email,picture.type(large)&access_token=${accessToken}`
     
     fetch(urlGraphFacebook, { method: 'GET' })
          .then(response => response.json())
          .then(response => {
-            
-            const {name, email} = response
+            console.log(response)
+            const {name, email, picture} = response
+            const image = picture.data.url
+            const profile = { picture: image }
              
-             User.findOne({email}).exec((err, user) => {
+            User.findOne({email}).exec((err, user) => {
                 
                 if(err){
                     res.status(400)
@@ -30,27 +32,30 @@ export const facebooklogin =  (req, res) =>{
                 }else{
                     //if user does not exist, add it to database
                                                             
-                    registerFacebookUser(res, name, email)
+                    registerFacebookUser(res, name, email, profile)
                     
                 }
                 
              })
          })            
              
-}
+})
 
 
-const registerFacebookUser = (res, name, email) =>{ 
+const registerFacebookUser = async (res, name, email, profile) =>{ 
     let password = email+process.env.JWT_SECRET;  
-    let newUser =  User.create({name, email, password})  
+    let newUser = await User.create({name, email, password, profile})  
     
     if(newUser){
         res.status(201).json({
             _id: newUser._id,
             name: newUser.name,
             email: newUser.email,
+            confirmed: true,
             isAdmin: newUser.isAdmin,   
-            token: generateToken(newUser._id)         
+            token: generateToken(newUser._id),   
+            wallet: newUser.wallet,
+            profile: newUser.profile
         })
     }else{
         res.status(400)
@@ -65,7 +70,9 @@ const registerFacebookUser = (res, name, email) =>{
          name: user.name,
          email: user.email,
          isAdmin: user.isAdmin,
-         token: generateToken(user._id)
+         token: generateToken(user._id),
+         wallet: user.wallet,
+         profile: user.profile
      })
  }
 

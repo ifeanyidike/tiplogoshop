@@ -3,6 +3,8 @@ import {motion} from 'framer-motion'
 import {device, colors} from "./breakpoints"
 
 export const TabContainer = styled(motion.div)`
+    display: ${props => props.variant === 'center' ? 'grid' : null};
+    place-items: ${props => props.variant === 'center' ? 'center' : null};
     
     .tabs{            
         div div{            

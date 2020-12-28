@@ -7,7 +7,7 @@ import AuthPanel from "../components/Auth/"
 const AuthPage = ({setShowDrawer}) => {
     return (
         <div>
-        <Header setShowDrawer={setShowDrawer} />
+        <Header  />
             <AuthTabContainer>                
                 <AuthPanel />    
             </AuthTabContainer>                        

@@ -1,7 +1,3 @@
-import image1 from "../../images/webdesign1.png"
-import image2 from "../../images/webdesign2.png"
-import image3 from "../../images/webdesign3.jpg"
-import image4 from "../../images/webdev4.png"
 
 const tabitems = [
     {
@@ -24,7 +20,7 @@ const tabitems = [
                 desc: "Project and issue tracking"
             }
         ],
-        image:image1
+        image: "/images/webdesign1.png"
     },
     {
         heading: "Build at the speed of innovation.",
@@ -46,7 +42,7 @@ const tabitems = [
                 desc: "Project and issue tracking"
             }
         ],
-        image: image2
+        image: "/images/webdesign2.png"
     },
     {
         heading: "Build at the speed of innovation.",
@@ -68,7 +64,7 @@ const tabitems = [
                 desc: "Project and issue tracking"
             }
         ],
-        image: image3
+        image: "/images/webdesign3.jpg"
     },
     {
         heading: "Build at the speed of innovation.",
@@ -90,7 +86,7 @@ const tabitems = [
                 desc: "Project and issue tracking"
             }
         ],
-        image: image4
+        image: "/images/webdev4.png"
     }
 ]
 

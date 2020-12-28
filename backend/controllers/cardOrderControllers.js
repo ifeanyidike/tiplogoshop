@@ -38,6 +38,39 @@ export const getCardOrderById = asyncHandler(async(req, res)=>{
     }
 })
 
+
+//@desc     Update CardOrder without Pay
+//@route    PUT /api/CardOrders/:id/pay
+//@access   Private
+
+export const updateCardOrderWithoutPay = asyncHandler(async(req, res)=>{
+    
+    const order = await CardOrder.findById(req.params.id)
+    const{orderItems, paymentMethod} = req.body
+    
+    if(orderItems && orderItems.length === 0){
+        throw new Error('No Order items')
+        return
+    }
+    
+    if(order.isPaid === true){
+        res.status(401)
+        throw new Error('Order already completed')
+    }
+    
+    if(order && order.isPaid === false){
+        order.orderItems = orderItems
+        order.paymentMethod = paymentMethod        
+        
+        const updatedOrder = await order.save()
+        res.json(updatedOrder)
+    }else{
+        res.status(404)
+        throw new Error('Order not found')
+    }    
+})
+
+
 //@desc     Update CardOrder to Paid
 //@route    PUT /api/CardOrders/:id/pay
 //@access   Private
@@ -46,7 +79,12 @@ export const updateCardOrderToPaid = asyncHandler(async(req, res)=>{
     const order = await CardOrder.findById(req.params.id)
     const {id, status, updated_time, email} = req.body
     
-    if(order){
+    if(order.isPaid === true){
+        res.status(401)
+        throw new Error('Order already completed')
+    }
+    
+    if(order && order.isPaid === false){
         order.isPaid = true
         order.paidAt = Date.now()
         order.paymentResult = {

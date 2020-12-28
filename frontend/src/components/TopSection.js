@@ -4,7 +4,7 @@ import {
     ScreenDiv, 
     Button
 } from "../styles/HomeStyle"
-import examPerson from "../images/svg/proctor.svg"
+import examPerson from "../svg/proctor.svg"
 import {buttonVariants} from "../animationVariants/HomeVariants"
 import TopCard from "./Cards/TopCard"
 import {topcard_features} from "./JsonAPIs"

@@ -4,6 +4,7 @@ const router = express.Router()
 import {
     addCardOrderItems,
     getCardOrderById,
+    updateCardOrderWithoutPay,
     updateCardOrderToPaid,
     getMyCardOrders,
     getCardOrders,    
@@ -17,6 +18,8 @@ router.route("/").post(protect, addCardOrderItems)
 router.route('/myorders').get(protect, getMyCardOrders)
 
 router.route("/:id").get(protect, getCardOrderById)
+
+router.route("/:id/update").patch(protect, updateCardOrderWithoutPay)
 
 router.route("/:id/pay").put(protect, updateCardOrderToPaid)
 

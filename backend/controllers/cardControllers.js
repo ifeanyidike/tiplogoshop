@@ -4,9 +4,36 @@ import Card from "../models/cardModels.js"
 // @desc    Fetch all cards
 // @route   GET /api/cards
 // @access  Public
-export const getCards = asyncHandler (async (req, res) => {    
-    const cards = await Card.find({})
-    res.json({cards})
+export const getCards = asyncHandler (async (req, res) => {        
+    
+    const pageSize = 10
+    const page = Number(req.query.pageNumber) || 1
+
+    const keyword = req.query.keyword
+    ? {
+      name: {
+        $regex: req.query.keyword,
+        $options: 'i',
+      },
+    }
+    : {}
+
+    const count = await Card.countDocuments({ ...keyword })
+    const cards = await Card.find({ ...keyword })
+    .limit(pageSize)
+    .skip(pageSize * (page - 1))
+
+    res.json({ cards, page, pages: Math.ceil(count / pageSize) })
+})
+
+// @desc    Fetch few cards
+// @route   GET /api/cards/${num}
+// @access  Public
+
+export const getFewCards = asyncHandler(async (req, res)=>{
+    const num = req.params.num    
+    const cards = await Card.find({}).limit(parseInt(num))
+    res.json({cards: cards})
 })
 
 // @desc    Fetch single card

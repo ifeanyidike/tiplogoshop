@@ -17,13 +17,11 @@ export default function Register() {
     const history = useHistory()
     
     const userRegister = useSelector(state => state.userRegister)
-    const{loading, error, userInfo} = userRegister
+    const{loading, error, success, result } = userRegister
     
     useEffect(()=>{
-     if(userInfo){
-       history.push("/")
-     }
-    }, [history, userInfo])
+    
+    }, [history])
     
   
     const [values, setValues] = useState({        
@@ -42,13 +40,11 @@ export default function Register() {
       if(values.password !== values.confirmPassword){
         setValues({...values, message: 'Passwords do not match'})
       }else{
-        dispatch(
-          register(
+        dispatch(register(
                   values.name, 
                   values.email, 
                   values.password
-          )
-        )
+          ))                 
       }      
     }
     
@@ -72,8 +68,7 @@ export default function Register() {
   return (
     <React.Fragment>
     
-      <Box className="register__text" mt={2} mb={4} >
-      {loading && <Loader />}
+      <Box className="register__text" mt={2} mb={4} >      
         <Typography variant="h6" gutterBottom>
             Welcome!
             
@@ -83,11 +78,15 @@ export default function Register() {
             SignUp with Tiplogo shop to get started
         </p>  
         <p> 
-          {values.message && <Message variant="info">{values.message}</Message>}         
+          {values.message && <Message variant="error">{values.message}</Message>}  
+             
         </p>
         <p>         
-          {error && <Message>{error}</Message>}  
-                 
+          {
+            loading ? <Loader /> :            
+            error ? <Message variant="error">{error}</Message>  :
+            result && <Message>{result.message}</Message>
+          }  
         </p>
         
       </Box>

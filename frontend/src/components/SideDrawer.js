@@ -1,6 +1,6 @@
-import React from 'react'
+import React, {useEffect} from 'react'
 import {Backdrop, Drawer, DrawerContent} from "../styles/DrawerStyle"
-import SvgIcon from '../images/svg/sitelogo.js'
+import SvgIcon from '../svg/sitelogo.js'
 import {motion, AnimatePresence} from "framer-motion"
 import {
     backdropVariant, 
@@ -14,9 +14,20 @@ import {
 import SocialNetworks from "../components/SocialNetworks"
 import CloseIcon from '@material-ui/icons/Close';
 import {Link} from "react-router-dom"
+import {DRAWER_OPEN, DRAWER_CLOSE} from "../redux/constants/elementConstants"
+import {useDispatch, useSelector} from "react-redux"
 
-const SideDrawer = ({showDrawer, setShowDrawer}) => {   
+const SideDrawer = () => {   
     
+    const dispatch = useDispatch()
+  
+    useEffect(()=>{
+       dispatch({type: DRAWER_CLOSE}) 
+    },[dispatch])
+    
+    const drawerToggle = useSelector(state => state.drawerToggle)    
+    const {drawerState} = drawerToggle
+        
     const animateDrawer = () =>{
         const navLinks = document.querySelectorAll("nav ul li.item");        
         navLinks.forEach((link, ind) => {     
@@ -28,20 +39,24 @@ const SideDrawer = ({showDrawer, setShowDrawer}) => {
     
     const handleCancelClick = () =>{
         animateDrawer()
-        setShowDrawer(false)        
+        dispatch({type: DRAWER_CLOSE})      
+    }
+    
+    const handleBackDropClose = () =>{
+        dispatch({type: DRAWER_CLOSE})
     }
     
     return (
         <AnimatePresence>                        
                 <>
-                {showDrawer &&(
+                {drawerState &&(
                     <Backdrop
                         key="backdrop"
                         variants={backdropVariant}
                         initial="hidden"
                         animate="visible"
                         exit="exit"
-                        onClick={()=>setShowDrawer(false)}
+                        onClick={handleBackDropClose}
                     />
                 )}
                     <Drawer
@@ -49,7 +64,7 @@ const SideDrawer = ({showDrawer, setShowDrawer}) => {
                         variants={drawerVariant}  
                         initial="hidden"
                         animate="visible"
-                        style={{transform: showDrawer ? "translateX(0)" : "translateX(-100%)"}}
+                        style={{transform: drawerState ? "translateX(0)" : "translateX(-100%)"}}
                     >                                         
                         <DrawerContent>                            
                             <motion.ul
