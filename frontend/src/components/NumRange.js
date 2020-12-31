@@ -3,8 +3,8 @@ import RemoveIcon from '@material-ui/icons/Remove';
 import AddIcon from '@material-ui/icons/Add';
 import {NumRangeContainer} from "../styles/ServiceStyle.js"
 
-const NumRange = ({num, setNum, setPrice, amount}) => {        
-    
+const NumRange = ({num, setNum, setPrice, amount, limit}) => {        
+    const max = limit > 0 ? limit : 1
     const handleNumDecrement = () =>{
         const newNum = num === 1 ? num : num - 1        
         setNum(newNum)
@@ -12,9 +12,9 @@ const NumRange = ({num, setNum, setPrice, amount}) => {
     }
     
     const handleNumIncrement = () =>{
-        const newNum = num === 10 ? num : num + 1
+        const newNum = num === max ? num : num + 1
         setNum(newNum)
-        setPrice(newNum * amount)
+        setPrice(parseInt(newNum * amount))
     }
     return (
         <NumRangeContainer>

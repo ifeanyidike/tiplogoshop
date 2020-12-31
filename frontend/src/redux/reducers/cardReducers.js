@@ -18,7 +18,10 @@ import {
     CARD_UPDATE_RESET,
     CARD_LIST_FEW_REQUEST,
     CARD_LIST_FEW_SUCCESS,
-    CARD_LIST_FEW_FAIL,    
+    CARD_LIST_FEW_FAIL,
+    CARD_ITEM_DELIVER_REQUEST,
+    CARD_ITEM_DELIVER_SUCCESS,
+    CARD_ITEM_DELIVER_FAIL,    
   } from '../constants/cardConstants'
   
   export const cardListReducer = (state = { cards: [] }, action) => {
@@ -109,6 +112,20 @@ import {
         return { loading: false, error: action.payload }
       case CARD_UPDATE_RESET:
         return { card: {} }
+      default:
+        return state
+    }
+  }
+  
+  
+  export const cardItemsDeliverReducer = (state = { card: {} }, action) => {
+    switch (action.type) {
+      case CARD_ITEM_DELIVER_REQUEST:
+        return { loading: true }
+      case CARD_ITEM_DELIVER_SUCCESS:
+        return { loading: false, success: true, purchasedItem: action.payload }
+      case CARD_ITEM_DELIVER_FAIL:
+        return { loading: false, error: action.payload }      
       default:
         return state
     }

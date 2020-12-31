@@ -1,5 +1,8 @@
 import asyncHandler from "express-async-handler"
 import CardOrder from "../models/cardOrderModels.js"
+import User from "../models/userModels.js"
+import Card from "../models/cardModels.js"
+import {mg, mgOptions, emailMessageCardTemplate} from "../utils/sendEmail.js"
 
 //@desc     Create new CardOrder
 //@route    POST /api/CardOrders
@@ -103,6 +106,11 @@ export const updateCardOrderToPaid = asyncHandler(async(req, res)=>{
 })
 
 
+//@desc     Update CardOrder to Delivered
+//@route    PUT /api/CardOrders/:id/deliver
+//@access   Private
+
+
 //@desc     Get logged in user Card Orders
 //@route    GET /api/CardOrders/myCardOrders
 //@access   Private
@@ -120,4 +128,64 @@ export const getCardOrders = asyncHandler(async(req, res)=>{
     const orders = await CardOrder.find({}).populate('user', 'id name')
     res.json(orders)
     
+})
+
+export const updateCardOrderToDelivered = asyncHandler(async(req, res)=>{
+    
+    const { purchasedItems } = req.body    
+    const order = await CardOrder.findById(req.params.id)
+    const user_id = order.user    
+    const user = await User.findById(user_id)
+    
+    if (!user){
+        throw new Error("User not found")
+    }
+    const card = await Card.findById(order.orderItems[0].card)
+    if(!card){
+        throw new Error("Card not found")
+    }
+    
+    if(order.isDelivered === true){
+        res.status(401)
+        throw new Error('Order already delivered')
+    }
+    
+    if(order && order.isDelivered === false){
+        const from = "nonreply@tiplogo.com"              
+        const subject = `${card.name} Purchase`
+        
+        const heading = `Your ${card.name} details`
+        const msg = 'Thanks for the purchase. Here are the details'
+                
+        const cardbody = purchasedItems.map(item => (
+            `
+                <tr>
+                    <td>${item._id}</td>
+                    <td>${item.pin && item.pin}</td>
+                    <td>${item.serialNo && item.serialNo}</td>
+                    <td>${item.token && item.token}</td>                    
+                </tr>            
+            `
+        ))
+        
+        const message = emailMessageCardTemplate(heading, msg, cardbody)
+        
+        const data = mgOptions(from, user.email, subject, message)        
+        mg.messages().send(data, (error, body)=>{
+            if (error){
+                console.log(error)
+                res.send(error)
+                throw new Error(error)
+                
+            }else{
+                order.isDelivered = true
+                order.deliveredAt = Date.now()
+                order.save()
+                
+                res.status(200).json({                                    
+                  message: 'Order Delivered'
+                })                
+            }
+        })
+    }
 })

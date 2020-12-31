@@ -41,6 +41,7 @@ export const BaseContainer = styled(motion.div)`
         }
         
     }
+   
     
     .edit{
         flex-direction: column;
@@ -81,7 +82,7 @@ export const BaseContainer = styled(motion.div)`
                 
                 
                 .price{
-                    font-size: 2.5rem;
+                    font-size: 1.8rem;
                     margin-right: 20px;
                     font-weight: 600;
                     color: ${colors.darkred}
@@ -232,6 +233,7 @@ export const InputGroupContainer = styled(motion.div)`
 `;
 
 export const NumRangeContainer = styled(motion.div)`
+    margin: 0 auto;
     display: flex;
     align-items: center;
     justify-content: space-between;

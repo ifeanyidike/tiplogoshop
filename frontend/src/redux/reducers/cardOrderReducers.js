@@ -19,7 +19,10 @@ import{
     CARD_ORDER_PAY_RESET,
     CARD_ORDER_UPDATE_REQUEST,
     CARD_ORDER_UPDATE_SUCCESS,
-    CARD_ORDER_UPDATE_FAIL
+    CARD_ORDER_UPDATE_FAIL,
+    CARD_ORDER_DELIVER_REQUEST,
+    CARD_ORDER_DELIVER_SUCCESS,
+    CARD_ORDER_DELIVER_FAIL
 } from "../constants/cardOrderConstants"
 
 export const cardOrderCreateReducer = (state = {}, action) =>{
@@ -123,6 +126,31 @@ export const cardOrderPayReducer = (state = {}, action) =>{
             return state
     }
 }
+
+export const cardOrderDeliverReducer = (state = {}, action) =>{
+    switch(action.type){
+        case CARD_ORDER_DELIVER_REQUEST:
+            return {
+                loading: true
+            }
+        
+        case CARD_ORDER_DELIVER_SUCCESS:
+            return {
+                loading: false,
+                success: true
+            }
+            
+        case CARD_ORDER_DELIVER_FAIL:
+            return {
+                loading: false,
+                error: action.payload
+            }
+            
+        default:
+            return state
+    }
+}
+
 
 export const cardOrderListMyReducer = (state = { orders: [] }, action) =>{
     switch(action.type){

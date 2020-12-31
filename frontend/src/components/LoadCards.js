@@ -27,9 +27,14 @@ const LoadCards = ({loading, cards, error, href}) => {
                                     src = {feature.image}
                                     title={feature.name}
                                     desc = {feature.description}
-                                    anchor = {altCardFeatures[index].anchor}
-                                    color = {altCardFeatures[index].color}
-                                    variants = {altCardFeatures[index].variants}
+                                    anchor = {altCardFeatures[index] &&
+                                      altCardFeatures[index].anchor}
+                                    color = {
+                                      altCardFeatures[index] &&
+                                      altCardFeatures[index].color}
+                                    variants = {
+                                      altCardFeatures[index] &&
+                                      altCardFeatures[index].variants}
                                     href = {href}                    
                                 />
                             ))

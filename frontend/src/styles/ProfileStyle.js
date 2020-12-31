@@ -8,9 +8,12 @@ export const ProfileContainer = styled(motion.div)`
     .backgroundheader{
         background: url(/images/slide4.jpg);
         width: 100%;
-        height: 30vh;
+        height: fit-content;
+        padding: 20px 0;
         background-position: center;
-        background-size: cover;                        
+        background-size: cover;          
+        display: grid;
+        place-items: center;
     }
     .profileimage{
         width: 100px;
@@ -78,12 +81,42 @@ export const ProfileContainer = styled(motion.div)`
     }
 `
 
-export const ProfileButton = styled(Button)`
-    
+export const ProfileButton = styled(Button)`    
 `
 export const UploadButton = styled(Button)`
     padding: 0.2rem 0.5rem;
     width: fit-content;
     display:flex;
     align-items: center;
+`
+
+export const WalletContainer = styled(motion.div)`
+    font-family: 'Jost', sans-serif !important;
+    background-color: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 8px 50px;
+    border-radius: 10px;
+    margin: 0 auto;    
+    margin-bottom: ${props => `${props.mb}px`};
+    margin-top: ${props => `${props.mt}px`};
+    width: ${props => `${props.width}px`};
+    
+    i{
+        font-size: 30px;
+        color: ${colors.midtext}
+    }
+    h2{
+        margin-top: 5px;
+    }                     
+`
+
+export const WalletButton = styled(Button)`    
+    padding: 0.2rem 0.5rem;
+    margin: 0.5rem ${props => props.mh + 'px' || 0};
+    margin-left: ${props => props.ml + 'px' || 0};
+    margin-right: ${props => props.mr + 'px' || 0};
+    width: 100%;
 `

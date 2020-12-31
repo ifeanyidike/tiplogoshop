@@ -9,7 +9,9 @@ import {
     emailResendReducer,
     profilePhotoReducer,
     userUpdateReducer,
-    photoReducer
+    photoReducer,
+    walletDebitReducer,
+    walletCreditReducer
  } from "./userReducers"
 
  import {
@@ -18,14 +20,18 @@ import {
     cardDetailsReducer,
     cardDeleteReducer,
     cardCreateReducer,
-    cardUpdateReducer
+    cardUpdateReducer,
+    cardItemsDeliverReducer
 } from "./cardReducers"
+
+import { soldCardCreateReducer} from "./soldCardReducers"
 
 import {
     cardOrderCreateReducer,
     cardOrderDetailsReducer,
     cardOrderUpdateReducer,
     cardOrderPayReducer,
+    cardOrderDeliverReducer,
     cardOrderListMyReducer,
     cardOrderListReducer
 } from "./cardOrderReducers"
@@ -38,11 +44,15 @@ const reducer = combineReducers({
     cardDelete: cardDeleteReducer,
     cardCreate: cardCreateReducer,
     cardUpdate: cardUpdateReducer,
+    cardItemsDeliver: cardItemsDeliverReducer,
+    
+    soldCardCreate: soldCardCreateReducer,
     
     cardOrderCreate: cardOrderCreateReducer,
     cardOrderDetails: cardOrderDetailsReducer,
     cardOrderUpdate: cardOrderUpdateReducer,
     cardOrderPay: cardOrderPayReducer,
+    cardOrderDeliver: cardOrderDeliverReducer,
     cardOrderListMy: cardOrderListMyReducer,
     cardOrderList: cardOrderListReducer,
     
@@ -57,6 +67,8 @@ const reducer = combineReducers({
     profilePhoto: profilePhotoReducer,
     userUpdate: userUpdateReducer,
     photo: photoReducer,
+    walletDebit: walletDebitReducer,
+    walletCredit: walletCreditReducer,
 })
 
 export default reducer

@@ -18,8 +18,13 @@ import{
     CARD_ORDER_LIST_FAIL,
     CARD_ORDER_UPDATE_REQUEST,
     CARD_ORDER_UPDATE_SUCCESS,
-    CARD_ORDER_UPDATE_FAIL
+    CARD_ORDER_UPDATE_FAIL,
+    CARD_ORDER_DELIVER_REQUEST,
+    CARD_ORDER_DELIVER_SUCCESS,
+    CARD_ORDER_DELIVER_FAIL
 } from "../constants/cardOrderConstants"
+import {createSoldCard} from "./soldCardActions"
+import {deliverCardItems} from "./cardActions"
 
 export const createCardOrder = (order) => async(dispatch, getState) =>{
     try {
@@ -150,7 +155,46 @@ export const cardUpdateOrder = (orderId, order) => async(dispatch, getState) =>{
     }
 }
 
-export const cardPayOrder = (orderId, paymentResult) => async(dispatch, getState) =>{
+export const cardDeliverOrder = 
+    (orderId, purchasedItems, cardId) => async(dispatch, getState) =>{
+    try {
+        dispatch({
+            type: CARD_ORDER_DELIVER_REQUEST
+        })
+        
+        const {userLogin : {userInfo}} = getState()
+        
+        const config = {
+            headers:{
+                'Content-Type': 'application/json',
+                Authorization: `Bearer ${userInfo.token}`
+            }
+        }
+        
+        const {data} = await axios.put(`/api/cardorders/${orderId}/deliver`, 
+                            { purchasedItems }, config)
+        
+        dispatch({
+            type: CARD_ORDER_DELIVER_SUCCESS,
+            payload: data
+        })
+        
+        if(data){
+            dispatch(createSoldCard(cardId, purchasedItems))
+        }
+        
+    } catch (error) {
+        dispatch({
+            type: CARD_ORDER_DELIVER_FAIL,
+            payload: error.response && error.response.data.message
+                        ? error.response.data.message
+                        : error.message
+        })
+    }
+}
+
+
+export const cardPayOrder = (qty, cardId, orderId, paymentResult) => async(dispatch, getState) =>{
     try {
         dispatch({
             type: CARD_ORDER_PAY_REQUEST
@@ -171,6 +215,9 @@ export const cardPayOrder = (orderId, paymentResult) => async(dispatch, getState
             type: CARD_ORDER_PAY_SUCCESS,
             payload: data
         })
+        if(data){
+            dispatch(deliverCardItems(qty, cardId, orderId))
+        }
         
     } catch (error) {
         dispatch({
@@ -181,6 +228,7 @@ export const cardPayOrder = (orderId, paymentResult) => async(dispatch, getState
         })
     }
 }
+
 
 export const listCardOrders = () => async(dispatch, getState) =>{
     try {

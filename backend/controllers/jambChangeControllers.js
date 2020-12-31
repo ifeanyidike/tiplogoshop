@@ -9,8 +9,7 @@ export const addJambChangeItems = asyncHandler(async(req, res)=>{
     const { orderItems, paymentMethod } = req.body
     
     if(orderItems && orderItems.length === 0){
-        throw new Error('No Order items')
-        return
+        throw new Error('No Order items')        
     }else{
         const order = new JambChangeOrder({
             orderItems: orderItems,

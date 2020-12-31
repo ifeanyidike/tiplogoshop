@@ -21,7 +21,7 @@ export default function RadioButtonsGroup({value, setValue}) {
         onChange={handleChange}
         >
         <FormControlLabel value="PayStack" control={<Radio />} label="PayStack" />
-        <FormControlLabel value="Interswitch" control={<Radio />} label="Interswitch" />        
+        <FormControlLabel value="Wallet" control={<Radio />} label="Wallet" />        
       </RadioGroup>
     </FormControl>
   );

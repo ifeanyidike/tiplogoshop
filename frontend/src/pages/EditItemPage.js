@@ -43,7 +43,7 @@ const CardPage = () => {
         
         dispatch(getCardOrderDetails(id))  
         dispatch(listFewCards(4))        
-    }, [dispatch, id])
+    }, [dispatch, userInfo, id])
     
     let orderitem;
     if(order){
@@ -53,35 +53,39 @@ const CardPage = () => {
     }    
     
     return (
-        <div>                           
-                 
+        <div>                                            
             {
-            
+                            
             !userInfo ?
             <NotLoggedIn />
             :    
              <>
-                orderLoading ? <Loader /> :
-                orderError ? orderError :
+                {
+                         
                 <BaseFile
                     loading={cardsLoading} 
                     cards = {cards}        
                     error = {cardsError}                       
-                    TopImage={<img src={orderitem.image} alt={orderitem.name} />} 
-                    topText = {orderitem.name}  
+                    TopImage={
+                        orderitem && <img src={orderitem.image} alt={orderitem.name} />
+                    } 
+                    topText = {orderitem && orderitem.name}  
                 >
                        {/* <pre>order{JSON.stringify(order, null, 2)}</pre>     */}
+                    {   
+                    orderLoading ? <Loader /> :
+                    orderError ? orderError :
                        <EditCards
                             id = {order._id}
                             cardObj = {orderitem}
                             paymentMethod = {order.paymentMethod}
                        /> 
-                       
+                    }   
                 </BaseFile>
+                }
               </>
             }
-            
-            
+                        
         </div>
     )
 }

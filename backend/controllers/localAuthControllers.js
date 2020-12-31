@@ -1,9 +1,11 @@
 import User from "../models/userModels.js"
+import WalletLog from "../models/walletLogModels.js"
 import fetch from "node-fetch"
-import {mg, mgOptions} from "../utils/sendEmail.js"
+import {mg, mgOptions, emailMessageTemplate, timeNotice} from "../utils/sendEmail.js"
 import asyncHandler from "express-async-handler"
 import generateToken, {generateShortToken} from "../utils/generateToken.js"
 import jwt from "jsonwebtoken"
+
 
 const jwtEmailActivate = process.env.JWT_SECRET_ACTIVATE
 const jwtPassReset = process.env.JWT_SECRET_RESET
@@ -14,6 +16,7 @@ const jwtPassReset = process.env.JWT_SECRET_RESET
 export const registerUsers = asyncHandler(async(req, res) =>{
     const {name, email, password} = req.body    
     const userExists = await User.findOne({email})
+    const type = 'local'
     
     if(userExists){        
         // res.status(400).json({error: 'User already exists'})
@@ -21,17 +24,19 @@ export const registerUsers = asyncHandler(async(req, res) =>{
         throw new Error('User already exists')
     }
     
-    const user = await User.create({name, email, password})
+    const user = await User.create({name, email, type, password})
     
     if(user){
         const emailToken = generateShortToken(user._id, jwtEmailActivate, '30m')  
         const from = "nonreply@tiplogo.com"      
         const url = `${process.env.CLIENT_URL}/auth/activate/${emailToken}`
         const subject = "Email confirmation"
-        const message = `            
-                Please click this link to confirm your email: 
-                <a  href="${url}">${url}</a>            
-        `
+        
+        const heading = 'Confirm your email'
+        const msg = 'Please click on the button to confirm your email'
+        const text = 'Confirm Email'
+        const notice = timeNotice('30 minutes')
+        const message = emailMessageTemplate(heading, msg, url, text, notice)
         
         const data = mgOptions(from, email, subject, message)        
         mg.messages().send(data, (error, body)=>{
@@ -77,10 +82,12 @@ export const resendEmail = asyncHandler(async(req, res) =>{
         const from = "nonreply@tiplogo.com"      
         const url = `${process.env.CLIENT_URL}/auth/activate/${emailToken}`
         const subject = "Email confirmation"
-        const message = `            
-                Please click this link to confirm your email: 
-                <a  href="${url}">${url}</a>            
-        `        
+        const heading = 'Confirm your email'
+        const msg = 'Please click on the button to confirm your email'
+        const text = 'Confirm Email'
+        const notice = timeNotice('30 minutes')
+        const message = emailMessageTemplate(heading, msg, url, text, notice)
+               
         const data = mgOptions(from, email, subject, message)        
         mg.messages().send(data, (error, body)=>{
             if (error){
@@ -142,11 +149,13 @@ export const forgotPassword = asyncHandler(async(req, res) =>{
     const from = "nonreply@tiplogo.com"      
     const url = `${process.env.CLIENT_URL}/auth/passwordreset/${resetToken}`
     const subject = "Password Reset"
-    const message = `            
-        Please click this link to reset your password: 
-        <a  href="${url}">${url}</a>            
-    `;
-        
+    
+    const heading = 'Resest your password'
+    const msg = 'Please click on the button to reset your password'
+    const text = 'Reset password'
+    const notice = timeNotice('30 minutes')
+    const message = emailMessageTemplate(heading, msg, url, text, notice)
+            
     const data = mgOptions(from, email, subject, message)
     
     if(user && user.confirmed){
@@ -231,6 +240,7 @@ export const loginUsers = asyncHandler(async(req, res) =>{
             _id: user._id,
             name: user.name,
             email: user.email,
+            type: user.type,
             isAdmin: user.isAdmin,
             token: generateToken(user._id),
             wallet: user.wallet,
@@ -246,8 +256,7 @@ export const loginUsers = asyncHandler(async(req, res) =>{
 // @route   PUT /api/users/profile/update
 // @access  Private
 
-export const updateUserProfile = asyncHandler(async(req, res)=>{    
-    
+export const updateUserProfile = asyncHandler(async(req, res)=>{        
     const user = await User.findById(req.body.user._id)
     const {name, email, profile, password} = req.body.user
     
@@ -256,7 +265,7 @@ export const updateUserProfile = asyncHandler(async(req, res)=>{
         user.email = email || user.email
         user.profile = profile || user.profile
         console.log(req.body.user)
-        if(req.body.password){
+        if(password){
             user.password = password            
         }
         
@@ -266,6 +275,88 @@ export const updateUserProfile = asyncHandler(async(req, res)=>{
             _id: updatedUser._id,
             name: updatedUser.name,
             email: updatedUser.email,
+            type: updatedUser.type,
+            isAdmin: updatedUser.isAdmin,
+            token: generateToken(updatedUser._id),
+            wallet: updatedUser.wallet,
+            profile: updatedUser.profile            
+        })        
+    }else{
+        res.status(404)
+        throw new Error('User not found')
+    }
+})
+
+// @desc    Debit money from wallet
+// @route   PUT /api/users/wallet/debit
+// @access  Private
+
+export const debitWallet = asyncHandler(async(req, res)=>{  
+    
+    const {id, amount, paymentResult}  = req.body
+    const user = await User.findById(id)    
+    
+    if(user){
+        const balance = user.wallet - parseInt(amount)     
+           
+        user.wallet = balance
+                     
+        const updatedUser = await user.save()
+        
+        if(updatedUser){
+            const walletlog = new WalletLog({
+                type: 'debit',
+                method: 'local',
+                paymentResult,
+                user: user._id,
+                amount: parseInt(amount),
+                balance: parseInt(balance)
+            })
+            await walletlog.save()
+        }
+        
+        res.json({
+            _id: updatedUser._id,
+            name: updatedUser.name,
+            email: updatedUser.email,
+            type: updatedUser.type,
+            isAdmin: updatedUser.isAdmin,
+            token: generateToken(updatedUser._id),
+            wallet: updatedUser.wallet,
+            profile: updatedUser.profile            
+        })        
+    }else{
+        res.status(404)
+        throw new Error('User not found')
+    }
+})
+
+
+export const creditWallet = asyncHandler(async(req, res)=>{  
+    const {id, amount, paymentResult, method}  = req.body
+    const user = await User.findById(id)    
+    
+    if(user){
+        user.wallet += parseInt(amount)                
+        const updatedUser = await user.save()
+        
+        if(updatedUser){
+            const walletlog = new WalletLog({
+                type: 'credit',
+                method,
+                paymentResult,
+                user: user._id,
+                amount: parseInt(amount),
+                balance: user.wallet
+            })
+            await walletlog.save()
+        }
+        
+        res.json({
+            _id: updatedUser._id,
+            name: updatedUser.name,
+            email: updatedUser.email,
+            type: updatedUser.type,
             isAdmin: updatedUser.isAdmin,
             token: generateToken(updatedUser._id),
             wallet: updatedUser.wallet,

@@ -9,6 +9,7 @@ import AddAPhotoIcon from '@material-ui/icons/AddAPhoto';
 import TabIndex from "../components/Profile/TabIndex"
 import SaveIcon from '@material-ui/icons/Save';
 import Loader from "../components/Loaders/SimpleLoader"
+import Wallet from "../components/Utils/Wallet"
 
 const ProfilePage = () => {
 const [showButton, setShowButton] = useState(false)
@@ -20,8 +21,8 @@ const [values, setValues] = useState({
     confirmPassword: '',
     address: '',
     phoneNo: '',
-    image: ''
-    
+    image: '',
+    message: ''
 })
 const dispatch = useDispatch()
 
@@ -92,7 +93,10 @@ const submitHandler = (e) => {
                 <div>
                     
                     <ProfileContainer>
-                        <div className="backgroundheader">                            
+                        <div className="backgroundheader">  
+                            <div className="wallet">
+                                <Wallet mb={15} />
+                            </div>                          
                         </div>
                         <form className="profileimage" onSubmit={uploadFileHandler}>
                             <img src={

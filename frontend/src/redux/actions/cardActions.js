@@ -17,9 +17,13 @@ import {
   CARD_UPDATE_FAIL,
   CARD_LIST_FEW_REQUEST,
   CARD_LIST_FEW_SUCCESS,
-  CARD_LIST_FEW_FAIL,  
+  CARD_LIST_FEW_FAIL,
+  CARD_ITEM_DELIVER_REQUEST,
+  CARD_ITEM_DELIVER_SUCCESS,
+  CARD_ITEM_DELIVER_FAIL,  
 } from '../constants/cardConstants'
 import { logout } from './userActions'
+import {cardDeliverOrder} from "./cardOrderActions"
 
 export const listCards = (keyword = '', pageNumber = '') => async (
   dispatch
@@ -209,3 +213,47 @@ export const updateCard = (card) => async (dispatch, getState) => {
   }
 }
 
+export const deliverCardItems = (
+  numItems, 
+  id, 
+  orderId   
+  ) => async (
+  dispatch, getState
+) => {
+  try {
+    dispatch({ type: CARD_ITEM_DELIVER_REQUEST })
+    
+    const {
+      userLogin: { userInfo },
+    } = getState()
+    
+    const config = {
+      headers: {
+        Authorization: `Bearer ${userInfo.token}`,
+      },
+    }
+
+    const { data } = await axios.patch(
+      `/api/cards/${id}/items`, {numItems}, config
+    )
+
+    dispatch({
+      type: CARD_ITEM_DELIVER_SUCCESS,
+      payload: data,
+    })
+    console.log(data)
+    
+    if(data){
+      dispatch(cardDeliverOrder(orderId, data.purchasedItems, id))
+    }
+    
+  } catch (error) {
+    dispatch({
+      type: CARD_ITEM_DELIVER_FAIL,
+      payload:
+        error.response && error.response.data.message
+          ? error.response.data.message
+          : error.message,
+    })
+  }
+}

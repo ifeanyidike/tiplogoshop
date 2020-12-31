@@ -8,7 +8,7 @@ import LoadCards from "../LoadCards"
 import {DRAWER_OPEN, DRAWER_CLOSE} from "../../redux/constants/elementConstants"
 import {useDispatch, useSelector} from "react-redux"
 import Header from "../MainHeader"
-
+import Loader from "../Loaders/SimpleLoader"
 
 const Base = ({
     cardLoading, 
@@ -30,18 +30,26 @@ const Base = ({
                 <div className="topimage">                                                               
                     <div className="centeritem">
                         {TopImage}
+                        
                         <h4>{topText}</h4>                                        
                     </div>                
                 </div>
-                {children}
-            
-                <CardMoreContainer>                
-                    <LoadCards 
-                        loading={cardLoading} 
-                        cards = {cards}        
-                        error = {cardError}
-                    />
-                </CardMoreContainer>                        
+                {
+                    cardLoading ? <Loader />
+                    :
+                    cardError ? cardError 
+                    :
+                    <>
+                        {children}            
+                        <CardMoreContainer>                
+                            <LoadCards 
+                                loading={cardLoading} 
+                                cards = {cards}        
+                                error = {cardError}
+                            />
+                        </CardMoreContainer>                        
+                    </>
+                }
             </BaseContainer>
         </>
     )

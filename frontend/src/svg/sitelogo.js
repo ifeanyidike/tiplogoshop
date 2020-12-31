@@ -7,6 +7,7 @@ const SvgIcon = () =>{
   return(
   <div className='svgDiv'>
     <motion.svg 
+      className="svgLogo"
       drag
       dragConstraints={{left: 0, top: 0, right: 0, bottom: 0}}
       dragElastic={1}

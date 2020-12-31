@@ -1,5 +1,6 @@
 import asyncHandler from "express-async-handler"
 import Card from "../models/cardModels.js"
+// import {mg, mgOptions, emailMessageCardTemplate} from "../utils/sendEmail.js"
 
 // @desc    Fetch all cards
 // @route   GET /api/cards
@@ -75,8 +76,7 @@ export const createCard = asyncHandler( async(req, res)=>{
         name: 'Sample card',
         price: 0,
         user: req.user._id,
-        image: '/images/sample.jpg',
-        countInStock: 0,
+        image: '/images/sample.jpg',        
         description: 'Lorem ipsum dolor sit amet'
     })
     const createdCard = await card.save()
@@ -94,11 +94,69 @@ export const updateCard = asyncHandler( async(req, res)=>{
         card.name = name
         card.price = price
         card.description = description
-        card.image = image
-        card.countInStock = countInStock
+        card.image = image        
         
         const updatedCard = await card.save()
         res.json(updatedCard)
+    }else{
+        res.status(404)
+        throw new Error('Card not found')
+    }
+})
+
+
+// @desc    Add a card item
+// @route   PUT /api/cards/item
+// @access  Private/Admin
+export const addCardItem = asyncHandler( async(req, res)=>{
+    const{items} = req.body
+    const card = await Card.findById(req.params.id)
+    
+    
+    if(card){
+        card.items.push(items)
+        
+        const updatedCard = await card.save()
+        res.json(updatedCard)
+    }else{
+        res.status(404)
+        throw new Error('Card not found')
+    }
+})
+
+
+// @desc    deliver card items and remove it
+// @route   GET /api/cards/item
+// @access  Private
+export const deliverCardItem = asyncHandler( async(req, res)=>{
+    
+    const{numItems} = req.body
+    
+    const card = await Card.findById(req.params.id)    
+    
+    if(card && card.items.length === 0){
+        res.status(404)
+        throw new Error(`${card.name} is out of stock`)
+    }
+    
+    if(card && card.items.length > 0 && card.items.length < parseInt(numItems)){
+        res.status(401)
+        throw new Error(`Reduce card quantity. We have only ${card.items.length} in stock`)
+    }
+    
+    if(card){
+        // const cardItems = await card.items.limit(parseInt(numItems))
+        let purchasedItems = card.items
+        let remaining = purchasedItems.splice(parseInt(numItems))
+                
+        card.items = remaining
+        await card.save()
+                
+        
+        res.status(201).json({                              
+            purchasedItems
+          })
+        
     }else{
         res.status(404)
         throw new Error('Card not found')

@@ -6,48 +6,43 @@ import ArrowForwardIosIcon from '@material-ui/icons/ArrowForwardIos';
 import CustomTable from "../Tables/CustomTable"
 import {createCardOrder, getCardOrderDetails} from "../../redux/actions/cardOrderActions"
 import {useDispatch, useSelector} from "react-redux"
-import PaymentMethods from "../PaymentMethods"
+import PaymentMethods from "../Payment/PaymentMethods"
 import Loader from "../Loaders/SimpleLoader"
 import {useHistory, Link} from "react-router-dom"
-import {
-    CardButton, 
-    BackButton,
-    NextButton,
-    PayButton
-} from "../../styles/ServiceStyle.js"
 import { listCardDetails } from '../../redux/actions/cardActions'
 import LaunchIcon from '@material-ui/icons/Launch';
 import ChoosePayment from './ChoosePayment';
+import Wallet from "../Utils/Wallet"
+import CurrencyFormat from 'react-currency-format';
+import { createTransport } from 'nodemailer';
 
 const BaseChildren = ({baseAmount, availability, name}) => {
-    const [paymentMeans, setPaymentMeans] = useState('PayStack');    
-    
-    const userLogin  = useSelector(state => state.userLogin)
-    const {loading: userLoading, userInfo, error: userError} = userLogin
     
     const cardDetails  = useSelector(state => state.cardDetails)
-    const {loading: cardLoading, card, error: cardError} = cardDetails             
-    
-    const dispatch = useDispatch()    
-    const history = useHistory()                
+    const {loading: cardLoading, card, error: cardError} = cardDetails                                 
     
     const [num, setNum] = useState(1)
-    const [totalCost, setTotalCost] = useState(parseInt(baseAmount))            
+    const [totalCost, setTotalCost] = useState(null)     
     
-    const [display, setDisplay]  = useState({
-        first: true,
-        second: false,
-        third: false
-    })            
+    const cardOrderCreate  = useSelector(state => state.cardOrderCreate) 
+    const {order, success: createSuccess} = cardOrderCreate
     
-    const displayElem = (item) =>{
-        return {display: display.[item] ? "flex" : "none"}        
-    }                
-             
+    useEffect(()=>{
+        if (!cardLoading && !cardError){
+            setTotalCost(card.price)
+        }
+    }, [cardLoading, cardError, card])
+    
+    
+                 
+           
   return (
-    <>
+    <div className="children">    
+        
+        <Wallet mt={50} width={300} />
         <div className="buyinfo--edit">
-            
+        {
+            !createSuccess &&
             <div className="buyinfo--first edit">
                 <div className="number" >
                     <span>1</span>
@@ -63,16 +58,26 @@ const BaseChildren = ({baseAmount, availability, name}) => {
                             setNum={setNum} 
                             setPrice={setTotalCost} 
                             amount={parseInt(card.price)}
+                            limit ={card && card.items && card.items.length}
                         /> 
                         <div className="price__items">
-                            <span className="price">₦{totalCost}</span>
+                            <span className="price">
+                                <CurrencyFormat
+                                    value={parseInt(totalCost)}
+                                    displayType={'text'}
+                                    thousandSeparator={true}
+                                    prefix={'₦'}
+                                    renderText={value => <h2>{value}</h2>}
+                                />                               
+                        
+                            </span>
                         
                             <small>
                                 <div></div> 
                                 <span>
                                     {
-                                        card && 
-                                        (card.countInStock > 0 ? "In stock" : "Out of stock")
+                                        card && card.items && 
+                                        (card.items.length > 0 ? "In stock" : "Out of stock")
                                     }    
                                 </span>
                             </small>
@@ -80,15 +85,26 @@ const BaseChildren = ({baseAmount, availability, name}) => {
                     </div>
                 </div>
             </div>      
+            }
             
-            <ChoosePayment
-                num={num}
-                baseAmount={baseAmount}                     
-            />        
+            <div className="buyinfo--second">
+                <hr/>
+                
+                <div className="paymentmethod-alt">
+                    <div className="number bottom" >
+                        <span>2</span>
+                    </div>
+                    <ChoosePayment
+                        num={num}
+                        baseAmount={baseAmount}                     
+                    />   
+                </div>
+            </div>
+                 
             
         </div>
                                           
-    </>
+    </div>
   )
 }
 

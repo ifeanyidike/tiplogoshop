@@ -44,14 +44,17 @@ export const facebooklogin =  asyncHandler(async(req, res) =>{
 
 const registerFacebookUser = async (res, name, email, profile) =>{ 
     let password = email+process.env.JWT_SECRET;  
-    let newUser = await User.create({name, email, password, profile})  
+    const type = 'facebook'
+    const confirmed = true
+    let newUser = await User.create({name, email, password, type, confirmed, profile})  
     
     if(newUser){
         res.status(201).json({
             _id: newUser._id,
             name: newUser.name,
             email: newUser.email,
-            confirmed: true,
+            type: newUser.type,
+            confirmed: newUser.confirmed,
             isAdmin: newUser.isAdmin,   
             token: generateToken(newUser._id),   
             wallet: newUser.wallet,
@@ -69,6 +72,7 @@ const registerFacebookUser = async (res, name, email, profile) =>{
          _id: user._id,
          name: user.name,
          email: user.email,
+         type: user.type,
          isAdmin: user.isAdmin,
          token: generateToken(user._id),
          wallet: user.wallet,

@@ -1,29 +1,31 @@
 import mongoose from "mongoose"
 import User from "./userModels.js";
+import Card from "./cardModels.js";
 
-const cardSchema = mongoose.Schema({
+const soldCardSchema = mongoose.Schema({
     user:{
       type: mongoose.Schema.Types.ObjectId,
       required: true,
       ref: User,  
     },
+    card:{
+        type: mongoose.Schema.Types.ObjectId,
+        required: true,
+        ref: Card,  
+    },
     name:{
         type: String,
         required: true
     },
-    items:[
-        {
-           pin: {
-               type: String
-           },
-           serialNo: {
-               type: String
-           },
-           token:{
-               type: String
-           }            
-        }
-    ],
+    pin:{
+        type: String
+    },
+    serialNo:{
+        type: String
+    },
+    token:{
+        type: String
+    },    
     price:{
         type: Number,
         required: true,
@@ -32,15 +34,12 @@ const cardSchema = mongoose.Schema({
     image:{
         type: String,
         required: true
-    },
-    description:{
-        type: String,        
-    } 
+    },     
       
 }, {
     timestamps: true
 });
 
-const Card = mongoose.model("Card", cardSchema)
+const SoldCard = mongoose.model("SoldCard", soldCardSchema)
 
-export default Card
+export default SoldCard

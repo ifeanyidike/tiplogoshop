@@ -3,7 +3,7 @@ import NumRange from "../NumRange"
 import {listCardDetails} from "../../redux/actions/cardActions"
 import {cardUpdateOrder} from "../../redux/actions/cardOrderActions"
 import {useDispatch, useSelector} from "react-redux"
-import PaymentMethods from "../PaymentMethods"
+import PaymentMethods from "../Payment/PaymentMethods"
 import {EditButton} from "../../styles/ServiceStyle"
 import EditIcon from '@material-ui/icons/Edit';
 import {useHistory} from "react-router-dom"
@@ -72,6 +72,7 @@ const EditCards = ({id, cardObj, paymentMethod}) => {
                             setNum={setNum} 
                             setPrice={setTotalCost} 
                             amount={parseInt(card.price)}
+                            limit = {card && card.items && card.items.length}
                         /> 
                         <div className="price__items">
                             <span className="price">₦{totalCost}</span>
@@ -80,8 +81,9 @@ const EditCards = ({id, cardObj, paymentMethod}) => {
                                 <div></div> 
                                 <span>
                                     {
-                                        card && 
-                                        (card.countInStock > 0 ? "In stock" : "Out of stock")
+                                        card && card.items && 
+                                        (card.items.length > 0 ? 
+                                        "In stock" : "Out of stock")
                                     }    
                                 </span>
                             </small>

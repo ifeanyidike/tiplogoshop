@@ -67,27 +67,20 @@ const CardPage = () => {
                     </Modal>
                 )
             }
-        
-                 
-            {
-                cardLoading ? <Loader /> :
-                cardError ? cardError :
-                <BaseFile
-                    loading={cardsLoading} 
-                    cards = {cards}        
-                    error = {cardsError}   
-                    TopImage={<img src={card.image} alt={card.name} />} 
-                    topText = {card.name}           
-                >
-                    <BaseChildren 
-                        baseAmount={card.price}                 
-                        availability= {card.countInStock > 0 ? "In stock" : "Out of stock"}
-                        name={card.name}
-                    />          
-                </BaseFile>
-            }
-            
-            
+                                                     
+            <BaseFile
+                loading={cardsLoading} 
+                cards = {cards}        
+                error = {cardsError}   
+                TopImage={<img src={card.image} alt={card.name} />} 
+                topText = {card.name}           
+            >
+                <BaseChildren 
+                    baseAmount={card.price}                 
+                    availability= {card.countInStock > 0 ? "In stock" : "Out of stock"}
+                    name={card.name}
+                />          
+            </BaseFile>                                    
         </div>
     )
 }

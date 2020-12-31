@@ -5,13 +5,14 @@ import {
 } from "../../styles/ServiceStyle.js"
 import ArrowBackIosIcon from '@material-ui/icons/ArrowBackIos';
 import ArrowForwardIosIcon from '@material-ui/icons/ArrowForwardIos';
-import PaymentMethods from "../PaymentMethods"
+import PaymentMethods from "../Payment/PaymentMethods"
 import Loader from "../Loaders/SimpleLoader"
 import {useDispatch, useSelector} from "react-redux"
 import {useHistory, Link} from "react-router-dom"
 import {createCardOrder} from "../../redux/actions/cardOrderActions"
 import {CARD_ORDER_CREATE_RESET} from "../../redux/constants/cardOrderConstants"
 import NotLoggedIn from "../Utils/NotLoggedIn"
+import MessageModal from "../Utils/MessageModal"
 
 
 const ChoosePayment = ({num, baseAmount}) => {
@@ -23,7 +24,9 @@ const ChoosePayment = ({num, baseAmount}) => {
     },[dispatch])
     
     const [paymentMeans, setPaymentMeans] = useState('PayStack');  
-      
+    const [insufficientAmount, setInsufficientAmount] = useState(false)
+    const [outOfStock, setOutOfStock] = useState(false)
+    
     const cardOrderCreate  = useSelector(state => state.cardOrderCreate)        
     const {loading: createLoading, order, success: createSuccess, error: createError} 
         = cardOrderCreate
@@ -38,9 +41,22 @@ const ChoosePayment = ({num, baseAmount}) => {
         history.push(`/payorder/card?orderId=${order._id}`)  
     }
     
-    const handleOrderPlacement = () =>{    
-            
+    const balance = parseInt(userInfo.wallet - num*baseAmount)
+    
+    
+    const handleOrderPlacement = () =>{                
         if(userInfo){
+            if(paymentMeans === 'Wallet'){
+                if(balance < 0){
+                    setInsufficientAmount(true)
+                    return
+                }
+            }
+            if(card.items.length === 0){
+                setOutOfStock(true)
+                return
+            }
+            
             dispatch(createCardOrder({
                 orderItems: {
                     card: card._id,
@@ -50,7 +66,8 @@ const ChoosePayment = ({num, baseAmount}) => {
                     price: num * baseAmount
                 },
                 paymentMethod: paymentMeans
-            })) 
+            }))                        
+                     
         }
       }
     
@@ -85,8 +102,10 @@ const ChoosePayment = ({num, baseAmount}) => {
                                 />                     
                                 {
                                     userInfo ?
+                                    
                                     <NextButton                         
-                                        onClick={handleOrderPlacement}>
+                                        onClick={handleOrderPlacement}
+                                    >
                                         Place Order <ArrowForwardIosIcon />
                                     </NextButton>
                                     :
@@ -100,7 +119,27 @@ const ChoosePayment = ({num, baseAmount}) => {
                         )
                     }
                                                                                                                
-                </div>                
+                </div> 
+                <MessageModal 
+                    open={insufficientAmount}
+                    setOpen={setInsufficientAmount}
+                    caption="Insufficient Fund" 
+                    message = 
+                    {<div>
+                        Please add money to your wallet or <br />choose another payment method
+                    </div>}             
+                />  
+                
+                <MessageModal 
+                    open={outOfStock}
+                    setOpen={setOutOfStock}
+                    caption="Out of Stock" 
+                    message = 
+                    {<div>
+                        Sorry. This card is out of stock. <br />
+                        Try another card.
+                    </div>}             
+                />               
             </div>      
     )
 }

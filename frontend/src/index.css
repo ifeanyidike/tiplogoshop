@@ -22,7 +22,7 @@ body {
   transform: translateX(0);
 }
 
-svg {
+.svgLogo {
   width: 200px;
 }
 .cls-1 {

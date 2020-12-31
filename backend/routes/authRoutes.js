@@ -8,7 +8,9 @@ import {
     forgotPassword,
     resetPassword,
     resendEmail,
-    updateUserProfile
+    updateUserProfile,
+    debitWallet,
+    creditWallet
 } from "../controllers/localAuthControllers.js"
 import {facebooklogin} from "../controllers/facebookAuthControllers.js"
 
@@ -20,6 +22,8 @@ router.route('/forgotpassword/').put(forgotPassword)
 router.route('/resetpassword/').put(resetPassword)
 router.route('/resendemail/').patch(resendEmail)
 router.route('/profile/update').put(updateUserProfile)
+router.route('/wallet/credit/').put(creditWallet)
+router.route('/wallet/debit/').put(debitWallet)
 
 
 export default router

@@ -6,7 +6,7 @@ const userSchema = mongoose.Schema({
     name: { 
         type: String, 
         required: true
-        },
+        },    
     email: { 
         type: String, 
         required: true, 
@@ -14,6 +14,10 @@ const userSchema = mongoose.Schema({
         trim: true,
         lowercase: true
         },
+    type:{
+        type: String,
+        required: true
+    },
     wallet:{
         type: Number,
         default: 0.0
@@ -65,15 +69,7 @@ userSchema.pre('save', async function(next){
     this.password = await bcrypt.hash(this.password, salt)
 })
 
-//hash the wallet. Pre runs before the model.
-userSchema.pre('save', async function(next){
-    if(!this.isModified('wallet')){
-        next()
-    }
-    
-    const cipherText = await CryptoJS.AES.encrypt(this.wallet, process.env.WALLET_SECRET_KEY).toString();
-    this.wallet = cipherText
-})
+
 
 const User = mongoose.model("User", userSchema);
 export default User

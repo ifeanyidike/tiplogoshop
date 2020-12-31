@@ -25,8 +25,16 @@ import {
     USER_UPDATE_REQUEST,
     USER_UPDATE_SUCCESS,
     USER_UPDATE_FAIL,
-    SET_PROFILE_IMAGE
+    SET_PROFILE_IMAGE,
+    WALLET_DEBIT_REQUEST,
+    WALLET_DEBIT_SUCCESS,
+    WALLET_DEBIT_FAIL,
+    WALLET_CREDIT_REQUEST,
+    WALLET_CREDIT_SUCCESS,
+    WALLET_CREDIT_FAIL
 } from "../constants/userConstants"
+import uuid from 'react-uuid'
+import { cardPayOrder } from './cardOrderActions'
 
 const normalConfig = {
     headers: {
@@ -249,8 +257,7 @@ export const facebooklogin = (userID, accessToken) => async(dispatch) =>{
 }
 
 
-export const setProfilePhoto = (formData) => async(dispatch, getState) =>{        
-    
+export const setProfilePhoto = (formData) => async(dispatch, getState) =>{            
     try {
         dispatch({
             type: USER_PROFILE_PHOTO_REQUEST
@@ -282,14 +289,99 @@ export const setProfilePhoto = (formData) => async(dispatch, getState) =>{
     }
 }
 
-export const setUserImage = (photoUrl) => async(dispatch, getState) =>{ 
-           
-    
+export const setUserImage = (photoUrl) => async(dispatch, getState) =>{                
     dispatch({
         type: SET_PROFILE_IMAGE,
         payload: photoUrl
     })
 }
+
+
+export const debitWallet = (qty, cardId, orderId, amount) => async(dispatch, getState) =>{            
+    try {
+        dispatch({
+            type: WALLET_DEBIT_REQUEST
+        })
+        
+        const { userLogin: { userInfo } } = getState()
+        
+        const id = userInfo._id
+        const transactionId = uuid()
+        
+        const paymentResult = {
+            id: transactionId,
+            status: 'success',
+            update_time: String((new Date()).getTime()),
+            email: userInfo.email
+          }
+        
+        const config = {
+            headers: {
+                'Content-Type': 'application/json',
+                Authorization: `Bearer ${userInfo.token}`
+            },
+        }
+        
+        const { data } = await axios.put('/api/users/wallet/debit', {id, amount, paymentResult}, config)
+        
+        dispatch({
+            type: WALLET_DEBIT_SUCCESS,
+            payload: data
+        })                
+        
+        if(data){
+            dispatch(cardPayOrder(qty, cardId, orderId, paymentResult))
+        }
+        
+        localStorage.setItem('userInfo', JSON.stringify(data))
+        
+    } catch (error) {
+        dispatch({
+            type: WALLET_DEBIT_FAIL,
+            payload: error.response && error.response.data.message 
+            ? error.response.data.message
+            : error.message
+        })
+    }
+}
+
+export const creditWallet = (amount, paymentResult, method) => async(dispatch, getState) =>{            
+    try {
+        dispatch({
+            type: WALLET_CREDIT_REQUEST
+        })
+        
+        const { userLogin: { userInfo } } = getState()
+        
+        const id = userInfo._id
+        
+        const config = {
+            headers: {
+                'Content-Type': 'application/json',
+                Authorization: `Bearer ${userInfo.token}`
+            },
+        }
+        
+        const { data } = await axios.put('/api/users/wallet/credit', {id, amount, paymentResult, method}, config)
+        
+        dispatch({
+            type: WALLET_CREDIT_SUCCESS,
+            payload: data
+        })                
+        
+        localStorage.setItem('userInfo', JSON.stringify(data))
+        
+    } catch (error) {
+        dispatch({
+            type: WALLET_CREDIT_FAIL,
+            payload: error.response && error.response.data.message 
+            ? error.response.data.message
+            : error.message
+        })
+    }
+}
+
+
 
 export const logout = () => (dispatch) => {
     localStorage.removeItem('userInfo')
