@@ -16,23 +16,6 @@ const mgOptions = (from, to, subject, message) => ({
 	html: message
 });
 
-// const transporter = nodemailer.createTransport({
-//     service: 'gmail',
-//     host: 'smtp.gmail.com',
-//     port: 465,
-//     secure: true,    
-//     auth:{
-//         type: 'OAUTH2',
-//         user: process.env.ADMIN_EMAIL,
-//         pass: process.env.ADMIN_PASSWORD,
-//         clientId: process.env.GOOGLE_CLIENT_ID,
-//         clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-//         refreshToken: process.env.GOOGLE_REFRESH_TOKEN,
-//         expires: 3599
-//     }
-// })
-
-
 const transporter = nodemailer.createTransport(smtpTransport({
     service: 'gmail',
     host: 'smtp.gmail.com',
