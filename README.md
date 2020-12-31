@@ -5,6 +5,40 @@ I'm currently developing this app for a CBT center in Nigeria.
 This is a full MERN stack build with *React*, **Redux**, **Redux Thunk**, **Styled Components**, **Material UI**, **routing with React Router DOM**, **Advanced CSS** in the frontend 
 and **Node.js**, **Express**, **JSON web token**, **REST API**, **MongoDB**, **Mongoose** in the backend.
 
+## Tools used
+
+### Frontend
+
+- **React**
+- **Redux**
+- **React Redux**
+- **Redux Thunk**
+- **Styled Components**
+- **Framer Motion**
+- **JWT Decode**
+- **Query String**
+- **React Router DOM**
+- **Axios**
+- **React Paystack**
+- **React UUID**
+- **Pure React Carousel**
+- **React Currency Format**
+- **React Facebook Login**
+- **Material UI**
+
+### Backend
+
+- **Express**
+- **Mongoose**
+- **JSON web token**
+- **Multer**
+- **Nodemailer**
+- **Mailgun-js**
+- **Bcrypt**
+- **Node Fetch**
+- **dotenv**
+- **Express Async Handler**
+
 It is a complex app but thanks to redux dev tools, I was able to effect debug the redux states and make necessary corrections.
 
 The app makes use of `full local authentication` and `facebook authentication` (both with JSON web token). This includes both users registration and login.
