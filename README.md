@@ -1,6 +1,6 @@
 # tiplogoshop
 
-I'm currently building this app for a CBT center in Nigeria. 
+I'm currently developing this app for a CBT center in Nigeria. 
 
 This is a full MERN stack build with *React*, **Redux**, **Redux Thunk**, **Styled Components**, **Material UI**, **routing with React Router DOM**, **Advanced CSS** in the frontend 
 and **Node.js**, **Express**, **JSON web token**, **REST API**, **MongoDB**, **Mongoose** in the backend.
