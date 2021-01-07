@@ -124,16 +124,15 @@ export const CardButton = styled(Button)`
 
 //Card Simple Definition
 export const CardContainer = styled(motion.div)`
-    max-width: 300px;
-    height: 400px;
+    max-width: 300px;    
     padding: 20px;
     background-color: ${props => 
-                        props.variant === 'darkblue' ? colors.darkblue :
-                        props.variant === 'lightgreen' ? colors.lightgreen :
-                        props.variant === 'lightblue' ? colors.lightblue :
-                        props.variant === 'goldish' ? colors.goldish
-                        : null
-                    };
+                props.variant === 'darkblue' ? colors.darkblue :
+                props.variant === 'lightgreen' ? colors.lightgreen :
+                props.variant === 'lightblue' ? colors.lightblue :
+                props.variant === 'goldish' ? colors.goldish
+                : null
+            };
     color: ${props => 
                 props.variant === 'darkblue' ? colors.white :
                 props.variant === 'lightgreen' ? colors.darktext :

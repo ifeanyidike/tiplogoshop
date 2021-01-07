@@ -1,6 +1,7 @@
 import styled from "styled-components"
 import {motion} from "framer-motion"
 import {device, colors} from "./breakpoints"
+import {CardContainer} from "./CardStyle"
 
 import {Button, HomeAltCardContainer} from "./HomeStyle"
 
@@ -298,4 +299,35 @@ export const EditButton = styled(NextButton)`
 
 export const CardMoreContainer = styled(HomeAltCardContainer)`
     padding: 0 80px 10px 80px !important;   
+`
+
+export const ServicesContainer = styled(HomeAltCardContainer)`
+    padding: 40px 80px 10px 80px !important;   
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    place-items: center;
+    grid-gap: 40px;
+`
+
+export const ServicesCard = styled(CardContainer)` 
+    max-width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+   .icondiv{
+       width: fit-content;       
+       margin: 0 auto;
+       i{
+        font-size: 3rem;              
+    }
+   }        
+    p{
+        text-align: center;
+        a{
+            font-weight: bold;
+            color: ${colors.darkred};
+            border-bottom: 1px solid ${colors.dimwhite}
+        }
+    }
+    
 `

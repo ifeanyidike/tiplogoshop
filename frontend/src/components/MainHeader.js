@@ -106,7 +106,7 @@ const MainHeader = ({setShowDrawer}) => {
                         whileHover="onHover"
                         >
                         <Link 
-                            to="/"
+                            to="/services"
                             style={{fontWeight: path === '/services' && 'bold' }}
                         >
                         Services

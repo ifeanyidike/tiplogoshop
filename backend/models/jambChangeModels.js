@@ -6,9 +6,9 @@ const orderSchema = mongoose.Schema({
         required: true,
         ref: 'User'
     },
-    orderItems:[
+    orderItems:
         {
-            type: {
+            type: {     
                 type: String,
                 required: true
             },
@@ -44,8 +44,7 @@ const orderSchema = mongoose.Schema({
                   },
               }  
             ],                    
-        },
-    ],
+        },    
     price: {
         type:Number,
         required: true

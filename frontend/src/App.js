@@ -1,6 +1,7 @@
 import React, {useState, useEffect} from "react"
 import HomePage from "./pages/HomePage"
 import AuthPage from "./pages/AuthPage"
+import AllServicesPage from "./pages/AllServicesPage"
 import ProfilePage from "./pages/ProfilePage"
 import CardPage from "./pages/CardPage"
 import AllCardsPage from "./pages/AllCardsPage"
@@ -26,6 +27,9 @@ function App() {
         </Route>
         <Route path="/auth" exact>
           <AuthPage />
+        </Route>
+        <Route path="/services" exact>
+          <AllServicesPage />
         </Route>
         <Route path="/profile" exact>
           <ProfilePage />
