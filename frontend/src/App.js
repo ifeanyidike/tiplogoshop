@@ -5,8 +5,11 @@ import AllServicesPage from "./pages/AllServicesPage"
 import ProfilePage from "./pages/ProfilePage"
 import CardPage from "./pages/CardPage"
 import AllCardsPage from "./pages/AllCardsPage"
+import ChangeOfCourseInstitutionPage from "./pages/ChangeOfCourseInstitutionPage"
 import EditItem from "./pages/EditItemPage"
 import PayOrder from "./pages/PayOrderPage"
+import OLevelUploadPage from "./pages/OLevelUploadPage"
+import JambPasswordResetPage from "./pages/JambPasswordResetPage"
 import ActivateAccount from "./pages/ActivateAccount"
 import ResendEmail from "./pages/ResendEmail"
 import ForgotPassword from "./pages/ForgotPassword"
@@ -22,11 +25,18 @@ function App() {
           
       <SideDrawer key="sidedrawer" />  
       <Switch>
-        <Route path="/" exact>
-          <HomePage />
-        </Route>
+        
         <Route path="/auth" exact>
           <AuthPage />
+        </Route>
+        <Route path="/services/change-of-course-institution" exact>
+          <ChangeOfCourseInstitutionPage />
+        </Route>
+        <Route path="/services/result-upload" exact>
+          <OLevelUploadPage />
+        </Route>
+        <Route path="/services/jamb-password-reset" exact>
+          <JambPasswordResetPage />
         </Route>
         <Route path="/services" exact>
           <AllServicesPage />
@@ -57,7 +67,10 @@ function App() {
         </Route>
         <Route path="/allcards" exact>
           <AllCardsPage />
-        </Route>        
+        </Route>  
+        <Route path="/" exact>
+          <HomePage />
+        </Route>      
       </Switch>
     </AnimatePresence>
   );

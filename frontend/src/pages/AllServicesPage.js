@@ -7,14 +7,10 @@ import {Link} from "react-router-dom"
 
 const AllServices = () => {
     return (
-        <BaseRoot topText="Services">            
-            {                    
-                <>                                  
-                    <ServicesContainer>                
-                        <ServicesItems />
-                    </ServicesContainer>                        
-                </>
-            }
+        <BaseRoot topText="Services">                        
+            <ServicesContainer>                
+                <ServicesItems />
+            </ServicesContainer>                                                    
         </BaseRoot>
     )
 }

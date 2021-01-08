@@ -238,8 +238,8 @@ export const NumRangeContainer = styled(motion.div)`
     display: flex;
     align-items: center;
     justify-content: space-between;
-    width: ${numrangeDim};
-    height: calc(${numrangeDim} /3);
+    width: ${props => `${props.size}px`|| numrangeDim};
+    height: calc(${props => `${props.size}px` || numrangeDim} /3);
     
     button{
         border: 0;
@@ -249,7 +249,7 @@ export const NumRangeContainer = styled(motion.div)`
         height: 100%;
     }
     span{
-        font-size: calc(${numrangeDim} / 4.7);
+        font-size: calc(${props => `${props.size}px` || numrangeDim} / 4.7);
         width: 33%;
         height: 100%;
         text-align: center;
@@ -267,8 +267,8 @@ export const CardButton = styled(Button)`
 `
 
 export const BackButton = styled(Button)`    
-    border: 2px solid ${colors.lightgray};
-    background: ${colors.lightgray};
+    border: 2px solid ${props => props.variant || colors.lightgray};
+    background: ${props => props.variant || colors.lightgray};
     margin: 0 0 0 80px;
     width: fit-content;
     display:flex;
@@ -278,8 +278,10 @@ export const BackButton = styled(Button)`
     }
 `
 export const NextButton = styled(BackButton)`        
-    margin:0 !important;        
+    margin:0 !important;    
+        
 `
+
 
 export const PayButton = styled(NextButton)`                   
     padding: 0.2rem 1.4rem;
@@ -309,11 +311,27 @@ export const ServicesContainer = styled(HomeAltCardContainer)`
     grid-gap: 40px;
 `
 
+export const ServiceTypeContainer = styled(HomeAltCardContainer)`
+    padding: 40px 80px 10px 80px !important;   
+    display: grid;    
+    place-items: center;
+    
+`
+
 export const ServicesCard = styled(CardContainer)` 
     max-width: 100%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+    text-align: center;
+    box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12);
+    background-color: ${props =>                 
+        props.variant === 'lightish' ? colors.white
+        : null
+    };
+    
+    color: ${props =>                 
+        props.variant === 'lightish' ? colors.darktext
+            : null
+        };
+                    
    .icondiv{
        width: fit-content;       
        margin: 0 auto;
@@ -328,6 +346,98 @@ export const ServicesCard = styled(CardContainer)`
             color: ${colors.darkred};
             border-bottom: 1px solid ${colors.dimwhite}
         }
+    }   
+`
+
+export const ServicePanel = styled(ServicesCard)`
+    width: 70%;
+    ${'' /* align-items: flex-start; */}
+    display: block;
+    p, span, a{
+        margin-top: 0px;
+    }
+    p{
+        text-align: left;
+        margin-top: 0;
+        margin-bottom: 0;
+        font-size: 0.75rem;
+    }
+    .MuiFormControl-root{
+        margin-top: 15px;
+    }
+    textarea{
+        padding: 10px;
+        border: 1px solid ${colors.midtext};
+        border-radius: 10px;
     }
     
+    .choices{
+        display: grid;        
+        grid-template-columns: repeat(2, 1fr);
+        grid-gap: 20px;                
+        place-items: center;
+        margin: 20px 0;
+        .choiceitem{       
+            box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12);     
+            border-radius: 10px;
+            h3{
+                padding: 10px;
+                border-radius: 10px;
+                font-family: "Aclonica", sans-serif;
+                background-color: ${colors.dimwhite};                
+            }
+            .content{
+                padding: 10px 20px 15px 10px;
+            }
+        }
+    }
+    
+    .topmainitem{
+        display: flex;        
+        justify-content: space-between;        
+        
+        div{            
+            i{
+                color: ${colors.darkred};
+                font-size: 1.5rem;
+            }            
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+            
+        }
+    }
+    .numrange--services{
+        
+        div{          
+           margin-left: 0;            
+        }
+        .label{            
+            text-align: left;
+        }
+        margin: 20px 0;
+    }
+    
+    .filesection{
+        margin-bottom: 50px;
+    }
+`
+export const ListFeatureElement = styled.div`
+    margin: 20px 0;
+    padding: 0 10px;
+    border: 1px solid ${colors.background}
+`
+export const NoMarginBackButton = styled(NextButton)`
+`
+
+export const ButtonGroup = styled.div`
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+`
+
+export const ButtonSingle = styled.div`
+    display: flex;
+    justify-content: center;
+    margin-top: 10px;
 `

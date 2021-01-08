@@ -56,7 +56,7 @@ const ServicesItems = () => {
                 </div>                              
                 <h4>Jamb Password Reset</h4>
                 <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. 
-                    Atque, itaque. <Link to="/services/password-reset">here</Link>
+                    Atque, itaque. <Link to="/services/jamb-password-reset">here</Link>
                 </p>                            
             </ServicesCard>
             
