@@ -52,6 +52,13 @@ import {
     cardOrderListReducer
 } from "./cardOrderReducers"
 
+import {
+    changeOfCourseOrderCreateReducer,
+    changeOfCourseOrderDetailsReducer,
+    changeOfCourseOrderUpdateReducer,        
+    changeOfCourseOrderListMyReducer,
+    changeOfCourseOrderListReducer
+} from "./changeOfCourseOrderReducers"
 
 const reducer = combineReducers({
     cardList: cardListReducer,
@@ -96,7 +103,13 @@ const reducer = combineReducers({
     serviceDetails: serviceDetailsReducer,
     serviceByName: serviceByNameReducer,
     serviceCreate: serviceCreateReducer,
-    serviceUpdate: serviceUpdateReducer
+    serviceUpdate: serviceUpdateReducer,
+    
+    changeOfCourseOrderCreate: changeOfCourseOrderCreateReducer,
+    changeOfCourseOrderDetails: changeOfCourseOrderDetailsReducer,
+    changeOfCourseOrderUpdate: changeOfCourseOrderUpdateReducer,        
+    changeOfCourseOrderListMy: changeOfCourseOrderListMyReducer,
+    changeOfCourseOrderList: changeOfCourseOrderListReducer
 })
 
 export default reducer
