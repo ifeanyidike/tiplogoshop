@@ -1,30 +1,20 @@
 import React, {useState} from 'react'
-import {ButtonSingle, NextButton, BackButton, NumRangeContainer} from "../../styles/ServiceStyle"
+import {ButtonSingle, NextButton} from "../../styles/ServiceStyle"
 import {colors} from "../../styles/breakpoints"
-import { firstCardContainerVariants} from '../../animationVariants/CardVariants'
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import Checkbox from '@material-ui/core/Checkbox';
 import { makeStyles } from '@material-ui/core/styles';
-import {Input, NativeSelect, FormControl, FormHelperText, IconButton} from '@material-ui/core'
-import {TextareaAutosize, InputLabel, InputAdornment} from '@material-ui/core'
-import {Person as PersonIcon, TrendingFlat as TrendingFlatIcon} from '@material-ui/icons'
-import {ExitToApp as ExitToAppIcon, Code as CodeIcon, Remove as RemoveIcon} from '@material-ui/icons'
-import {LockOpen as LockOpenIcon, Message as MessageIcon, Add as AddIcon} from '@material-ui/icons'
+import {Input, FormControl, IconButton} from '@material-ui/core'
+import {InputLabel, InputAdornment} from '@material-ui/core'
+import {Person as PersonIcon} from '@material-ui/icons'
 import NavigateNextIcon from '@material-ui/icons/NavigateNext';
-import InstitutionChoices from "./InstitutionChoice"
-import Fab from '@material-ui/core/Fab';
 import CurrencyFormat from 'react-currency-format';
 import EventNoteIcon from '@material-ui/icons/EventNote';
 import VpnKeyIcon from '@material-ui/icons/VpnKey';
 import Visibility from '@material-ui/icons/Visibility';
 import VisibilityOff from '@material-ui/icons/VisibilityOff';
 import AlternateEmailIcon from '@material-ui/icons/AlternateEmail';
-import DateFnsUtils from '@date-io/date-fns';
 import MomentUtils from '@date-io/moment';
 import {
   MuiPickersUtilsProvider,
-  KeyboardTimePicker,
-  KeyboardDatePicker,
   DatePicker 
 } from '@material-ui/pickers';
 import MessageModal from "../Utils/MessageModal"

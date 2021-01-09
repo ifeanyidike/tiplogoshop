@@ -24,6 +24,22 @@ import {
     cardItemsDeliverReducer
 } from "./cardReducers"
 
+import {
+    schoolListReducer,
+    schoolDetailsReducer,
+    schoolByProgrammeReducer,
+    schoolCreateReducer,
+    schoolUpdateReducer    
+} from "./schoolReducers"
+
+import {
+    serviceListReducer,
+    serviceDetailsReducer,
+    serviceByNameReducer,
+    serviceCreateReducer,
+    serviceUpdateReducer    
+} from "./serviceReducers"
+
 import { soldCardCreateReducer} from "./soldCardReducers"
 
 import {
@@ -69,6 +85,18 @@ const reducer = combineReducers({
     photo: photoReducer,
     walletDebit: walletDebitReducer,
     walletCredit: walletCreditReducer,
+    
+    schoolList: schoolListReducer,
+    schoolDetails: schoolDetailsReducer,
+    schoolByProgramme: schoolByProgrammeReducer,
+    schoolCreate: schoolCreateReducer,
+    schoolUpdate: schoolUpdateReducer,
+    
+    serviceList: serviceListReducer,
+    serviceDetails: serviceDetailsReducer,
+    serviceByName: serviceByNameReducer,
+    serviceCreate: serviceCreateReducer,
+    serviceUpdate: serviceUpdateReducer
 })
 
 export default reducer

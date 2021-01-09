@@ -1,10 +1,11 @@
 import mongoose from "mongoose"
+import User from "./userModels.js";
 
 const orderSchema = mongoose.Schema({
     user:{
         type: mongoose.Schema.Types.ObjectId,
         required: true,
-        ref: 'User'
+        ref: User
     },
     orderItems:
         {
@@ -43,7 +44,10 @@ const orderSchema = mongoose.Schema({
                     required: true
                   },
               }  
-            ],                    
+            ], 
+           additionalInfo:{
+               type: String               
+           }                    
         },    
     price: {
         type:Number,
@@ -80,5 +84,6 @@ const orderSchema = mongoose.Schema({
     timestamps: true
 })
 
-const JambChangeOrder = mongoose.model('JambChangeOrder', orderSchema)
-export default JambChangeOrder
+const ChangeOfCourseInstitutionOrder = 
+    mongoose.model('ChangeOfCourseInstitutionOrder', orderSchema)
+export default ChangeOfCourseInstitutionOrder

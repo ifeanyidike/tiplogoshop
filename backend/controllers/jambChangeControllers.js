@@ -1,33 +1,71 @@
 import asyncHandler from "express-async-handler"
-import JambChangeOrder from "../models/jambChangeModels.js"
+import ChangeOfCourseInstitutionOrder from "../models/jambChangeModels.js"
 
-//@desc     Create new JambChange
-//@route    POST /api/JambChange
+//@desc     Create new changeofcourseinstitution
+//@route    POST /api/changeofcourseinstitution
 //@access   Private
 
-export const addJambChangeItems = asyncHandler(async(req, res)=>{
-    const { orderItems, paymentMethod } = req.body
+export const CreateChangeOfCourseInstitutionOrder = asyncHandler(async(req, res)=>{
+    const { orderItems, price, paymentMethod, paymentResult } = req.body
+    
+    if(!orderItems){
+        throw new Error('No order items')
+    }
+    
+    if(!paymentResult){
+        throw new Error('No payment result')
+    }
     
     if(orderItems && orderItems.length === 0){
         throw new Error('No Order items')        
     }else{
-        const order = new JambChangeOrder({
-            orderItems: orderItems,
+        const order = new ChangeOfCourseInstitutionOrder({
+            orderItems,
             user: req.user._id,
-            paymentMethod: paymentMethod
+            price,
+            paymentMethod,
+            paymentResult,
+            isPaid: true,
+            paidAt: Date.now()
         })
         const createdOrder = await order.save()
         res.status(201).json(createdOrder)
     }
 })
 
-//@desc     GET JambChange by ID
-//@route    GET /api/JambChange/:id
+
+//@desc     Create new changeofcourseinstitution
+//@route    PUT /api/changeofcourseinstitution
 //@access   Private
 
-export const getJambChangeOrderById = asyncHandler(async(req, res)=>{
+export const UpdateChangeOfCourseInstitutionOrder = asyncHandler(async(req, res)=>{
+    const { orderItems} = req.body
+    
+    if(!orderItems){
+        throw new Error('No order items')
+    }
+    
+    if(orderItems && orderItems.length === 0){
+        throw new Error('No Order items')        
+    }else{
+        const order = new ChangeOfCourseInstitutionOrder({
+            orderItems
+        })
+        const createdOrder = await order.save()
+        res.status(201).json(createdOrder)
+    }
+})
+
+
+
+//@desc     GET changeofcourseinstitution by ID
+//@route    GET /api/changeofcourseinstitution/:id
+//@access   Private
+
+export const getChangeOfCourseInstitutionOrderById = asyncHandler(async(req, res)=>{
     const order = 
-        await JambChangeOrder.findById(req.params.id).populate('user', 'name email')
+        await ChangeOfCourseInstitutionOrder.findById(req.params.id)
+        .populate('user', 'name email')
     
     if(order){
         res.json(order)
@@ -37,48 +75,39 @@ export const getJambChangeOrderById = asyncHandler(async(req, res)=>{
     }
 })
 
-//@desc     Update JambChange to Paid
-//@route    PUT /api/JambChange/:id/pay
-//@access   Private
-
-export const updateJambChangeOrderToPaid = asyncHandler(async(req, res)=>{
-    const order = await JambChangeOrder.findById(req.params.id)
-    const {id, status, updated_time, email} = req.body
-    
-    if(order){
-        order.isPaid = true
-        order.paidAt = Date.now()
-        order.paymentResult = {
-            id,
-            status,
-            updated_time,
-            email
-        }
-        
-        const updatedOrder = await order.save()
-        res.json(updatedOrder)
-    }else{
-        res.status(404)
-        throw new Error('Order not found')
-    }    
-})
-
 
 //@desc     Get logged in user Jamb Change Orders
-//@route    GET /api/JambChange/myJambChanges
+//@route    GET /api/changeofcourseinstitution/myorders
 //@access   Private
 
-export const getMyJambChangeOrders = asyncHandler(async(req, res)=>{
-    const orders = await JambChangeOrder.find({user: req.user._id})
+export const getMyChangeOfCourseInstitutionOrders = asyncHandler(async(req, res)=>{
+    const orders = await ChangeOfCourseInstitutionOrder.find({user: req.user._id})
     res.json(orders)
 })
 
 //@desc     Get all Jamb Change Orders
-//@route    GET /api/Jamb Change Orders/
+//@route    GET /api/changeofcourseinstitution/
 //@access   Private/Admin
 
-export const getJambChangeOrders = asyncHandler(async(req, res)=>{
-    const orders = await JambChangeOrder.find({}).populate('user', 'id name')
-    res.json(orders)
+export const getChangeOfCourseInstitutionOrders = asyncHandler(async(req, res)=>{
+    const orders = await ChangeOfCourseInstitutionOrder.find({})
+                    .populate('user', 'id name')
+    res.json(orders)    
+})
+
+//@desc     Get all Jamb Change Orders
+//@route    GET /api/changeofcourseinstitution/
+//@access   Private/Admin
+
+export const deleteChangeOfCourseInstitutionOrder = asyncHandler(async(req, res)=>{
+    const order = await ChangeOfCourseInstitutionOrder.findById(req.params.id)
+    if(order){
+        order.remove()
+        res.json({message: 'order removed'})
+    }else{
+        res.status(404)
+        throw new Error('Order not found')
+    }
     
+    res.json(orders)    
 })

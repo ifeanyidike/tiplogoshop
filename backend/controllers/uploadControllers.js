@@ -41,7 +41,10 @@ export const profilePhotoUpload = multer({
 })
 
 export const documentsUpload = multer({
-    storage:storage,     
+    storage,   
+    limits:{
+        fileSize: 1000 * 1000
+    },
     fileFilter: function(req, file, cb){
         checkFileType(false, file, cb)
     }

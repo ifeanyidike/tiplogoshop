@@ -1,7 +1,5 @@
 import React, {useState} from 'react'
 import {ButtonSingle, NextButton} from "../../styles/ServiceStyle"
-import {colors} from "../../styles/breakpoints"
-import { firstCardContainerVariants} from '../../animationVariants/CardVariants'
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
 import { makeStyles } from '@material-ui/core/styles';

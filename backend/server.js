@@ -3,9 +3,12 @@ import dotenv from "dotenv"
 import morgan from "morgan"
 import authRoutes from "./routes/authRoutes.js"
 import cardRoutes from "./routes/cardRoutes.js"
+import schoolRoutes from "./routes/schoolRoutes.js"
+import serviceRoutes from "./routes/serviceRoutes.js"
 import cardOrderRoutes from "./routes/cardOrderRoutes.js"
 import jambChangeRoutes from "./routes/jambChangeRoutes.js"
 import jambPasswordResetRoutes from "./routes/jambPasswordResetRoutes.js"
+import oLevelResultUploadRoutes from "./routes/oLevelResultUploadRoutes.js"
 import uploadRoutes from "./routes/uploadRoutes.js"
 import connectDatabase from "./config/db.js"
 import {notFound, errorHandler} from "./middlewares/errorMiddleware.js"
@@ -28,9 +31,12 @@ app.use(express.json())
 //middlewares
 app.use('/api/users', authRoutes)
 app.use('/api/cards', cardRoutes)
+app.use('/api/schools', schoolRoutes)
+app.use('/api/services', serviceRoutes)
 app.use('/api/cardorders', cardOrderRoutes)
-app.use('/api/jambchange', jambChangeRoutes)
+app.use('/api/changeofcourseinstitution', jambChangeRoutes)
 app.use('/api/jambpasswordreset', jambPasswordResetRoutes)
+app.use('/api/olevelresultupload', oLevelResultUploadRoutes)
 app.use('/api/upload', uploadRoutes)
 app.get("/api/config/paystack", (req, res) => res.send(process.env.PAYSTACK_PUBLIC_KEY))
 

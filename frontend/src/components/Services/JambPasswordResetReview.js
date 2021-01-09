@@ -4,7 +4,7 @@ import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import { makeStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
-import {ListFeatureElement, ButtonGroup, NextButton, NoMarginBackButton} from "../../styles/ServiceStyle"
+import {ButtonGroup, NextButton, NoMarginBackButton} from "../../styles/ServiceStyle"
 import {colors} from "../../styles/breakpoints"
 import NavigateNextIcon from '@material-ui/icons/NavigateNext';
 import NavigateBeforeIcon from '@material-ui/icons/NavigateBefore';

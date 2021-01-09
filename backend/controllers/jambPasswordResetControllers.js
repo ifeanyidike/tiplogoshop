@@ -1,5 +1,5 @@
 import asyncHandler from "express-async-handler"
-import JambPasswordResetOrder from "../models/JambPasswordResetModel.js"
+import JambPasswordResetOrder from "../models/jambPasswordResetModels.js"
 
 //@desc     Create new JambPasswordResetOrder
 //@route    POST /api/JambPasswordResetOrders

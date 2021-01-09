@@ -1,17 +1,13 @@
 import React, {useState} from 'react'
-import {ButtonSingle, NextButton, BackButton, NumRangeContainer} from "../../styles/ServiceStyle"
+import {ButtonSingle, NextButton, NumRangeContainer} from "../../styles/ServiceStyle"
 import {colors} from "../../styles/breakpoints"
-import { firstCardContainerVariants} from '../../animationVariants/CardVariants'
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import Checkbox from '@material-ui/core/Checkbox';
 import { makeStyles } from '@material-ui/core/styles';
 import {Input, NativeSelect, FormControl, FormHelperText} from '@material-ui/core'
-import {TextareaAutosize, InputLabel, InputAdornment} from '@material-ui/core'
+import {InputLabel, InputAdornment} from '@material-ui/core'
 import {Person as PersonIcon, TrendingFlat as TrendingFlatIcon} from '@material-ui/icons'
-import {ExitToApp as ExitToAppIcon, Code as CodeIcon, Remove as RemoveIcon} from '@material-ui/icons'
-import {LockOpen as LockOpenIcon, Message as MessageIcon, Add as AddIcon} from '@material-ui/icons'
+import {Code as CodeIcon, Remove as RemoveIcon} from '@material-ui/icons'
+import {Add as AddIcon} from '@material-ui/icons'
 import NavigateNextIcon from '@material-ui/icons/NavigateNext';
-import InstitutionChoices from "./InstitutionChoice"
 import Fab from '@material-ui/core/Fab';
 import CurrencyFormat from 'react-currency-format';
 import {DropzoneDialog} from 'material-ui-dropzone'
