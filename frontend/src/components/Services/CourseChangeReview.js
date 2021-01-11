@@ -38,23 +38,23 @@ const CourseChangeReview = ({
   return (
     <div>
         <List>
-            <ListItem className={classes.listItem} key={type}>
+            <ListItem className={classes.listItem} key={`type ${type}`}>
                 <ListItemText primary="Upload Type" secondary="UTME or Direct Entry" />
                 <Typography variant="body2">{type}</Typography>
             </ListItem>
-            <ListItem className={classes.listItem} key={name}>
+            <ListItem className={classes.listItem} key={`name ${name}`}>
                 <ListItemText primary="Candidate's Name" secondary={`Name of ${type} candidate`}  />
                 <Typography variant="body2">{name}</Typography>
             </ListItem>
-            <ListItem className={classes.listItem} key={profileCode}>
+            <ListItem className={classes.listItem} key={`profileCode ${profileCode}`}>
                 <ListItemText primary="Candidate's Profile Code" secondary={`Profile Code ${type} candidate`}  />
                 <Typography variant="body2">{profileCode}</Typography>
             </ListItem>
-            <ListItem className={classes.listItem} key={OTP}>
+            <ListItem className={classes.listItem} key={`otp ${OTP}`}>
                 <ListItemText primary="One Time Password" secondary={`OTP on ${type} candidate's purchase`}  />
                 <Typography variant="body2">{OTP}</Typography>
             </ListItem>
-            <ListItem className={classes.listItem} key={regNo}>
+            <ListItem className={classes.listItem} key={`regNo ${regNo}`}>
                 <ListItemText primary="Candidate's Registration Number" secondary={`Registration Number of ${type} candidate`}  />
                 <Typography variant="body2">{regNo}</Typography>
             </ListItem>

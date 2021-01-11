@@ -22,6 +22,11 @@ body {
   transform: translateX(0);
 }
 
+input,
+select {
+  font-family: "Jost", sans-serif !important;
+}
+
 .svgLogo {
   width: 200px;
 }

@@ -2,8 +2,8 @@ import express from "express"
 const router = express.Router()
 
 import {
-    CreateChangeOfCourseInstitutionOrder,
-    UpdateChangeOfCourseInstitutionOrder,
+    createChangeOfCourseInstitutionOrder,
+    updateChangeOfCourseInstitutionOrder,
     getChangeOfCourseInstitutionOrderById,
     getMyChangeOfCourseInstitutionOrders,
     getChangeOfCourseInstitutionOrders,    
@@ -12,13 +12,13 @@ import {
 
 import { protect, admin } from "../middlewares/authMiddleware.js"
 
-router.route("/").post(protect, CreateChangeOfCourseInstitutionOrder)    
+router.route("/").post(protect, createChangeOfCourseInstitutionOrder)    
     .get(protect, admin, getChangeOfCourseInstitutionOrders)
 
 router.route('/myorders').get(protect, getMyChangeOfCourseInstitutionOrders)
 
 router.route("/:id").get(protect, getChangeOfCourseInstitutionOrderById)
                     .delete(protect, admin, deleteChangeOfCourseInstitutionOrder)
-                    .put(protect, UpdateChangeOfCourseInstitutionOrder)
+                    .put(protect, updateChangeOfCourseInstitutionOrder)
 
 export default router

@@ -35,6 +35,9 @@ import {
 } from "../constants/userConstants"
 import uuid from 'react-uuid'
 import { cardPayOrder } from './cardOrderActions'
+import { createChangeOfCourseOrder } from './changeOfCourseActions'
+import { createOlevelUploadOrder } from './oLevelResultUploadActions'
+import { createJambPasswordResetOrder } from './jambPasswordResetActions'
 
 const normalConfig = {
     headers: {
@@ -297,7 +300,15 @@ export const setUserImage = (photoUrl) => async(dispatch, getState) =>{
 }
 
 
-export const debitWallet = (qty, cardId, orderId, amount) => async(dispatch, getState) =>{            
+export const debitWallet = ({
+    transactionType= "card", 
+    qty=0, 
+    cardId='', 
+    orderId='', 
+    amount,
+    orderItems={},    
+    formData={}
+    } = {}) => async(dispatch, getState) =>{            
     try {
         dispatch({
             type: WALLET_DEBIT_REQUEST
@@ -307,6 +318,7 @@ export const debitWallet = (qty, cardId, orderId, amount) => async(dispatch, get
         
         const id = userInfo._id
         const transactionId = uuid()
+        const paymentMethod = 'wallet'
         
         const paymentResult = {
             id: transactionId,
@@ -330,7 +342,23 @@ export const debitWallet = (qty, cardId, orderId, amount) => async(dispatch, get
         })                
         
         if(data){
-            dispatch(cardPayOrder(qty, cardId, orderId, paymentResult))
+            if(transactionType === 'card'){
+                dispatch(cardPayOrder(qty, cardId, orderId, paymentResult))
+                
+            } else if(transactionType === 'changeofcourse'){                
+                dispatch(createChangeOfCourseOrder(
+                    {orderItems, price: amount, paymentMethod , paymentResult})
+                )
+                
+            } else if(transactionType === 'olevelresultupload'){
+                dispatch(createOlevelUploadOrder(
+                    formData, orderItems, amount, paymentMethod, paymentResult)
+                )
+            } else if(transactionType === 'jambpasswordreset'){
+                dispatch(createJambPasswordResetOrder(
+                    {orderItems, price: amount, paymentMethod , paymentResult}
+                ))
+            }
         }
         
         localStorage.setItem('userInfo', JSON.stringify(data))
@@ -344,6 +372,9 @@ export const debitWallet = (qty, cardId, orderId, amount) => async(dispatch, get
         })
     }
 }
+
+
+
 
 export const creditWallet = (amount, paymentResult, method) => async(dispatch, getState) =>{            
     try {
@@ -380,8 +411,6 @@ export const creditWallet = (amount, paymentResult, method) => async(dispatch, g
         })
     }
 }
-
-
 
 export const logout = () => (dispatch) => {
     localStorage.removeItem('userInfo')

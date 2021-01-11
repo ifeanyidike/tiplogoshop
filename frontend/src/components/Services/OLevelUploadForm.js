@@ -12,7 +12,7 @@ import Fab from '@material-ui/core/Fab';
 import CurrencyFormat from 'react-currency-format';
 import {DropzoneDialog} from 'material-ui-dropzone'
 import NavigationIcon from '@material-ui/icons/Navigation';
-
+import MessageModal from "../Utils/MessageModal"
 
 
 const useStyles = makeStyles((theme) => ({
@@ -27,7 +27,7 @@ const useStyles = makeStyles((theme) => ({
   }));
 
 
-const CourseChangeForm = ({
+const OLevelUploadForm = ({
     type, 
     setType,
     name, 
@@ -41,10 +41,16 @@ const CourseChangeForm = ({
 }) => {
 const classes = useStyles();
 const [num, setNum] = useState(1)
+const [noFiles, setNoFiles] = useState(false)
 
 const onSubmit = e => {
     e.preventDefault()
+    if(upload.files.length === 0){
+        setNoFiles(true)
+        return
+    }
     setActiveStep(activeStep + 1)
+    
 }
 
 const handleNumIncrement = (e) =>{
@@ -141,6 +147,7 @@ const handleNumDecrement = (e) =>{
                     <DropzoneDialog
                         open={upload.open}
                         filesLimit = {num}
+                        required
                         clearOnUnmount = {false}
                         onChange={(files) => console.log('Files:', files)}
                         onSave={(files) => setUpload({files: files, open: false})}
@@ -160,9 +167,15 @@ const handleNumDecrement = (e) =>{
             </ButtonSingle>
             
         </form>                                
-
+        <MessageModal 
+            open={noFiles}
+            setOpen={setNoFiles}
+            caption="Files Empty" 
+            message = "You need to add at least one file to proceed."
+                         
+        />
       </div>
     )
 }
 
-export default CourseChangeForm
+export default OLevelUploadForm

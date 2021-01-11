@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import React, {useState, useEffect} from 'react'
 import BaseRoot from "../components/Services/BaseRoot"
 import {ServiceTypeContainer, ServicePanel} from "../styles/ServiceStyle"
 import { firstCardContainerVariants} from '../animationVariants/CardVariants'
@@ -9,6 +9,9 @@ import Step from '@material-ui/core/Step';
 import StepLabel from '@material-ui/core/StepLabel';
 import CourseChangeReview from '../components/Services/CourseChangeReview'
 import ServicePayment from '../components/Services/ServicePayment'
+import {debitWallet} from "../redux/actions/userActions.js"
+import {useDispatch, useSelector} from "react-redux"
+import { COCI_CREATE_RESET } from '../redux/constants/changeOfCourseConstants'
 
 const useStyles = makeStyles((theme) => ({   
     stepper: {
@@ -26,28 +29,56 @@ const ChangeOfCourseInstitution = () => {
     const [profileCode, setProfileCode] = useState("")
     const [OTP, setOTP] = useState("")   
     const [activeStep, setActiveStep] = useState(0);
-    const [moreInfo, setMoreInfo] = useState("");
+    const [moreInfo, setMoreInfo] = useState("");   
+    const dispatch = useDispatch() 
     
+    const {service} = useSelector(state => state.serviceByName)
+    
+    useEffect(()=>{
+        dispatch({type: COCI_CREATE_RESET})
+    }, [dispatch])
+            
     const [programme, setProgramme] = useState({
-        first: '',
-        second: '',
-        third: '',
-        fourth: ''
+        first: null,
+        second: null,
+        third: null,
+        fourth: null
     })
     
     const [institution, setInstitution] = useState({
-        first: '',
-        second: '',
-        third: '',
-        fourth: ''
+        first: null,
+        second: null,
+        third: null,
+        fourth: null
     })        
     
     const [course, setCourse] = useState({
-        first: '',
-        second: '',
-        third: '',
-        fourth: ''
+        first: null,
+        second: null,
+        third: null,
+        fourth: null
     })
+    
+    
+    
+    const changeOfCourseOrder = () => {
+        return {
+            transactionType: 'changeofcourse',
+            orderItems: {
+                type,
+                fullName: name,
+                regNo,
+                profileCode,
+                otp: OTP,
+                choices:[
+                    {preferredProgramme: programme.first, institution: institution.first, course: course.first },
+                    {preferredProgramme: programme.second, institution: institution.second, course: course.second },
+                    programme.third && {preferredProgramme: programme.third, institution: institution.third, course: course.third },
+                    programme.fourth && {preferredProgramme: programme.fourth, institution: institution.fourth, course: course.fourth },
+                ]
+            }
+        }
+    }
     
     
     
@@ -111,7 +142,9 @@ const ChangeOfCourseInstitution = () => {
                         activeStep === 2 ?
                         <ServicePayment
                             activeStep = {activeStep}    
-                            setActiveStep = {setActiveStep}
+                            setActiveStep = {setActiveStep}                            
+                            serviceOrder = {changeOfCourseOrder}
+                            // handleWalletPayment = {handleSubmit}
                         />
                         
                         :

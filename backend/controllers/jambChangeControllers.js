@@ -1,13 +1,15 @@
 import asyncHandler from "express-async-handler"
 import ChangeOfCourseInstitutionOrder from "../models/jambChangeModels.js"
+import {mg, mgOptions, servicesMessageTemplate} from "../utils/sendEmail.js"
 
 //@desc     Create new changeofcourseinstitution
 //@route    POST /api/changeofcourseinstitution
 //@access   Private
 
-export const CreateChangeOfCourseInstitutionOrder = asyncHandler(async(req, res)=>{
+export const createChangeOfCourseInstitutionOrder = asyncHandler(async(req, res)=>{
     const { orderItems, price, paymentMethod, paymentResult } = req.body
-    
+    console.log(req.user)
+    console.log(orderItems)
     if(!orderItems){
         throw new Error('No order items')
     }
@@ -19,6 +21,16 @@ export const CreateChangeOfCourseInstitutionOrder = asyncHandler(async(req, res)
     if(orderItems && orderItems.length === 0){
         throw new Error('No Order items')        
     }else{
+        
+        const from = "nonreply@tiplogo.com"              
+        const subject = "Jamb Change of Course and Institution Order"
+        
+        const heading = `Your Change of Course and Institution Order`
+        const msg = 'Thanks for the purchase. Here are the details'
+        
+        const message = servicesMessageTemplate(heading, msg)        
+        const data = mgOptions(from, req.user.email, subject, message)  
+        
         const order = new ChangeOfCourseInstitutionOrder({
             orderItems,
             user: req.user._id,
@@ -29,7 +41,17 @@ export const CreateChangeOfCourseInstitutionOrder = asyncHandler(async(req, res)
             paidAt: Date.now()
         })
         const createdOrder = await order.save()
-        res.status(201).json(createdOrder)
+        
+        if(createdOrder){
+            mg.messages().send(data, (error, body)=>{
+                if(error){
+                    throw new Error('An error occurred when sending email')
+                }else{
+                    res.status(201).json(createdOrder)            
+                }
+            })            
+        }
+        
     }
 })
 
@@ -38,7 +60,7 @@ export const CreateChangeOfCourseInstitutionOrder = asyncHandler(async(req, res)
 //@route    PUT /api/changeofcourseinstitution
 //@access   Private
 
-export const UpdateChangeOfCourseInstitutionOrder = asyncHandler(async(req, res)=>{
+export const updateChangeOfCourseInstitutionOrder = asyncHandler(async(req, res)=>{
     const { orderItems} = req.body
     
     if(!orderItems){

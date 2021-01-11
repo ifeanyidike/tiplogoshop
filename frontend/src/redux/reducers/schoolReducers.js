@@ -59,7 +59,7 @@ import {
   }
   
   
-  export const schoolByProgrammeReducer = (state = { school: {} }, action) => {
+  export const schoolByProgrammeReducer = (state = { schools: [] }, action) => {
     switch (action.type) {
       case SCHOOL_BY_PROGRAMME_REQUEST:
         return { 
@@ -69,7 +69,7 @@ import {
       case SCHOOL_BY_PROGRAMME_SUCCESS:
         return { 
                 loading: false, 
-                school: action.payload 
+                schools: action.payload 
             }
       case SCHOOL_BY_PROGRAMME_FAIL:
         return { 

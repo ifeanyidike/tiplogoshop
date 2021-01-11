@@ -18,7 +18,7 @@ export const getAllSchools = asyncHandler(async (req, res)=>{
 export const getSchoolsByProgramme = asyncHandler(async (req, res)=>{
     const programme = req.params.programme    
     const schools = await School.find({programme: programme})
-    res.json({schools: schools})
+    res.send(schools)
 })
 
 // @desc    Fetch schools by Id
@@ -26,8 +26,8 @@ export const getSchoolsByProgramme = asyncHandler(async (req, res)=>{
 // @access  Public
 
 export const getSchoolsById = asyncHandler(async (req, res)=>{    
-    const schools = await School.findById(req.params.id)
-    res.json({schools})
+    const school = await School.findById(req.params.id)
+    res.send(school)
 })
 
 

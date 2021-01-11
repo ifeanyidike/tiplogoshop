@@ -18,7 +18,7 @@ export const getAllServices = asyncHandler(async (req, res)=>{
 export const getServicesByName = asyncHandler(async (req, res)=>{
     const name = req.params.name    
     const service = await Service.find({name: name})
-    res.json({service: service})
+    res.send(service[0])
 })
 
 // @desc    Fetch services by Id

@@ -1,63 +1,60 @@
 import{ 
-    COCI_CREATE_FAIL,
-    COCI_CREATE_REQUEST, 
-    COCI_CREATE_SUCCESS, 
-    COCI_CREATE_RESET,
-    COCI_DETAILS_FAIL, 
-    COCI_DETAILS_REQUEST,
-    COCI_DETAILS_SUCCESS,
-    COCI_LIST_MY_REQUEST,
-    COCI_LIST_MY_SUCCESS,
-    COCI_LIST_MY_FAIL,    
-    COCI_LIST_REQUEST,
-    COCI_LIST_SUCCESS,
-    COCI_LIST_FAIL,
-    COCI_UPDATE_REQUEST,
-    COCI_UPDATE_SUCCESS,
-    COCI_UPDATE_FAIL,
-} from "../constants/changeOfCourseConstants"
+    JAMB_PASSWORD_RESET_CREATE_FAIL,
+    JAMB_PASSWORD_RESET_CREATE_REQUEST, 
+    JAMB_PASSWORD_RESET_CREATE_SUCCESS, 
+    JAMB_PASSWORD_RESET_DETAILS_FAIL, 
+    JAMB_PASSWORD_RESET_DETAILS_REQUEST,
+    JAMB_PASSWORD_RESET_DETAILS_SUCCESS,
+    JAMB_PASSWORD_RESET_LIST_MY_REQUEST,
+    JAMB_PASSWORD_RESET_LIST_MY_SUCCESS,
+    JAMB_PASSWORD_RESET_LIST_MY_FAIL,    
+    JAMB_PASSWORD_RESET_LIST_REQUEST,
+    JAMB_PASSWORD_RESET_LIST_SUCCESS,
+    JAMB_PASSWORD_RESET_LIST_FAIL,
+    JAMB_PASSWORD_RESET_UPDATE_REQUEST,
+    JAMB_PASSWORD_RESET_UPDATE_SUCCESS,
+    JAMB_PASSWORD_RESET_UPDATE_FAIL,
+} from "../constants/jambPasswordResetConstants"
 
-export const changeOfCourseOrderCreateReducer = (state = {}, action) =>{
+export const jambPasswordResetOrderCreateReducer = (state = {}, action) =>{
     switch(action.type){
-        case COCI_CREATE_REQUEST:
+        case JAMB_PASSWORD_RESET_CREATE_REQUEST:
             return {
                 loading: true
             }
-        case COCI_CREATE_SUCCESS:
+        case JAMB_PASSWORD_RESET_CREATE_SUCCESS:
             return {
                 loading: false,
                 success: true,
                 order: action.payload
             }
-        case COCI_CREATE_FAIL:
+        case JAMB_PASSWORD_RESET_CREATE_FAIL:
             return{
                 loading: false,
                 error: action.payload
-            } 
-        case COCI_CREATE_RESET:
-            return{}        
+            }        
         default:
             return state
     }
 }
 
-export const changeOfCourseOrderDetailsReducer = (
+export const jambPasswordResetOrderDetailsReducer = (
     state = { loading: true, orderItems: [] }, action
 ) => {
     switch (action.type){
-        case COCI_DETAILS_REQUEST:
+        case JAMB_PASSWORD_RESET_DETAILS_REQUEST:
             return{
                 ...state,
                 loading: true                
             }
         
-        case COCI_DETAILS_SUCCESS:
+        case JAMB_PASSWORD_RESET_DETAILS_SUCCESS:
             return{
                 loading: false,
                 order: action.payload
             }
         
-        case COCI_DETAILS_FAIL:
+        case JAMB_PASSWORD_RESET_DETAILS_FAIL:
             return{
              loading: false,
              error: action.payload   
@@ -67,21 +64,21 @@ export const changeOfCourseOrderDetailsReducer = (
     }
 }
 
-export const changeOfCourseOrderUpdateReducer = (state = {}, action) =>{
+export const jambPasswordResetOrderUpdateReducer = (state = {}, action) =>{
     switch(action.type){
-        case COCI_UPDATE_REQUEST:
+        case JAMB_PASSWORD_RESET_UPDATE_REQUEST:
             return {
                 loading: true
             }
         
-        case COCI_UPDATE_SUCCESS:
+        case JAMB_PASSWORD_RESET_UPDATE_SUCCESS:
             return {
                 loading: false,
                 order: action.payload,
                 success: true
             }
             
-        case COCI_UPDATE_FAIL:
+        case JAMB_PASSWORD_RESET_UPDATE_FAIL:
             return {
                 loading: false,
                 error: action.payload
@@ -93,20 +90,20 @@ export const changeOfCourseOrderUpdateReducer = (state = {}, action) =>{
 }
 
 
-export const changeOfCourseOrderListMyReducer = (state = { orders: [] }, action) =>{
+export const jambPasswordResetOrderListMyReducer = (state = { orders: [] }, action) =>{
     switch(action.type){
-        case COCI_LIST_MY_REQUEST:
+        case JAMB_PASSWORD_RESET_LIST_MY_REQUEST:
             return {
                 loading: true
             }
         
-        case COCI_LIST_MY_SUCCESS:
+        case JAMB_PASSWORD_RESET_LIST_MY_SUCCESS:
             return {
                 loading: false,
                 success: action.payload
             }
         
-        case COCI_LIST_MY_FAIL:
+        case JAMB_PASSWORD_RESET_LIST_MY_FAIL:
             return{
                 loading: false,
                 error: action.payload
@@ -117,19 +114,19 @@ export const changeOfCourseOrderListMyReducer = (state = { orders: [] }, action)
     }
 }
 
-export const changeOfCourseOrderListReducer = (state = { orders: [] }, action) =>{
+export const jambPasswordResetOrderListReducer = (state = { orders: [] }, action) =>{
     switch(action.type){
-        case COCI_LIST_REQUEST:
+        case JAMB_PASSWORD_RESET_LIST_REQUEST:
             return {
                 loading: true                
             }
-        case COCI_LIST_SUCCESS:
+        case JAMB_PASSWORD_RESET_LIST_SUCCESS:
             return {
                 loading: false,
                 orders: action.payload
             }
             
-        case COCI_LIST_FAIL:
+        case JAMB_PASSWORD_RESET_LIST_FAIL:
             return{
                 loading: false,
                 error: action.payload

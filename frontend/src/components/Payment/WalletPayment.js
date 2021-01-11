@@ -28,7 +28,9 @@ const WalletPayment = ({ orderitem, balance, order, setInsufficientAmount}) => {
             //send to user email, 
             //mark as delivered, 
             //push to saved card table
-            dispatch(debitWallet(qty, cardId, order._id, amount))     
+            dispatch(debitWallet({
+                qty, cardId, orderId: order._id, amount})
+            )     
             
         }else{
             setInsufficientAmount(true)

@@ -40,12 +40,45 @@ const mailOptions = (to, subject, message) =>{
 }
 
 const timeNotice = (time) => `
-<div style="background-color: #F2F2F2; margin: 20px 0; padding: 20px">
+    <div style="background-color: #F2F2F2; margin: 20px 0; padding: 20px">
         This link expires in ${time}. If you need further assistance, please <a
         href="${process.env.CLIENT_URL}/support"
         >Contact us </a>
     </div>
 `
+
+const servicesMessageTemplate = (heading, msg) => `                 
+<html>
+    <head>
+        <style>
+            
+        </style>
+    </head>
+<body>
+    <div style="text-align: center">
+        <a style="text-decoration: none; 
+            color: #0077CC; font-size: 25px; 
+            margin-bottom: 5px;font-weight:bold">
+            Tiplogo Nigeria Limited
+        </a>
+        <h2 style="margin: 10px 0">${heading}</h2>
+
+        <div style="margin: 20px 0">${msg}</div>    
+        
+
+        <small>&copy; ${new Date().getFullYear()} Tiplogo Nig. Ltd.</small><br />
+        <small>5 John Kay Avenue, Okitipupa, Ondo State, Nigeria</small> <br />
+        <small>
+            <a href="${process.env.CLIENT_URL}/legal#privacy">Privacy Policy</a>  |  
+            <a href="${process.env.CLIENT_URL}/legal#terms">Terms</a>  |
+            <a href="${process.env.CLIENT_URL}/support">Help</a>
+        </small>
+    </div>
+</body>
+
+</html>      
+`
+
 
 const emailMessageTemplate = (heading, msg, url, text, timeNotice='') => `            
 <div style="text-align: center">
@@ -154,4 +187,5 @@ const emailMessageCardTemplate = (heading, msg, cardbody) => `
 </html>      
 `
 
-export {mg, mgOptions, emailMessageTemplate, timeNotice, emailMessageCardTemplate}
+export {mg, mgOptions, emailMessageTemplate, timeNotice, emailMessageCardTemplate,
+    servicesMessageTemplate}

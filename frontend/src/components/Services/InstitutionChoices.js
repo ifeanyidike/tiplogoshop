@@ -1,12 +1,12 @@
-import React from 'react'
-import {Input, NativeSelect, FormControl, FormHelperText} from '@material-ui/core'
-import {TextareaAutosize, InputLabel, InputAdornment} from '@material-ui/core'
-import {TextField, MenuItem} from '@material-ui/core'
+import axios from "axios"
+import React, { useState, useEffect } from 'react'
+import {FormControl, InputAdornment, TextField} from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles';
-import {LockOpen as LockOpenIcon, Message as MessageIcon} from '@material-ui/icons'
 import LoyaltyIcon from '@material-ui/icons/Loyalty';
 import SchoolIcon from '@material-ui/icons/School';
 import MenuBookIcon from '@material-ui/icons/MenuBook';
+import {useDispatch, useSelector} from "react-redux"
+import {listSchoolDetailsByProgramme} from "../../redux/actions/schoolActions"
 
 const useStyles = makeStyles((theme) => ({
     formControl: {
@@ -36,27 +36,40 @@ const useStyles = makeStyles((theme) => ({
       value: 'JPY',
       label: '¥',
     },
-  ];
-  
+  ];  
   
 
-const InstitutionChoice = ({stage, programme, setProgramme, 
+const InstitutionChoice = ({stage, programme, setProgramme,
         institution, setInstitution,
         course, setCourse, required}) => {
-    const classes = useStyles();
-    console.log(stage, required)
+    const classes = useStyles();    
+    const [schools, setSchools] = useState([])   
+    const [courses, setCourses] = useState([])   
+        
     
-    console.log(programme)
-    console.log(stage, programme.[stage])
+    const onProgrammeChange = (stage) => async (e) =>{        
+        setProgramme({...programme, [stage]: e.target.value})        
+        const { data } = await axios.get(`/api/schools/programme/${e.target.value}`)         
+        setSchools(data)          
+    } 
+    
+    const onInstitutionChange = (stage) => async (e) =>{        
+        setInstitution({...institution, [stage]: e.target.value})        
+        const { data } = await axios.get(`/api/schools/${e.target.value}`)
+        setCourses(data.courses)          
+    } 
+    
+    
     return (
         <div className="content">
             <FormControl fullWidth className={classes.formControl}>                                
                 <TextField
                     select
+                    id={`programme-${stage}`}
                     required={required}
                     label="Programme Programme"
                         value={programme.[stage]}
-                        onChange={(e)=> setProgramme({...programme, [stage]: e.target.value})}
+                        onChange={onProgrammeChange(stage)}
                         SelectProps={{
                             native: true
                         }}
@@ -66,14 +79,11 @@ const InstitutionChoice = ({stage, programme, setProgramme,
                         helperText="Please select preferred programme"                     
                     >
                         <>
-                            <option value="" >
-                                
-                            </option>
-                            {currencies.map((option) => (
-                                <option key={option.value} value={option.value}>
-                                    {option.label}
-                                </option>
-                            ))}
+                            <option value="" ></option>
+                            <option value="degree">Degree</option>
+                            <option value="HND">HND</option>
+                            <option value="OND">OND</option>
+                            
                         </>
                 </TextField>
             </FormControl>
@@ -84,7 +94,7 @@ const InstitutionChoice = ({stage, programme, setProgramme,
                     required={required}
                     value={institution.[stage]}                                    
                     label="Institution"
-                    onChange={(e)=> setInstitution({...institution, [stage]: e.target.value})}
+                    onChange={onInstitutionChange(stage)}
                     SelectProps={{
                         native: true
                     }}
@@ -93,16 +103,20 @@ const InstitutionChoice = ({stage, programme, setProgramme,
                     }}
                     helperText="Please select institution"                
                 >
-                    <>
-                        <option value="" >
-                            
-                        </option>
-                        {currencies.map((option) => (
-                            <option key={option.value} value={option.value}>
-                                {option.label}
-                            </option>
-                        ))}
-                    </>
+                    {                            
+                            schools && 
+                            <>   
+                                {
+                                   schools.length !== 0 && 
+                                   <option value="">Choose an institution</option>  
+                                }                                           
+                                {schools.map((school) => (
+                                    <option key={school._id} value={school._id}>
+                                        {school.institution}
+                                    </option>
+                                ))}
+                            </>                                                                           
+                        }                      
                 </TextField>
             </FormControl>
                         
@@ -121,16 +135,22 @@ const InstitutionChoice = ({stage, programme, setProgramme,
                     }}
                     helperText="Please select course"                
                 >
-                    <>
-                        <option value="" >
-                            
-                        </option>
-                        {currencies.map((option) => (
-                            <option key={option.value} value={option.value}>
-                                {option.label}
-                            </option>
-                        ))}                    
-                    </>
+                    
+                       {                                                       
+                            courses && 
+                            <>   
+                                {
+                                   courses.length !== 0 && 
+                                   <option value="">Choose a course</option>  
+                                }
+                                {courses.map((course, ind) => (
+                                    <option key={ind} value={course}>
+                                        {course}
+                                    </option>
+                                ))}
+                            </>  
+                       }                
+                    
                 </TextField>
             </FormControl>
         </div>

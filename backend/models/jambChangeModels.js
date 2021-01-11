@@ -31,7 +31,7 @@ const orderSchema = mongoose.Schema({
             },
             choices:[
               {
-                  preferredProgram: {
+                  preferredProgramme: {
                     type:String,
                     required: true
                   },

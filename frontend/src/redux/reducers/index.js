@@ -58,7 +58,23 @@ import {
     changeOfCourseOrderUpdateReducer,        
     changeOfCourseOrderListMyReducer,
     changeOfCourseOrderListReducer
-} from "./changeOfCourseOrderReducers"
+} from "./changeOfCourseReducers"
+
+import {
+    oLevelUploadOrderCreateReducer,
+    oLevelUploadOrderDetailsReducer,
+    oLevelUploadOrderUpdateReducer,        
+    oLevelUploadOrderListMyReducer,
+    oLevelUploadOrderListReducer
+} from "./oLevelResultUploadReducers"
+
+import {
+    jambPasswordResetOrderCreateReducer,
+    jambPasswordResetOrderDetailsReducer,
+    jambPasswordResetOrderUpdateReducer,        
+    jambPasswordResetOrderListMyReducer,
+    jambPasswordResetOrderListReducer
+} from "./jambPasswordResetReducers"
 
 const reducer = combineReducers({
     cardList: cardListReducer,
@@ -109,7 +125,19 @@ const reducer = combineReducers({
     changeOfCourseOrderDetails: changeOfCourseOrderDetailsReducer,
     changeOfCourseOrderUpdate: changeOfCourseOrderUpdateReducer,        
     changeOfCourseOrderListMy: changeOfCourseOrderListMyReducer,
-    changeOfCourseOrderList: changeOfCourseOrderListReducer
+    changeOfCourseOrderList: changeOfCourseOrderListReducer,        
+    
+    oLevelUploadOrderCreate: oLevelUploadOrderCreateReducer,
+    oLevelUploadOrderDetails: oLevelUploadOrderDetailsReducer,
+    oLevelUploadOrderUpdate: oLevelUploadOrderUpdateReducer,        
+    oLevelUploadOrderListMy: oLevelUploadOrderListMyReducer,
+    oLevelUploadOrderList: oLevelUploadOrderListReducer,
+    
+    jambPasswordResetOrderCreate: jambPasswordResetOrderCreateReducer,
+    jambPasswordResetOrderDetails: jambPasswordResetOrderDetailsReducer,
+    jambPasswordResetOrderUpdate: jambPasswordResetOrderUpdateReducer,        
+    jambPasswordResetOrderListMy: jambPasswordResetOrderListMyReducer,
+    jambPasswordResetOrderList: jambPasswordResetOrderListReducer
 })
 
 export default reducer

@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import React, {useState, useEffect} from 'react'
 import {ButtonSingle, NextButton} from "../../styles/ServiceStyle"
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
@@ -9,8 +9,11 @@ import {Person as PersonIcon, TrendingFlat as TrendingFlatIcon} from '@material-
 import {ExitToApp as ExitToAppIcon, Code as CodeIcon} from '@material-ui/icons'
 import {LockOpen as LockOpenIcon, Message as MessageIcon} from '@material-ui/icons'
 import NavigateNextIcon from '@material-ui/icons/NavigateNext';
-import InstitutionChoices from "./InstitutionChoice"
+import InstitutionChoices from "./InstitutionChoices"
 import CurrencyFormat from 'react-currency-format';
+import {useDispatch, useSelector} from "react-redux"
+import {listServiceByName} from "../../redux/actions/serviceActions"
+import {listSchoolDetailsByProgramme} from "../../redux/actions/schoolActions"
 
 
 const useStyles = makeStyles((theme) => ({
@@ -51,6 +54,17 @@ const classes = useStyles();
 const [toggleType, setToggleType] = useState(type === 'UTME' ? true : type === 'DE' ? false : true)
 const [OTPStatus, setOTPStatus] = useState(false)
 
+const dispatch = useDispatch()
+    
+useEffect(()=>{
+    const name = 'jamb change of course and institution'
+            
+    dispatch(listServiceByName(name))
+}, [dispatch])
+    
+const {service} = useSelector(state => state.serviceByName)
+
+
 const handleTypeChange = (e) =>{
     const val = e.target.value
     setType(val)   
@@ -72,7 +86,7 @@ const onSubmit = e => {
             <div>
                 <i className="fas fa-tags"></i>
                 <CurrencyFormat 
-                    value={2456981} 
+                    value={service && service.cost} 
                     displayType={'text'} 
                     thousandSeparator={true} 
                     prefix={'₦'} 
@@ -160,52 +174,52 @@ const onSubmit = e => {
                         <h3>1st Choice</h3>
                         <InstitutionChoices
                             programme = {programme}
-                            setProgramme = {setProgramme}
+                            setProgramme = {setProgramme}                            
                             institution = {institution}
                             setInstitution={setInstitution}
                             course = {course}
-                            setCourse={setCourse}
+                            setCourse={setCourse}                            
                             stage="first"
-                            required={true}                            
+                            required={true}                                     
                         />
                     </div>
                     <div className="choiceitem">
                         <h3>2st Choice</h3>
                         <InstitutionChoices
                             programme = {programme}
-                            setProgramme = {setProgramme}
+                            setProgramme = {setProgramme}                            
                             institution = {institution}
-                            setInstitution={setInstitution}
+                            setInstitution={setInstitution}                            
                             course = {course}
                             setCourse={setCourse}
                             stage="second"
-                            required={true}
+                            required={true}                            
                         />
                     </div>
                     <div className="choiceitem" style={{display: toggleType ? 'block' : 'none'}}>
                         <h3>3rd Choice</h3>
                         <InstitutionChoices
                             programme = {programme}
-                            setProgramme = {setProgramme}
+                            setProgramme = {setProgramme}                            
                             institution = {institution}
-                            setInstitution={setInstitution}
+                            setInstitution={setInstitution}                            
                             course = {course}
                             setCourse={setCourse}
                             stage="third"
-                            required={toggleType}
+                            required={toggleType}                            
                         />
                     </div>
                     <div className="choiceitem" style={{display: toggleType ? 'block' : 'none'}}>
                         <h3>4th Choice</h3>
                         <InstitutionChoices
                             programme = {programme}
-                            setProgramme = {setProgramme}
+                            setProgramme = {setProgramme}                            
                             institution = {institution}
-                            setInstitution={setInstitution}
+                            setInstitution={setInstitution}                            
                             course = {course}
                             setCourse={setCourse}
                             stage="fourth"
-                            required={toggleType}
+                            required={toggleType}                            
                         />
                     </div>                    
             </div>                

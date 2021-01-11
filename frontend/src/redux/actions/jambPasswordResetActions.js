@@ -1,28 +1,26 @@
 import axios from "axios"
 import{ 
-    OLEVEL_UPLOAD_CREATE_FAIL,
-    OLEVEL_UPLOAD_CREATE_REQUEST, 
-    OLEVEL_UPLOAD_CREATE_SUCCESS, 
-    OLEVEL_UPLOAD_DETAILS_FAIL, 
-    OLEVEL_UPLOAD_DETAILS_REQUEST,
-    OLEVEL_UPLOAD_DETAILS_SUCCESS,
-    OLEVEL_UPLOAD_LIST_MY_REQUEST,
-    OLEVEL_UPLOAD_LIST_MY_SUCCESS,
-    OLEVEL_UPLOAD_LIST_MY_FAIL,    
-    OLEVEL_UPLOAD_LIST_REQUEST,
-    OLEVEL_UPLOAD_LIST_SUCCESS,
-    OLEVEL_UPLOAD_LIST_FAIL,
-    OLEVEL_UPLOAD_UPDATE_REQUEST,
-    OLEVEL_UPLOAD_UPDATE_SUCCESS,
-    OLEVEL_UPLOAD_UPDATE_FAIL,
-} from "../constants/oLevelResultUploadConstants"
+    JAMB_PASSWORD_RESET_CREATE_FAIL,
+    JAMB_PASSWORD_RESET_CREATE_REQUEST, 
+    JAMB_PASSWORD_RESET_CREATE_SUCCESS, 
+    JAMB_PASSWORD_RESET_DETAILS_FAIL, 
+    JAMB_PASSWORD_RESET_DETAILS_REQUEST,
+    JAMB_PASSWORD_RESET_DETAILS_SUCCESS,
+    JAMB_PASSWORD_RESET_LIST_MY_REQUEST,
+    JAMB_PASSWORD_RESET_LIST_MY_SUCCESS,
+    JAMB_PASSWORD_RESET_LIST_MY_FAIL,    
+    JAMB_PASSWORD_RESET_LIST_REQUEST,
+    JAMB_PASSWORD_RESET_LIST_SUCCESS,
+    JAMB_PASSWORD_RESET_LIST_FAIL,
+    JAMB_PASSWORD_RESET_UPDATE_REQUEST,
+    JAMB_PASSWORD_RESET_UPDATE_SUCCESS,
+    JAMB_PASSWORD_RESET_UPDATE_FAIL,
+} from "../constants/jambPasswordResetConstants"
 
-export const createOlevelUploadOrder = (
-    formData, orderItems, amount, paymentMethod, paymentResult) => 
-    async(dispatch, getState) =>{
+export const createJambPasswordResetOrder = (order) => async(dispatch, getState) =>{
     try {
         dispatch({
-            type: OLEVEL_UPLOAD_CREATE_REQUEST 
+            type: JAMB_PASSWORD_RESET_CREATE_REQUEST 
         })
         
         const {
@@ -31,25 +29,20 @@ export const createOlevelUploadOrder = (
         
         const config = {
             headers: {
-                'Content-Type': 'multipart/form-data',
+                'Content-Type': 'application/json',
                 Authorization: `Bearer ${userInfo.token}`
             }            
         }
         
-        formData.append('orderItems', orderItems)
-        formData.append('price', amount)
-        formData.append('paymentMethod', paymentMethod)
-        formData.append('paymentResult', paymentResult)
-        
-        const {data} = await axios.post('/api/olevelresultupload', formData, config)
+        const {data} = await axios.post('/api/jambpasswordreset', order, config)
         
         dispatch({
-            type: OLEVEL_UPLOAD_CREATE_SUCCESS,
+            type: JAMB_PASSWORD_RESET_CREATE_SUCCESS,
             payload: data
         })
     } catch (error) {
         dispatch({
-            type: OLEVEL_UPLOAD_CREATE_FAIL,
+            type: JAMB_PASSWORD_RESET_CREATE_FAIL,
             payload: error.response && error.response.data.message
                         ? error.response.data.message
                         : error.message
@@ -57,10 +50,10 @@ export const createOlevelUploadOrder = (
     }
 }
 
-export const getOlevelUploadOrderDetailsById = (id) => async(dispatch, getState) =>{
+export const getJambPasswordResetOrderDetailsById = (id) => async(dispatch, getState) =>{
     try {
         dispatch({
-            type: OLEVEL_UPLOAD_DETAILS_REQUEST
+            type: JAMB_PASSWORD_RESET_DETAILS_REQUEST
         })
         
         const { userLogin: { userInfo }} = getState()        
@@ -71,16 +64,16 @@ export const getOlevelUploadOrderDetailsById = (id) => async(dispatch, getState)
             }
         }
         
-        const {data} = await axios.get(`/api/olevelresultupload/${id}`, config)
+        const {data} = await axios.get(`/api/jambpasswordreset/${id}`, config)
         
         dispatch({
-            type: OLEVEL_UPLOAD_DETAILS_SUCCESS,
+            type: JAMB_PASSWORD_RESET_DETAILS_SUCCESS,
             payload: data
         })
         
     } catch (error) {
         dispatch({
-            type: OLEVEL_UPLOAD_DETAILS_FAIL,
+            type: JAMB_PASSWORD_RESET_DETAILS_FAIL,
             payload: error.response && error.response.data.message
                         ? error.response.data.message
                         : error.message
@@ -89,10 +82,10 @@ export const getOlevelUploadOrderDetailsById = (id) => async(dispatch, getState)
     }
 }
 
-export const listMyOlevelUploadOrders = () => async(dispatch, getState) =>{
+export const listMyJambPasswordResetOrders = () => async(dispatch, getState) =>{
     try {
         dispatch({
-            type: OLEVEL_UPLOAD_LIST_MY_REQUEST
+            type: JAMB_PASSWORD_RESET_LIST_MY_REQUEST
         })
         
         const {userLogin: {userInfo}} = getState()
@@ -103,16 +96,16 @@ export const listMyOlevelUploadOrders = () => async(dispatch, getState) =>{
             }
         }
         
-        const { data } = await axios.get('/api/olevelresultupload/myorders', config)
+        const { data } = await axios.get('/api/jambpasswordreset/myorders', config)
         
         dispatch({
-            type: OLEVEL_UPLOAD_LIST_MY_SUCCESS,
+            type: JAMB_PASSWORD_RESET_LIST_MY_SUCCESS,
             payload: data
         })
         
     } catch (error) {
         dispatch({
-            type: OLEVEL_UPLOAD_LIST_MY_FAIL,
+            type: JAMB_PASSWORD_RESET_LIST_MY_FAIL,
             payload: error.response && error.response.data.message
                         ? error.response.data.message
                         : error.message
@@ -120,10 +113,10 @@ export const listMyOlevelUploadOrders = () => async(dispatch, getState) =>{
     }
 }
 
-export const updateOlevelUploadOrder = (orderId, order) => async(dispatch, getState) =>{
+export const updateJambPasswordResetOrder = (orderId, order) => async(dispatch, getState) =>{
     try {
         dispatch({
-            type: OLEVEL_UPLOAD_UPDATE_REQUEST
+            type: JAMB_PASSWORD_RESET_UPDATE_REQUEST
         })
         
         const {userLogin : {userInfo}} = getState()
@@ -135,17 +128,17 @@ export const updateOlevelUploadOrder = (orderId, order) => async(dispatch, getSt
             }
         }
         
-        const {data} = await axios.put(`/api/olevelresultupload/${orderId}/`, 
+        const {data} = await axios.put(`/api/jambpasswordreset/${orderId}/`, 
                             order, config)
         
         dispatch({
-            type: OLEVEL_UPLOAD_UPDATE_SUCCESS,
+            type: JAMB_PASSWORD_RESET_UPDATE_SUCCESS,
             payload: data
         })
         
     } catch (error) {
         dispatch({
-            type: OLEVEL_UPLOAD_UPDATE_FAIL,
+            type: JAMB_PASSWORD_RESET_UPDATE_FAIL,
             payload: error.response && error.response.data.message
                         ? error.response.data.message
                         : error.message
@@ -154,10 +147,10 @@ export const updateOlevelUploadOrder = (orderId, order) => async(dispatch, getSt
 }
 
 
-export const listOlevelUploadOrders = () => async(dispatch, getState) =>{
+export const listJambPasswordResetOrders = () => async(dispatch, getState) =>{
     try {
         dispatch({
-            type: OLEVEL_UPLOAD_LIST_REQUEST
+            type: JAMB_PASSWORD_RESET_LIST_REQUEST
         })
         
         const { userLogin: {userInfo}} = getState()
@@ -169,15 +162,15 @@ export const listOlevelUploadOrders = () => async(dispatch, getState) =>{
             }
         }
         
-        const {data} = await axios.get(`/api/olevelresultupload`, config)
+        const {data} = await axios.get(`/api/jambpasswordreset`, config)
         
         dispatch({
-            type: OLEVEL_UPLOAD_LIST_SUCCESS,
+            type: JAMB_PASSWORD_RESET_LIST_SUCCESS,
             payload: data
         })
     } catch (error) {
         dispatch({
-            type: OLEVEL_UPLOAD_LIST_FAIL,
+            type: JAMB_PASSWORD_RESET_LIST_FAIL,
             payload: error.response && error.response.data.message
                         ? error.response.data.message
                         : error.message

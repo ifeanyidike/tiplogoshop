@@ -15,6 +15,7 @@ import{
     COCI_UPDATE_REQUEST,
     COCI_UPDATE_SUCCESS,
     COCI_UPDATE_FAIL,
+    COCI_CREATE_RESET,
 } from "../constants/changeOfCourseConstants"
 
 export const createChangeOfCourseOrder = (order) => async(dispatch, getState) =>{
@@ -40,6 +41,8 @@ export const createChangeOfCourseOrder = (order) => async(dispatch, getState) =>
             type: COCI_CREATE_SUCCESS,
             payload: data
         })
+        
+        
     } catch (error) {
         dispatch({
             type: COCI_CREATE_FAIL,
