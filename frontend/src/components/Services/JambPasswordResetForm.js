@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import React, {useState, useEffect} from 'react'
 import {ButtonSingle, NextButton} from "../../styles/ServiceStyle"
 import {colors} from "../../styles/breakpoints"
 import { makeStyles } from '@material-ui/core/styles';
@@ -18,6 +18,8 @@ import {
   DatePicker 
 } from '@material-ui/pickers';
 import MessageModal from "../Utils/MessageModal"
+import { listServiceByName } from '../../redux/actions/serviceActions';
+import {useDispatch, useSelector} from "react-redux"
 
 const useStyles = makeStyles((theme) => ({
     formControl: {
@@ -49,11 +51,18 @@ const [confirmPassword, setConfirmPassword] = useState("")
 const [showPassword, setShowPassword] = useState(false)
 const [showConfirmPassword, setShowConfirmPassword] = useState(false)
 const [passwordMismatch, setPasswordMismatch] = useState(false)
+const dispatch = useDispatch()
+
+useEffect(()=>{                
+    dispatch(listServiceByName('jamb password reset'))
+}, [dispatch])
 
 const handleMouseDownPassword = (event) => {
     event.preventDefault();
   };
-  
+
+const {service} = useSelector(state => state.serviceByName)
+
 const onSubmit = e => {
     e.preventDefault()
     if(password !== confirmPassword){
@@ -74,7 +83,7 @@ const handleDateChange = (date) =>{
             <div>
                 <i className="fas fa-tags"></i>
                 <CurrencyFormat 
-                    value={2456981} 
+                    value={service && service.cost} 
                     displayType={'text'} 
                     thousandSeparator={true} 
                     prefix={'₦'} 

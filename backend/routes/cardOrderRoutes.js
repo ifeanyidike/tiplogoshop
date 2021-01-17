@@ -8,7 +8,8 @@ import {
     updateCardOrderToPaid,
     updateCardOrderToDelivered,
     getMyCardOrders,
-    getCardOrders        
+    getCardOrders,
+    getMyNotPaidCardOrders
 } from "../controllers/cardOrderControllers.js"
 
 import { protect, admin } from "../middlewares/authMiddleware.js"
@@ -19,6 +20,8 @@ router.route("/").post(protect, addCardOrderItems)
 router.route('/myorders').get(protect, getMyCardOrders)
 
 router.route("/:id").get(protect, getCardOrderById)
+
+router.route("/:id/notpaid").get(protect, getMyNotPaidCardOrders)
 
 router.route("/:id/update").patch(protect, updateCardOrderWithoutPay)
 

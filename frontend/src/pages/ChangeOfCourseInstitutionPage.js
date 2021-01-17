@@ -12,6 +12,7 @@ import ServicePayment from '../components/Services/ServicePayment'
 import {debitWallet} from "../redux/actions/userActions.js"
 import {useDispatch, useSelector} from "react-redux"
 import { COCI_CREATE_RESET } from '../redux/constants/changeOfCourseConstants'
+import NotLoggedIn from "../components/Utils/NotLoggedIn"
 
 const useStyles = makeStyles((theme) => ({   
     stepper: {
@@ -33,6 +34,8 @@ const ChangeOfCourseInstitution = () => {
     const dispatch = useDispatch() 
     
     const {service} = useSelector(state => state.serviceByName)
+    const userLogin = useSelector(state => state.userLogin)
+    const {userInfo} = userLogin
     
     useEffect(()=>{
         dispatch({type: COCI_CREATE_RESET})
@@ -83,7 +86,12 @@ const ChangeOfCourseInstitution = () => {
     
     
     return (
-    <BaseRoot topText="Services">                                     
+    <BaseRoot topText="Services">   
+    {
+        !userInfo ?
+            <NotLoggedIn />
+        :
+                                  
         <ServiceTypeContainer>                           
             <ServicePanel  
                 variants={firstCardContainerVariants}                           
@@ -153,6 +161,7 @@ const ChangeOfCourseInstitution = () => {
                     
             </ServicePanel>
         </ServiceTypeContainer>                                        
+    }    
     </BaseRoot>
     )
 }

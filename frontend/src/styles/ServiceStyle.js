@@ -421,6 +421,15 @@ export const ServicePanel = styled(ServicesCard)`
     .filesection{
         margin-bottom: 50px;
     }
+    .paymentinfo{
+        display: grid;
+        place-items: center;
+        div{
+            margin: 0 auto;
+            
+        }
+        
+    }
 `
 export const ListFeatureElement = styled.div`
     margin: 20px 0;

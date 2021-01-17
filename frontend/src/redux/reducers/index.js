@@ -1,6 +1,8 @@
-import {combineReducers} from "redux"
-import { drawerToggleReducer } from "./elementReducers"
+import { combineReducers } from "redux"
+import { drawerToggleReducer } from "./utilReducers"
 import {
+    userListReducer,
+    usersListReducer,
     userLoginReducer,
     userRegisterReducer,
     accountActivateReducer,
@@ -11,10 +13,12 @@ import {
     userUpdateReducer,
     photoReducer,
     walletDebitReducer,
-    walletCreditReducer
- } from "./userReducers"
+    walletCreditReducer,
+    userMakeAdminReducer,
+    userDeleteReducer
+} from "./userReducers"
 
- import {
+import {
     cardListReducer,
     cardListFewReducer,
     cardDetailsReducer,
@@ -29,7 +33,7 @@ import {
     schoolDetailsReducer,
     schoolByProgrammeReducer,
     schoolCreateReducer,
-    schoolUpdateReducer    
+    schoolUpdateReducer
 } from "./schoolReducers"
 
 import {
@@ -37,10 +41,10 @@ import {
     serviceDetailsReducer,
     serviceByNameReducer,
     serviceCreateReducer,
-    serviceUpdateReducer    
+    serviceUpdateReducer
 } from "./serviceReducers"
 
-import { soldCardCreateReducer} from "./soldCardReducers"
+import { soldCardCreateReducer, cardMyReducer } from "./soldCardReducers"
 
 import {
     cardOrderCreateReducer,
@@ -49,13 +53,14 @@ import {
     cardOrderPayReducer,
     cardOrderDeliverReducer,
     cardOrderListMyReducer,
-    cardOrderListReducer
+    cardOrderListReducer,
+    cardMyOrderNotPaidListReducer
 } from "./cardOrderReducers"
 
 import {
     changeOfCourseOrderCreateReducer,
     changeOfCourseOrderDetailsReducer,
-    changeOfCourseOrderUpdateReducer,        
+    changeOfCourseOrderUpdateReducer,
     changeOfCourseOrderListMyReducer,
     changeOfCourseOrderListReducer
 } from "./changeOfCourseReducers"
@@ -63,7 +68,7 @@ import {
 import {
     oLevelUploadOrderCreateReducer,
     oLevelUploadOrderDetailsReducer,
-    oLevelUploadOrderUpdateReducer,        
+    oLevelUploadOrderUpdateReducer,
     oLevelUploadOrderListMyReducer,
     oLevelUploadOrderListReducer
 } from "./oLevelResultUploadReducers"
@@ -71,7 +76,7 @@ import {
 import {
     jambPasswordResetOrderCreateReducer,
     jambPasswordResetOrderDetailsReducer,
-    jambPasswordResetOrderUpdateReducer,        
+    jambPasswordResetOrderUpdateReducer,
     jambPasswordResetOrderListMyReducer,
     jambPasswordResetOrderListReducer
 } from "./jambPasswordResetReducers"
@@ -84,9 +89,10 @@ const reducer = combineReducers({
     cardCreate: cardCreateReducer,
     cardUpdate: cardUpdateReducer,
     cardItemsDeliver: cardItemsDeliverReducer,
-    
+
     soldCardCreate: soldCardCreateReducer,
-    
+    cardMy: cardMyReducer,
+
     cardOrderCreate: cardOrderCreateReducer,
     cardOrderDetails: cardOrderDetailsReducer,
     cardOrderUpdate: cardOrderUpdateReducer,
@@ -94,48 +100,53 @@ const reducer = combineReducers({
     cardOrderDeliver: cardOrderDeliverReducer,
     cardOrderListMy: cardOrderListMyReducer,
     cardOrderList: cardOrderListReducer,
-    
+    cardMyOrderNotPaidList: cardMyOrderNotPaidListReducer,
+
     drawerToggle: drawerToggleReducer,
-        
+
+    userMakeAdmin: userMakeAdminReducer,
+    userDelete: userDeleteReducer,
+    userList: userListReducer,
+    usersList: usersListReducer,
     userLogin: userLoginReducer,
-    userRegister: userRegisterReducer,    
+    userRegister: userRegisterReducer,
     accountActivate: accountActivateReducer,
     passwordForgot: passwordForgotReducer,
     passwordReset: passwordResetReducer,
-    emailResend:emailResendReducer,
+    emailResend: emailResendReducer,
     profilePhoto: profilePhotoReducer,
     userUpdate: userUpdateReducer,
     photo: photoReducer,
     walletDebit: walletDebitReducer,
     walletCredit: walletCreditReducer,
-    
+
     schoolList: schoolListReducer,
     schoolDetails: schoolDetailsReducer,
     schoolByProgramme: schoolByProgrammeReducer,
     schoolCreate: schoolCreateReducer,
     schoolUpdate: schoolUpdateReducer,
-    
+
     serviceList: serviceListReducer,
     serviceDetails: serviceDetailsReducer,
     serviceByName: serviceByNameReducer,
     serviceCreate: serviceCreateReducer,
     serviceUpdate: serviceUpdateReducer,
-    
+
     changeOfCourseOrderCreate: changeOfCourseOrderCreateReducer,
     changeOfCourseOrderDetails: changeOfCourseOrderDetailsReducer,
-    changeOfCourseOrderUpdate: changeOfCourseOrderUpdateReducer,        
+    changeOfCourseOrderUpdate: changeOfCourseOrderUpdateReducer,
     changeOfCourseOrderListMy: changeOfCourseOrderListMyReducer,
-    changeOfCourseOrderList: changeOfCourseOrderListReducer,        
-    
+    changeOfCourseOrderList: changeOfCourseOrderListReducer,
+
     oLevelUploadOrderCreate: oLevelUploadOrderCreateReducer,
     oLevelUploadOrderDetails: oLevelUploadOrderDetailsReducer,
-    oLevelUploadOrderUpdate: oLevelUploadOrderUpdateReducer,        
+    oLevelUploadOrderUpdate: oLevelUploadOrderUpdateReducer,
     oLevelUploadOrderListMy: oLevelUploadOrderListMyReducer,
     oLevelUploadOrderList: oLevelUploadOrderListReducer,
-    
+
     jambPasswordResetOrderCreate: jambPasswordResetOrderCreateReducer,
     jambPasswordResetOrderDetails: jambPasswordResetOrderDetailsReducer,
-    jambPasswordResetOrderUpdate: jambPasswordResetOrderUpdateReducer,        
+    jambPasswordResetOrderUpdate: jambPasswordResetOrderUpdateReducer,
     jambPasswordResetOrderListMy: jambPasswordResetOrderListMyReducer,
     jambPasswordResetOrderList: jambPasswordResetOrderListReducer
 })

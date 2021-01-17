@@ -6,19 +6,21 @@ import {
     updateJambPasswordResetOrder,
     getJambPasswordResetOrderById,
     getMyJambPasswordResetOrders,
-    getJambPasswordResetOrders,    
+    adminGetMyJambPasswordResetOrders,
+    getJambPasswordResetOrders,
     deleteJambPasswordResetOrder
 } from "../controllers/jambPasswordResetControllers.js"
 
 import { protect, admin } from "../middlewares/authMiddleware.js"
 
-router.route("/").post(protect, createJambPasswordResetOrder)    
+router.route("/").post(protect, createJambPasswordResetOrder)
     .get(protect, admin, getJambPasswordResetOrders)
 
 router.route('/myorders').get(protect, getMyJambPasswordResetOrders)
+router.route('/myorders/:userId').get(protect, adminGetMyJambPasswordResetOrders)
 
 router.route("/:id").get(protect, getJambPasswordResetOrderById)
-                    .delete(protect, admin, deleteJambPasswordResetOrder)
-                    .put(protect, updateJambPasswordResetOrder)
+    .delete(protect, admin, deleteJambPasswordResetOrder)
+    .put(protect, updateJambPasswordResetOrder)
 
 export default router

@@ -21,7 +21,7 @@ const OLevelResultUploadSchema = mongoose.Schema({
                 type: String,
                 required: true
             },
-            file:[
+            files:[
                 String
             ]                    
         },    

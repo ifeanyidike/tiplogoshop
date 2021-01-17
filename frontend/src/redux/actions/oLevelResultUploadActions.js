@@ -1,14 +1,14 @@
 import axios from "axios"
-import{ 
+import {
     OLEVEL_UPLOAD_CREATE_FAIL,
-    OLEVEL_UPLOAD_CREATE_REQUEST, 
-    OLEVEL_UPLOAD_CREATE_SUCCESS, 
-    OLEVEL_UPLOAD_DETAILS_FAIL, 
+    OLEVEL_UPLOAD_CREATE_REQUEST,
+    OLEVEL_UPLOAD_CREATE_SUCCESS,
+    OLEVEL_UPLOAD_DETAILS_FAIL,
     OLEVEL_UPLOAD_DETAILS_REQUEST,
     OLEVEL_UPLOAD_DETAILS_SUCCESS,
     OLEVEL_UPLOAD_LIST_MY_REQUEST,
     OLEVEL_UPLOAD_LIST_MY_SUCCESS,
-    OLEVEL_UPLOAD_LIST_MY_FAIL,    
+    OLEVEL_UPLOAD_LIST_MY_FAIL,
     OLEVEL_UPLOAD_LIST_REQUEST,
     OLEVEL_UPLOAD_LIST_SUCCESS,
     OLEVEL_UPLOAD_LIST_FAIL,
@@ -18,159 +18,175 @@ import{
 } from "../constants/oLevelResultUploadConstants"
 
 export const createOlevelUploadOrder = (
-    formData, orderItems, amount, paymentMethod, paymentResult) => 
-    async(dispatch, getState) =>{
-    try {
-        dispatch({
-            type: OLEVEL_UPLOAD_CREATE_REQUEST 
-        })
-        
-        const {
-            userLogin: { userInfo },
-          } = getState()                            
-        
-        const config = {
-            headers: {
-                'Content-Type': 'multipart/form-data',
-                Authorization: `Bearer ${userInfo.token}`
-            }            
-        }
-        
-        formData.append('orderItems', orderItems)
-        formData.append('price', amount)
-        formData.append('paymentMethod', paymentMethod)
-        formData.append('paymentResult', paymentResult)
-        
-        const {data} = await axios.post('/api/olevelresultupload', formData, config)
-        
-        dispatch({
-            type: OLEVEL_UPLOAD_CREATE_SUCCESS,
-            payload: data
-        })
-    } catch (error) {
-        dispatch({
-            type: OLEVEL_UPLOAD_CREATE_FAIL,
-            payload: error.response && error.response.data.message
-                        ? error.response.data.message
-                        : error.message
-        })
-    }
-}
+    files, orderItems, amount, paymentMethod, paymentResult) =>
+    async (dispatch, getState) => {
+        try {
+            dispatch({
+                type: OLEVEL_UPLOAD_CREATE_REQUEST
+            })
 
-export const getOlevelUploadOrderDetailsById = (id) => async(dispatch, getState) =>{
+            const {
+                userLogin: { userInfo },
+            } = getState()
+
+            const config = {
+                headers: {
+                    'Content-Type': 'multipart/form-data',
+                    Authorization: `Bearer ${userInfo.token}`
+                }
+            }
+            const formData = new FormData()
+
+            files.forEach(file => formData.append('document', file))
+            formData.append('type', orderItems.type)
+            formData.append('name', orderItems.name)
+            formData.append('profileCode', orderItems.profileCode)
+            formData.append('price', amount)
+            formData.append('paymentMethod', paymentMethod)
+            formData.append('paymentResultId', paymentResult.id)
+            formData.append('paymentResultStatus', paymentResult.status)
+            formData.append('paymentResultUpdateTime', paymentResult.update_time)
+            formData.append('paymentResultEmail', paymentResult.email)
+
+            const { data } = await axios.post('/api/olevelresultupload', formData, config)
+
+            dispatch({
+                type: OLEVEL_UPLOAD_CREATE_SUCCESS,
+                payload: data
+            })
+        } catch (error) {
+            dispatch({
+                type: OLEVEL_UPLOAD_CREATE_FAIL,
+                payload: error.response && error.response.data.message
+                    ? error.response.data.message
+                    : error.message
+            })
+        }
+    }
+
+export const getOlevelUploadOrderDetailsById = (id) => async (dispatch, getState) => {
     try {
         dispatch({
             type: OLEVEL_UPLOAD_DETAILS_REQUEST
         })
-        
-        const { userLogin: { userInfo }} = getState()        
-        
+
+        const { userLogin: { userInfo } } = getState()
+
         const config = {
-            headers: {                
+            headers: {
                 Authorization: `Bearer ${userInfo.token}`
             }
         }
-        
-        const {data} = await axios.get(`/api/olevelresultupload/${id}`, config)
-        
+
+        const { data } = await axios.get(`/api/olevelresultupload/${id}`, config)
+
         dispatch({
             type: OLEVEL_UPLOAD_DETAILS_SUCCESS,
             payload: data
         })
-        
+
     } catch (error) {
         dispatch({
             type: OLEVEL_UPLOAD_DETAILS_FAIL,
             payload: error.response && error.response.data.message
-                        ? error.response.data.message
-                        : error.message
+                ? error.response.data.message
+                : error.message
         })
-        
+
     }
 }
 
-export const listMyOlevelUploadOrders = () => async(dispatch, getState) =>{
+export const listMyOlevelUploadOrders = (userId) => async (dispatch, getState) => {
     try {
         dispatch({
             type: OLEVEL_UPLOAD_LIST_MY_REQUEST
         })
-        
-        const {userLogin: {userInfo}} = getState()
-        
+
+        const { userLogin: { userInfo } } = getState()
+
         const config = {
-            headers:{
+            headers: {
                 Authorization: `Bearer ${userInfo.token}`
             }
         }
-        
-        const { data } = await axios.get('/api/olevelresultupload/myorders', config)
-        
+
+        let result
+
+        if (userId) {
+            const { data } = await axios.get(`/api/olevelresultupload/myorders/${userId}`, config)
+            result = data
+        } else {
+            const { data } = await axios.get('/api/olevelresultupload/myorders', config)
+            result = data
+
+        }
+
         dispatch({
             type: OLEVEL_UPLOAD_LIST_MY_SUCCESS,
-            payload: data
+            payload: result
         })
-        
+
     } catch (error) {
         dispatch({
             type: OLEVEL_UPLOAD_LIST_MY_FAIL,
             payload: error.response && error.response.data.message
-                        ? error.response.data.message
-                        : error.message
+                ? error.response.data.message
+                : error.message
         })
     }
 }
 
-export const updateOlevelUploadOrder = (orderId, order) => async(dispatch, getState) =>{
+export const updateOlevelUploadOrder = (orderId, order) => async (dispatch, getState) => {
     try {
         dispatch({
             type: OLEVEL_UPLOAD_UPDATE_REQUEST
         })
-        
-        const {userLogin : {userInfo}} = getState()
-        
-        const config = {
-            headers:{
-                'Content-Type': 'application/json',
-                Authorization: `Bearer ${userInfo.token}`
-            }
-        }
-        
-        const {data} = await axios.put(`/api/olevelresultupload/${orderId}/`, 
-                            order, config)
-        
-        dispatch({
-            type: OLEVEL_UPLOAD_UPDATE_SUCCESS,
-            payload: data
-        })
-        
-    } catch (error) {
-        dispatch({
-            type: OLEVEL_UPLOAD_UPDATE_FAIL,
-            payload: error.response && error.response.data.message
-                        ? error.response.data.message
-                        : error.message
-        })
-    }
-}
 
+        const { userLogin: { userInfo } } = getState()
 
-export const listOlevelUploadOrders = () => async(dispatch, getState) =>{
-    try {
-        dispatch({
-            type: OLEVEL_UPLOAD_LIST_REQUEST
-        })
-        
-        const { userLogin: {userInfo}} = getState()
-        
         const config = {
             headers: {
                 'Content-Type': 'application/json',
                 Authorization: `Bearer ${userInfo.token}`
             }
         }
-        
-        const {data} = await axios.get(`/api/olevelresultupload`, config)
-        
+
+        const { data } = await axios.put(`/api/olevelresultupload/${orderId}/`,
+            order, config)
+
+        dispatch({
+            type: OLEVEL_UPLOAD_UPDATE_SUCCESS,
+            payload: data
+        })
+
+    } catch (error) {
+        dispatch({
+            type: OLEVEL_UPLOAD_UPDATE_FAIL,
+            payload: error.response && error.response.data.message
+                ? error.response.data.message
+                : error.message
+        })
+    }
+}
+
+
+export const listOlevelUploadOrders = () => async (dispatch, getState) => {
+    try {
+        dispatch({
+            type: OLEVEL_UPLOAD_LIST_REQUEST
+        })
+
+        const { userLogin: { userInfo } } = getState()
+
+        const config = {
+            headers: {
+                'Content-Type': 'application/json',
+                Authorization: `Bearer ${userInfo.token}`
+            }
+        }
+
+        const { data } = await axios.get(`/api/olevelresultupload`, config)
+
         dispatch({
             type: OLEVEL_UPLOAD_LIST_SUCCESS,
             payload: data
@@ -179,8 +195,8 @@ export const listOlevelUploadOrders = () => async(dispatch, getState) =>{
         dispatch({
             type: OLEVEL_UPLOAD_LIST_FAIL,
             payload: error.response && error.response.data.message
-                        ? error.response.data.message
-                        : error.message
+                ? error.response.data.message
+                : error.message
         })
     }
 }

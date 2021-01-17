@@ -4,15 +4,15 @@ const router = express.Router()
 import {
     getCards,
     getFewCards,
-    getCardById,    
+    getCardById,
     deleteCard,
     createCard,
-    updateCard,    
+    updateCard,
     addCardItem,
-    deliverCardItem,    
+    deliverCardItem,
 } from "../controllers/cardControllers.js"
 
-import {createSoldCard} from "../controllers/soldCardControllers.js"
+import { createSoldCard, getMySoldCards } from "../controllers/soldCardControllers.js"
 import { protect, admin } from "../middlewares/authMiddleware.js"
 
 router.route("/").get(getCards).post(protect, admin, createCard)
@@ -26,5 +26,5 @@ router.route("/:id/items")
 
 router.route("/sold/:cardId/:userId")
     .post(protect, createSoldCard)
-
+router.route('/sold/:userId').get(protect, getMySoldCards)
 export default router

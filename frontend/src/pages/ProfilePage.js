@@ -43,6 +43,7 @@ const handleFileChange = (e) =>{
         
     const file = e.target.files[0]
     const formData = new FormData()
+    console.log(file)
     formData.append('image', file)
     formData.append('id', userInfo._id)
     dispatch(setProfilePhoto(formData))

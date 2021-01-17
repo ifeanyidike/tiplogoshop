@@ -43,7 +43,9 @@ const OLevelUploadReview = ({
             </ListItem>
             <ListItem className={classes.listItem} key={dateOfBirth}>
                 <ListItemText primary="Candidate's Date of Birth" secondary="Date of birth registered in JAMB"  />
-                <Typography variant="body2">{dateOfBirth._d.toDateString()}</Typography>
+                <Typography variant="body2">
+                  {dateOfBirth._d ? dateOfBirth._d.toDateString() : dateOfBirth.toDateString()}
+                </Typography>
             </ListItem>                        
             
             <ListItem className={classes.listItem} key={password}>

@@ -8,11 +8,15 @@ const orderSchema = mongoose.Schema({
     },
     orderItems:[
         {
+            name: {
+                type: String,
+                required: true
+            },
             email: {
                 type: String,
                 required: true
             },
-            dateofBirth: {
+            dateOfBirth: {
                 type: Date,
                 required: true
             },
@@ -20,12 +24,13 @@ const orderSchema = mongoose.Schema({
                 type:String,
                 required: true
             },
-            price: {
-                type:Number,
-                required: true
-            },                  
+            
         },
     ],    
+    price: {
+        type:Number,
+        required: true
+    },                  
     paymentMethod:{
         type: String,
         required: true

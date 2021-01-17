@@ -30,225 +30,323 @@ import {
     WALLET_DEBIT_FAIL,
     WALLET_CREDIT_REQUEST,
     WALLET_CREDIT_SUCCESS,
-    WALLET_CREDIT_FAIL,    
+    WALLET_CREDIT_FAIL,
+    USER_LIST_REQUEST,
+    USER_LIST_SUCCESS,
+    USER_LIST_FAIL,
+    USERS_LIST_FAIL,
+    USERS_LIST_SUCCESS,
+    USERS_LIST_REQUEST,
+    USER_DELETE_REQUEST,
+    USER_DELETE_SUCCESS,
+    USER_DELETE_FAIL,
+    USER_MAKEADMIN_FAIL,
+    USER_MAKEADMIN_SUCCESS,
+    USER_MAKEADMIN_REQUEST,
 } from "../constants/userConstants"
 
-export const userLoginReducer = (state = {}, action) =>{
-    switch(action.type){
-        case USER_LOGIN_REQUEST:
-            return {loading: true}
-        
-        case USER_LOGIN_SUCCESS:
-            return {loading: false, userInfo: action.payload}
-        
-        case USER_LOGIN_FAIL:
-            return {loading: false, error: action.payload}
-        
-        case USER_LOGOUT:
-            return {}
-            
+
+export const userMakeAdminReducer = (state = {}, action) => {
+    switch (action.type) {
+        case USER_MAKEADMIN_REQUEST:
+            return {
+                loading: true
+            }
+
+        case USER_MAKEADMIN_SUCCESS:
+            return {
+                loading: false,
+                success: true
+            }
+
+        case USER_MAKEADMIN_FAIL:
+            return {
+                loading: false,
+                error: action.payload
+            }
+
         default:
             return state
     }
 }
 
 
-export const userRegisterReducer = (state={}, action) =>{
-    switch(action.type){
+export const userDeleteReducer = (state = {}, action) => {
+    switch (action.type) {
+        case USER_DELETE_REQUEST:
+            return {
+                loading: true
+            }
+
+        case USER_DELETE_SUCCESS:
+            return {
+                loading: false,
+                success: true
+            }
+
+        case USER_DELETE_FAIL:
+            return {
+                loading: false,
+                error: action.payload
+            }
+
+        default:
+            return state
+    }
+}
+
+
+
+export const usersListReducer = (state = {}, action) => {
+    switch (action.type) {
+        case USERS_LIST_REQUEST:
+            return { loading: true }
+
+        case USERS_LIST_SUCCESS:
+            return { loading: false, users: action.payload }
+
+        case USERS_LIST_FAIL:
+            return { loading: false, error: action.payload }
+
+        default:
+            return state
+    }
+}
+
+
+export const userListReducer = (state = {}, action) => {
+    switch (action.type) {
+        case USER_LIST_REQUEST:
+            return { loading: true }
+
+        case USER_LIST_SUCCESS:
+            return { loading: false, user: action.payload }
+
+        case USER_LIST_FAIL:
+            return { loading: false, error: action.payload }
+
+        default:
+            return state
+    }
+}
+
+
+export const userLoginReducer = (state = {}, action) => {
+    switch (action.type) {
+        case USER_LOGIN_REQUEST:
+            return { loading: true }
+
+        case USER_LOGIN_SUCCESS:
+            return { loading: false, userInfo: action.payload }
+
+        case USER_LOGIN_FAIL:
+            return { loading: false, error: action.payload }
+
+        case USER_LOGOUT:
+            return {}
+
+        default:
+            return state
+    }
+}
+
+
+export const userRegisterReducer = (state = {}, action) => {
+    switch (action.type) {
         case USER_REGISTER_REQUEST:
-            return {loading: true}
-            
+            return { loading: true }
+
         case USER_REGISTER_SUCCESS:
             return {
-                loading: false, 
+                loading: false,
                 success: true,
                 result: action.payload
             }
-        
+
         case USER_REGISTER_FAIL:
-            return {loading: false, error: action.payload}
-        
+            return { loading: false, error: action.payload }
+
         default:
             return state
     }
 }
 
-export const userUpdateReducer = (state={}, action) =>{
-    switch(action.type){
+export const userUpdateReducer = (state = {}, action) => {
+    switch (action.type) {
         case USER_UPDATE_REQUEST:
-            return {loading: true}
-            
+            return { loading: true }
+
         case USER_UPDATE_SUCCESS:
             return {
-                loading: false, 
-                success: true,                
+                loading: false,
+                success: true,
                 userInfo: action.payload
             }
-        
+
         case USER_UPDATE_FAIL:
-            return {loading: false, error: action.payload}
-        
+            return { loading: false, error: action.payload }
+
         default:
             return state
     }
 }
 
-export const walletDebitReducer = (state={}, action) =>{
-    switch(action.type){
+export const walletDebitReducer = (state = {}, action) => {
+    switch (action.type) {
         case WALLET_DEBIT_REQUEST:
-            return {loading: true}
-            
+            return { loading: true }
+
         case WALLET_DEBIT_SUCCESS:
             return {
-                loading: false, 
-                success: true,                
+                loading: false,
+                success: true,
                 userInfo: action.payload
             }
-        
+
         case WALLET_DEBIT_FAIL:
-            return {loading: false, error: action.payload}
-        
+            return { loading: false, error: action.payload }
+
         default:
             return state
     }
 }
 
 
-export const walletCreditReducer = (state={}, action) =>{
-    switch(action.type){
+export const walletCreditReducer = (state = {}, action) => {
+    switch (action.type) {
         case WALLET_CREDIT_REQUEST:
-            return {loading: true}
-            
+            return { loading: true }
+
         case WALLET_CREDIT_SUCCESS:
             return {
-                loading: false, 
-                success: true,                
+                loading: false,
+                success: true,
                 userInfo: action.payload
             }
-        
+
         case WALLET_CREDIT_FAIL:
-            return {loading: false, error: action.payload}
-        
+            return { loading: false, error: action.payload }
+
         default:
             return state
     }
 }
 
 
-export const accountActivateReducer = (state={}, action) =>{
-    switch(action.type){
+export const accountActivateReducer = (state = {}, action) => {
+    switch (action.type) {
         case USER_CONFIRM_EMAIL_REQUEST:
-            return {loading: true}
-            
+            return { loading: true }
+
         case USER_CONFIRM_EMAIL_SUCCESS:
-            return {loading: false, success: true}
-        
+            return { loading: false, success: true }
+
         case USER_CONFIRM_EMAIL_FAIL:
-            return {loading: false, error: action.payload}
-        
+            return { loading: false, error: action.payload }
+
         default:
             return state
     }
 }
 
-export const emailResendReducer = (state={}, action) =>{
-    switch(action.type){
+export const emailResendReducer = (state = {}, action) => {
+    switch (action.type) {
         case USER_RESEND_CODE_REQUEST:
-            return {loading: true}
-            
+            return { loading: true }
+
         case USER_RESEND_CODE_SUCCESS:
-            return {loading: false, success: true, result: action.payload}
-        
+            return { loading: false, success: true, result: action.payload }
+
         case USER_RESEND_CODE_FAIL:
-            return {loading: false, error: action.payload}
-        
+            return { loading: false, error: action.payload }
+
         default:
             return state
     }
 }
 
-export const passwordForgotReducer = (state={}, action) =>{
-    switch(action.type){
+export const passwordForgotReducer = (state = {}, action) => {
+    switch (action.type) {
         case USER_FORGOT_PASSWORD_REQUEST:
             return {
                 loading: true
             }
-            
+
         case USER_FORGOT_PASSWORD_SUCCESS:
             return {
-                loading: false, 
+                loading: false,
                 result: action.payload,
                 success: true
             }
-        
+
         case USER_FORGOT_PASSWORD_FAIL:
             return {
-                loading: false, 
+                loading: false,
                 error: action.payload
-            }        
+            }
         default:
             return state
     }
 }
 
-export const passwordResetReducer = (state={}, action) =>{
-    switch(action.type){
-        
+export const passwordResetReducer = (state = {}, action) => {
+    switch (action.type) {
+
         case USER_PASSWORD_RESET_REQUEST:
             return {
                 loading: true
             }
-            
+
         case USER_PASSWORD_RESET_SUCCESS:
             return {
-                loading: false, 
+                loading: false,
                 result: action.payload,
                 success: true
             }
-        
+
         case USER_PASSWORD_RESET_FAIL:
             return {
-                loading: false, 
+                loading: false,
                 error: action.payload
-            }        
+            }
         default:
             return state
     }
 }
 
 
-export const profilePhotoReducer = (state={}, action) =>{
-    switch(action.type){
+export const profilePhotoReducer = (state = {}, action) => {
+    switch (action.type) {
         case USER_PROFILE_PHOTO_REQUEST:
             return {
                 loading: true
             }
-            
+
         case USER_PROFILE_PHOTO_SUCCESS:
             return {
-                loading: false, 
+                loading: false,
                 photoUrl: action.payload,
                 success: true
             }
-        
+
         case USER_PROFILE_PHOTO_FAIL:
             return {
-                loading: false, 
+                loading: false,
                 error: action.payload
-            }        
+            }
         default:
             return state
     }
 }
 
 
-export const photoReducer = (state={}, action) =>{
-    switch(action.type){        
+export const photoReducer = (state = {}, action) => {
+    switch (action.type) {
         case SET_PROFILE_IMAGE:
-            return {                
-                imageUrl: action.payload,                
+            return {
+                imageUrl: action.payload,
             }
-                   
+
         default:
             return state
     }

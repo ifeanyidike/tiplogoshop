@@ -14,6 +14,7 @@ import ActivateAccount from "./pages/ActivateAccount"
 import ResendEmail from "./pages/ResendEmail"
 import ForgotPassword from "./pages/ForgotPassword"
 import ResetPassword from "./pages/ResetPassword"
+import Admin from "./pages/Admin/"
 import {Switch, Route} from "react-router-dom"
 import {AnimatePresence} from "framer-motion"
 import SideDrawer from "./components/SideDrawer"
@@ -25,7 +26,9 @@ function App() {
           
       <SideDrawer key="sidedrawer" />  
       <Switch>
-        
+        <Route path="/admin" exact>
+          <Admin />
+        </Route>
         <Route path="/auth" exact>
           <AuthPage />
         </Route>

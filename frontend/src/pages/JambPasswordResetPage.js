@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import React, {useState, useEffect} from 'react'
 import BaseRoot from "../components/Services/BaseRoot"
 import {ServiceTypeContainer, ServicePanel} from "../styles/ServiceStyle"
 import { firstCardContainerVariants} from '../animationVariants/CardVariants'
@@ -9,12 +9,15 @@ import Step from '@material-ui/core/Step';
 import StepLabel from '@material-ui/core/StepLabel';
 import JambPasswordResetReview from '../components/Services/JambPasswordResetReview'
 import ServicePayment from '../components/Services/ServicePayment'
+import { JAMB_PASSWORD_RESET_CREATE_RESET } from '../redux/constants/jambPasswordResetConstants'
+import {useDispatch, useSelector} from "react-redux"
+import NotLoggedIn from "../components/Utils/NotLoggedIn"
 
 const useStyles = makeStyles((theme) => ({   
     stepper: {
         padding: theme.spacing(3, 0, 5),
       },
-  }));
+  }));    
   
 const steps = ['Form Entry', 'Review your order', 'Payment'];                
 
@@ -24,12 +27,35 @@ const JambPasswordReset = () => {
     const [email, setEmail] = useState("")
     const [dateOfBirth, setDateOfBirth] = useState(new Date())    
     const [password, setPassword] = useState("")    
-  
-    const [activeStep, setActiveStep] = useState(0);            
+    console.log(dateOfBirth)
+    const [activeStep, setActiveStep] = useState(0);    
+    const dispatch = useDispatch()
     
-    console.log(activeStep)
+    useEffect(()=>{
+        dispatch({type: JAMB_PASSWORD_RESET_CREATE_RESET })
+    }, [dispatch])
+    
+    const userLogin = useSelector(state => state.userLogin)
+    const {userInfo} = userLogin
+    
+    const passwordResetOrder = () => {
+        return {
+            transactionType: 'jambpasswordreset',
+            orderItems: {                
+                name,
+                email,
+                dateOfBirth,
+                newPassword: password                
+            }
+        }
+    }
+    
     return (
-    <BaseRoot topText="Services">                                     
+    <BaseRoot topText="Services">           
+     {
+        !userInfo ?
+            <NotLoggedIn />
+        :                         
         <ServiceTypeContainer>                           
             <ServicePanel  
                 variants={firstCardContainerVariants}                           
@@ -74,6 +100,7 @@ const JambPasswordReset = () => {
                         <ServicePayment
                             activeStep = {activeStep}    
                             setActiveStep = {setActiveStep}
+                            serviceOrder = {passwordResetOrder}
                         />
                         
                         :
@@ -81,7 +108,8 @@ const JambPasswordReset = () => {
                 }                                
                     
             </ServicePanel>
-        </ServiceTypeContainer>                                        
+        </ServiceTypeContainer>   
+        }                                     
     </BaseRoot>
     )
 }

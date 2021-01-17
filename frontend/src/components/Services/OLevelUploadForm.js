@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import React, {useState, useEffect} from 'react'
 import {ButtonSingle, NextButton, NumRangeContainer} from "../../styles/ServiceStyle"
 import {colors} from "../../styles/breakpoints"
 import { makeStyles } from '@material-ui/core/styles';
@@ -13,6 +13,8 @@ import CurrencyFormat from 'react-currency-format';
 import {DropzoneDialog} from 'material-ui-dropzone'
 import NavigationIcon from '@material-ui/icons/Navigation';
 import MessageModal from "../Utils/MessageModal"
+import {useDispatch, useSelector} from "react-redux"
+import {listServiceByName} from "../../redux/actions/serviceActions"
 
 
 const useStyles = makeStyles((theme) => ({
@@ -42,6 +44,11 @@ const OLevelUploadForm = ({
 const classes = useStyles();
 const [num, setNum] = useState(1)
 const [noFiles, setNoFiles] = useState(false)
+const dispatch = useDispatch()
+
+useEffect(()=>{                
+    dispatch(listServiceByName('o level result upload'))
+}, [dispatch])
 
 const onSubmit = e => {
     e.preventDefault()
@@ -64,6 +71,7 @@ const handleNumDecrement = (e) =>{
     const newNum = num === 1 ? num : num - 1        
     setNum(newNum)    
 }
+const {service} = useSelector(state => state.serviceByName)
 
   return (
       <div>
@@ -72,7 +80,7 @@ const handleNumDecrement = (e) =>{
             <div>
                 <i className="fas fa-tags"></i>
                 <CurrencyFormat 
-                    value={2456981} 
+                    value={service && service.cost} 
                     displayType={'text'} 
                     thousandSeparator={true} 
                     prefix={'₦'} 

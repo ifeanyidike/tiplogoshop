@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import React, {useState, useEffect} from 'react'
 import BaseRoot from "../components/Services/BaseRoot"
 import {ServiceTypeContainer, ServicePanel} from "../styles/ServiceStyle"
 import { firstCardContainerVariants} from '../animationVariants/CardVariants'
@@ -9,6 +9,9 @@ import Step from '@material-ui/core/Step';
 import StepLabel from '@material-ui/core/StepLabel';
 import OLevelUploadReview from '../components/Services/OLevelUploadReview'
 import ServicePayment from '../components/Services/ServicePayment'
+import {useDispatch, useSelector} from "react-redux"
+import { OLEVEL_UPLOAD_CREATE_RESET } from '../redux/constants/oLevelResultUploadConstants'
+import NotLoggedIn from "../components/Utils/NotLoggedIn"
 
 const useStyles = makeStyles((theme) => ({   
     stepper: {
@@ -27,12 +30,37 @@ const ChangeOfCourseInstitution = () => {
         open: false,
         files: []
     })
-  
+    const dispatch = useDispatch()
+    const userLogin = useSelector(state => state.userLogin)
+    const {userInfo} = userLogin
+    
     const [activeStep, setActiveStep] = useState(0);            
     
-    console.log(activeStep)
+    useEffect(()=>{
+        dispatch({type: OLEVEL_UPLOAD_CREATE_RESET})
+    }, [dispatch])
+    
+    const resultUploadOrder = () =>{
+        
+        return {
+            transactionType: 'olevelresultupload',
+            
+            orderItems:{
+                type,
+                name,
+                profileCode, 
+                files: upload.files,               
+            }
+        }
+    }
+    
     return (
-    <BaseRoot topText="Services">                                     
+    <BaseRoot topText="Services">  
+    {
+        !userInfo ?
+            <NotLoggedIn />
+        :
+                                   
         <ServiceTypeContainer>                           
             <ServicePanel  
                 variants={firstCardContainerVariants}                           
@@ -77,6 +105,7 @@ const ChangeOfCourseInstitution = () => {
                         <ServicePayment
                             activeStep = {activeStep}    
                             setActiveStep = {setActiveStep}
+                            serviceOrder = {resultUploadOrder}
                         />
                         
                         :
@@ -85,6 +114,7 @@ const ChangeOfCourseInstitution = () => {
                     
             </ServicePanel>
         </ServiceTypeContainer>                                        
+    }    
     </BaseRoot>
     )
 }
