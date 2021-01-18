@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from "react"
+import React, { useState, useEffect } from "react"
 import HomePage from "./pages/HomePage"
 import AuthPage from "./pages/AuthPage"
 import AllServicesPage from "./pages/AllServicesPage"
@@ -14,20 +14,31 @@ import ActivateAccount from "./pages/ActivateAccount"
 import ResendEmail from "./pages/ResendEmail"
 import ForgotPassword from "./pages/ForgotPassword"
 import ResetPassword from "./pages/ResetPassword"
-import Admin from "./pages/Admin/"
-import {Switch, Route} from "react-router-dom"
-import {AnimatePresence} from "framer-motion"
+import AdminUsers from "./pages/Admin/Users/UsersMain"
+import AdminCards from "./pages/Admin/Cards/CardsMain"
+import AdminCardOrders from "./pages/Admin/CardOrders/CardOrdersMain"
+import { Switch, Route } from "react-router-dom"
+import { AnimatePresence } from "framer-motion"
 import SideDrawer from "./components/SideDrawer"
 
-function App() {  
-  
+function App() {
+
   return (
-    <AnimatePresence>  
-          
-      <SideDrawer key="sidedrawer" />  
+    <AnimatePresence>
+
+      <SideDrawer key="sidedrawer" />
       <Switch>
+        <Route path="/admin/cardorders" exact>
+          <AdminCardOrders />
+        </Route>
+        <Route path="/admin/cards" exact>
+          <AdminCards />
+        </Route>
+        <Route path="/admin/users" exact>
+          <AdminUsers />
+        </Route>
         <Route path="/admin" exact>
-          <Admin />
+          <AdminUsers />
         </Route>
         <Route path="/auth" exact>
           <AuthPage />
@@ -49,7 +60,7 @@ function App() {
         </Route>
         <Route path="/buycards/:id" exact>
           <CardPage />
-        </Route> 
+        </Route>
         <Route path="/edititem/:item" exact>
           <EditItem />
         </Route>
@@ -70,10 +81,10 @@ function App() {
         </Route>
         <Route path="/allcards" exact>
           <AllCardsPage />
-        </Route>  
+        </Route>
         <Route path="/" exact>
           <HomePage />
-        </Route>      
+        </Route>
       </Switch>
     </AnimatePresence>
   );

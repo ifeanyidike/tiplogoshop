@@ -16,12 +16,25 @@ import Tooltip from '@material-ui/core/Tooltip';
 import Typography from '@material-ui/core/Typography';
 import { useStyles } from "../../components/Admin/adminThemes"
 import a11yProps from "../../components/TabContainer/allProps"
+import { useSelector, useDispatch } from "react-redux"
+import { MESSAGE_RESET } from '../../redux/constants/utilConstants';
+import { AdminHeader } from '../../styles/AdminStyles';
 
-function Header({ onDrawerToggle, value, setValue }) {
+
+function Header({ onDrawerToggle, value, setValue, labels }) {
   const classes = useStyles();
+  const dispatch = useDispatch()
+
+  const { userInfo } = useSelector(state => state.userLogin)
+  const { message } = useSelector(state => state.message)
+
+  const handleChange = (e, newVal) => {
+    dispatch({ type: MESSAGE_RESET })
+    setValue(newVal)
+  }
 
   return (
-    <React.Fragment>
+    <AdminHeader >
       <AppBar color="primary" position="sticky" elevation={0}>
         <Toolbar>
           <Grid container spacing={1} alignItems="center">
@@ -37,7 +50,18 @@ function Header({ onDrawerToggle, value, setValue }) {
                 </IconButton>
               </Grid>
             </Hidden>
-            <Grid item xs />
+            {
+              message ?
+                <Grid item xs>
+                  <Typography className="message" variant="span" component="p">
+                    {message}
+                  </Typography>
+                </Grid>
+                :
+                <Grid item xs></Grid>
+            }
+
+
             <Grid item>
               <Link className={classes.link} href="#" variant="body2">
                 Go to docs
@@ -52,7 +76,7 @@ function Header({ onDrawerToggle, value, setValue }) {
             </Grid>
             <Grid item>
               <IconButton color="inherit" className={classes.iconButtonAvatar}>
-                <Avatar src="/static/images/avatar/1.jpg" alt="My Avatar" />
+                <Avatar src={userInfo && userInfo.profile && userInfo.profile.picture} alt="My Avatar" />
               </IconButton>
             </Grid>
           </Grid>
@@ -67,22 +91,10 @@ function Header({ onDrawerToggle, value, setValue }) {
       >
         <Toolbar>
           <Grid container alignItems="center" spacing={1}>
-            <Grid item xs>
+            <Grid item >
               <Typography color="inherit" variant="h5" component="h1">
-                Authentication
+                Admin Panel
               </Typography>
-            </Grid>
-            <Grid item>
-              <Button className={classes.button} variant="outlined" color="inherit" size="small">
-                Web setup
-              </Button>
-            </Grid>
-            <Grid item>
-              <Tooltip title="Help">
-                <IconButton color="inherit">
-                  <HelpIcon />
-                </IconButton>
-              </Tooltip>
             </Grid>
           </Grid>
         </Toolbar>
@@ -97,14 +109,18 @@ function Header({ onDrawerToggle, value, setValue }) {
         <Tabs
           value={value}
           textColor="inherit"
-          onChange={(e, newVal) => setValue(newVal)}>
-          <Tab textColor="inherit" label="Users" {...a11yProps(0)} />
-          <Tab textColor="inherit" label="Sign-in method" {...a11yProps(1)} />
-          <Tab textColor="inherit" label="Templates" {...a11yProps(2)} />
-          <Tab textColor="inherit" label="Usage" {...a11yProps(3)} />
+          onChange={handleChange}>
+          {
+            labels &&
+            labels.map((label, index) => (
+              <Tab key={index} textColor="inherit" label={label} {...a11yProps(index)} />
+            ))
+          }
+
+
         </Tabs>
       </AppBar>
-    </React.Fragment>
+    </AdminHeader>
   );
 }
 

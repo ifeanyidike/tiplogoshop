@@ -25,7 +25,10 @@ import {
     CARD_ORDER_DELIVER_FAIL,
     CARD_NOTPAID_ORDER_LIST_MY_REQUEST,
     CARD_NOTPAID_ORDER_LIST_MY_SUCCESS,
-    CARD_NOTPAID_ORDER_LIST_MY_FAIL
+    CARD_NOTPAID_ORDER_LIST_MY_FAIL,
+    CARD_ORDER_DELETE_FAIL,
+    CARD_ORDER_DELETE_SUCCESS,
+    CARD_ORDER_DELETE_REQUEST
 } from "../constants/cardOrderConstants"
 
 export const cardOrderCreateReducer = (state = {}, action) => {
@@ -51,6 +54,28 @@ export const cardOrderCreateReducer = (state = {}, action) => {
             return state
     }
 }
+
+export const cardOrderDeleteReducer = (state = {}, action) => {
+    switch (action.type) {
+        case CARD_ORDER_DELETE_REQUEST:
+            return {
+                loading: true
+            }
+        case CARD_ORDER_DELETE_SUCCESS:
+            return {
+                loading: false,
+                success: true,
+            }
+        case CARD_ORDER_DELETE_FAIL:
+            return {
+                loading: false,
+                error: action.payload
+            }
+        default:
+            return state
+    }
+}
+
 
 export const cardOrderDetailsReducer = (
     state = { loading: true, orderItems: [] }, action

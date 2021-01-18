@@ -24,10 +24,14 @@ import {
     CARD_ORDER_DELIVER_FAIL,
     CARD_NOTPAID_ORDER_LIST_MY_REQUEST,
     CARD_NOTPAID_ORDER_LIST_MY_SUCCESS,
-    CARD_NOTPAID_ORDER_LIST_MY_FAIL
+    CARD_NOTPAID_ORDER_LIST_MY_FAIL,
+    CARD_ORDER_DELETE_SUCCESS,
+    CARD_ORDER_DELETE_FAIL,
+    CARD_ORDER_DELETE_REQUEST
 } from "../constants/cardOrderConstants"
 import { createSoldCard } from "./soldCardActions"
 import { deliverCardItems } from "./cardActions"
+import { setMessage } from "./utilActions"
 
 export const createCardOrder = (order) => async (dispatch, getState) => {
     try {
@@ -61,6 +65,44 @@ export const createCardOrder = (order) => async (dispatch, getState) => {
         })
     }
 }
+
+
+export const deleteCardOrder = (orderId) => async (dispatch, getState) => {
+    try {
+        dispatch({
+            type: CARD_ORDER_DELETE_REQUEST
+        })
+
+        const {
+            userLogin: { userInfo },
+        } = getState()
+
+        const config = {
+            headers: {
+                'Content-Type': 'application/json',
+                Authorization: `Bearer ${userInfo.token}`
+            }
+        }
+
+        const { data } = await axios.delete(`/api/cardorders/${orderId}`, config)
+
+        dispatch({
+            type: CARD_ORDER_DELETE_SUCCESS,
+            payload: data
+        })
+    } catch (error) {
+        const message =
+            error.response && error.response.data.message
+                ? error.response.data.message
+                : error.message
+        dispatch({
+            type: CARD_ORDER_DELETE_FAIL,
+            payload: message
+        })
+        dispatch(setMessage(message))
+    }
+}
+
 
 export const getCardOrderDetails = (id) => async (dispatch, getState) => {
     try {

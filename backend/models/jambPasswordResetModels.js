@@ -1,12 +1,13 @@
 import mongoose from "mongoose"
+import User from "../models/userModels.js"
 
 const orderSchema = mongoose.Schema({
-    user:{
+    user: {
         type: mongoose.Schema.Types.ObjectId,
         required: true,
-        ref: 'User'
+        ref: User
     },
-    orderItems:[
+    orderItems: [
         {
             name: {
                 type: String,
@@ -20,49 +21,49 @@ const orderSchema = mongoose.Schema({
                 type: Date,
                 required: true
             },
-            newPassword:{
-                type:String,
+            newPassword: {
+                type: String,
                 required: true
             },
-            
+
         },
-    ],    
+    ],
     price: {
-        type:Number,
+        type: Number,
         required: true
-    },                  
-    paymentMethod:{
+    },
+    paymentMethod: {
         type: String,
         required: true
     },
-    paymentResult:{
-        id:{
-            type: String,            
+    paymentResult: {
+        id: {
+            type: String,
         },
-        status:{
+        status: {
             type: String
         },
-        updated_time:{
+        updated_time: {
             type: String
         },
-        email:{
+        email: {
             type: String
         }
     },
-    isPaid:{
+    isPaid: {
         type: Boolean,
         required: true,
         default: false
     },
-    paidAt:{
+    paidAt: {
         type: Date
-    },    
-    
-},{
+    },
+
+}, {
     timestamps: true
 })
 
-const JambPasswordResetOrder = 
-        mongoose.model('JambPasswordResetOrder', orderSchema)
-        
+const JambPasswordResetOrder =
+    mongoose.model('JambPasswordResetOrder', orderSchema)
+
 export default JambPasswordResetOrder

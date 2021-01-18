@@ -113,7 +113,7 @@ export const theme = {
     },
 };
 
-export const drawerWidth = 200;
+export const drawerWidth = 260;
 
 export const useStyles = makeStyles((theme) => ({
     root: {

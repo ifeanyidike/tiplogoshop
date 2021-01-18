@@ -1,12 +1,13 @@
-import React, { useState, useEffect } from 'react'
-import Content from "./Content"
+import React, { useEffect } from 'react'
+import Content from "../TableContent"
 import { useDispatch, useSelector } from "react-redux"
-import { getAUser, getAllUsers } from "../../redux/actions/userActions"
-
+import { getAUser, getAllUsers } from "../../../redux/actions/userActions"
+import { useHistory } from "react-router-dom"
 
 const UsersList = ({ setValue }) => {
     const { error, loading, users } = useSelector(state => state.usersList)
     const dispatch = useDispatch()
+    const history = useHistory()
 
     const headCells = [
         { id: 'name', numeric: false, disablePadding: true, label: 'Full Name' },
@@ -20,6 +21,11 @@ const UsersList = ({ setValue }) => {
         dispatch(getAllUsers())
     }, [dispatch])
 
+    const handleOverview = (id) => {
+        setValue(1)
+        history.push(`/admin/users?userId=${id}`)
+    }
+
     return (
         <div>
             <Content
@@ -30,8 +36,9 @@ const UsersList = ({ setValue }) => {
                 error={error && error}
                 loading={loading && loading}
                 items={users && users}
-                anchor="name"
-                displayArr={["email", "type", "wallet"]}
+                handleOverview={handleOverview}
+                anchor="_id"
+                displayArr={["name", "email", "type", "wallet"]}
             />
         </div>
     )

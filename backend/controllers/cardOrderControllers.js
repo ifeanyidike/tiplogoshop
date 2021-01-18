@@ -126,7 +126,7 @@ export const getMyCardOrders = asyncHandler(async (req, res) => {
 //@access   Private/Admin
 
 export const getCardOrders = asyncHandler(async (req, res) => {
-    const orders = await CardOrder.find({}).populate('user', 'id name')
+    const orders = await CardOrder.find({}).populate('user', 'id name').sort({ createdAt: 'desc' })
     res.json(orders)
 
 })
@@ -202,6 +202,19 @@ export const getMyNotPaidCardOrders = asyncHandler(async (req, res) => {
     } else {
         throw new Error("Order does not exist")
     }
+})
 
+// @desc    Delete an order
+// @route   DELETE /api/order/:id   
+// @access  Private/Admin
+export const deleteOrder = asyncHandler(async (req, res) => {
+    const order = await CardOrder.findById(req.params.id)
 
+    if (order) {
+        order.remove()
+        res.json({ message: 'Card removed' })
+    } else {
+        res.status(404)
+        throw new Error('Order not found')
+    }
 })

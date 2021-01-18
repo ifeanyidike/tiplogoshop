@@ -64,6 +64,14 @@ export const UserProfileContainer = styled.div`
                 margin-right: 5px;
                 font-weight: bold;
             }
+            .fullwidth{
+                grid-column: 1/span 2
+            }
+            textarea{
+                padding: 10px;
+                border: 1px solid ${colors.midtext};
+                border-radius: 10px;
+            }
         }
         
         .actions{
@@ -88,6 +96,11 @@ export const UserProfileContainer = styled.div`
         }
         
     }
+    .carditems{
+        grid-column: 1/10;
+    }
+    
+    
 `
 
 export const AdminButton = styled(Button)`
@@ -96,4 +109,43 @@ export const AdminButton = styled(Button)`
     padding: 0.3rem 0.5rem;
     width: fit-content;
     font-weight: bold;
+`
+
+export const AdminButtonAlt = styled(AdminButton)`
+    border-color: ${colors.midtext};
+    background-color: ${colors.midtext};
+    display: flex;
+    align-items: center;
+    margin: 0 auto;
+`
+export const AdminButtonPro = styled(AdminButton)`
+    border-color: ${props => props.color};
+    background-color: ${props => props.color};
+    display: flex;
+    align-items: center;
+    
+`
+
+
+export const AdminHeader = styled.header`    
+    .message{
+        font-family: "Jost", sans-serif;
+        background: ${colors.dimwhite};
+        font-weight: bold;
+        border-radius: 5px;
+        padding: 5px 0;
+        text-align: center;
+        color: ${colors.darkred}
+    }
+`
+export const DrawerContainer = styled.div`
+    a{
+        text-decoration: none;        
+    }
+`
+export const RightAlign = styled.div`
+    display: flex;
+    justify-content: flex-end;
+    width: 'fit-content';
+    
 `

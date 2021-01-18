@@ -18,12 +18,13 @@ export const categories = [
     {
         id: 'Develop',
         children: [
-            { id: 'Authentication', icon: <PeopleIcon />, active: true },
-            { id: 'Database', icon: <DnsRoundedIcon /> },
-            { id: 'Storage', icon: <PermMediaOutlinedIcon /> },
-            { id: 'Hosting', icon: <PublicIcon /> },
-            { id: 'Functions', icon: <SettingsEthernetIcon /> },
-            { id: 'ML Kit', icon: <SettingsInputComponentIcon /> },
+            { id: 'Users', icon: <PeopleIcon />, href: 'users' },
+            { id: 'Cards', icon: <DnsRoundedIcon />, href: 'cards' },
+            { id: 'Card Orders', icon: <DnsRoundedIcon />, href: 'cardorders' },
+            { id: 'Change of Course', icon: <PermMediaOutlinedIcon />, href: 'changeofcourse' },
+            { id: 'Jamb Password Reset', icon: <PublicIcon />, href: 'jambpasswordreset' },
+            { id: 'O Level Result Uploads', icon: <SettingsEthernetIcon />, href: 'resultupload' },
+            { id: 'Users Reviews', icon: <SettingsInputComponentIcon />, href: 'reviews' },
         ],
     },
     {

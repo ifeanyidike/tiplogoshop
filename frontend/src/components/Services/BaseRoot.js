@@ -1,28 +1,28 @@
 import React from 'react'
 import {
-    BaseContainer,     
+    BaseContainer,
 } from "../../styles/ServiceStyle.js"
-import {DRAWER_OPEN, DRAWER_CLOSE} from "../../redux/constants/elementConstants"
-import {useDispatch, useSelector} from "react-redux"
+import { DRAWER_OPEN, DRAWER_CLOSE } from "../../redux/constants/utilConstants"
+import { useDispatch, useSelector } from "react-redux"
 import Header from "../MainHeader"
 
-const Base = ({    
+const Base = ({
     TopImage,
     topText,
     children
 }) => {
-    const dispatch = useDispatch()    
-    dispatch({type: DRAWER_OPEN})
-    
+    const dispatch = useDispatch()
+    dispatch({ type: DRAWER_OPEN })
+
     return (
         <>
             <Header />
             <BaseContainer>
-                <div className="topimage">                                                               
+                <div className="topimage">
                     <div className="centeritem">
-                        {TopImage}                        
-                        <h4>{topText}</h4>                                        
-                    </div>                
+                        {TopImage}
+                        <h4>{topText}</h4>
+                    </div>
                 </div>
                 {children}
             </BaseContainer>

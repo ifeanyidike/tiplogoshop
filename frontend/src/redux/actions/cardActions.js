@@ -20,10 +20,14 @@ import {
   CARD_LIST_FEW_FAIL,
   CARD_ITEM_DELIVER_REQUEST,
   CARD_ITEM_DELIVER_SUCCESS,
-  CARD_ITEM_DELIVER_FAIL
+  CARD_ITEM_DELIVER_FAIL,
+  CARD_ADD_ITEM_SUCCESS,
+  CARD_ADD_ITEM_FAIL,
+  CARD_ADD_ITEM_REQUEST
 } from '../constants/cardConstants'
 import { logout } from './userActions'
 import { cardDeliverOrder } from "./cardOrderActions"
+import { setMessage } from "./utilActions"
 
 
 export const listCards = (keyword = '', pageNumber = '') => async (
@@ -132,6 +136,7 @@ export const deleteCard = (id) => async (dispatch, getState) => {
       type: CARD_DELETE_FAIL,
       payload: message,
     })
+    dispatch(setMessage(message))
   }
 }
 
@@ -169,10 +174,11 @@ export const createCard = () => async (dispatch, getState) => {
       type: CARD_CREATE_FAIL,
       payload: message,
     })
+    dispatch(setMessage(message))
   }
 }
 
-export const updateCard = (card) => async (dispatch, getState) => {
+export const updateCard = (id, card) => async (dispatch, getState) => {
   try {
     dispatch({
       type: CARD_UPDATE_REQUEST,
@@ -184,13 +190,13 @@ export const updateCard = (card) => async (dispatch, getState) => {
 
     const config = {
       headers: {
-        'Content-Type': 'application/json',
+        'Content-Type': 'multipart/form-data',
         Authorization: `Bearer ${userInfo.token}`,
       },
     }
 
     const { data } = await axios.put(
-      `/api/cards/${card._id}`,
+      `/api/cards/${id}`,
       card,
       config
     )
@@ -199,6 +205,8 @@ export const updateCard = (card) => async (dispatch, getState) => {
       type: CARD_UPDATE_SUCCESS,
       payload: data,
     })
+
+    dispatch(setMessage("Card Updated Successfully"))
   } catch (error) {
     const message =
       error.response && error.response.data.message
@@ -211,6 +219,7 @@ export const updateCard = (card) => async (dispatch, getState) => {
       type: CARD_UPDATE_FAIL,
       payload: message,
     })
+    dispatch(setMessage(message))
   }
 }
 
@@ -258,3 +267,46 @@ export const deliverCardItems = (
       })
     }
   }
+
+export const addCardItems = (id, items) => async (dispatch, getState) => {
+  try {
+    dispatch({
+      type: CARD_ADD_ITEM_REQUEST,
+    })
+
+    const {
+      userLogin: { userInfo },
+    } = getState()
+
+    const config = {
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${userInfo.token}`,
+      },
+    }
+
+    const { data } = await axios.put(
+      `/api/cards/${id}/items`, { items }, config
+    )
+
+    dispatch({
+      type: CARD_ADD_ITEM_SUCCESS,
+      payload: data,
+    })
+
+    dispatch(setMessage("Card item added successfully"))
+  } catch (error) {
+    const message =
+      error.response && error.response.data.message
+        ? error.response.data.message
+        : error.message
+    if (message === 'Not authorized, token failed') {
+      dispatch(logout())
+    }
+    dispatch({
+      type: CARD_ADD_ITEM_FAIL,
+      payload: message,
+    })
+    dispatch(setMessage(message))
+  }
+}

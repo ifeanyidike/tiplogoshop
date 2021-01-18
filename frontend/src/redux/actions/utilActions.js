@@ -1,8 +1,16 @@
 import {
     DRAWER_OPEN,
-    DRAWER_CLOSE
+    DRAWER_CLOSE,
+    MESSAGE_SET
 } from "../constants/utilConstants"
 
 export const toggleDrawer = () => async (dispatch) => {
 
+}
+
+export const setMessage = (message) => dispatch => {
+    dispatch({
+        type: MESSAGE_SET,
+        payload: message
+    })
 }

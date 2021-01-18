@@ -13,7 +13,6 @@ export const CreateOLevelResultUploadOrder = asyncHandler(async (req, res) => {
     }
         = req.body
 
-    console.log(req.files)
 
     if (!req.files) {
         throw new Error('No file supplied')

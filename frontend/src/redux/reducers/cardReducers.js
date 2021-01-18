@@ -22,6 +22,9 @@ import {
   CARD_ITEM_DELIVER_REQUEST,
   CARD_ITEM_DELIVER_SUCCESS,
   CARD_ITEM_DELIVER_FAIL,
+  CARD_ADD_ITEM_REQUEST,
+  CARD_ADD_ITEM_SUCCESS,
+  CARD_ADD_ITEM_FAIL,
 } from '../constants/cardConstants'
 
 
@@ -113,6 +116,28 @@ export const cardUpdateReducer = (state = { card: {} }, action) => {
       return { loading: false, error: action.payload }
     case CARD_UPDATE_RESET:
       return { card: {} }
+    default:
+      return state
+  }
+}
+
+
+export const cardAddItemReducer = (state = { card: {} }, action) => {
+  switch (action.type) {
+    case CARD_ADD_ITEM_REQUEST:
+      return {
+        loading: true
+      }
+    case CARD_ADD_ITEM_SUCCESS:
+      return {
+        loading: false,
+        success: true,
+        card: action.payload
+      }
+    case CARD_ADD_ITEM_FAIL:
+      return {
+        loading: false, error: action.payload
+      }
     default:
       return state
   }

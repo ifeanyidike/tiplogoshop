@@ -1,9 +1,9 @@
 import styled from "styled-components"
-import {motion} from "framer-motion"
-import {device, colors} from "./breakpoints"
-import {CardContainer} from "./CardStyle"
+import { motion } from "framer-motion"
+import { device, colors } from "./breakpoints"
+import { CardContainer } from "./CardStyle"
 
-import {Button, HomeAltCardContainer} from "./HomeStyle"
+import { Button, HomeAltCardContainer } from "./HomeStyle"
 
 const numrangeDim = '200px'
 const numCircle = '50px'
@@ -238,7 +238,7 @@ export const NumRangeContainer = styled(motion.div)`
     display: flex;
     align-items: center;
     justify-content: space-between;
-    width: ${props => `${props.size}px`|| numrangeDim};
+    width: ${props => `${props.size}px` || numrangeDim};
     height: calc(${props => `${props.size}px` || numrangeDim} /3);
     
     button{
@@ -322,15 +322,15 @@ export const ServicesCard = styled(CardContainer)`
     max-width: 100%;
     text-align: center;
     box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12);
-    background-color: ${props =>                 
+    background-color: ${props =>
         props.variant === 'lightish' ? colors.white
-        : null
+            : null
     };
     
-    color: ${props =>                 
+    color: ${props =>
         props.variant === 'lightish' ? colors.darktext
             : null
-        };
+    };
                     
    .icondiv{
        width: fit-content;       

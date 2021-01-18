@@ -1,5 +1,5 @@
 import { combineReducers } from "redux"
-import { drawerToggleReducer } from "./utilReducers"
+import { drawerToggleReducer, messageReducer } from "./utilReducers"
 import {
     userListReducer,
     usersListReducer,
@@ -25,7 +25,8 @@ import {
     cardDeleteReducer,
     cardCreateReducer,
     cardUpdateReducer,
-    cardItemsDeliverReducer
+    cardItemsDeliverReducer,
+    cardAddItemReducer
 } from "./cardReducers"
 
 import {
@@ -48,6 +49,7 @@ import { soldCardCreateReducer, cardMyReducer } from "./soldCardReducers"
 
 import {
     cardOrderCreateReducer,
+    cardOrderDeleteReducer,
     cardOrderDetailsReducer,
     cardOrderUpdateReducer,
     cardOrderPayReducer,
@@ -89,11 +91,13 @@ const reducer = combineReducers({
     cardCreate: cardCreateReducer,
     cardUpdate: cardUpdateReducer,
     cardItemsDeliver: cardItemsDeliverReducer,
+    cardAddItem: cardAddItemReducer,
 
     soldCardCreate: soldCardCreateReducer,
     cardMy: cardMyReducer,
 
     cardOrderCreate: cardOrderCreateReducer,
+    cardOrderDelete: cardOrderDeleteReducer,
     cardOrderDetails: cardOrderDetailsReducer,
     cardOrderUpdate: cardOrderUpdateReducer,
     cardOrderPay: cardOrderPayReducer,
@@ -103,6 +107,7 @@ const reducer = combineReducers({
     cardMyOrderNotPaidList: cardMyOrderNotPaidListReducer,
 
     drawerToggle: drawerToggleReducer,
+    message: messageReducer,
 
     userMakeAdmin: userMakeAdminReducer,
     userDelete: userDeleteReducer,

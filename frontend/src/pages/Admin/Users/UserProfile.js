@@ -1,25 +1,25 @@
 import React, { useState, useEffect } from 'react'
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Switch from '@material-ui/core/Switch';
-import { UserProfileContainer, AdminButton } from "../../styles/AdminStyles"
+import { UserProfileContainer, AdminButton } from "../../../styles/AdminStyles"
 import CurrencyFormat from "react-currency-format"
 import { Avatar, Card, CardContent, Divider } from '@material-ui/core';
 import { useSelector, useDispatch } from "react-redux"
-import Loader from "../../components/Loaders/SimpleLoader"
-import { getAUser, makeUserAdmin } from "../../redux/actions/userActions"
-import { listMyCards } from "../../redux/actions/soldCardActions"
+import Loader from "../../../components/Loaders/SimpleLoader"
+import { getAUser, makeUserAdmin } from "../../../redux/actions/userActions"
+import { listMyCards } from "../../../redux/actions/soldCardActions"
 import queryString from "query-string"
 import { useLocation } from "react-router-dom"
-import { deleteAUser } from "../../redux/actions/userActions"
-import { listMyNotPaidCardOrders } from '../../redux/actions/cardOrderActions';
-import { listMyChangeOfCourseOrders } from '../../redux/actions/changeOfCourseActions';
-import { listMyJambPasswordResetOrders } from '../../redux/actions/jambPasswordResetActions';
-import { listMyOlevelUploadOrders } from '../../redux/actions/oLevelResultUploadActions';
-import MessageModal from "../../components/Utils/MessageModal"
+import { deleteAUser } from "../../../redux/actions/userActions"
+import { listMyNotPaidCardOrders } from '../../../redux/actions/cardOrderActions';
+import { listMyChangeOfCourseOrders } from '../../../redux/actions/changeOfCourseActions';
+import { listMyJambPasswordResetOrders } from '../../../redux/actions/jambPasswordResetActions';
+import { listMyOlevelUploadOrders } from '../../../redux/actions/oLevelResultUploadActions';
+import MessageModal from "../../../components/Utils/MessageModal"
 
 const UserProfile = () => {
     const [deletePrompt, setDeletePrompt] = useState(false)
-    const [messagePrompt, setMessagePrompt] = useState(false)
+
     const [isAdmin, setIsAdmin] = useState(false)
 
     const dispatch = useDispatch()
@@ -54,32 +54,20 @@ const UserProfile = () => {
         if (user) {
             setIsAdmin(user.isAdmin)
         }
-
     }, [user])
-
-    //     userMakeAdmin
-    //    userDelete
 
     const handleMakeAdmin = () => {
         dispatch(makeUserAdmin(userId, !user.isAdmin))
         setIsAdmin(!isAdmin)
-        if (makeAdminError) {
-            setMessagePrompt(true)
-        }
     }
 
     const handleUserDelete = () => {
         dispatch(deleteAUser(userId))
         setDeletePrompt(false)
-        if (deleteError) {
-            setMessagePrompt(true)
-        }
     }
 
     return (
         <UserProfileContainer>
-
-
             {
                 loading ? <Loader />
                     : error ? error
@@ -225,7 +213,7 @@ const UserProfile = () => {
                                 />
 
 
-                                <MessageModal
+                                {/* <MessageModal
                                     open={messagePrompt}
                                     setOpen={setMessagePrompt}
                                     caption="Message"
@@ -235,7 +223,7 @@ const UserProfile = () => {
                                             <div>{deleteError && deleteError}</div>
                                         </>
                                     }
-                                />
+                                /> */}
 
                             </React.Fragment>
                             :

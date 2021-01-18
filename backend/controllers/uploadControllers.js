@@ -2,30 +2,30 @@ import path from "path"
 import multer from "multer"
 
 const storage = multer.diskStorage({
-    destination(req, file, cb){
+    destination(req, file, cb) {
         cb(null, 'uploads/')
     },
-    filename(req, file, cb){
+    filename(req, file, cb) {
         const extname = path.extname(file.originalname)
-        const filename = path.basename(file.originalname, extname)        
+        const filename = path.basename(file.originalname, extname)
         cb(null, `${filename}-${Date.now()}${extname}`)
     }
 })
 
-const checkFileType = (isImage = true, file, cb)=>{
+const checkFileType = (isImage = true, file, cb) => {
     let filetypes
-    if(isImage){
+    if (isImage) {
         filetypes = /jpg|jpeg|png/
-    }else{
+    } else {
         filetypes = /jpg|jpeg|png|pdf/
     }
-    
+
     const extname = filetypes.test(path.extname(file.originalname).toLowerCase())
     const mimetype = filetypes.test(file.mimetype)
-    
-    if(extname && mimetype){
+
+    if (extname && mimetype) {
         return cb(null, true)
-    }else{
+    } else {
         isImage ? cb('Images only!') : cb('Images and PDF only')
     }
 }
@@ -33,19 +33,19 @@ const checkFileType = (isImage = true, file, cb)=>{
 export const profilePhotoUpload = multer({
     storage,
     limits: {
-        fileSize: 200 * 200
+        fileSize: 300 * 300
     },
-    fileFilter: function(req, file, cb){        
+    fileFilter: function (req, file, cb) {
         checkFileType(true, file, cb)
     }
 })
 
 export const documentsUpload = multer({
-    storage,   
-    limits:{
+    storage,
+    limits: {
         fileSize: 1000 * 1000
     },
-    fileFilter: function(req, file, cb){
+    fileFilter: function (req, file, cb) {
         checkFileType(false, file, cb)
     }
 })

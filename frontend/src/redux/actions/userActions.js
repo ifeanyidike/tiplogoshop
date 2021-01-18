@@ -50,6 +50,7 @@ import { cardPayOrder } from './cardOrderActions'
 import { createChangeOfCourseOrder } from './changeOfCourseActions'
 import { createOlevelUploadOrder } from './oLevelResultUploadActions'
 import { createJambPasswordResetOrder } from './jambPasswordResetActions'
+import { setMessage } from './utilActions'
 
 const normalConfig = {
     headers: {
@@ -85,6 +86,11 @@ export const makeUserAdmin = (id, adminStatus) => async (dispatch, getState) => 
                 ? error.response.data.message
                 : error.message
         })
+        dispatch(setMessage(
+            error.response && error.response.data.message
+                ? error.response.data.message
+                : error.message
+        ))
     }
 }
 
@@ -116,6 +122,11 @@ export const deleteAUser = (id) => async (dispatch, getState) => {
                 ? error.response.data.message
                 : error.message
         })
+        dispatch(setMessage(
+            error.response && error.response.data.message
+                ? error.response.data.message
+                : error.message
+        ))
     }
 }
 
