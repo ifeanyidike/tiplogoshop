@@ -43,7 +43,65 @@ import {
     USER_MAKEADMIN_FAIL,
     USER_MAKEADMIN_SUCCESS,
     USER_MAKEADMIN_REQUEST,
+    USER_EMAIL_REQUEST,
+    USER_EMAIL_SUCCESS,
+    USER_EMAIL_FAIL,
+    USERS_EMAIL_REQUEST,
+    USERS_EMAIL_SUCCESS,
+    USERS_EMAIL_FAIL,
 } from "../constants/userConstants"
+
+
+export const userEmailReducer = (state = {}, action) => {
+    switch (action.type) {
+        case USER_EMAIL_REQUEST:
+            return {
+                loading: true
+            }
+
+        case USER_EMAIL_SUCCESS:
+            return {
+                loading: false,
+                success: true,
+                message: action.paylaod
+            }
+
+        case USER_EMAIL_FAIL:
+            return {
+                loading: false,
+                error: action.payload
+            }
+
+        default:
+            return state
+    }
+}
+
+
+export const usersEmailReducer = (state = {}, action) => {
+    switch (action.type) {
+        case USERS_EMAIL_REQUEST:
+            return {
+                loading: true
+            }
+
+        case USERS_EMAIL_SUCCESS:
+            return {
+                loading: false,
+                success: true,
+                message: action.paylaod
+            }
+
+        case USERS_EMAIL_FAIL:
+            return {
+                loading: false,
+                error: action.payload
+            }
+
+        default:
+            return state
+    }
+}
 
 
 export const userMakeAdminReducer = (state = {}, action) => {

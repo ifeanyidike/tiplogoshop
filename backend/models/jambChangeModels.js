@@ -2,88 +2,91 @@ import mongoose from "mongoose"
 import User from "./userModels.js";
 
 const orderSchema = mongoose.Schema({
-    user:{
+    user: {
         type: mongoose.Schema.Types.ObjectId,
         required: true,
         ref: User
     },
     orderItems:
-        {
-            type: {     
-                type: String,
-                required: true
-            },
-            fullName: {
-                type: String,
-                required: true
-            },
-            regNo:{
-                type:String,
-                required: true
-            },
-            profileCode:{
-                type:String,
-                required: true
-            },
-            otp:{
-                type:String,
-                required: true
-            },
-            choices:[
-              {
-                  preferredProgramme: {
-                    type:String,
-                    required: true
-                  },
-                  institution: {
-                    type:String,
-                    required: true
-                  },
-                  course: {
-                    type:String,
-                    required: true
-                  },
-              }  
-            ], 
-           additionalInfo:{
-               type: String               
-           }                    
-        },    
-    price: {
-        type:Number,
-        required: true
-    },
-    paymentMethod:{
-        type: String,
-        required: true
-    },
-    paymentResult:{
-        id:{
-            type: String,            
+    {
+        type: {
+            type: String,
+            required: true
         },
-        status:{
-            type: String
+        fullName: {
+            type: String,
+            required: true
         },
-        updated_time:{
-            type: String
+        regNo: {
+            type: String,
+            required: true
         },
-        email:{
+        profileCode: {
+            type: String,
+            required: true
+        },
+        otp: {
+            type: String,
+            required: true
+        },
+        choices: [
+            {
+                preferredProgramme: {
+                    type: String,
+                    required: true
+                },
+                institution: {
+                    type: String,
+                    required: true
+                },
+                course: {
+                    type: String,
+                    required: true
+                },
+            }
+        ],
+        additionalInfo: {
             type: String
         }
     },
-    isPaid:{
+    price: {
+        type: Number,
+        required: true
+    },
+    paymentMethod: {
+        type: String,
+        required: true
+    },
+    paymentResult: {
+        id: {
+            type: String,
+        },
+        status: {
+            type: String
+        },
+        updated_time: {
+            type: String
+        },
+        email: {
+            type: String
+        }
+    },
+    admin_upload: {
+        type: String
+    },
+    isPaid: {
         type: Boolean,
         required: true,
         default: false
     },
-    paidAt:{
+    paidAt: {
         type: Date
-    },    
-    
-},{
+    },
+
+}, {
     timestamps: true
 })
 
-const ChangeOfCourseInstitutionOrder = 
+const ChangeOfCourseInstitutionOrder =
     mongoose.model('ChangeOfCourseInstitutionOrder', orderSchema)
 export default ChangeOfCourseInstitutionOrder

@@ -1,7 +1,8 @@
 import mongoose from "mongoose"
 import asyncHandler from "express-async-handler"
 import OLevelResultUploadOrder from "../models/oLevelResultUploadModels.js"
-import { mg, mgOptions, servicesMessageTemplate } from "../utils/sendEmail.js"
+import request from "request"
+import { mg, mgOptions, servicesMessageTemplate, mgOptionsWithAttachment } from "../utils/sendEmail.js"
 
 //@desc     Create new OLevelResultUpload
 //@route    POST /api/olevelresultupload
@@ -117,5 +118,64 @@ export const adminGetMyOLevelResultUploadOrders = asyncHandler(async (req, res) 
         res.send(order)
     } else {
         throw new Error("Order does not exist")
+    }
+})
+
+
+//@desc     Delete a O level result upload
+//@route    DELETE /api/olevelresultupload/:id
+//@access   Private/Admin
+
+export const deleteOLevelResultUploadOrder = asyncHandler(async (req, res) => {
+    const order = await OLevelResultUploadOrder.findById(req.params.id)
+    if (order) {
+        order.remove()
+        res.json({ message: 'order removed' })
+    } else {
+        res.status(404)
+        throw new Error('Order not found')
+    }
+
+    res.json(orders)
+})
+
+
+
+export const adminOLevelResultUploadFileUpload = asyncHandler(async (req, res) => {
+    const order = await OLevelResultUploadOrder.findById(req.params.id)
+
+    if (order) {
+        order.admin_upload = req.file.path
+
+        const attachment = request(path.join(process.env.CLIENT_URL, req.file.path))
+        const from = "nonreply@tiplogo.com"
+        const subject = "O level result upload completed"
+
+        const heading = `We have completed your o level result upload`
+        const msg = `<div> 
+            <p>Thank you for ordering your change of O level result upload with us </p>
+            <p>We have successfully completed the process. Find the attached file below </p>
+            <p>You can also find it in your profile in our website.  </p>
+            
+        </div>`
+
+        const message = servicesMessageTemplate(heading, msg)
+        const data = mgOptionsWithAttachment(
+            from, req.user.email, subject, message, attachment)
+
+
+        const updatedOrder = await order.save()
+        if (updatedOrder) {
+            mg.messages().send(data, (error, body) => {
+                if (error) {
+                    throw new Error('An error occurred when sending email')
+                } else {
+                    res.json(req.file.path)
+                }
+            })
+        }
+    } else {
+        res.statusCode(404)
+        throw new Error('Order not found')
     }
 })

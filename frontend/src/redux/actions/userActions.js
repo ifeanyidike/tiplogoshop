@@ -43,7 +43,13 @@ import {
     USER_DELETE_REQUEST,
     USER_MAKEADMIN_FAIL,
     USER_MAKEADMIN_SUCCESS,
-    USER_MAKEADMIN_REQUEST
+    USER_MAKEADMIN_REQUEST,
+    USER_EMAIL_REQUEST,
+    USER_EMAIL_SUCCESS,
+    USER_EMAIL_FAIL,
+    USERS_EMAIL_REQUEST,
+    USERS_EMAIL_SUCCESS,
+    USERS_EMAIL_FAIL
 } from "../constants/userConstants"
 import uuid from 'react-uuid'
 import { cardPayOrder } from './cardOrderActions'
@@ -57,6 +63,79 @@ const normalConfig = {
         'Content-Type': 'application/json'
     }
 }
+
+export const emailAllUser = (emailMessage) => async (dispatch, getState) => {
+    try {
+        dispatch({
+            type: USERS_EMAIL_REQUEST
+        })
+
+        const { userLogin: { userInfo } } = getState()
+
+        const config = {
+            headers: {
+                'Content-Type': 'application/json',
+                Authorization: `Bearer ${userInfo.token}`
+            },
+        }
+
+        const { data } = await axios.post(`/api/users/email`, emailMessage, config)
+
+        dispatch({
+            type: USERS_EMAIL_SUCCESS,
+            payload: data
+        })
+
+        dispatch(setMessage(data))
+
+    } catch (error) {
+        const message = error.response && error.response.data.message
+            ? error.response.data.message
+            : error.message
+        dispatch({
+            type: USERS_EMAIL_FAIL,
+            payload: message
+        })
+        dispatch(setMessage(message))
+    }
+}
+
+export const emailAUser = (id, emailMessage) => async (dispatch, getState) => {
+    try {
+        dispatch({
+            type: USER_EMAIL_REQUEST
+        })
+
+        const { userLogin: { userInfo } } = getState()
+
+        const config = {
+            headers: {
+                'Content-Type': 'application/json',
+                Authorization: `Bearer ${userInfo.token}`
+            },
+        }
+
+        const { data } = await axios.post(`/api/users/${id}/email`, emailMessage, config)
+
+        dispatch({
+            type: USER_EMAIL_SUCCESS,
+            payload: data
+        })
+
+        dispatch(setMessage(data))
+
+    } catch (error) {
+        const message = error.response && error.response.data.message
+            ? error.response.data.message
+            : error.message
+        dispatch({
+            type: USER_EMAIL_FAIL,
+            payload: message
+        })
+        dispatch(setMessage(message))
+    }
+}
+
 
 export const makeUserAdmin = (id, adminStatus) => async (dispatch, getState) => {
     try {

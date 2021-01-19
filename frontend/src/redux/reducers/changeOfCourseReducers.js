@@ -15,7 +15,62 @@ import {
     COCI_UPDATE_REQUEST,
     COCI_UPDATE_SUCCESS,
     COCI_UPDATE_FAIL,
+    COCI_ITEM_DELIVER_REQUEST,
+    COCI_ITEM_DELIVER_SUCCESS,
+    COCI_ITEM_DELIVER_FAIL,
+    COCI_DELETE_REQUEST,
+    COCI_DELETE_SUCCESS,
+    COCI_DELETE_FAIL,
 } from "../constants/changeOfCourseConstants"
+
+
+
+export const changeOfCourseAdminUploadReducer = (state = {}, action) => {
+    switch (action.type) {
+        case COCI_ITEM_DELIVER_REQUEST:
+            return {
+                loading: true
+            }
+        case COCI_ITEM_DELIVER_SUCCESS:
+            return {
+                loading: false,
+                success: true,
+                file: action.payload
+            }
+        case COCI_ITEM_DELIVER_FAIL:
+            return {
+                loading: false,
+                error: action.payload
+            }
+
+        default:
+            return state
+    }
+}
+
+
+export const changeOfCourseOrderDeleteReducer = (state = {}, action) => {
+    switch (action.type) {
+        case COCI_DELETE_REQUEST:
+            return {
+                loading: true
+            }
+        case COCI_DELETE_SUCCESS:
+            return {
+                loading: false,
+                success: true,
+            }
+        case COCI_DELETE_FAIL:
+            return {
+                loading: false,
+                error: action.payload
+            }
+
+        default:
+            return state
+    }
+}
+
 
 export const changeOfCourseOrderCreateReducer = (state = {}, action) => {
     switch (action.type) {

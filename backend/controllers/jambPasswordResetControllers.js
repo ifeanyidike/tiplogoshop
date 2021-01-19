@@ -117,8 +117,8 @@ export const getJambPasswordResetOrders = asyncHandler(async (req, res) => {
     res.json(orders)
 })
 
-//@desc     Get all Jamb Change Orders
-//@route    GET /api/jambpasswordreset/
+//@desc     Delete a Jamb password reset
+//@route    DELETE /api/jambpasswordreset/
 //@access   Private/Admin
 
 export const deleteJambPasswordResetOrder = asyncHandler(async (req, res) => {

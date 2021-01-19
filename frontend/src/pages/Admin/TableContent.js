@@ -96,6 +96,7 @@ export default function EnhancedTable({
   anchor,
   displayArr,
   showUser,
+  showCost
 }) {
 
 
@@ -216,17 +217,27 @@ export default function EnhancedTable({
                                   inputProps={{ 'aria-labelledby': labelId }}
                                 />
                               </TableCell>
+
                               {
                                 item.hasOwnProperty('orderItems') ?
                                   displayArr.map((el, index) =>
                                     <TableCell align={index === 0 ? 'left' : 'right'}>
-                                      {item.orderItems[0].[el]}</TableCell>
+                                      {item.orderItems.isArray ?
+                                        item.orderItems[0].[el] :
+                                        item.orderItems.[el]
+                                      }
+                                    </TableCell>
                                   )
                                   :
                                   displayArr.map((el, index) =>
                                     <TableCell align={index === 0 ? 'left' : 'right'}>
                                       {item.[el]}</TableCell>
                                   )
+                              }
+                              {
+                                showCost && <TableCell align="right">
+                                  {item.price}
+                                </TableCell>
                               }
                               {
                                 showUser && <TableCell align="right">

@@ -96,10 +96,14 @@ export const UserProfileContainer = styled.div`
         }
         
     }
-    .carditems{
+    .carditems, .messagecontainer{
         grid-column: 1/10;
     }
-    
+    .embossitem{
+        box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12);     
+        padding: 20px 40px;
+        margin-bottom: 20px;
+    }
     
 `
 

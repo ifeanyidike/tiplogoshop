@@ -15,7 +15,9 @@ import {
     walletDebitReducer,
     walletCreditReducer,
     userMakeAdminReducer,
-    userDeleteReducer
+    userDeleteReducer,
+    usersEmailReducer,
+    userEmailReducer
 } from "./userReducers"
 
 import {
@@ -64,7 +66,9 @@ import {
     changeOfCourseOrderDetailsReducer,
     changeOfCourseOrderUpdateReducer,
     changeOfCourseOrderListMyReducer,
-    changeOfCourseOrderListReducer
+    changeOfCourseOrderListReducer,
+    changeOfCourseOrderDeleteReducer,
+    changeOfCourseAdminUploadReducer
 } from "./changeOfCourseReducers"
 
 import {
@@ -72,7 +76,9 @@ import {
     oLevelUploadOrderDetailsReducer,
     oLevelUploadOrderUpdateReducer,
     oLevelUploadOrderListMyReducer,
-    oLevelUploadOrderListReducer
+    oLevelUploadOrderListReducer,
+    oLevelUploadOrderDeleteReducer,
+    oLevelUploadAdminUploadReducer,
 } from "./oLevelResultUploadReducers"
 
 import {
@@ -80,7 +86,8 @@ import {
     jambPasswordResetOrderDetailsReducer,
     jambPasswordResetOrderUpdateReducer,
     jambPasswordResetOrderListMyReducer,
-    jambPasswordResetOrderListReducer
+    jambPasswordResetOrderListReducer,
+    jambPasswordResetOrderDeleteReducer
 } from "./jambPasswordResetReducers"
 
 const reducer = combineReducers({
@@ -109,6 +116,9 @@ const reducer = combineReducers({
     drawerToggle: drawerToggleReducer,
     message: messageReducer,
 
+
+    usersEmail: usersEmailReducer,
+    userEmail: userEmailReducer,
     userMakeAdmin: userMakeAdminReducer,
     userDelete: userDeleteReducer,
     userList: userListReducer,
@@ -142,18 +152,23 @@ const reducer = combineReducers({
     changeOfCourseOrderUpdate: changeOfCourseOrderUpdateReducer,
     changeOfCourseOrderListMy: changeOfCourseOrderListMyReducer,
     changeOfCourseOrderList: changeOfCourseOrderListReducer,
+    changeOfCourseOrderDelete: changeOfCourseOrderDeleteReducer,
+    changeOfCourseAdminUpload: changeOfCourseAdminUploadReducer,
 
     oLevelUploadOrderCreate: oLevelUploadOrderCreateReducer,
     oLevelUploadOrderDetails: oLevelUploadOrderDetailsReducer,
     oLevelUploadOrderUpdate: oLevelUploadOrderUpdateReducer,
     oLevelUploadOrderListMy: oLevelUploadOrderListMyReducer,
     oLevelUploadOrderList: oLevelUploadOrderListReducer,
+    oLevelUploadOrderDelete: oLevelUploadOrderDeleteReducer,
+    oLevelUploadAdminUpload: oLevelUploadAdminUploadReducer,
 
     jambPasswordResetOrderCreate: jambPasswordResetOrderCreateReducer,
     jambPasswordResetOrderDetails: jambPasswordResetOrderDetailsReducer,
     jambPasswordResetOrderUpdate: jambPasswordResetOrderUpdateReducer,
     jambPasswordResetOrderListMy: jambPasswordResetOrderListMyReducer,
-    jambPasswordResetOrderList: jambPasswordResetOrderListReducer
+    jambPasswordResetOrderList: jambPasswordResetOrderListReducer,
+    jambPasswordResetOrderDelete: jambPasswordResetOrderDeleteReducer
 })
 
 export default reducer

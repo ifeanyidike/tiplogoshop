@@ -1,7 +1,10 @@
 import mongoose from "mongoose"
 import asyncHandler from "express-async-handler"
 import ChangeOfCourseInstitutionOrder from "../models/jambChangeModels.js"
-import { mg, mgOptions, servicesMessageTemplate } from "../utils/sendEmail.js"
+import { mg, mgOptions, servicesMessageTemplate, mgOptionsWithAttachment } from "../utils/sendEmail.js"
+import request from "request"
+import path from "path"
+import fs from "fs"
 
 //@desc     Create new changeofcourseinstitution
 //@route    POST /api/changeofcourseinstitution
@@ -148,5 +151,52 @@ export const adminGetMyChangeOfCourseOrders = asyncHandler(async (req, res) => {
     } else {
         throw new Error("Order does not exist")
     }
+})
 
+export const adminChangeOfCourseFileUpload = asyncHandler(async (req, res) => {
+    const order = await ChangeOfCourseInstitutionOrder.findById(req.params.id).populate('user', 'id email')
+
+
+    if (order) {
+        order.admin_upload = req.file.path
+
+
+        // const attachment = request(req.file.path)
+        const from = "nonreply@tiplogo.com"
+        const subject = "Change of course completed"
+
+        const heading = `We have completed your change of course`
+        const msg = `<div> 
+            <p>Thank you for ordering your change of course/institution with us </p>
+            <p>We have successfully completed the process. Find the attached file below </p>
+            <p>You can also find it in your profile in our website.  </p>
+            
+        </div>`
+
+
+        const message = servicesMessageTemplate(heading, msg)
+
+        const data = {
+            from,
+            to: order.user.email,
+            subject,
+            html: message,
+            attachment: req.file.path
+        };
+
+
+        const updatedOrder = await order.save()
+        if (updatedOrder) {
+            mg.messages().send(data, (error, body) => {
+                if (error) {
+                    throw new Error('An error occurred when sending email')
+                } else {
+                    res.json(req.file.path)
+                }
+            })
+        }
+    } else {
+        res.statusCode(404)
+        throw new Error('Order not found')
+    }
 })

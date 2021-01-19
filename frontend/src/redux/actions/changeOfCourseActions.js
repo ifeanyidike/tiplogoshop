@@ -16,7 +16,80 @@ import {
     COCI_UPDATE_SUCCESS,
     COCI_UPDATE_FAIL,
     COCI_CREATE_RESET,
+    COCI_ITEM_DELIVER_REQUEST,
+    COCI_ITEM_DELIVER_SUCCESS,
+    COCI_ITEM_DELIVER_FAIL,
+    COCI_DELETE_REQUEST,
+    COCI_DELETE_SUCCESS,
+    COCI_DELETE_FAIL,
 } from "../constants/changeOfCourseConstants"
+import { setMessage } from "./utilActions"
+
+
+
+export const adminChangeOfCourseUpload = (id, formData) => async (dispatch, getState) => {
+    try {
+        dispatch({
+            type: COCI_ITEM_DELIVER_REQUEST
+        })
+
+        const { userLogin: { userInfo } } = getState()
+
+        const config = {
+            headers: {
+                'Content-Type': 'multipart/form-data',
+                Authorization: `Bearer ${userInfo.token}`
+            }
+        }
+        const { data } = await axios.put(`/api/changeofcourseinstitution/${id}/adminupload`,
+            formData, config)
+
+        dispatch({
+            type: COCI_ITEM_DELIVER_SUCCESS,
+            payload: data
+        })
+    } catch (error) {
+        const message = error.response && error.response.data.message
+            ? error.response.data.message
+            : error.message
+        dispatch({
+            type: COCI_ITEM_DELIVER_FAIL,
+            payload: message
+        })
+        dispatch(setMessage(message))
+    }
+}
+
+export const deleteChangeOfCourseOrder = (id) => async (dispatch, getState) => {
+    try {
+        dispatch({
+            type: COCI_DELETE_REQUEST
+        })
+
+        const { userLogin: { userInfo } } = getState()
+
+        const config = {
+            headers: {
+                Authorization: `Bearer ${userInfo.token}`
+            }
+        }
+        const { data } = await axios.delete(`/api/changeofcourseinstitution/${id}`, config)
+
+        dispatch({
+            type: COCI_DELETE_SUCCESS,
+            payload: data
+        })
+    } catch (error) {
+        const message = error.response && error.response.data.message
+            ? error.response.data.message
+            : error.message
+        dispatch({
+            type: COCI_DELETE_FAIL,
+            payload: message
+        })
+        dispatch(setMessage(message))
+    }
+}
 
 export const createChangeOfCourseOrder = (order) => async (dispatch, getState) => {
     try {

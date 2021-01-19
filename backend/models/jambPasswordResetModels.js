@@ -7,27 +7,27 @@ const orderSchema = mongoose.Schema({
         required: true,
         ref: User
     },
-    orderItems: [
-        {
-            name: {
-                type: String,
-                required: true
-            },
-            email: {
-                type: String,
-                required: true
-            },
-            dateOfBirth: {
-                type: Date,
-                required: true
-            },
-            newPassword: {
-                type: String,
-                required: true
-            },
-
+    orderItems:
+    {
+        name: {
+            type: String,
+            required: true
         },
-    ],
+        email: {
+            type: String,
+            required: true
+        },
+        dateOfBirth: {
+            type: Date,
+            required: true
+        },
+        newPassword: {
+            type: String,
+            required: true
+        },
+
+    },
+
     price: {
         type: Number,
         required: true
@@ -50,6 +50,7 @@ const orderSchema = mongoose.Schema({
             type: String
         }
     },
+
     isPaid: {
         type: Boolean,
         required: true,

@@ -74,7 +74,7 @@ const MainHeader = ({ setShowDrawer }) => {
                     <motion.div variants={hamburgerItemsVariants} className="line2"></motion.div>
                     <motion.div variants={hamburgerItemsVariants} className="line3"></motion.div>
                 </Hamburger>
-                <SvgIcon />
+                {/* <SvgIcon /> */}
                 <HeaderRightItems variants={headerRightVariants} initial="hidden" animate="visible">
                     <ul>
                         <motion.li

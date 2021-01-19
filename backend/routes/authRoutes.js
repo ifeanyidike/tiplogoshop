@@ -17,7 +17,9 @@ import {
     getAllUsers,
     getUser,
     deleteUser,
-    makeAdmin
+    makeAdmin,
+    emailAUser,
+    emailAllUsers
 } from "../controllers/userControllers.js"
 import { facebooklogin } from "../controllers/facebookAuthControllers.js"
 import { protect, admin } from "../middlewares/authMiddleware.js"
@@ -33,9 +35,10 @@ router.route('/profile/update').put(updateUserProfile)
 router.route('/wallet/credit/').put(creditWallet)
 router.route('/wallet/debit/').put(debitWallet)
 router.route('/').get(getAllUsers)
-router.route('/:id').get(getUser)
+router.route('/:id').get(getUser).delete(protect, admin, deleteUser)
 router.route('/makeadmin/:id').put(protect, admin, makeAdmin)
-router.route('/:id').delete(protect, admin, deleteUser)
+router.route('/:id/email').post(protect, admin, emailAUser)
+router.route('/email').post(protect, admin, emailAllUsers)
 
 
 export default router

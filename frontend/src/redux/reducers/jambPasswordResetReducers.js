@@ -15,7 +15,34 @@ import {
     JAMB_PASSWORD_RESET_UPDATE_SUCCESS,
     JAMB_PASSWORD_RESET_UPDATE_FAIL,
     JAMB_PASSWORD_RESET_CREATE_RESET,
+    JAMB_PASSWORD_RESET_DELETE_REQUEST,
+    JAMB_PASSWORD_RESET_DELETE_SUCCESS,
+    JAMB_PASSWORD_RESET_DELETE_FAIL,
 } from "../constants/jambPasswordResetConstants"
+
+
+export const jambPasswordResetOrderDeleteReducer = (state = {}, action) => {
+    switch (action.type) {
+        case JAMB_PASSWORD_RESET_DELETE_REQUEST:
+            return {
+                loading: true
+            }
+        case JAMB_PASSWORD_RESET_DELETE_SUCCESS:
+            return {
+                loading: false,
+                success: true,
+            }
+        case JAMB_PASSWORD_RESET_DELETE_FAIL:
+            return {
+                loading: false,
+                error: action.payload
+            }
+
+        default:
+            return state
+    }
+}
+
 
 export const jambPasswordResetOrderCreateReducer = (state = {}, action) => {
     switch (action.type) {

@@ -187,5 +187,66 @@ export const makeAdmin = asyncHandler(async (req, res) => {
         throw new Error('User not found')
     }
 
+})
 
+// @desc    POST send email to a user (also send to admin)
+// @route   POST /api/users/:id/email
+// @access  Private/Admin
+
+export const emailAUser = asyncHandler(async (req, res) => {
+    const user = await User.findById(req.params.id)
+    const { subject, message: info } = req.body
+
+    const from = "nonreply@tiplogo.com"
+    const recipients = [user.email, process.env.ADMIN_EMAIL]
+    const heading = `Hi ${user.name}`
+    const msg =
+        `<div> 
+            <p>${info}</p>            
+        </div>`
+
+    const message = servicesMessageTemplate(heading, msg)
+    const data = mgOptions(from, recipients, subject, message)
+
+    if (user) {
+        mg.messages().send(data, (error, body) => {
+            if (error) {
+                throw new Error('An error occurred when sending email')
+            } else {
+                res.status(200).send("Email sent")
+            }
+        })
+    }
+})
+
+
+// @desc    POST email all users (also send to admin)
+// @route   POST /api/users/email
+// @access  Private/Admin
+
+export const emailAllUsers = asyncHandler(async (req, res) => {
+    const users = await User.find({})
+    const { subject, message: info } = req.body
+
+    const from = "nonreply@tiplogo.com"
+    const recipients = users.map(user => user.email)
+
+    const heading = `Hi ${user.name}`
+    const msg =
+        `<div> 
+            <p>${info}</p>            
+        </div>`
+
+    const message = servicesMessageTemplate(heading, msg)
+    const data = mgOptions(from, recipients, subject, message)
+
+    if (user) {
+        mg.messages().send(data, (error, body) => {
+            if (error) {
+                throw new Error('An error occurred when sending email')
+            } else {
+                res.status(200).send("Email sent")
+            }
+        })
+    }
 })

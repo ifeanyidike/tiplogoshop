@@ -2,64 +2,67 @@ import mongoose from "mongoose"
 import User from "./userModels.js";
 
 const OLevelResultUploadSchema = mongoose.Schema({
-    user:{
+    user: {
         type: mongoose.Schema.Types.ObjectId,
         required: true,
         ref: User
-    },    
+    },
     orderItems:
-        {
-            type:{
-                type: String,
-                required: true
-            },
-            name: {
-                type: String,
-                required: true
-            },
-            profileCode:{
-                type: String,
-                required: true
-            },
-            files:[
-                String
-            ]                    
-        },    
+    {
+        type: {
+            type: String,
+            required: true
+        },
+        name: {
+            type: String,
+            required: true
+        },
+        profileCode: {
+            type: String,
+            required: true
+        },
+        files: [
+            String
+        ]
+    },
+    admin_upload: {
+        type: String
+    },
     price: {
-        type:Number,
+        type: Number,
         required: true
     },
-    paymentMethod:{
+    paymentMethod: {
         type: String,
         required: true
     },
-    paymentResult:{
-        id:{
-            type: String,            
+    paymentResult: {
+        id: {
+            type: String,
         },
-        status:{
+        status: {
             type: String
         },
-        updated_time:{
+        updated_time: {
             type: String
         },
-        email:{
+        email: {
             type: String
         }
     },
-    isPaid:{
+    isPaid: {
         type: Boolean,
         required: true,
         default: false
     },
-    paidAt:{
+    paidAt: {
         type: Date
-    }            
-},{
- timestamps: true   
+    }
+}, {
+    timestamps: true
 })
 
-const OLevelResultUploadOrder = 
-        mongoose.model("OLevelResultUploadOrder", OLevelResultUploadSchema)
+const OLevelResultUploadOrder =
+    mongoose.model("OLevelResultUploadOrder", OLevelResultUploadSchema)
 
 export default OLevelResultUploadOrder

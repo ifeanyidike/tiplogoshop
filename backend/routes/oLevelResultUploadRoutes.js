@@ -7,6 +7,8 @@ import {
     getMyOLevelResultUploadOrders,
     adminGetMyOLevelResultUploadOrders,
     getOLevelResultUploadOrders,
+    adminOLevelResultUploadFileUpload,
+    deleteOLevelResultUploadOrder
 } from "../controllers/oLevelResultUploadControllers.js"
 
 import { documentsUpload } from "../controllers/uploadControllers.js"
@@ -22,6 +24,9 @@ router.route('/myorders').get(protect, getMyOLevelResultUploadOrders)
 router.route('/myorders/:userId').get(protect, adminGetMyOLevelResultUploadOrders)
 
 router.route("/:id").get(protect, getOLevelResultUploadOrderById)
+    .delete(protect, admin, deleteOLevelResultUploadOrder)
+router.route("/:id/adminupload").put(protect, admin,
+    documentsUpload.single('document'), adminOLevelResultUploadFileUpload)
 
 
 export default router

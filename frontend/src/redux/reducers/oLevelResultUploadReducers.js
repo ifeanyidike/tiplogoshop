@@ -15,7 +15,60 @@ import {
     OLEVEL_UPLOAD_UPDATE_REQUEST,
     OLEVEL_UPLOAD_UPDATE_SUCCESS,
     OLEVEL_UPLOAD_UPDATE_FAIL,
+    OLEVEL_UPLOAD_ITEM_DELIVER_REQUEST,
+    OLEVEL_UPLOAD_ITEM_DELIVER_SUCCESS,
+    OLEVEL_UPLOAD_ITEM_DELIVER_FAIL,
+    OLEVEL_UPLOAD_DELETE_REQUEST,
+    OLEVEL_UPLOAD_DELETE_SUCCESS,
+    OLEVEL_UPLOAD_DELETE_FAIL,
 } from "../constants/oLevelResultUploadConstants"
+
+
+export const oLevelUploadAdminUploadReducer = (state = {}, action) => {
+    switch (action.type) {
+        case OLEVEL_UPLOAD_ITEM_DELIVER_REQUEST:
+            return {
+                loading: true
+            }
+        case OLEVEL_UPLOAD_ITEM_DELIVER_SUCCESS:
+            return {
+                loading: false,
+                success: true,
+                file: action.payload
+            }
+        case OLEVEL_UPLOAD_ITEM_DELIVER_FAIL:
+            return {
+                loading: false,
+                error: action.payload
+            }
+
+        default:
+            return state
+    }
+}
+
+
+export const oLevelUploadOrderDeleteReducer = (state = {}, action) => {
+    switch (action.type) {
+        case OLEVEL_UPLOAD_DELETE_REQUEST:
+            return {
+                loading: true
+            }
+        case OLEVEL_UPLOAD_DELETE_SUCCESS:
+            return {
+                loading: false,
+                success: true,
+            }
+        case OLEVEL_UPLOAD_DELETE_FAIL:
+            return {
+                loading: false,
+                error: action.payload
+            }
+
+        default:
+            return state
+    }
+}
 
 export const oLevelUploadOrderCreateReducer = (state = {}, action) => {
     switch (action.type) {

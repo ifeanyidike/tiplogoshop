@@ -15,7 +15,80 @@ import {
     OLEVEL_UPLOAD_UPDATE_REQUEST,
     OLEVEL_UPLOAD_UPDATE_SUCCESS,
     OLEVEL_UPLOAD_UPDATE_FAIL,
+    OLEVEL_UPLOAD_ITEM_DELIVER_REQUEST,
+    OLEVEL_UPLOAD_ITEM_DELIVER_SUCCESS,
+    OLEVEL_UPLOAD_ITEM_DELIVER_FAIL,
+    OLEVEL_UPLOAD_DELETE_REQUEST,
+    OLEVEL_UPLOAD_DELETE_SUCCESS,
+    OLEVEL_UPLOAD_DELETE_FAIL,
 } from "../constants/oLevelResultUploadConstants"
+import { setMessage } from "./utilActions"
+
+
+export const adminOlevelFileUpload = (id, formData) => async (dispatch, getState) => {
+    try {
+        dispatch({
+            type: OLEVEL_UPLOAD_ITEM_DELIVER_REQUEST
+        })
+
+        const { userLogin: { userInfo } } = getState()
+
+        const config = {
+            headers: {
+                'Content-Type': 'multipart/form-data',
+                Authorization: `Bearer ${userInfo.token}`
+            }
+        }
+        const { data } = await axios.put(`/api/olevelresultupload/${id}/adminupload`,
+            formData, config)
+
+        dispatch({
+            type: OLEVEL_UPLOAD_ITEM_DELIVER_SUCCESS,
+            payload: data
+        })
+    } catch (error) {
+        const message = error.response && error.response.data.message
+            ? error.response.data.message
+            : error.message
+        dispatch({
+            type: OLEVEL_UPLOAD_ITEM_DELIVER_FAIL,
+            payload: message
+        })
+        dispatch(setMessage(message))
+    }
+}
+
+export const deleteOlevelUploadOrder = (id) => async (dispatch, getState) => {
+    try {
+        dispatch({
+            type: OLEVEL_UPLOAD_DELETE_REQUEST
+        })
+
+        const { userLogin: { userInfo } } = getState()
+
+        const config = {
+            headers: {
+                Authorization: `Bearer ${userInfo.token}`
+            }
+        }
+        const { data } = await axios.delete(`/api/olevelresultupload/${id}`, config)
+
+        dispatch({
+            type: OLEVEL_UPLOAD_DELETE_SUCCESS,
+            payload: data
+        })
+    } catch (error) {
+        const message = error.response && error.response.data.message
+            ? error.response.data.message
+            : error.message
+        dispatch({
+            type: OLEVEL_UPLOAD_DELETE_FAIL,
+            payload: message
+        })
+        dispatch(setMessage(message))
+    }
+}
+
 
 export const createOlevelUploadOrder = (
     files, orderItems, amount, paymentMethod, paymentResult) =>

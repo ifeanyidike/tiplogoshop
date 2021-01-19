@@ -17,6 +17,7 @@ import ResetPassword from "./pages/ResetPassword"
 import AdminUsers from "./pages/Admin/Users/UsersMain"
 import AdminCards from "./pages/Admin/Cards/CardsMain"
 import AdminCardOrders from "./pages/Admin/CardOrders/CardOrdersMain"
+import AdminChangeOfCourse from "./pages/Admin/ChangeOfCourse/ChangeOfCourseMain"
 import { Switch, Route } from "react-router-dom"
 import { AnimatePresence } from "framer-motion"
 import SideDrawer from "./components/SideDrawer"
@@ -28,6 +29,9 @@ function App() {
 
       <SideDrawer key="sidedrawer" />
       <Switch>
+        <Route path="/admin/changeofcourse" exact>
+          <AdminChangeOfCourse />
+        </Route>
         <Route path="/admin/cardorders" exact>
           <AdminCardOrders />
         </Route>

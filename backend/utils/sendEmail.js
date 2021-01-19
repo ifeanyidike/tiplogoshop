@@ -2,35 +2,74 @@ import nodemailer from "nodemailer"
 import smtpTransport from "nodemailer-smtp-transport"
 import mailgun from "mailgun-js"
 import dotenv from "dotenv"
+import fs from "fs"
+import path from "path"
+import mgnodemailer from "nodemailer-mailgun-transport"
+
 
 
 dotenv.config()
 const DOMAIN = process.env.MAILGUN_DOMAIN;
 const apiKey = process.env.MAILGUN_APIKEY
-const mg = mailgun({apiKey: apiKey, domain: DOMAIN});
+const mg = mailgun({ apiKey: apiKey, domain: DOMAIN });
+
+const auth = {
+    auth: {
+        api_key: apiKey,
+        domain: DOMAIN
+    }
+}
 
 const mgOptions = (from, to, subject, message) => ({
-	from: from,
-	to: to,
-	subject: subject,
-	html: message
+    from: from,
+    to: to,
+    subject: subject,
+    html: message
 });
 
-const transporter = nodemailer.createTransport(smtpTransport({
-    service: 'gmail',
-    host: 'smtp.gmail.com',
-    secure: false,
-    port: 25,    
-    auth:{
-        user: process.env.ADMIN_EMAIL,
-        pass: process.env.ADMIN_PASSWORD
-    },
-    tls:{
-        rejectUnauthorized: false
-    }
-}))
+// const mgOptionsWithAttachment = (from, to, subject, message, attachment) => ({
+//     from: from,
+//     to: to,
+//     subject: subject,
+//     html: message,
+//     attachment: attachment
+// });
 
-const mailOptions = (to, subject, message) =>{
+const mgOptionsWithAttachment = (from, to, subject, message, file) => ({
+    from,
+    to,
+    subject,
+    html: message,
+    attachments: [
+        {
+            path: 'text.txt'
+        },
+    ]
+})
+
+// const transporter = nodemailer.createTransport(smtpTransport({
+//     service: 'gmail',
+//     host: 'smtp.gmail.com',
+//     secure: false,
+//     port: 25,
+//     auth: {
+//         user: process.env.ADMIN_EMAIL,
+//         pass: process.env.ADMIN_PASSWORD
+//     },
+//     tls: {
+//         rejectUnauthorized: false
+//     }
+// }))
+
+export const smtpMgTransport = nodemailer.createTransport(smtpTransport({
+    service: "Mailgun",
+    auth: {
+        api_key: apiKey,
+        domain: DOMAIN
+    }
+}));
+
+const mailOptions = (to, subject, message) => {
     return {
         from: 'ifeanyidike87@gmail.com',
         to: to,
@@ -47,7 +86,7 @@ const timeNotice = (time) => `
     </div>
 `
 
-const servicesMessageTemplate = (heading, msg) => `                 
+const servicesMessageTemplate = (heading = '', msg) => `                 
 <html>
     <head>
         <style>
@@ -80,7 +119,7 @@ const servicesMessageTemplate = (heading, msg) => `
 `
 
 
-const emailMessageTemplate = (heading, msg, url, text, timeNotice='') => `            
+const emailMessageTemplate = (heading, msg, url, text, timeNotice = '') => `            
 <div style="text-align: center">
     <a style="text-decoration: none; 
         color: #0077CC; font-size: 25px; 
@@ -187,5 +226,7 @@ const emailMessageCardTemplate = (heading, msg, cardbody) => `
 </html>      
 `
 
-export {mg, mgOptions, emailMessageTemplate, timeNotice, emailMessageCardTemplate,
-    servicesMessageTemplate}
+export {
+    mg, mgOptions, emailMessageTemplate, timeNotice, emailMessageCardTemplate,
+    servicesMessageTemplate, mgOptionsWithAttachment
+}

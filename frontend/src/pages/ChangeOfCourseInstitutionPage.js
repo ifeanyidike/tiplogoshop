@@ -1,7 +1,7 @@
-import React, {useState, useEffect} from 'react'
+import React, { useState, useEffect } from 'react'
 import BaseRoot from "../components/Services/BaseRoot"
-import {ServiceTypeContainer, ServicePanel} from "../styles/ServiceStyle"
-import { firstCardContainerVariants} from '../animationVariants/CardVariants'
+import { ServiceTypeContainer, ServicePanel } from "../styles/ServiceStyle"
+import { firstCardContainerVariants } from '../animationVariants/CardVariants'
 import CourseChangeForm from "../components/Services/CourseChangeForm"
 import { makeStyles } from '@material-ui/core/styles';
 import Stepper from '@material-ui/core/Stepper';
@@ -9,61 +9,61 @@ import Step from '@material-ui/core/Step';
 import StepLabel from '@material-ui/core/StepLabel';
 import CourseChangeReview from '../components/Services/CourseChangeReview'
 import ServicePayment from '../components/Services/ServicePayment'
-import {debitWallet} from "../redux/actions/userActions.js"
-import {useDispatch, useSelector} from "react-redux"
+import { debitWallet } from "../redux/actions/userActions.js"
+import { useDispatch, useSelector } from "react-redux"
 import { COCI_CREATE_RESET } from '../redux/constants/changeOfCourseConstants'
 import NotLoggedIn from "../components/Utils/NotLoggedIn"
 
-const useStyles = makeStyles((theme) => ({   
+const useStyles = makeStyles((theme) => ({
     stepper: {
         padding: theme.spacing(3, 0, 5),
-      },
-  }));
-  
-const steps = ['Form Entry', 'Review your order', 'Payment'];                
+    },
+}));
 
-const ChangeOfCourseInstitution = () => {    
+const steps = ['Form Entry', 'Review your order', 'Payment'];
+
+const ChangeOfCourseInstitution = () => {
     const classes = useStyles();
     const [type, setType] = useState("UTME")
     const [name, setName] = useState("")
     const [regNo, setRegNo] = useState("")
     const [profileCode, setProfileCode] = useState("")
-    const [OTP, setOTP] = useState("")   
+    const [OTP, setOTP] = useState("")
     const [activeStep, setActiveStep] = useState(0);
-    const [moreInfo, setMoreInfo] = useState("");   
-    const dispatch = useDispatch() 
-    
-    const {service} = useSelector(state => state.serviceByName)
+    const [moreInfo, setMoreInfo] = useState("");
+    const dispatch = useDispatch()
+
+    const { service } = useSelector(state => state.serviceByName)
     const userLogin = useSelector(state => state.userLogin)
-    const {userInfo} = userLogin
-    
-    useEffect(()=>{
-        dispatch({type: COCI_CREATE_RESET})
+    const { userInfo } = userLogin
+
+    useEffect(() => {
+        dispatch({ type: COCI_CREATE_RESET })
     }, [dispatch])
-            
+
     const [programme, setProgramme] = useState({
         first: null,
         second: null,
         third: null,
         fourth: null
     })
-    
+
     const [institution, setInstitution] = useState({
         first: null,
         second: null,
         third: null,
         fourth: null
-    })        
-    
+    })
+
     const [course, setCourse] = useState({
         first: null,
         second: null,
         third: null,
         fourth: null
     })
-    
-    
-    
+
+
+
     const changeOfCourseOrder = () => {
         return {
             transactionType: 'changeofcourse',
@@ -73,96 +73,96 @@ const ChangeOfCourseInstitution = () => {
                 regNo,
                 profileCode,
                 otp: OTP,
-                choices:[
-                    {preferredProgramme: programme.first, institution: institution.first, course: course.first },
-                    {preferredProgramme: programme.second, institution: institution.second, course: course.second },
-                    programme.third && {preferredProgramme: programme.third, institution: institution.third, course: course.third },
-                    programme.fourth && {preferredProgramme: programme.fourth, institution: institution.fourth, course: course.fourth },
+                choices: [
+                    { preferredProgramme: programme.first, institution: institution.first, course: course.first },
+                    { preferredProgramme: programme.second, institution: institution.second, course: course.second },
+                    programme.third && { preferredProgramme: programme.third, institution: institution.third, course: course.third },
+                    programme.fourth && { preferredProgramme: programme.fourth, institution: institution.fourth, course: course.fourth },
                 ]
             }
         }
     }
-    
-    
-    
+
+
+
     return (
-    <BaseRoot topText="Services">   
-    {
-        !userInfo ?
-            <NotLoggedIn />
-        :
-                                  
-        <ServiceTypeContainer>                           
-            <ServicePanel  
-                variants={firstCardContainerVariants}                           
-                initial='initial'
-                animate='animate'
-                whileHover='onHover'
-                variant="lightish"
-            >
-                <Stepper activeStep={activeStep} className={classes.stepper}>
-                    {steps.map((label) => (
-                        <Step key={label}>
-                            <StepLabel>{label}</StepLabel>
-                        </Step>
-                    ))}
-                </Stepper>
-                {
-                    activeStep === 0 ?
-                        <CourseChangeForm 
-                            type = {type}
-                            setType = {setType}
-                            regNo = {regNo}
-                            setRegNo = {setRegNo}
-                            OTP = {OTP}
-                            setOTP = {setOTP}
-                            profileCode = {profileCode}
-                            setProfileCode = {setProfileCode}
-                            name = {name}
-                            setName = {setName}
-                            programme = {programme}
-                            setProgramme = {setProgramme}
-                            institution = {institution}
-                            setInstitution = {setInstitution}
-                            course = {course}
-                            setCourse = {setCourse}   
-                            activeStep = {activeStep}    
-                            setActiveStep = {setActiveStep}    
-                            moreInfo = {moreInfo}         
-                            setMoreInfo = {setMoreInfo}
-                        />       
-                        :
-                        activeStep === 1 ?
-                        <CourseChangeReview
-                            type = {type}
-                            name = {name}
-                            profileCode = {profileCode}
-                            OTP = {OTP}
-                            regNo = {regNo}
-                            programme = {programme}
-                            institution = {institution}
-                            course = {course}
-                            moreInfo = {moreInfo} 
-                            activeStep = {activeStep}    
-                            setActiveStep = {setActiveStep}        
-                        />            
-                        : 
-                        activeStep === 2 ?
-                        <ServicePayment
-                            activeStep = {activeStep}    
-                            setActiveStep = {setActiveStep}                            
-                            serviceOrder = {changeOfCourseOrder}
-                            // handleWalletPayment = {handleSubmit}
-                        />
-                        
-                        :
-                        null                    
-                }                                
-                    
-            </ServicePanel>
-        </ServiceTypeContainer>                                        
-    }    
-    </BaseRoot>
+        <BaseRoot topText="Services">
+            {
+                !userInfo ?
+                    <NotLoggedIn />
+                    :
+
+                    <ServiceTypeContainer>
+                        <ServicePanel
+                            variants={firstCardContainerVariants}
+                            initial='initial'
+                            animate='animate'
+                            whileHover='onHover'
+                            variant="lightish"
+                        >
+                            <Stepper activeStep={activeStep} className={classes.stepper}>
+                                {steps.map((label) => (
+                                    <Step key={label}>
+                                        <StepLabel>{label}</StepLabel>
+                                    </Step>
+                                ))}
+                            </Stepper>
+                            {
+                                activeStep === 0 ?
+                                    <CourseChangeForm
+                                        type={type}
+                                        setType={setType}
+                                        regNo={regNo}
+                                        setRegNo={setRegNo}
+                                        OTP={OTP}
+                                        setOTP={setOTP}
+                                        profileCode={profileCode}
+                                        setProfileCode={setProfileCode}
+                                        name={name}
+                                        setName={setName}
+                                        programme={programme}
+                                        setProgramme={setProgramme}
+                                        institution={institution}
+                                        setInstitution={setInstitution}
+                                        course={course}
+                                        setCourse={setCourse}
+                                        activeStep={activeStep}
+                                        setActiveStep={setActiveStep}
+                                        moreInfo={moreInfo}
+                                        setMoreInfo={setMoreInfo}
+                                    />
+                                    :
+                                    activeStep === 1 ?
+                                        <CourseChangeReview
+                                            type={type}
+                                            name={name}
+                                            profileCode={profileCode}
+                                            OTP={OTP}
+                                            regNo={regNo}
+                                            programme={programme}
+                                            institution={institution}
+                                            course={course}
+                                            moreInfo={moreInfo}
+                                            activeStep={activeStep}
+                                            setActiveStep={setActiveStep}
+                                        />
+                                        :
+                                        activeStep === 2 ?
+                                            <ServicePayment
+                                                activeStep={activeStep}
+                                                setActiveStep={setActiveStep}
+                                                serviceOrder={changeOfCourseOrder}
+                                            // handleWalletPayment = {handleSubmit}
+                                            />
+
+                                            :
+                                            null
+                            }
+
+                        </ServicePanel>
+                    </ServiceTypeContainer>
+            }
+        </BaseRoot>
     )
 }
 
