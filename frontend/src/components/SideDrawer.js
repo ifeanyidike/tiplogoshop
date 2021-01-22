@@ -79,7 +79,7 @@ const SideDrawer = () => {
                                     className='closeIcon'
                                     onClick={handleCancelClick}
                                 />
-                                {/* <SvgIcon /> */}
+                                <SvgIcon />
 
                                 <span>Lorem ipsum dolor sit amet consectetur adipisicing elit. Iure, pariatur.</span>
                             </li>

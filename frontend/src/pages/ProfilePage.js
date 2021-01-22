@@ -1,20 +1,17 @@
 import React, { useState, useEffect } from 'react'
 import { useDispatch, useSelector } from "react-redux"
 import { getAUser, setProfilePhoto, setUserImage, updateUser } from "../redux/actions/userActions"
-import { ProfileContainer, UploadButton } from "../styles/ProfileStyle"
+import { ProfileContainer } from "../styles/ProfileStyle"
 import Header from "../components/MainHeader"
 import NotLoggedIn from "../components/Utils/NotLoggedIn"
 import { IconButton } from "@material-ui/core"
 import AddAPhotoIcon from '@material-ui/icons/AddAPhoto';
 import TabIndex from "../components/Profile/TabIndex"
-import SaveIcon from '@material-ui/icons/Save';
 import Loader from "../components/Loaders/SimpleLoader"
 import Wallet from "../components/Utils/Wallet"
 import { DropzoneDialog } from 'material-ui-dropzone'
 
 const ProfilePage = () => {
-    const [showButton, setShowButton] = useState(false)
-    const [image, setImage] = useState('')
     const [upload, setUpload] = useState({
         open: false,
         files: []
@@ -32,10 +29,10 @@ const ProfilePage = () => {
     const dispatch = useDispatch()
 
     const profilePhoto = useSelector(state => state.profilePhoto)
-    const { loading: photoLoading, error: photoError, success, photoUrl } = profilePhoto
+    const { loading: photoLoading, success, photoUrl } = profilePhoto
 
     const userLogin = useSelector(state => state.userLogin)
-    const { loading: userLoading, userInfo, error: userError } = userLogin
+    const { userInfo } = userLogin
 
     useEffect(() => {
         dispatch(setUserImage())
@@ -93,16 +90,9 @@ const ProfilePage = () => {
                                     />
 
                                 </IconButton>
-                                <UploadButton
-                                    style={{ display: showButton ? 'flex' : 'none' }}
-                                    className="submitbutton"
-                                    type="submit">
-                                    Save
-                                <SaveIcon fontSize="small" />
-                                </UploadButton>
+
                             </div>
                             <div>
-
 
                             </div>
 

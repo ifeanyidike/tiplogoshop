@@ -88,7 +88,6 @@ const OLevelUploadDetails = ({ setValue }) => {
 
     return (
         <UserProfileContainer>
-
             {
                 loading ? <Loader />
                     : error ? error
@@ -308,8 +307,6 @@ const OLevelUploadDetails = ({ setValue }) => {
                             </CardContent>
                             </Card>
             }
-
-
         </UserProfileContainer >
     )
 }

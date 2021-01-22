@@ -14,11 +14,6 @@ import { addCardItems, listCardDetails, listCards, updateCard } from "../../../r
 import queryString from "query-string"
 import { useLocation } from "react-router-dom"
 import FixedTable from "./FixedHeaderTable"
-import { deleteAUser } from "../../../redux/actions/userActions"
-import { listMyNotPaidCardOrders } from '../../../redux/actions/cardOrderActions';
-import { listMyChangeOfCourseOrders } from '../../../redux/actions/changeOfCourseActions';
-import { listMyJambPasswordResetOrders } from '../../../redux/actions/jambPasswordResetActions';
-import { listMyOlevelUploadOrders } from '../../../redux/actions/oLevelResultUploadActions';
 import MessageModal from "../../../components/Utils/MessageModal"
 import PhotoCameraIcon from '@material-ui/icons/PhotoCamera';
 import { deleteCard } from "../../../redux/actions/cardActions"

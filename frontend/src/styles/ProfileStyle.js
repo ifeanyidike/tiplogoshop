@@ -1,7 +1,8 @@
 import styled from 'styled-components'
-import {motion} from 'framer-motion'
-import {device, colors} from "./breakpoints"
-import {Button} from "./HomeStyle"
+import { motion } from 'framer-motion'
+import { device, colors } from "./breakpoints"
+import { Button } from "./HomeStyle"
+import { UserProfileContainer } from "./AdminStyles"
 
 export const ProfileContainer = styled(motion.div)`
     background: ${colors.background};
@@ -119,4 +120,14 @@ export const WalletButton = styled(Button)`
     margin-left: ${props => props.ml + 'px' || 0};
     margin-right: ${props => props.mr + 'px' || 0};
     width: 100%;
+`
+
+export const ItemOverviewContainer = styled(UserProfileContainer)`
+margin-top: 40px;
+    .card__image{
+        .item__pic{
+            width: 200px;
+            height: 200px;
+        }
+    }
 `
