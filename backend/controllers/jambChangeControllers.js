@@ -5,6 +5,9 @@ import { mg, mgOptions, servicesMessageTemplate, mgOptionsWithAttachment } from 
 import request from "request"
 import path from "path"
 import fs from "fs"
+import { uploader } from 'cloudinary'
+import datauri from 'datauri'
+
 
 //@desc     Create new changeofcourseinstitution
 //@route    POST /api/changeofcourseinstitution
@@ -105,6 +108,24 @@ export const getChangeOfCourseInstitutionOrderById = asyncHandler(async (req, re
 })
 
 
+//@desc     GET bloob admin upload by ID
+//@route    GET /api/changeofcourseinstitution/:id/blob
+//@access   Private
+
+export const getChangeOfCourseBlobById = asyncHandler(async (req, res) => {
+    const order = await ChangeOfCourseInstitutionOrder.findById(req.params.id)
+
+    if (order) {
+        const file = fs.createReadStream(order.admin_upload)
+
+        file.pipe(res)
+    } else {
+        res.status(404)
+        throw new Error('Order not found')
+    }
+})
+
+
 //@desc     Get logged in user Jamb Change Orders
 //@route    GET /api/changeofcourseinstitution/myorders
 //@access   Private
@@ -131,14 +152,17 @@ export const getChangeOfCourseInstitutionOrders = asyncHandler(async (req, res) 
 export const deleteChangeOfCourseInstitutionOrder = asyncHandler(async (req, res) => {
     const order = await ChangeOfCourseInstitutionOrder.findById(req.params.id)
     if (order) {
+
+        if (order.admin_upload.cloudinary) {
+            await uploader.destroy(order.admin_upload.cloudinary_id);
+        }
+
         order.remove()
-        res.json({ message: 'order removed' })
+
     } else {
         res.status(404)
         throw new Error('Order not found')
     }
-
-    res.json(orders)
 })
 
 export const adminGetMyChangeOfCourseOrders = asyncHandler(async (req, res) => {
@@ -156,11 +180,7 @@ export const adminGetMyChangeOfCourseOrders = asyncHandler(async (req, res) => {
 export const adminChangeOfCourseFileUpload = asyncHandler(async (req, res) => {
     const order = await ChangeOfCourseInstitutionOrder.findById(req.params.id).populate('user', 'id email')
 
-
     if (order) {
-        order.admin_upload = req.file.path
-
-
         // const attachment = request(req.file.path)
         const from = "nonreply@tiplogo.com"
         const subject = "Change of course completed"
@@ -170,33 +190,48 @@ export const adminChangeOfCourseFileUpload = asyncHandler(async (req, res) => {
             <p>Thank you for ordering your change of course/institution with us </p>
             <p>We have successfully completed the process. Find the attached file below </p>
             <p>You can also find it in your profile in our website.  </p>
-            
-        </div>`
 
+        </div>`
 
         const message = servicesMessageTemplate(heading, msg)
 
-        const data = {
-            from,
-            to: order.user.email,
-            subject,
-            html: message,
-            attachment: req.file.path
-        };
+        const result = await uploader.upload(req.file.path)
+        if (result) {
+            order.admin_upload.cloudinary_id = result.public_id
+            order.admin_upload.image = result.secure_url
 
-
-        const updatedOrder = await order.save()
-        if (updatedOrder) {
-            mg.messages().send(data, (error, body) => {
-                if (error) {
-                    throw new Error('An error occurred when sending email')
-                } else {
-                    res.json(req.file.path)
+            fs.unlink(req.file.path, (err) => {
+                if (err) {
+                    console.error(err)
+                    return
                 }
+                //file removed
             })
+
+            const data = {
+                from,
+                to: order.user.email,
+                subject,
+                html: message,
+                attachment: request(result.secure_url)
+            };
+
+            const updatedOrder = await order.save()
+            if (updatedOrder) {
+                mg.messages().send(data, (error, body) => {
+                    if (error) {
+                        throw new Error('An error occurred when sending email')
+                    } else {
+                        res.json(result.secure_url)
+                    }
+                })
+            }
         }
     } else {
         res.statusCode(404)
         throw new Error('Order not found')
     }
 })
+
+
+

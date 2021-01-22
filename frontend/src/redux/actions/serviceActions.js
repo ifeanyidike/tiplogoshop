@@ -3,22 +3,22 @@ import {
   SERVICE_LIST_REQUEST,
   SERVICE_LIST_SUCCESS,
   SERVICE_LIST_FAIL,
-  
+
   SERVICE_DETAILS_REQUEST,
   SERVICE_DETAILS_SUCCESS,
   SERVICE_DETAILS_FAIL,
-  
+
   SERVICE_CREATE_REQUEST,
   SERVICE_CREATE_SUCCESS,
   SERVICE_CREATE_FAIL,
-  
+
   SERVICE_UPDATE_REQUEST,
   SERVICE_UPDATE_SUCCESS,
   SERVICE_UPDATE_FAIL,
-  
+
   SERVICE_BY_NAME_REQUEST,
   SERVICE_BY_NAME_SUCCESS,
-  SERVICE_BY_NAME_FAIL      
+  SERVICE_BY_NAME_FAIL
 } from '../constants/serviceConstants'
 import { logout } from './userActions'
 
@@ -32,7 +32,7 @@ export const listServices = () => async (dispatch) => {
       type: SERVICE_LIST_SUCCESS,
       payload: data,
     })
-    
+
   } catch (error) {
     dispatch({
       type: SERVICE_LIST_FAIL,
@@ -54,7 +54,7 @@ export const listServiceDetailsById = (id) => async (dispatch) => {
       type: SERVICE_DETAILS_SUCCESS,
       payload: data,
     })
-    
+
   } catch (error) {
     dispatch({
       type: SERVICE_DETAILS_FAIL,
@@ -68,25 +68,25 @@ export const listServiceDetailsById = (id) => async (dispatch) => {
 
 
 export const listServiceByName = (name) => async (dispatch) => {
-    try {
-      dispatch({ type: SERVICE_BY_NAME_REQUEST })
-  
-      const { data } = await axios.get(`/api/services/name/${name}`)
-  
-      dispatch({
-        type: SERVICE_BY_NAME_SUCCESS,
-        payload: data,
-      })
-      
-    } catch (error) {
-      dispatch({
-        type: SERVICE_BY_NAME_FAIL,
-        payload:
-          error.response && error.response.data.message
-            ? error.response.data.message
-            : error.message,
-      })
-    }
+  try {
+    dispatch({ type: SERVICE_BY_NAME_REQUEST })
+
+    const { data } = await axios.get(`/api/services/name/${name}`)
+
+    dispatch({
+      type: SERVICE_BY_NAME_SUCCESS,
+      payload: data,
+    })
+
+  } catch (error) {
+    dispatch({
+      type: SERVICE_BY_NAME_FAIL,
+      payload:
+        error.response && error.response.data.message
+          ? error.response.data.message
+          : error.message,
+    })
+  }
 }
 
 
@@ -150,7 +150,9 @@ export const updateService = (service) => async (dispatch, getState) => {
       type: SERVICE_UPDATE_SUCCESS,
       payload: data,
     })
-    
+
+    dispatch(listServiceByName(service.name))
+
   } catch (error) {
     const message =
       error.response && error.response.data.message

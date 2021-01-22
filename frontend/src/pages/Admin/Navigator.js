@@ -11,12 +11,16 @@ import HomeIcon from '@material-ui/icons/Home';
 import { Link } from "react-router-dom"
 import { useStyles } from "../../components/Admin/adminThemes"
 import { categories } from '../../components/Admin/adminUtils';
+import { useHistory, useLocation } from "react-router-dom"
 
 
 function Navigator(props) {
   const [active, setActive] = useState(false)
   const classes = useStyles();
   const { ...other } = props;
+  const location = useLocation()
+  const splittedPath = location.pathname.split(/\//)
+  const path = splittedPath[splittedPath.length - 1]
 
   return (
     <DrawerContainer>
@@ -48,12 +52,12 @@ function Navigator(props) {
                   {id}
                 </ListItemText>
               </ListItem>
-              {children.map(({ id: childId, icon, active, href }) => (
+              {children.map(({ id: childId, icon, href }) => (
                 <Link to={`/admin/${href}`} key={childId}>
                   <ListItem
                     button
                     className={clsx(classes.item, active && classes.itemActiveItem)}
-                    onClick={() => setActive(true)}
+                    style={{ color: path === href && '#4fc3f7' }}
                   >
                     <ListItemIcon className={classes.itemIcon}>{icon}</ListItemIcon>
                     <ListItemText

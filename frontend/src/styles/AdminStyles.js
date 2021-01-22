@@ -127,7 +127,7 @@ export const AdminButtonPro = styled(AdminButton)`
     background-color: ${props => props.color};
     display: flex;
     align-items: center;
-    
+    justify-content: center
 `
 
 
@@ -152,4 +152,20 @@ export const RightAlign = styled.div`
     justify-content: flex-end;
     width: 'fit-content';
     
+`
+
+export const AdminPrice = styled.div`
+    display: grid;
+    place-items: center;
+    font-family: 'Jost', sans-serif;
+    h3{
+        font-family: 'Aclonica', sans-serif;
+    }
+    input[type="text"]{
+        width: 100%;
+        margin: 20px 0;
+        padding: 7px 10px;
+        border-radius: 15px;
+        outline: none;
+    }
 `

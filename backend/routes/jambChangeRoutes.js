@@ -9,9 +9,10 @@ import {
     getChangeOfCourseInstitutionOrders,
     deleteChangeOfCourseInstitutionOrder,
     adminGetMyChangeOfCourseOrders,
-    adminChangeOfCourseFileUpload
+    adminChangeOfCourseFileUpload,
+    getChangeOfCourseBlobById
 } from "../controllers/jambChangeControllers.js"
-import { documentsUpload } from "../controllers/uploadControllers.js"
+import { documentsUpload, imageMemoryUpload } from "../controllers/uploadControllers.js"
 import { protect, admin } from "../middlewares/authMiddleware.js"
 
 router.route("/").post(protect, createChangeOfCourseInstitutionOrder)
@@ -24,7 +25,9 @@ router.route("/:id").get(protect, getChangeOfCourseInstitutionOrderById)
     .delete(protect, admin, deleteChangeOfCourseInstitutionOrder)
     .put(protect, updateChangeOfCourseInstitutionOrder)
 
+router.route('/:id/blob').get(getChangeOfCourseBlobById)
+
 router.route("/:id/adminupload").put(protect, admin,
-    documentsUpload.single('document'), adminChangeOfCourseFileUpload)
+    imageMemoryUpload.single('document'), adminChangeOfCourseFileUpload)
 
 export default router

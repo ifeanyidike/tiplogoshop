@@ -15,7 +15,11 @@ import {
     JAMB_PASSWORD_RESET_UPDATE_REQUEST,
     JAMB_PASSWORD_RESET_UPDATE_SUCCESS,
     JAMB_PASSWORD_RESET_UPDATE_FAIL,
+    JAMB_PASSWORD_RESET_DELETE_FAIL,
+    JAMB_PASSWORD_RESET_DELETE_SUCCESS,
+    JAMB_PASSWORD_RESET_DELETE_REQUEST,
 } from "../constants/jambPasswordResetConstants"
+import { setMessage } from "./utilActions"
 
 export const createJambPasswordResetOrder = (order) => async (dispatch, getState) => {
     try {
@@ -186,3 +190,37 @@ export const listJambPasswordResetOrders = () => async (dispatch, getState) => {
         })
     }
 }
+
+
+
+export const deleteJambPasswordResetOrder = (id) => async (dispatch, getState) => {
+    try {
+        dispatch({
+            type: JAMB_PASSWORD_RESET_DELETE_REQUEST
+        })
+
+        const { userLogin: { userInfo } } = getState()
+
+        const config = {
+            headers: {
+                Authorization: `Bearer ${userInfo.token}`
+            }
+        }
+        const { data } = await axios.delete(`/api/jambpasswordreset/${id}`, config)
+
+        dispatch({
+            type: JAMB_PASSWORD_RESET_DELETE_SUCCESS,
+            payload: data
+        })
+    } catch (error) {
+        const message = error.response && error.response.data.message
+            ? error.response.data.message
+            : error.message
+        dispatch({
+            type: JAMB_PASSWORD_RESET_DELETE_FAIL,
+            payload: message
+        })
+        dispatch(setMessage(message))
+    }
+}
+

@@ -1,13 +1,17 @@
-import React, { useEffect } from 'react'
+import React, { useState, useEffect } from 'react'
 import Content from "../TableContent"
 import { useDispatch, useSelector } from "react-redux"
 import { listChangeOfCourseOrders } from "../../../redux/actions/changeOfCourseActions"
 import { useHistory } from "react-router-dom"
-import { AdminButtonPro, RightAlign } from "../../../styles/AdminStyles"
+import { AdminButtonAlt, AdminPrice, RightAlign } from "../../../styles/AdminStyles"
+import { listServiceByName, updateService } from '../../../redux/actions/serviceActions'
+import { Card, CardContent } from '@material-ui/core'
+import CurrencyFormat from 'react-currency-format'
 
 const ChangeOfCourseList = ({ setValue }) => {
     const dispatch = useDispatch()
     const history = useHistory()
+    const serviceName = 'jamb change of course and institution'
 
     const headCells = [
         { id: 'type', numeric: false, disablePadding: true, label: 'Type' },
@@ -18,6 +22,7 @@ const ChangeOfCourseList = ({ setValue }) => {
 
     useEffect(() => {
         dispatch(listChangeOfCourseOrders())
+        dispatch(listServiceByName(serviceName))
     }, [dispatch])
 
     const handleOverview = (id) => {
@@ -27,6 +32,25 @@ const ChangeOfCourseList = ({ setValue }) => {
 
     const { error, loading, orders } = useSelector(state => state.changeOfCourseOrderList)
 
+    const [price, setPrice] = useState(0)
+
+    const { service } = useSelector(state => state.serviceByName)
+
+
+    useEffect(() => {
+        if (service) {
+            setPrice(service.cost)
+        }
+    }, [service])
+
+
+
+
+    const handleServiceUpdate = () => {
+        const newService = { ...service, cost: price }
+        dispatch(updateService(newService))
+
+    }
 
     return (
         <div>
@@ -43,6 +67,22 @@ const ChangeOfCourseList = ({ setValue }) => {
                 showCost={true}
                 displayArr={["type"]}
             />
+
+            <AdminPrice>
+                <Card >
+                    <CardContent>
+                        <h3>Set Change of Course Cost</h3>
+
+                        <CurrencyFormat value={price} thousandSeparator={true} prefix={'₦'}
+                            onValueChange={(values) => {
+                                const { formattedValue, value } = values;
+                                setPrice(value)
+                            }}
+                        />
+                        <AdminButtonAlt onClick={handleServiceUpdate}>Save</AdminButtonAlt>
+                    </CardContent>
+                </Card>
+            </AdminPrice>
 
         </div>
     )

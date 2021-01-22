@@ -18,6 +18,8 @@ import AdminUsers from "./pages/Admin/Users/UsersMain"
 import AdminCards from "./pages/Admin/Cards/CardsMain"
 import AdminCardOrders from "./pages/Admin/CardOrders/CardOrdersMain"
 import AdminChangeOfCourse from "./pages/Admin/ChangeOfCourse/ChangeOfCourseMain"
+import AdminOLevelUpload from "./pages/Admin/OLevelUpload/OLevelUploadMain"
+import AdminJambPasswordReset from "./pages/Admin/JambPasswordReset/JambPasswordResetMain"
 import { Switch, Route } from "react-router-dom"
 import { AnimatePresence } from "framer-motion"
 import SideDrawer from "./components/SideDrawer"
@@ -29,6 +31,12 @@ function App() {
 
       <SideDrawer key="sidedrawer" />
       <Switch>
+        <Route path="/admin/jambpasswordreset" exact>
+          <AdminJambPasswordReset />
+        </Route>
+        <Route path="/admin/olevelupload" exact>
+          <AdminOLevelUpload />
+        </Route>
         <Route path="/admin/changeofcourse" exact>
           <AdminChangeOfCourse />
         </Route>

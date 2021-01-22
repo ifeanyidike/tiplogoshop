@@ -21,7 +21,34 @@ import {
     OLEVEL_UPLOAD_DELETE_REQUEST,
     OLEVEL_UPLOAD_DELETE_SUCCESS,
     OLEVEL_UPLOAD_DELETE_FAIL,
+    OLEVEL_UPLOAD_BLOB_REQUEST,
+    OLEVEL_UPLOAD_BLOB_SUCCESS,
+    OLEVEL_UPLOAD_BLOB_FAIL,
 } from "../constants/oLevelResultUploadConstants"
+
+
+export const oLevelUploadBlobReducer = (state = {}, action) => {
+    switch (action.type) {
+        case OLEVEL_UPLOAD_BLOB_REQUEST:
+            return {
+                loading: true
+            }
+        case OLEVEL_UPLOAD_BLOB_SUCCESS:
+            return {
+                loading: false,
+                success: true,
+                file: action.payload
+            }
+        case OLEVEL_UPLOAD_BLOB_FAIL:
+            return {
+                loading: false,
+                error: action.payload
+            }
+
+        default:
+            return state
+    }
+}
 
 
 export const oLevelUploadAdminUploadReducer = (state = {}, action) => {

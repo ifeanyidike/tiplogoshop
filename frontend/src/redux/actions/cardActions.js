@@ -206,6 +206,7 @@ export const updateCard = (id, card) => async (dispatch, getState) => {
       payload: data,
     })
 
+    dispatch(listCardDetails(id))
     dispatch(setMessage("Card Updated Successfully"))
   } catch (error) {
     const message =
@@ -293,7 +294,7 @@ export const addCardItems = (id, items) => async (dispatch, getState) => {
       type: CARD_ADD_ITEM_SUCCESS,
       payload: data,
     })
-
+    dispatch(listCardDetails(id))
     dispatch(setMessage("Card item added successfully"))
   } catch (error) {
     const message =

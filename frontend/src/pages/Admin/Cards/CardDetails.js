@@ -75,6 +75,7 @@ const CardDetails = ({ setValue }) => {
         setSerialNo("")
         setToken("")
         setAddPrompt(false)
+
     }
 
     useEffect(() => {
@@ -117,7 +118,7 @@ const CardDetails = ({ setValue }) => {
                                     <Card className="card__image">
                                         <CardContent>
                                             <Avatar className="profile_pic"
-                                                src={`/${card.image}`}
+                                                src={card.upload && card.upload.image}
                                             />
 
 
@@ -151,7 +152,8 @@ const CardDetails = ({ setValue }) => {
                                                         onValueChange={(values) => {
                                                             const { formattedValue, value } = values;
                                                             setPrice(value)
-                                                        }} />
+                                                        }}
+                                                    />
                                                 </div>
                                             </div>
                                             <Divider />

@@ -117,6 +117,7 @@ export const emailAUser = (id, emailMessage) => async (dispatch, getState) => {
 
         const { data } = await axios.post(`/api/users/${id}/email`, emailMessage, config)
 
+        console.log(data)
         dispatch({
             type: USER_EMAIL_SUCCESS,
             payload: data
@@ -490,7 +491,7 @@ export const facebooklogin = (userID, accessToken) => async (dispatch) => {
 }
 
 
-export const setProfilePhoto = (formData) => async (dispatch, getState) => {
+export const setProfilePhoto = (id, formData) => async (dispatch, getState) => {
     try {
         dispatch({
             type: USER_PROFILE_PHOTO_REQUEST
@@ -505,12 +506,16 @@ export const setProfilePhoto = (formData) => async (dispatch, getState) => {
             },
         }
 
-        const { data } = await axios.post('/api/upload/profilephoto', formData, config)
+        const { data } = await axios.put(`/api/users/${id}/profilephoto`, formData, config)
 
         dispatch({
             type: USER_PROFILE_PHOTO_SUCCESS,
             payload: data
         })
+
+        const newUserInfo = { ...userInfo, profile: { ...userInfo.profile, picture: data } }
+        localStorage.setItem("userInfo", JSON.stringify(newUserInfo))
+
 
     } catch (error) {
         dispatch({
@@ -537,7 +542,7 @@ export const debitWallet = ({
     orderId = '',
     amount,
     orderItems = {},
-    files = []
+
 } = {}) => async (dispatch, getState) => {
     try {
         dispatch({
@@ -582,7 +587,7 @@ export const debitWallet = ({
 
             } else if (transactionType === 'olevelresultupload') {
                 dispatch(createOlevelUploadOrder(
-                    files, orderItems, amount, paymentMethod, paymentResult)
+                    orderItems, amount, paymentMethod, paymentResult)
                 )
             } else if (transactionType === 'jambpasswordreset') {
                 dispatch(createJambPasswordResetOrder(

@@ -63,7 +63,7 @@ export const userEmailReducer = (state = {}, action) => {
             return {
                 loading: false,
                 success: true,
-                message: action.paylaod
+                message: action.payload
             }
 
         case USER_EMAIL_FAIL:
@@ -89,7 +89,7 @@ export const usersEmailReducer = (state = {}, action) => {
             return {
                 loading: false,
                 success: true,
-                message: action.paylaod
+                message: action.payload
             }
 
         case USERS_EMAIL_FAIL:

@@ -21,8 +21,50 @@ import {
     OLEVEL_UPLOAD_DELETE_REQUEST,
     OLEVEL_UPLOAD_DELETE_SUCCESS,
     OLEVEL_UPLOAD_DELETE_FAIL,
+    OLEVEL_UPLOAD_BLOB_REQUEST,
+    OLEVEL_UPLOAD_BLOB_SUCCESS,
+    OLEVEL_UPLOAD_BLOB_FAIL,
 } from "../constants/oLevelResultUploadConstants"
 import { setMessage } from "./utilActions"
+
+
+export const getOlevelUploadBlob = (orderId) => async (dispatch, getState) => {
+    try {
+        dispatch({
+            type: OLEVEL_UPLOAD_BLOB_REQUEST
+        })
+
+        const { userLogin: { userInfo } } = getState()
+
+        const config = {
+            headers: {
+                Accept: 'application/pdf',
+                Authorization: `Bearer ${userInfo.token}`
+            }
+        }
+
+        const { data } = await axios.get(`/api/olevelresultupload/${orderId}/blob`,
+            { responseType: 'blob' }, config)
+        console.log(data)
+        const file = new Blob([data], { type: 'application/pdf' })
+        const fileURL = URL.createObjectURL(file);
+
+        dispatch({
+            type: OLEVEL_UPLOAD_BLOB_SUCCESS,
+            payload: fileURL
+        })
+        console.log(fileURL)
+    } catch (error) {
+        const message = error.response && error.response.data.message
+            ? error.response.data.message
+            : error.message
+        dispatch({
+            type: OLEVEL_UPLOAD_BLOB_FAIL,
+            payload: message
+        })
+
+    }
+}
 
 
 export const adminOlevelFileUpload = (id, formData) => async (dispatch, getState) => {
@@ -46,6 +88,8 @@ export const adminOlevelFileUpload = (id, formData) => async (dispatch, getState
             type: OLEVEL_UPLOAD_ITEM_DELIVER_SUCCESS,
             payload: data
         })
+
+        dispatch(getOlevelUploadOrderDetailsById(id))
     } catch (error) {
         const message = error.response && error.response.data.message
             ? error.response.data.message
@@ -91,7 +135,7 @@ export const deleteOlevelUploadOrder = (id) => async (dispatch, getState) => {
 
 
 export const createOlevelUploadOrder = (
-    files, orderItems, amount, paymentMethod, paymentResult) =>
+    orderItems, amount, paymentMethod, paymentResult) =>
     async (dispatch, getState) => {
         try {
             dispatch({
@@ -110,7 +154,7 @@ export const createOlevelUploadOrder = (
             }
             const formData = new FormData()
 
-            files.forEach(file => formData.append('document', file))
+            orderItems.files.forEach(file => formData.append('document', file))
             formData.append('type', orderItems.type)
             formData.append('name', orderItems.name)
             formData.append('profileCode', orderItems.profileCode)

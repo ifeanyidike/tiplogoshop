@@ -2,41 +2,46 @@ import mongoose from "mongoose"
 import User from "./userModels.js";
 
 const cardSchema = mongoose.Schema({
-    user:{
-      type: mongoose.Schema.Types.ObjectId,
-      required: true,
-      ref: User,  
+    user: {
+        type: mongoose.Schema.Types.ObjectId,
+        required: true,
+        ref: User,
     },
-    name:{
+    name: {
         type: String,
         required: true
     },
-    items:[
+    items: [
         {
-           pin: {
-               type: String
-           },
-           serialNo: {
-               type: String
-           },
-           token:{
-               type: String
-           }            
+            pin: {
+                type: String
+            },
+            serialNo: {
+                type: String
+            },
+            token: {
+                type: String
+            }
         }
     ],
-    price:{
+    price: {
         type: Number,
         required: true,
         default: 0
-    },   
-    image:{
-        type: String,
-        required: true
     },
-    description:{
-        type: String,        
-    } 
-      
+    upload: {
+        cloudinary_id: {
+            type: String
+        },
+        image: {
+            type: String,
+            required: true
+        }
+    },
+    description: {
+        type: String,
+    }
+
 }, {
     timestamps: true
 });

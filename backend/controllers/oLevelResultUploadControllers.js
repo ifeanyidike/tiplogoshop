@@ -2,12 +2,18 @@ import mongoose from "mongoose"
 import asyncHandler from "express-async-handler"
 import OLevelResultUploadOrder from "../models/oLevelResultUploadModels.js"
 import request from "request"
+import fs from "fs"
+import path from 'path'
 import { mg, mgOptions, servicesMessageTemplate, mgOptionsWithAttachment } from "../utils/sendEmail.js"
+import { uploader } from "cloudinary"
+import { Readable } from "stream"
+import streamify from "stream-array"
+
 
 //@desc     Create new OLevelResultUpload
 //@route    POST /api/olevelresultupload
 //@access   Private
-export const CreateOLevelResultUploadOrder = asyncHandler(async (req, res) => {
+export const createOLevelResultUploadOrder = asyncHandler(async (req, res) => {
     const {
         type, name, profileCode, price, paymentMethod, paymentResultId,
         paymentResultStatus, paymentResultUpdateTime, paymentResultEmail
@@ -15,12 +21,36 @@ export const CreateOLevelResultUploadOrder = asyncHandler(async (req, res) => {
         = req.body
 
 
-    if (!req.files) {
+    if (!req.files || req.files.length === 0) {
         throw new Error('No file supplied')
     }
 
-    const filePath = req.files.map(file => file.path)
+    let upload = []
 
+
+    for (let file of req.files) {
+
+        const result = await uploader.upload(file.path)
+
+        const objectToPush = {
+            cloudinary_id: result.public_id,
+            image: result.secure_url
+        }
+        upload.push(objectToPush)
+
+        fs.unlink(file.path, (err) => {
+            if (err) {
+                console.error(err)
+                return
+            }
+            //file removed
+        })
+    }
+    console.log(upload)
+
+    // if (card.upload.cloudinary_id) {
+    //     await cloudinary.uploader.destroy(card.upload.cloudinary_id);
+    // }
     if (!type || !name || !profileCode) {
         throw new Error('No order items or order items are incomplete')
     }
@@ -42,7 +72,7 @@ export const CreateOLevelResultUploadOrder = asyncHandler(async (req, res) => {
             type: type,
             name: name,
             profileCode: profileCode,
-            files: filePath
+            files: upload
         },
         user: req.user._id,
         price,
@@ -90,6 +120,27 @@ export const getOLevelResultUploadOrderById = asyncHandler(async (req, res) => {
     }
 })
 
+
+//@desc     GET bloob admin upload by ID
+//@route    GET /api/olevelresultupload/:id/blob
+//@access   Private
+
+export const getOLevelResultUploadBlobById = asyncHandler(async (req, res) => {
+    const order = await OLevelResultUploadOrder.findById(req.params.id)
+
+    if (order) {
+        const file = fs.createReadStream(order.admin_upload)
+
+        file.pipe(res)
+    } else {
+        res.status(404)
+        throw new Error('Order not found')
+    }
+})
+
+
+
+
 //@desc     Get logged in user OLevelResultUploads
 //@route    GET /api/olevelresultupload/myorders
 //@access   Private
@@ -128,26 +179,34 @@ export const adminGetMyOLevelResultUploadOrders = asyncHandler(async (req, res) 
 
 export const deleteOLevelResultUploadOrder = asyncHandler(async (req, res) => {
     const order = await OLevelResultUploadOrder.findById(req.params.id)
+
     if (order) {
+
+        if (order.admin_upload.cloudinary_id) {
+            await uploader.destroy(order.admin_upload.cloudinary_id);
+        }
+
+        for (let file of order.orderItems.files) {
+            if (file.cloudinary_id) {
+                await uploader.destroy(file.cloudinary_id);
+            }
+        }
+
         order.remove()
-        res.json({ message: 'order removed' })
+
     } else {
         res.status(404)
         throw new Error('Order not found')
     }
-
-    res.json(orders)
 })
 
 
 
 export const adminOLevelResultUploadFileUpload = asyncHandler(async (req, res) => {
-    const order = await OLevelResultUploadOrder.findById(req.params.id)
+    const order = await OLevelResultUploadOrder.findById(req.params.id).populate('user', 'id email')
 
     if (order) {
-        order.admin_upload = req.file.path
 
-        const attachment = request(path.join(process.env.CLIENT_URL, req.file.path))
         const from = "nonreply@tiplogo.com"
         const subject = "O level result upload completed"
 
@@ -160,19 +219,39 @@ export const adminOLevelResultUploadFileUpload = asyncHandler(async (req, res) =
         </div>`
 
         const message = servicesMessageTemplate(heading, msg)
-        const data = mgOptionsWithAttachment(
-            from, req.user.email, subject, message, attachment)
 
+        const result = await uploader.upload(req.file.path)
 
-        const updatedOrder = await order.save()
-        if (updatedOrder) {
-            mg.messages().send(data, (error, body) => {
-                if (error) {
-                    throw new Error('An error occurred when sending email')
-                } else {
-                    res.json(req.file.path)
+        if (result) {
+            order.admin_upload.cloudinary_id = result.public_id
+            order.admin_upload.image = result.secure_url
+
+            fs.unlink(req.file.path, (err) => {
+                if (err) {
+                    console.error(err)
+                    return
                 }
+                //file removed
             })
+
+            const data = {
+                from,
+                to: order.user.email,
+                subject,
+                html: message,
+                attachment: request(result.secure_url)
+            };
+
+            const updatedOrder = await order.save()
+            if (updatedOrder) {
+                mg.messages().send(data, (error, body) => {
+                    if (error) {
+                        throw new Error('An error occurred when sending email')
+                    } else {
+                        res.send(result.secure_url)
+                    }
+                })
+            }
         }
     } else {
         res.statusCode(404)

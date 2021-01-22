@@ -22,8 +22,50 @@ import {
     COCI_DELETE_REQUEST,
     COCI_DELETE_SUCCESS,
     COCI_DELETE_FAIL,
+    COCI_BLOB_REQUEST,
+    COCI_BLOB_SUCCESS,
+    COCI_BLOB_FAIL,
 } from "../constants/changeOfCourseConstants"
 import { setMessage } from "./utilActions"
+
+
+
+export const getChangeOfCourseBlob = (orderId) => async (dispatch, getState) => {
+    try {
+        dispatch({
+            type: COCI_BLOB_REQUEST
+        })
+
+        const { userLogin: { userInfo } } = getState()
+
+        const config = {
+            headers: {
+                Accept: 'application/pdf',
+                Authorization: `Bearer ${userInfo.token}`
+            }
+        }
+
+        const { data } = await axios.get(`/api/changeofcourseinstitution/${orderId}/blob`,
+            { responseType: 'blob' }, config)
+
+        const file = new Blob([data], { type: 'application/pdf' })
+        const fileURL = URL.createObjectURL(file);
+
+        dispatch({
+            type: COCI_BLOB_SUCCESS,
+            payload: fileURL
+        })
+    } catch (error) {
+        const message = error.response && error.response.data.message
+            ? error.response.data.message
+            : error.message
+        dispatch({
+            type: COCI_BLOB_FAIL,
+            payload: message
+        })
+
+    }
+}
 
 
 
@@ -48,6 +90,8 @@ export const adminChangeOfCourseUpload = (id, formData) => async (dispatch, getS
             type: COCI_ITEM_DELIVER_SUCCESS,
             payload: data
         })
+
+        dispatch(getChangeOfCourseBlob(id))
     } catch (error) {
         const message = error.response && error.response.data.message
             ? error.response.data.message

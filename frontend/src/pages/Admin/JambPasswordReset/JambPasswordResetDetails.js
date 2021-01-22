@@ -6,22 +6,20 @@ import { TextareaAutosize, InputLabel, InputAdornment } from '@material-ui/core'
 import { UserProfileContainer, AdminButton, AdminButtonAlt, AdminButtonPro, RightAlign, AdminHeader } from "../../../styles/AdminStyles"
 import { colors } from "../../../styles/breakpoints"
 import CurrencyFormat from "react-currency-format"
-import { Avatar, Card, CardContent, Divider } from '@material-ui/core';
+import { Card, CardContent, Divider } from '@material-ui/core';
 import { useSelector, useDispatch } from "react-redux"
 import Loader from "../../../components/Loaders/SimpleLoader"
-import { DropzoneDialog } from 'material-ui-dropzone'
 import queryString from "query-string"
 import { useLocation } from "react-router-dom"
 import MessageModal from "../../../components/Utils/MessageModal"
 import PhotoCameraIcon from '@material-ui/icons/PhotoCamera';
 
 import {
-    adminChangeOfCourseUpload,
-    getChangeOfCourseOrderDetailsById,
-    getChangeOfCourseBlob,
-    deleteChangeOfCourseOrder,
-    listChangeOfCourseOrders
-} from '../../../redux/actions/changeOfCourseActions';
+
+    getJambPasswordResetOrderDetailsById,
+    deleteJambPasswordResetOrder,
+    listJambPasswordResetOrders
+} from '../../../redux/actions/jambPasswordResetActions';
 import { emailAUser } from '../../../redux/actions/userActions';
 import { Grid } from '@material-ui/core';
 import { Typography } from '@material-ui/core';
@@ -39,7 +37,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 
-const ChangeOfCourseDetails = ({ setValue }) => {
+const OLevelUploadDetails = ({ setValue }) => {
     const classes = useStyles();
 
     const [deletePrompt, setDeletePrompt] = useState(false)
@@ -52,7 +50,7 @@ const ChangeOfCourseDetails = ({ setValue }) => {
 
     useEffect(() => {
         if (orderId) {
-            dispatch(getChangeOfCourseOrderDetailsById(orderId))
+            dispatch(getJambPasswordResetOrderDetailsById(orderId))
         }
     }, [dispatch, orderId])
 
@@ -61,8 +59,8 @@ const ChangeOfCourseDetails = ({ setValue }) => {
         files: []
     })
 
-    const changeOfCourseOrderDetails = useSelector(state => state.changeOfCourseOrderDetails)
-    const { loading, error, order } = changeOfCourseOrderDetails
+    const jambPasswordResetOrderDetails = useSelector(state => state.jambPasswordResetOrderDetails)
+    const { loading, error, order } = jambPasswordResetOrderDetails
 
     const userEmail = useSelector(state => state.userEmail)
     const { loading: emailLoading, message } = userEmail
@@ -72,18 +70,10 @@ const ChangeOfCourseDetails = ({ setValue }) => {
         dispatch(emailAUser(order.user._id, { subject, emailBody }))
     }
 
-    const handleFileSave = (files) => {
-        setUpload({ files: files, open: false })
-        const formData = new FormData()
-        formData.append('document', files[0])
-        formData.append('email', order.user.email)
-        dispatch(adminChangeOfCourseUpload(orderId, formData))
-        dispatch(getChangeOfCourseOrderDetailsById(orderId))
-    }
 
     const handleOrderDelete = () => {
-        dispatch(deleteChangeOfCourseOrder(orderId))
-        dispatch(listChangeOfCourseOrders())
+        dispatch(deleteJambPasswordResetOrder(orderId))
+        dispatch(listJambPasswordResetOrders())
         setValue(0)
     }
 
@@ -96,28 +86,7 @@ const ChangeOfCourseDetails = ({ setValue }) => {
                         :
                         order ?
                             <React.Fragment>
-                                <Card className="card__image">
-                                    <CardContent>
-                                        <img src={order.admin_upload && order.admin_upload.image} alt="admin upload" />
 
-                                        <div>
-                                            <AdminButtonAlt onClick={() => setUpload({ ...upload, open: true })}>
-                                                <PhotoCameraIcon />Upload Result</AdminButtonAlt>
-                                            <DropzoneDialog
-                                                open={upload.open}
-                                                filesLimit={1}
-                                                clearOnUnmount={false}
-                                                onChange={(files) => console.log('Files:', files)}
-                                                onSave={handleFileSave}
-                                                submitButtonText="Add image"
-                                                acceptedFiles={['image/jpeg', 'application/pdf', 'image/png']}
-                                                showPreviews={true}
-                                                maxFileSize={1000000}
-                                                onClose={() => setUpload({ ...upload, open: false })}
-                                            />
-                                        </div>
-                                    </CardContent>
-                                </Card>
                                 <Card className="card__content">
                                     <CardContent>
                                         <div className="heading">
@@ -136,48 +105,25 @@ const ChangeOfCourseDetails = ({ setValue }) => {
                                         <div className="contents">
                                             <div>
                                                 <span>Candidate's name:</span>
-                                                <span>{order.orderItems && order.orderItems.fullName}</span>
-                                            </div>
-                                            <div>
-                                                <span>Candidate's OTP:</span>
-                                                <span>{order.orderItems && order.orderItems.otp}</span>
-                                            </div>
-                                            <div>
-                                                <span>Candidate's Profile Code:</span>
-                                                <span>{order.orderItems && order.orderItems.profileCode}</span>
-                                            </div>
-                                            <div>
-                                                <span>Candidate's regNo:</span>
-                                                <span>{order.orderItems && order.orderItems.regNo}</span>
-                                            </div>
-                                            <div>
-                                                <span>Candidate's Order Type:</span>
-                                                <span>{order.orderItems && order.orderItems.type}</span>
+                                                <span>{order.orderItems && order.orderItems.name}</span>
                                             </div>
 
+                                            <div>
+                                                <span>Candidate's Email:</span>
+                                                <span>{order.orderItems && order.orderItems.email}</span>
+                                            </div>
+
+                                            <div>
+                                                <span>Candidate's Date of Birth:</span>
+                                                <span>{order.orderItems && order.orderItems.dateOfBirth}</span>
+                                            </div>
+
+                                            <div>
+                                                <span>Candidate's New Password</span>
+                                                <span>{order.orderItems && order.orderItems.newPassword}</span>
+                                            </div>
                                             <div className="fullwidth">
-                                                {
-                                                    order.orderItems &&
-                                                    order.orderItems.choices &&
-                                                    order.orderItems.choices.map((choice, index) => (
-                                                        choice && (
-                                                            <div className="embossitem" key={choice._id}>
-                                                                <div>
-                                                                    <span>Course {index + 1}: </span>
-                                                                    <span>{choice.course}</span>
-                                                                </div>
-                                                                <div>
-                                                                    <span>Institution {index + 1}: </span>
-                                                                    <span>{choice.institution}</span>
-                                                                </div>
-                                                                <div>
-                                                                    <span>Programme {index + 1}: </span>
-                                                                    <span>{choice.preferredProgramme}</span>
-                                                                </div>
-                                                            </div>
-                                                        )
-                                                    ))
-                                                }
+                                                <Divider />
                                             </div>
                                             <div>
                                                 <span>Paid on:</span>
@@ -318,8 +264,8 @@ const ChangeOfCourseDetails = ({ setValue }) => {
             }
 
 
-        </UserProfileContainer>
+        </UserProfileContainer >
     )
 }
 
-export default ChangeOfCourseDetails
+export default OLevelUploadDetails

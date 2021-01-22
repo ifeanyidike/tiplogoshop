@@ -72,7 +72,12 @@ const orderSchema = mongoose.Schema({
         }
     },
     admin_upload: {
-        type: String
+        cloudinary_id: {
+            type: String
+        },
+        image: {
+            type: String,
+        }
     },
     isPaid: {
         type: Boolean,

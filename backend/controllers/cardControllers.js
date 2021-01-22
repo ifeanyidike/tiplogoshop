@@ -1,5 +1,7 @@
 import asyncHandler from "express-async-handler"
 import Card from "../models/cardModels.js"
+import { uploader } from 'cloudinary'
+import fs from "fs"
 // import {mg, mgOptions, emailMessageCardTemplate} from "../utils/sendEmail.js"
 
 // @desc    Fetch all cards
@@ -59,7 +61,11 @@ export const deleteCard = asyncHandler(async (req, res) => {
     const card = await Card.findById(req.params.id)
 
     if (card) {
-        await card.remove()
+        if (card.upload.cloudinary_id) {
+            await uploader.destroy(card.upload.cloudinary_id);
+        }
+
+        card.remove()
         res.json({ message: 'Card removed' })
     } else {
         res.status(404)
@@ -76,7 +82,9 @@ export const createCard = asyncHandler(async (req, res) => {
         name: 'Sample card',
         price: 0,
         user: req.user._id,
-        image: '/images/sample.jpg',
+        upload: {
+            image: '/images/sample.jpg'
+        },
         description: 'Lorem ipsum dolor sit amet'
     })
     const createdCard = await card.save()
@@ -92,13 +100,28 @@ export const updateCard = asyncHandler(async (req, res) => {
 
 
     if (card) {
+        const result = req.file && await uploader.upload(req.file.path)
         card.name = name || card.name
         card.price = price || card.price
         card.description = description || card.description
-        card.image = req.file && req.file.path || card.image
+
+        fs.unlink(req.file.path, (err) => {
+            if (err) {
+                console.error(err)
+                return
+            }
+            //file removed
+        })
+
+        card.upload = result ? {
+            cloudinary_id: result.public_id,
+            image: result.secure_url
+        } : card.upload
 
         const updatedCard = await card.save()
         res.json(updatedCard)
+
+
     } else {
         res.status(404)
         throw new Error('Card not found')

@@ -12,6 +12,8 @@ const storage = multer.diskStorage({
     }
 })
 
+const memoryStorage = multer.diskStorage({})
+
 const checkFileType = (isImage = true, file, cb) => {
     let filetypes
     if (isImage) {
@@ -47,6 +49,36 @@ export const documentsUpload = multer({
     },
     fileFilter: function (req, file, cb) {
         checkFileType(false, file, cb)
+    }
+})
+
+export const documentsUploadMemory = multer({
+    memoryStorage,
+    limits: {
+        fileSize: 1000 * 1000
+    },
+    fileFilter: function (req, file, cb) {
+        checkFileType(false, file, cb)
+    }
+})
+
+export const profilePhotoMemoryUpload = multer({
+    storage: memoryStorage,
+    limits: {
+        fileSize: 300 * 300
+    },
+    fileFilter: function (req, file, cb) {
+        checkFileType(true, file, cb)
+    }
+})
+
+export const imageMemoryUpload = multer({
+    storage: memoryStorage,
+    limits: {
+        fileSize: 1000 * 1000
+    },
+    fileFilter: function (req, file, cb) {
+        checkFileType(true, file, cb)
     }
 })
 

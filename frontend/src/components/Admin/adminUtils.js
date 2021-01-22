@@ -23,7 +23,7 @@ export const categories = [
             { id: 'Card Orders', icon: <DnsRoundedIcon />, href: 'cardorders' },
             { id: 'Change of Course', icon: <PermMediaOutlinedIcon />, href: 'changeofcourse' },
             { id: 'Jamb Password Reset', icon: <PublicIcon />, href: 'jambpasswordreset' },
-            { id: 'O Level Result Uploads', icon: <SettingsEthernetIcon />, href: 'resultupload' },
+            { id: 'O Level Result Uploads', icon: <SettingsEthernetIcon />, href: 'olevelupload' },
             { id: 'Users Reviews', icon: <SettingsInputComponentIcon />, href: 'reviews' },
         ],
     },

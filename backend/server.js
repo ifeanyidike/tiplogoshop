@@ -13,6 +13,7 @@ import uploadRoutes from "./routes/uploadRoutes.js"
 import connectDatabase from "./config/db.js"
 import { notFound, errorHandler } from "./middlewares/errorMiddleware.js"
 import path from "path"
+import { cloudinaryConfig } from "./utils/cloudinarySetup.js"
 
 
 dotenv.config()
@@ -29,6 +30,7 @@ if (process.env.NODE_ENV === 'development') {
 app.use(express.json())
 
 //middlewares
+app.use('*', cloudinaryConfig)
 app.use('/api/users', authRoutes)
 app.use('/api/cards', cardRoutes)
 app.use('/api/schools', schoolRoutes)

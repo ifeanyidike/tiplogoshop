@@ -6,7 +6,7 @@ import { TextareaAutosize, InputLabel, InputAdornment } from '@material-ui/core'
 import { UserProfileContainer, AdminButton, AdminButtonAlt, AdminButtonPro, RightAlign, AdminHeader } from "../../../styles/AdminStyles"
 import { colors } from "../../../styles/breakpoints"
 import CurrencyFormat from "react-currency-format"
-import { Avatar, Card, CardContent, Divider } from '@material-ui/core';
+import { Card, CardContent, Divider } from '@material-ui/core';
 import { useSelector, useDispatch } from "react-redux"
 import Loader from "../../../components/Loaders/SimpleLoader"
 import { DropzoneDialog } from 'material-ui-dropzone'
@@ -16,12 +16,12 @@ import MessageModal from "../../../components/Utils/MessageModal"
 import PhotoCameraIcon from '@material-ui/icons/PhotoCamera';
 
 import {
-    adminChangeOfCourseUpload,
-    getChangeOfCourseOrderDetailsById,
-    getChangeOfCourseBlob,
-    deleteChangeOfCourseOrder,
-    listChangeOfCourseOrders
-} from '../../../redux/actions/changeOfCourseActions';
+    adminOlevelFileUpload,
+    getOlevelUploadOrderDetailsById,
+    getOlevelUploadBlob,
+    deleteOlevelUploadOrder,
+    listOlevelUploadOrders
+} from '../../../redux/actions/oLevelResultUploadActions';
 import { emailAUser } from '../../../redux/actions/userActions';
 import { Grid } from '@material-ui/core';
 import { Typography } from '@material-ui/core';
@@ -39,7 +39,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 
-const ChangeOfCourseDetails = ({ setValue }) => {
+const OLevelUploadDetails = ({ setValue }) => {
     const classes = useStyles();
 
     const [deletePrompt, setDeletePrompt] = useState(false)
@@ -52,7 +52,7 @@ const ChangeOfCourseDetails = ({ setValue }) => {
 
     useEffect(() => {
         if (orderId) {
-            dispatch(getChangeOfCourseOrderDetailsById(orderId))
+            dispatch(getOlevelUploadOrderDetailsById(orderId))
         }
     }, [dispatch, orderId])
 
@@ -61,8 +61,8 @@ const ChangeOfCourseDetails = ({ setValue }) => {
         files: []
     })
 
-    const changeOfCourseOrderDetails = useSelector(state => state.changeOfCourseOrderDetails)
-    const { loading, error, order } = changeOfCourseOrderDetails
+    const oLevelUploadOrderDetails = useSelector(state => state.oLevelUploadOrderDetails)
+    const { loading, error, order } = oLevelUploadOrderDetails
 
     const userEmail = useSelector(state => state.userEmail)
     const { loading: emailLoading, message } = userEmail
@@ -76,14 +76,13 @@ const ChangeOfCourseDetails = ({ setValue }) => {
         setUpload({ files: files, open: false })
         const formData = new FormData()
         formData.append('document', files[0])
-        formData.append('email', order.user.email)
-        dispatch(adminChangeOfCourseUpload(orderId, formData))
-        dispatch(getChangeOfCourseOrderDetailsById(orderId))
+        dispatch(adminOlevelFileUpload(orderId, formData))
+
     }
 
     const handleOrderDelete = () => {
-        dispatch(deleteChangeOfCourseOrder(orderId))
-        dispatch(listChangeOfCourseOrders())
+        dispatch(deleteOlevelUploadOrder(orderId))
+        dispatch(listOlevelUploadOrders())
         setValue(0)
     }
 
@@ -98,7 +97,14 @@ const ChangeOfCourseDetails = ({ setValue }) => {
                             <React.Fragment>
                                 <Card className="card__image">
                                     <CardContent>
-                                        <img src={order.admin_upload && order.admin_upload.image} alt="admin upload" />
+
+                                        {
+
+                                            order.admin_upload &&
+                                            <object data={order.admin_upload.image} type="application/pdf" width="300px" height="300px">
+                                                <p>Alternative text - include a link <a href={order.admin_upload && `/${order.admin_upload}`}>to the PDF!</a></p>
+                                            </object>
+                                        }
 
                                         <div>
                                             <AdminButtonAlt onClick={() => setUpload({ ...upload, open: true })}>
@@ -109,8 +115,8 @@ const ChangeOfCourseDetails = ({ setValue }) => {
                                                 clearOnUnmount={false}
                                                 onChange={(files) => console.log('Files:', files)}
                                                 onSave={handleFileSave}
-                                                submitButtonText="Add image"
-                                                acceptedFiles={['image/jpeg', 'application/pdf', 'image/png']}
+                                                submitButtonText="Add file"
+                                                acceptedFiles={['image/jpeg', 'image/png']}
                                                 showPreviews={true}
                                                 maxFileSize={1000000}
                                                 onClose={() => setUpload({ ...upload, open: false })}
@@ -136,48 +142,34 @@ const ChangeOfCourseDetails = ({ setValue }) => {
                                         <div className="contents">
                                             <div>
                                                 <span>Candidate's name:</span>
-                                                <span>{order.orderItems && order.orderItems.fullName}</span>
+                                                <span>{order.orderItems && order.orderItems.name}</span>
                                             </div>
-                                            <div>
-                                                <span>Candidate's OTP:</span>
-                                                <span>{order.orderItems && order.orderItems.otp}</span>
-                                            </div>
+
                                             <div>
                                                 <span>Candidate's Profile Code:</span>
                                                 <span>{order.orderItems && order.orderItems.profileCode}</span>
                                             </div>
-                                            <div>
-                                                <span>Candidate's regNo:</span>
-                                                <span>{order.orderItems && order.orderItems.regNo}</span>
-                                            </div>
+
                                             <div>
                                                 <span>Candidate's Order Type:</span>
                                                 <span>{order.orderItems && order.orderItems.type}</span>
                                             </div>
 
                                             <div className="fullwidth">
-                                                {
-                                                    order.orderItems &&
-                                                    order.orderItems.choices &&
-                                                    order.orderItems.choices.map((choice, index) => (
-                                                        choice && (
-                                                            <div className="embossitem" key={choice._id}>
-                                                                <div>
-                                                                    <span>Course {index + 1}: </span>
-                                                                    <span>{choice.course}</span>
+                                                <div className="embossitem">
+                                                    {
+                                                        order.orderItems &&
+                                                        order.orderItems.files &&
+                                                        order.orderItems.files.map((file) => (
+                                                            file && (
+                                                                <div key={file._id}>
+                                                                    <img src={file.image} alt={file.image} />
+
                                                                 </div>
-                                                                <div>
-                                                                    <span>Institution {index + 1}: </span>
-                                                                    <span>{choice.institution}</span>
-                                                                </div>
-                                                                <div>
-                                                                    <span>Programme {index + 1}: </span>
-                                                                    <span>{choice.preferredProgramme}</span>
-                                                                </div>
-                                                            </div>
-                                                        )
-                                                    ))
-                                                }
+                                                            )
+                                                        ))
+                                                    }
+                                                </div>
                                             </div>
                                             <div>
                                                 <span>Paid on:</span>
@@ -318,8 +310,8 @@ const ChangeOfCourseDetails = ({ setValue }) => {
             }
 
 
-        </UserProfileContainer>
+        </UserProfileContainer >
     )
 }
 
-export default ChangeOfCourseDetails
+export default OLevelUploadDetails

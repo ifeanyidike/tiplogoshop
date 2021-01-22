@@ -21,8 +21,34 @@ import {
     COCI_DELETE_REQUEST,
     COCI_DELETE_SUCCESS,
     COCI_DELETE_FAIL,
+    COCI_BLOB_REQUEST,
+    COCI_BLOB_SUCCESS,
+    COCI_BLOB_FAIL,
 } from "../constants/changeOfCourseConstants"
 
+
+export const changeOfCourseBlobReducer = (state = {}, action) => {
+    switch (action.type) {
+        case COCI_BLOB_REQUEST:
+            return {
+                loading: true
+            }
+        case COCI_BLOB_SUCCESS:
+            return {
+                loading: false,
+                success: true,
+                file: action.payload
+            }
+        case COCI_BLOB_FAIL:
+            return {
+                loading: false,
+                error: action.payload
+            }
+
+        default:
+            return state
+    }
+}
 
 
 export const changeOfCourseAdminUploadReducer = (state = {}, action) => {

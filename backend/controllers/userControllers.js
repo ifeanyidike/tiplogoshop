@@ -2,7 +2,11 @@ import WalletLog from "../models/walletLogModels.js"
 import User from "../models/userModels.js"
 import asyncHandler from "express-async-handler"
 import generateToken from "../utils/generateToken.js"
-
+import { mg, mgOptions, servicesMessageTemplate, mgOptionsWithAttachment } from "../utils/sendEmail.js"
+import { uploader } from 'cloudinary'
+import fs from "fs"
+import dotenv from "dotenv"
+dotenv.config()
 
 // @desc    Update user profile
 // @route   PUT /api/users/profile/update
@@ -49,34 +53,40 @@ export const debitWallet = asyncHandler(async (req, res) => {
     const user = await User.findById(id)
 
     if (user) {
-        const balance = user.wallet - parseInt(amount)
+        const balance = parseInt(user.wallet) - parseInt(amount)
 
-        user.wallet = balance
+        if (balance > 0) {
 
-        const updatedUser = await user.save()
+            user.wallet = balance
 
-        if (updatedUser) {
-            const walletlog = new WalletLog({
-                type: 'debit',
-                method: 'local',
-                paymentResult,
-                user: user._id,
-                amount: parseInt(amount),
-                balance: parseInt(balance)
+            const updatedUser = await user.save()
+
+            if (updatedUser) {
+                const walletlog = new WalletLog({
+                    type: 'debit',
+                    method: 'local',
+                    paymentResult,
+                    user: user._id,
+                    amount: parseInt(amount),
+                    balance: parseInt(balance)
+                })
+                await walletlog.save()
+            }
+
+            res.json({
+                _id: updatedUser._id,
+                name: updatedUser.name,
+                email: updatedUser.email,
+                type: updatedUser.type,
+                isAdmin: updatedUser.isAdmin,
+                token: generateToken(updatedUser._id),
+                wallet: updatedUser.wallet,
+                profile: updatedUser.profile
             })
-            await walletlog.save()
+        } else {
+            res.status(401)
+            throw new Error('You dont have sufficient amount for this transaction.')
         }
-
-        res.json({
-            _id: updatedUser._id,
-            name: updatedUser.name,
-            email: updatedUser.email,
-            type: updatedUser.type,
-            isAdmin: updatedUser.isAdmin,
-            token: generateToken(updatedUser._id),
-            wallet: updatedUser.wallet,
-            profile: updatedUser.profile
-        })
     } else {
         res.status(404)
         throw new Error('User not found')
@@ -164,6 +174,9 @@ export const deleteUser = asyncHandler(async (req, res) => {
     }
 
     if (user) {
+        if (user.profile.cloudinary_id) {
+            await uploader.destroy(user.profile.cloudinary_id);
+        }
         user.delete()
     } else {
         throw new Error('User not found')
@@ -196,7 +209,7 @@ export const makeAdmin = asyncHandler(async (req, res) => {
 export const emailAUser = asyncHandler(async (req, res) => {
     const user = await User.findById(req.params.id)
     const { subject, message: info } = req.body
-
+    console.log(req.body)
     const from = "nonreply@tiplogo.com"
     const recipients = [user.email, process.env.ADMIN_EMAIL]
     const heading = `Hi ${user.name}`
@@ -250,3 +263,61 @@ export const emailAllUsers = asyncHandler(async (req, res) => {
         })
     }
 })
+
+// @desc    PUT add a profile photo (also send to admin)
+// @route   POST /api/users/:id/profilephoto
+// @access  Private
+
+export const addProfilePhoto = asyncHandler(async (req, res) => {
+    const user = await User.findById(req.params.id)
+
+    if (user) {
+        // const attachment = request(req.file.path)
+        const from = "nonreply@tiplogo.com"
+        const subject = "Profile Picture Changed"
+
+        const heading = `Hi ${user.name}`
+        const msg = `<div> 
+            <p>You just changed your profile picture </p>            
+        </div>`
+
+        const message = servicesMessageTemplate(heading, msg)
+
+        const result = await uploader.upload(req.file.path)
+
+        if (result) {
+            user.profile.picture = result.secure_url
+            user.profile.cloudinary_id = result.public_id
+
+            fs.unlink(req.file.path, (err) => {
+                if (err) {
+                    console.error(err)
+                    return
+                }
+                //file removed
+            })
+
+            const data = {
+                from,
+                to: user.email,
+                subject,
+                html: message
+            };
+
+            const updatedUser = await user.save()
+            if (updatedUser) {
+                mg.messages().send(data, (error, body) => {
+                    if (error) {
+                        throw new Error('An error occurred when sending email')
+                    } else {
+                        res.send(result.secure_url)
+                    }
+                })
+            }
+        }
+    } else {
+        res.statusCode(404)
+        throw new Error('User not found')
+    }
+})
+

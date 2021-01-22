@@ -22,11 +22,24 @@ const OLevelResultUploadSchema = mongoose.Schema({
             required: true
         },
         files: [
-            String
+            {
+                cloudinary_id: {
+                    type: String
+                },
+                image: {
+                    type: String,
+                    required: true
+                }
+            },
         ]
     },
     admin_upload: {
-        type: String
+        cloudinary_id: {
+            type: String
+        },
+        image: {
+            type: String,
+        }
     },
     price: {
         type: Number,

@@ -68,7 +68,8 @@ import {
     changeOfCourseOrderListMyReducer,
     changeOfCourseOrderListReducer,
     changeOfCourseOrderDeleteReducer,
-    changeOfCourseAdminUploadReducer
+    changeOfCourseAdminUploadReducer,
+    changeOfCourseBlobReducer
 } from "./changeOfCourseReducers"
 
 import {
@@ -79,6 +80,7 @@ import {
     oLevelUploadOrderListReducer,
     oLevelUploadOrderDeleteReducer,
     oLevelUploadAdminUploadReducer,
+    oLevelUploadBlobReducer
 } from "./oLevelResultUploadReducers"
 
 import {
@@ -154,6 +156,7 @@ const reducer = combineReducers({
     changeOfCourseOrderList: changeOfCourseOrderListReducer,
     changeOfCourseOrderDelete: changeOfCourseOrderDeleteReducer,
     changeOfCourseAdminUpload: changeOfCourseAdminUploadReducer,
+    changeOfCourseBlob: changeOfCourseBlobReducer,
 
     oLevelUploadOrderCreate: oLevelUploadOrderCreateReducer,
     oLevelUploadOrderDetails: oLevelUploadOrderDetailsReducer,
@@ -162,6 +165,7 @@ const reducer = combineReducers({
     oLevelUploadOrderList: oLevelUploadOrderListReducer,
     oLevelUploadOrderDelete: oLevelUploadOrderDeleteReducer,
     oLevelUploadAdminUpload: oLevelUploadAdminUploadReducer,
+    oLevelUploadBlob: oLevelUploadBlobReducer,
 
     jambPasswordResetOrderCreate: jambPasswordResetOrderCreateReducer,
     jambPasswordResetOrderDetails: jambPasswordResetOrderDetailsReducer,
