@@ -101,6 +101,14 @@ const CardDetails = ({ setValue }) => {
         dispatch(listCardDetails(cardId))
     }
 
+    const isEmpty = (obj) => {
+        for (let key in obj) {
+            if (obj.hasOwnProperty(key))
+                return false
+        }
+        return true
+    }
+
     return (
         <UserProfileContainer>
             {
@@ -108,7 +116,7 @@ const CardDetails = ({ setValue }) => {
                     : error ? error
                         : updateLoading ? <Loader />
                             :
-                            card ?
+                            !isEmpty(card) ?
                                 <React.Fragment>
                                     <Card className="card__image">
                                         <CardContent>
@@ -203,21 +211,24 @@ const CardDetails = ({ setValue }) => {
                                         </CardContent>
                                     </Card>
 
-                                    <div className="carditems">
-                                        {
-                                            addLoading ? <Loader />
-                                                :
-                                                <FixedTable
-                                                    columns={headCells}
-                                                    rows={card.items && card.items}
-                                                />
-                                        }
-                                        <RightAlign >
-                                            <AdminButtonPro color={colors.goldish}
-                                                onClick={() => setAddPrompt(true)}
-                                            >Add card item</AdminButtonPro>
-                                        </RightAlign>
-                                    </div>
+                                    {
+                                        !isEmpty(card) &&
+                                        <div className="carditems">
+                                            {
+                                                addLoading ? <Loader />
+                                                    :
+                                                    <FixedTable
+                                                        columns={headCells}
+                                                        rows={card.items && card.items}
+                                                    />
+                                            }
+                                            <RightAlign >
+                                                <AdminButtonPro color={colors.goldish}
+                                                    onClick={() => setAddPrompt(true)}
+                                                >Add card item</AdminButtonPro>
+                                            </RightAlign>
+                                        </div>
+                                    }
 
 
                                     <MessageModal
@@ -288,7 +299,7 @@ const CardDetails = ({ setValue }) => {
                                 :
                                 <Card>
                                     <CardContent>
-                                        You have not selected any user
+                                        You have not selected any card
                             </CardContent>
                                 </Card>
             }

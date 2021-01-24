@@ -84,6 +84,11 @@ export const ProfileContainer = styled(motion.div)`
 
 export const ProfileButton = styled(Button)`    
 `
+
+export const ProfileButtonAlt = styled(Button)`
+    padding: 0.2rem 0.5rem;
+`
+
 export const UploadButton = styled(Button)`
     padding: 0.2rem 0.5rem;
     width: fit-content;
@@ -129,5 +134,63 @@ margin-top: 40px;
             width: 200px;
             height: 200px;
         }
+    }
+`
+
+export const ReviewContainer = styled.form`
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    padding: 20px;    
+    box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.16), 0 1px 3px 0 rgba(0, 0, 0, 0.12);    
+    width: 50vw;
+    font-family: 'Jost', sans-serif;
+
+    
+    h2{
+        font-family: 'Aclonica', sans-serif;
+        align-self: center;        
+        margin-bottom: 20px;
+    }
+    .rating{
+        width: 200px;
+        margin: 0 auto;
+        display: flex;
+        align-items: center;
+        align-self: center;
+    }
+    .form__control{
+        margin-top: 20px;
+        min-width: 100%;
+        width: 100%;
+        
+    }
+    .error{
+        align-self: center;
+    }
+    textarea{
+        padding: 10px;
+        border: 1px solid ${colors.midtext};
+        border-radius: 10px;
+    }
+    .button{
+        align-self: center;
+        margin: 0 auto;        
+        width: fit-content;
+    }
+        
+`
+export const ReviewedOverlay = styled.div`
+    width: 94%;        
+    height: 88%;
+    z-index: 5;
+    margin: -20px;
+    position: fixed;        
+    background-color: rgba(255, 255, 255, 0.7);
+    display: grid;
+    place-items: center;
+    .MuiSvgIcon-root{
+        color: ${colors.darkred};
+        font-size: 3rem;
     }
 `

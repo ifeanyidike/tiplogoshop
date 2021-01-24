@@ -1,20 +1,25 @@
 import React from 'react'
-import {TopCardPane} from "../../styles/CardStyle"
+import { TopCardPane } from "../../styles/CardStyle"
 import {
-    topCardVariants, 
+    topCardVariants,
 } from "../../animationVariants/HomeVariants"
+import { Link } from "react-router-dom"
 
-const TopCard = ({icon, title, bcolor}) => {
+const TopCard = ({ icon, title, bcolor, href }) => {
     return (
-        <TopCardPane 
-            bcolor={bcolor}
-            variants = {topCardVariants}
-            initial="initial"
-            animate="animate"
+        <Link to={href}>
+            <TopCardPane
+                bcolor={bcolor}
+                variants={topCardVariants}
+                initial="initial"
+                animate="animate"
             >
-            <i className={icon} />
-            <span>{title}</span>
-        </TopCardPane>
+
+                <i className={icon} />
+                <span>{title}</span>
+
+            </TopCardPane>
+        </Link>
     )
 }
 

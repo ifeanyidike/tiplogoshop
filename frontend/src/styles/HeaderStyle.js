@@ -1,6 +1,6 @@
 import styled from 'styled-components'
-import {motion} from "framer-motion"
-import {device, colors} from "./breakpoints"
+import { motion } from "framer-motion"
+import { device, colors } from "./breakpoints"
 
 export const Header = styled.div`
     display: flex;
@@ -18,7 +18,7 @@ export const Header = styled.div`
 `
 
 export const HeaderRightItems = styled(motion.div)`    
-    flex: 0.5;
+    flex-grow: 0.7;
     font-family: 'Jost', sans-serif;
     ul{               
         display: flex;

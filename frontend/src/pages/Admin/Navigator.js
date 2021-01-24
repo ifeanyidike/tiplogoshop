@@ -27,8 +27,12 @@ function Navigator(props) {
       <Drawer variant="permanent" {...other}>
         <List disablePadding>
           <ListItem className={clsx(classes.firebase, classes.item, classes.itemCategory)}>
-            Paperbase
-        </ListItem>
+            <Link to="/"
+              className={clsx(classes.item)}
+            >
+              Tiplogo Admin
+            </Link>
+          </ListItem>
           <ListItem className={clsx(classes.item, classes.itemCategory)}>
             <ListItemIcon className={classes.itemIcon}>
               <HomeIcon />
@@ -38,7 +42,7 @@ function Navigator(props) {
                 primary: classes.itemPrimary,
               }}
             >
-              Project Overview
+              App Overview
           </ListItemText>
           </ListItem>
           {categories.map(({ id, children }) => (

@@ -7,7 +7,7 @@ import { useLocation } from "react-router-dom"
 import queryString from 'query-string'
 import { ItemOverviewContainer } from "../../styles/ProfileStyle"
 import { Card, CardContent, Divider } from '@material-ui/core'
-import CurrencyFormat from "react-currency-format"
+
 
 const MyChangeOfCourseOrders = () => {
     const dispatch = useDispatch()
@@ -25,7 +25,6 @@ const MyChangeOfCourseOrders = () => {
         { id: 'name', label: "Candidate's name" },
         { id: 'regNo', label: "Reg No." },
         { id: 'profileCode', label: "Profile code" },
-
     ]
 
     useEffect(() => {
@@ -39,7 +38,7 @@ const MyChangeOfCourseOrders = () => {
     const { loading, error, orders } = useSelector(state => state.changeOfCourseOrderListMy)
     const changeOfCourseOrderDetails = useSelector(state => state.changeOfCourseOrderDetails)
     const { loading: detailLoading, error: detailError, order } = changeOfCourseOrderDetails
-    console.log(order)
+
     return (
         <div>
             {
@@ -60,119 +59,118 @@ const MyChangeOfCourseOrders = () => {
             <ItemOverviewContainer>
 
                 {
-                    loading ? <Loader />
-                        : error ? error
-                            :
-                            order ?
-                                <React.Fragment>
-                                    <Card className="card__image">
-                                        <CardContent >
-                                            {
-                                                order.admin_upload && order.admin_upload.image ?
-                                                    <img
-                                                        className="item__pic"
-                                                        src={order.admin_upload.image}
-                                                        alt="admin upload"
-                                                    />
-                                                    :
-                                                    "No file yet. Admin will respond soon."
-                                            }
-                                        </CardContent>
-                                    </Card>
-                                    <Card className="card__content">
-                                        <CardContent>
+                    detailLoading ? <Loader />
+                        :
+                        order ?
+                            <React.Fragment>
+                                <Card className="card__image">
+                                    <CardContent >
+                                        {
+                                            order.admin_upload && order.admin_upload.image ?
+                                                <img
+                                                    className="item__pic"
+                                                    src={order.admin_upload.image}
+                                                    alt="admin upload"
+                                                />
+                                                :
+                                                "No file yet. Admin will respond soon."
+                                        }
+                                    </CardContent>
+                                </Card>
+                                <Card className="card__content">
+                                    <CardContent>
 
-                                            <div className="contents">
-                                                <div>
-                                                    <span>Candidate's name:</span>
-                                                    <span>{order.orderItems && order.orderItems.fullName}</span>
-                                                </div>
-                                                <div>
-                                                    <span>Candidate's OTP:</span>
-                                                    <span>{order.orderItems && order.orderItems.otp}</span>
-                                                </div>
-                                                <div>
-                                                    <span>Candidate's Profile Code:</span>
-                                                    <span>{order.orderItems && order.orderItems.profileCode}</span>
-                                                </div>
-                                                <div>
-                                                    <span>Candidate's regNo:</span>
-                                                    <span>{order.orderItems && order.orderItems.regNo}</span>
-                                                </div>
-                                                <div>
-                                                    <span>Candidate's Order Type:</span>
-                                                    <span>{order.orderItems && order.orderItems.type}</span>
-                                                </div>
-
-                                                <div className="fullwidth">
-                                                    {
-                                                        order.orderItems &&
-                                                        order.orderItems.choices &&
-                                                        order.orderItems.choices.map((choice, index) => (
-                                                            choice && (
-                                                                <div className="embossitem" key={choice._id}>
-                                                                    <div>
-                                                                        <span>Course {index + 1}: </span>
-                                                                        <span>{choice.course}</span>
-                                                                    </div>
-                                                                    <div>
-                                                                        <span>Institution {index + 1}: </span>
-                                                                        <span>{choice.institution}</span>
-                                                                    </div>
-                                                                    <div>
-                                                                        <span>Programme {index + 1}: </span>
-                                                                        <span>{choice.preferredProgramme}</span>
-                                                                    </div>
-                                                                </div>
-                                                            )
-                                                        ))
-                                                    }
-                                                </div>
-                                                <div>
-                                                    <span>Paid on:</span>
-                                                    <span>{new Date(order.paidAt).toDateString()}</span>
-                                                </div>
-                                                <div>
-                                                    <span>Payment method:</span>
-                                                    <span>{order.paymentMethod}</span>
-                                                </div>
-                                                <div>
-                                                    <span>Payment ID:</span>
-                                                    <span>{order.paymentResult && order.paymentResult.id}</span>
-                                                </div>
-                                                <div>
-                                                    <span>Payment Email:</span>
-                                                    <span>{order.paymentResult && order.paymentResult.email}</span>
-                                                </div>
-                                                <div>
-                                                    <span>Payment Status:</span>
-                                                    <span>{order.paymentResult && order.paymentResult.status}</span>
-                                                </div>
-
-                                                <div>
-                                                    <span>Created on:</span>
-                                                    <span>{new Date(order.createdAt).toDateString()}</span>
-                                                </div>
-
-                                                <div>
-                                                    <span>Last update on:</span>
-                                                    <span>{new Date(order.updatedAt).toDateString()}</span>
-                                                </div>
-
+                                        <div className="contents">
+                                            <div>
+                                                <span>Candidate's name:</span>
+                                                <span>{order.orderItems && order.orderItems.fullName}</span>
+                                            </div>
+                                            <div>
+                                                <span>Candidate's OTP:</span>
+                                                <span>{order.orderItems && order.orderItems.otp}</span>
+                                            </div>
+                                            <div>
+                                                <span>Candidate's Profile Code:</span>
+                                                <span>{order.orderItems && order.orderItems.profileCode}</span>
+                                            </div>
+                                            <div>
+                                                <span>Candidate's regNo:</span>
+                                                <span>{order.orderItems && order.orderItems.regNo}</span>
+                                            </div>
+                                            <div>
+                                                <span>Candidate's Order Type:</span>
+                                                <span>{order.orderItems && order.orderItems.type}</span>
                                             </div>
 
-                                            <Divider />
+                                            <div className="fullwidth">
+                                                {
+                                                    order.orderItems &&
+                                                    order.orderItems.choices &&
+                                                    order.orderItems.choices.map((choice, index) => (
+                                                        choice && (
+                                                            <div className="embossitem" key={choice._id}>
+                                                                <div>
+                                                                    <span>Course {index + 1}: </span>
+                                                                    <span>{choice.course}</span>
+                                                                </div>
+                                                                <div>
+                                                                    <span>Institution {index + 1}: </span>
+                                                                    <span>{choice.institution}</span>
+                                                                </div>
+                                                                <div>
+                                                                    <span>Programme {index + 1}: </span>
+                                                                    <span>{choice.preferredProgramme}</span>
+                                                                </div>
+                                                            </div>
+                                                        )
+                                                    ))
+                                                }
+                                            </div>
+                                            <div>
+                                                <span>Paid on:</span>
+                                                <span>{new Date(order.paidAt).toDateString()}</span>
+                                            </div>
+                                            <div>
+                                                <span>Payment method:</span>
+                                                <span>{order.paymentMethod}</span>
+                                            </div>
+                                            <div>
+                                                <span>Payment ID:</span>
+                                                <span>{order.paymentResult && order.paymentResult.id}</span>
+                                            </div>
+                                            <div>
+                                                <span>Payment Email:</span>
+                                                <span>{order.paymentResult && order.paymentResult.email}</span>
+                                            </div>
+                                            <div>
+                                                <span>Payment Status:</span>
+                                                <span>{order.paymentResult && order.paymentResult.status}</span>
+                                            </div>
 
-                                        </CardContent>
-                                    </Card>
+                                            <div>
+                                                <span>Created on:</span>
+                                                <span>{new Date(order.createdAt).toDateString()}</span>
+                                            </div>
 
-                                </React.Fragment>
-                                :
-                                <Card>
-                                    <CardContent>
-                                        You have not selected any order
-                            </CardContent>
+                                            <div>
+                                                <span>Last update on:</span>
+                                                <span>{new Date(order.updatedAt).toDateString()}</span>
+                                            </div>
+
+                                        </div>
+
+                                        <Divider />
+
+                                    </CardContent>
                                 </Card>
+
+                            </React.Fragment>
+                            :
+                            <Card>
+                                <CardContent>
+                                    You have not selected any order
+                            </CardContent>
+                            </Card>
                 }
 
 

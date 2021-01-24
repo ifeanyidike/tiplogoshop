@@ -21,6 +21,7 @@ import {
   SERVICE_BY_NAME_FAIL
 } from '../constants/serviceConstants'
 import { logout } from './userActions'
+import { setMessage } from './utilActions'
 
 export const listServices = () => async (dispatch) => {
   try {
@@ -152,6 +153,7 @@ export const updateService = (service) => async (dispatch, getState) => {
     })
 
     dispatch(listServiceByName(service.name))
+    dispatch(setMessage("Service updated"))
 
   } catch (error) {
     const message =
@@ -165,6 +167,7 @@ export const updateService = (service) => async (dispatch, getState) => {
       type: SERVICE_UPDATE_FAIL,
       payload: message,
     })
+    dispatch(setMessage(message))
   }
 }
 

@@ -18,7 +18,6 @@ import PhotoCameraIcon from '@material-ui/icons/PhotoCamera';
 import {
     adminChangeOfCourseUpload,
     getChangeOfCourseOrderDetailsById,
-    getChangeOfCourseBlob,
     deleteChangeOfCourseOrder,
     listChangeOfCourseOrders
 } from '../../../redux/actions/changeOfCourseActions';

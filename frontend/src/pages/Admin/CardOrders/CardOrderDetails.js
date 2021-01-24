@@ -47,8 +47,8 @@ const CardOrderDetails = ({ setValue }) => {
                                     <CardContent>
                                         <Avatar className="profile_pic"
                                             src={
-                                                order.orderItems && (order.orderItems[0].image
-                                                    || `/${order.orderItems[0].image}`)}
+                                                order.orderItems && (order.orderItems.image
+                                                    || `/${order.orderItems.image}`)}
                                         />
 
                                     </CardContent>
@@ -56,10 +56,10 @@ const CardOrderDetails = ({ setValue }) => {
                                 <Card className="card__content">
                                     <CardContent>
                                         <div className="heading">
-                                            <h2>{order.orderItems && order.orderItems[0].name}</h2>
+                                            <h2>{order.orderItems && order.orderItems.name}</h2>
                                             <div>
                                                 <span>Amount:</span>
-                                                <CurrencyFormat value={order.orderItems && order.orderItems[0].price}
+                                                <CurrencyFormat value={order.orderItems && order.orderItems.price}
                                                     displayType={'text'}
                                                     thousandSeparator={true}
                                                     prefix={'₦'}
@@ -70,12 +70,12 @@ const CardOrderDetails = ({ setValue }) => {
                                         <Divider />
                                         <div className="contents">
                                             <div>
-                                                <span>Card ID</span>
-                                                <span>{order.orderItems && order.orderItems[0].card}</span>
+                                                <span>Card ID:</span>
+                                                <span>{order.orderItems && order.orderItems.card}</span>
                                             </div>
                                             <div>
                                                 <span>Qty: </span>
-                                                <span>{order.orderItems && order.orderItems[0].qty}</span>
+                                                <span>{order.orderItems && order.orderItems.qty}</span>
                                             </div>
                                             <div>
                                                 <span>Payment status: </span>
@@ -138,7 +138,6 @@ const CardOrderDetails = ({ setValue }) => {
                                     </CardContent>
                                 </Card>
 
-
                                 <MessageModal
                                     open={deletePrompt}
                                     setOpen={setDeletePrompt}
@@ -156,18 +155,6 @@ const CardOrderDetails = ({ setValue }) => {
                                     }
                                 />
 
-
-                                {/* <MessageModal
-                                    open={messagePrompt}
-                                    setOpen={setMessagePrompt}
-                                    caption="Message"
-                                    message={
-                                        <>
-                                            <div>{makeAdminError && makeAdminError}</div>
-                                            <div>{deleteError && deleteError}</div>
-                                        </>
-                                    }
-                                /> */}
 
                             </React.Fragment>
                             :

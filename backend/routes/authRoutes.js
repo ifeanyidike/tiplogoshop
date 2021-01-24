@@ -20,7 +20,8 @@ import {
     makeAdmin,
     emailAUser,
     emailAllUsers,
-    addProfilePhoto
+    addProfilePhoto,
+    emailAUserByEmail
 } from "../controllers/userControllers.js"
 import { facebooklogin } from "../controllers/facebookAuthControllers.js"
 import { protect, admin } from "../middlewares/authMiddleware.js"
@@ -41,6 +42,7 @@ router.route('/:id').get(getUser).delete(protect, admin, deleteUser)
 router.route('/makeadmin/:id').put(protect, admin, makeAdmin)
 router.route('/:id/email').post(protect, admin, emailAUser)
 router.route('/email').post(protect, admin, emailAllUsers)
+router.route('/email/:email').post(protect, admin, emailAUserByEmail)
 
 router.route('/:id/profilephoto')
     .put(protect, profilePhotoMemoryUpload.single('image'),

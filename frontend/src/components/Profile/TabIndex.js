@@ -12,6 +12,7 @@ import MyCardOrders from "./MyCardOrders"
 import MyResultUploadOrders from "./MyResultUploadOrders"
 import MyJambPasswordReset from "./MyJambPasswordReset"
 import MyChangeOfCourseOrders from "./MyChangeOfCourseOrders"
+import Review from "./Review"
 
 export default function FullWidthTabs({
   values,
@@ -154,7 +155,7 @@ export default function FullWidthTabs({
           <MyJambPasswordReset />
         </TabPanel>
         <TabPanel value={value} index={5} dir={theme.direction}>
-          <h1>Others</h1>
+          <Review />
         </TabPanel>
 
       </SwipeableViews>

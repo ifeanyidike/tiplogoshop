@@ -64,7 +64,7 @@ function Header({ onDrawerToggle, value, setValue, labels }) {
 
             <Grid item>
               <Link className={classes.link} href="#" variant="body2">
-                Go to docs
+
               </Link>
             </Grid>
             <Grid item>

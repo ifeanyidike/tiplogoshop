@@ -43,15 +43,6 @@ const ChangeOfCourseList = ({ setValue }) => {
         }
     }, [service])
 
-
-
-
-    const handleServiceUpdate = () => {
-        const newService = { ...service, cost: price }
-        dispatch(updateService(newService))
-
-    }
-
     return (
         <div>
             <Content
@@ -68,21 +59,7 @@ const ChangeOfCourseList = ({ setValue }) => {
                 displayArr={["type"]}
             />
 
-            <AdminPrice>
-                <Card >
-                    <CardContent>
-                        <h3>Set Change of Course Cost</h3>
 
-                        <CurrencyFormat value={price} thousandSeparator={true} prefix={'₦'}
-                            onValueChange={(values) => {
-                                const { formattedValue, value } = values;
-                                setPrice(value)
-                            }}
-                        />
-                        <AdminButtonAlt onClick={handleServiceUpdate}>Save</AdminButtonAlt>
-                    </CardContent>
-                </Card>
-            </AdminPrice>
 
         </div>
     )

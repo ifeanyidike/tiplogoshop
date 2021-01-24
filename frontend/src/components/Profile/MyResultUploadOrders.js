@@ -57,105 +57,104 @@ const MyResultUploadOrders = () => {
 
                 {
                     detailLoading ? <Loader />
-                        : detailError ? detailError
-                            :
-                            order ?
-                                <React.Fragment>
-                                    <Card className="card__image">
-                                        <CardContent >
-                                            {
-                                                order.admin_upload && order.admin_upload.image ?
-                                                    <img
-                                                        className="item__pic"
-                                                        src={order.admin_upload.image}
-                                                        alt="admin upload"
-                                                    />
-                                                    :
-                                                    "No file yet. Admin will respond soon."
-                                            }
-                                        </CardContent>
-                                    </Card>
-                                    <Card className="card__content">
-                                        <CardContent>
-                                            <div className="contents">
-                                                <div>
-                                                    <span>Candidate's name:</span>
-                                                    <span>{order.orderItems && order.orderItems.name}</span>
-                                                </div>
-
-                                                <div>
-                                                    <span>Candidate's Profile Code:</span>
-                                                    <span>{order.orderItems && order.orderItems.profileCode}</span>
-                                                </div>
-
-                                                <div>
-                                                    <span>Candidate's Order Type:</span>
-                                                    <span>{order.orderItems && order.orderItems.type}</span>
-                                                </div>
-
-                                                <div className="fullwidth">
-                                                    <div className="embossitem">
-                                                        {
-                                                            order.orderItems &&
-                                                            order.orderItems.files &&
-                                                            order.orderItems.files.map((file) => (
-                                                                file && (
-                                                                    <div key={file._id}>
-                                                                        <img src={file.image} alt={file.image} />
-
-                                                                    </div>
-                                                                )
-                                                            ))
-                                                        }
-                                                    </div>
-                                                </div>
-                                                <div>
-                                                    <span>Paid on:</span>
-                                                    <span>{new Date(order.paidAt).toDateString()}</span>
-                                                </div>
-                                                <div>
-                                                    <span>Payment method:</span>
-                                                    <span>{order.paymentMethod}</span>
-                                                </div>
-                                                <div>
-                                                    <span>Payment ID:</span>
-                                                    <span>{order.paymentResult && order.paymentResult.id}</span>
-                                                </div>
-                                                <div>
-                                                    <span>Payment Email:</span>
-                                                    <span>{order.paymentResult && order.paymentResult.email}</span>
-                                                </div>
-                                                <div>
-                                                    <span>Payment Status:</span>
-                                                    <span>{order.paymentResult && order.paymentResult.status}</span>
-                                                </div>
-
-                                                <div>
-                                                    <span>Created on:</span>
-                                                    <span>{new Date(order.createdAt).toDateString()}</span>
-                                                </div>
-
-                                                <div>
-                                                    <span>Last update on:</span>
-                                                    <span>{new Date(order.updatedAt).toDateString()}</span>
-                                                </div>
-
+                        :
+                        order ?
+                            <React.Fragment>
+                                <Card className="card__image">
+                                    <CardContent >
+                                        {
+                                            order.admin_upload && order.admin_upload.image ?
+                                                <img
+                                                    className="item__pic"
+                                                    src={order.admin_upload.image}
+                                                    alt="admin upload"
+                                                />
+                                                :
+                                                "No file yet. Admin will respond soon."
+                                        }
+                                    </CardContent>
+                                </Card>
+                                <Card className="card__content">
+                                    <CardContent>
+                                        <div className="contents">
+                                            <div>
+                                                <span>Candidate's name:</span>
+                                                <span>{order.orderItems && order.orderItems.name}</span>
                                             </div>
 
-                                        </CardContent>
-                                    </Card>
+                                            <div>
+                                                <span>Candidate's Profile Code:</span>
+                                                <span>{order.orderItems && order.orderItems.profileCode}</span>
+                                            </div>
 
-                                </React.Fragment>
-                                :
-                                <Card>
-                                    <CardContent>
-                                        You have not selected any user
-                            </CardContent>
+                                            <div>
+                                                <span>Candidate's Order Type:</span>
+                                                <span>{order.orderItems && order.orderItems.type}</span>
+                                            </div>
+
+                                            <div className="fullwidth">
+                                                <div className="embossitem">
+                                                    {
+                                                        order.orderItems &&
+                                                        order.orderItems.files &&
+                                                        order.orderItems.files.map((file) => (
+                                                            file && (
+                                                                <div key={file._id}>
+                                                                    <img src={file.image} alt={file.image} />
+
+                                                                </div>
+                                                            )
+                                                        ))
+                                                    }
+                                                </div>
+                                            </div>
+                                            <div>
+                                                <span>Paid on:</span>
+                                                <span>{new Date(order.paidAt).toDateString()}</span>
+                                            </div>
+                                            <div>
+                                                <span>Payment method:</span>
+                                                <span>{order.paymentMethod}</span>
+                                            </div>
+                                            <div>
+                                                <span>Payment ID:</span>
+                                                <span>{order.paymentResult && order.paymentResult.id}</span>
+                                            </div>
+                                            <div>
+                                                <span>Payment Email:</span>
+                                                <span>{order.paymentResult && order.paymentResult.email}</span>
+                                            </div>
+                                            <div>
+                                                <span>Payment Status:</span>
+                                                <span>{order.paymentResult && order.paymentResult.status}</span>
+                                            </div>
+
+                                            <div>
+                                                <span>Created on:</span>
+                                                <span>{new Date(order.createdAt).toDateString()}</span>
+                                            </div>
+
+                                            <div>
+                                                <span>Last update on:</span>
+                                                <span>{new Date(order.updatedAt).toDateString()}</span>
+                                            </div>
+
+                                        </div>
+
+                                    </CardContent>
                                 </Card>
+
+                            </React.Fragment>
+                            :
+                            <Card>
+                                <CardContent>
+                                    You have not selected any order
+                                    </CardContent>
+                            </Card>
                 }
 
 
-            </ItemOverviewContainer >
+            </ItemOverviewContainer>
 
         </div>
     )

@@ -17,8 +17,18 @@ import {
     userMakeAdminReducer,
     userDeleteReducer,
     usersEmailReducer,
-    userEmailReducer
+    userEmailReducer,
+    userEmailByEmailReducer
 } from "./userReducers"
+
+import {
+    reviewListReducer,
+    reviewDetailsReducer,
+    reviewDeleteReducer,
+    reviewCreateReducer,
+    reviewUpdateReducer,
+    reviewDetailsByUserReducer
+} from "./reviewReducers"
 
 import {
     cardListReducer,
@@ -36,7 +46,8 @@ import {
     schoolDetailsReducer,
     schoolByProgrammeReducer,
     schoolCreateReducer,
-    schoolUpdateReducer
+    schoolUpdateReducer,
+    courseDeleteReducer
 } from "./schoolReducers"
 
 import {
@@ -121,6 +132,7 @@ const reducer = combineReducers({
 
     usersEmail: usersEmailReducer,
     userEmail: userEmailReducer,
+    userEmailByEmail: userEmailByEmailReducer,
     userMakeAdmin: userMakeAdminReducer,
     userDelete: userDeleteReducer,
     userList: userListReducer,
@@ -142,6 +154,7 @@ const reducer = combineReducers({
     schoolByProgramme: schoolByProgrammeReducer,
     schoolCreate: schoolCreateReducer,
     schoolUpdate: schoolUpdateReducer,
+    courseDelete: courseDeleteReducer,
 
     serviceList: serviceListReducer,
     serviceDetails: serviceDetailsReducer,
@@ -172,7 +185,14 @@ const reducer = combineReducers({
     jambPasswordResetOrderUpdate: jambPasswordResetOrderUpdateReducer,
     jambPasswordResetOrderListMy: jambPasswordResetOrderListMyReducer,
     jambPasswordResetOrderList: jambPasswordResetOrderListReducer,
-    jambPasswordResetOrderDelete: jambPasswordResetOrderDeleteReducer
+    jambPasswordResetOrderDelete: jambPasswordResetOrderDeleteReducer,
+
+    reviewList: reviewListReducer,
+    reviewDetails: reviewDetailsReducer,
+    reviewDelete: reviewDeleteReducer,
+    reviewCreate: reviewCreateReducer,
+    reviewUpdate: reviewUpdateReducer,
+    reviewDetailsByUser: reviewDetailsByUserReducer,
 })
 
 export default reducer

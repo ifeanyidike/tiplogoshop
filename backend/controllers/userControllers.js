@@ -20,7 +20,7 @@ export const updateUserProfile = asyncHandler(async (req, res) => {
         user.name = name || user.name
         user.email = email || user.email
         user.profile = profile || user.profile
-        // console.log(req.body.user)
+
         if (password) {
             user.password = password
         }
@@ -196,11 +196,49 @@ export const makeAdmin = asyncHandler(async (req, res) => {
         user.isAdmin = adminStatus
         await user.save()
     } else {
-        res.statusCode(404)
+        res.status(404)
         throw new Error('User not found')
     }
 
 })
+
+// @desc    POST send email to a user by email (also send to admin)
+// @route   POST /api/users/email/:email
+// @access  Private/Admin
+
+export const emailAUserByEmail = asyncHandler(async (req, res) => {
+    const users = await User.find({ email: req.params.email })
+    const { subject, message: info } = req.body
+
+    const from = "nonreply@tiplogo.com"
+    const [user] = users
+    console.log(user)
+
+    const recipients = [user.email, process.env.ADMIN_EMAIL]
+    const heading = `Hi ${user.name}`
+    const msg =
+        `<div> 
+            <p>${info}</p>            
+        </div>`
+
+    const message = servicesMessageTemplate(heading, msg)
+    const data = mgOptions(from, recipients, subject, message)
+
+    if (user) {
+        mg.messages().send(data, (error, body) => {
+            if (error) {
+                throw new Error('An error occurred when sending email')
+            } else {
+                res.status(200).send("Email sent")
+            }
+        })
+    } else {
+        res.status(404)
+        throw new Error("Email does not exist in the database")
+    }
+})
+
+
 
 // @desc    POST send email to a user (also send to admin)
 // @route   POST /api/users/:id/email
@@ -244,7 +282,7 @@ export const emailAllUsers = asyncHandler(async (req, res) => {
     const from = "nonreply@tiplogo.com"
     const recipients = users.map(user => user.email)
 
-    const heading = `Hi ${user.name}`
+    const heading = `Dear valued customer,`
     const msg =
         `<div> 
             <p>${info}</p>            
@@ -253,7 +291,7 @@ export const emailAllUsers = asyncHandler(async (req, res) => {
     const message = servicesMessageTemplate(heading, msg)
     const data = mgOptions(from, recipients, subject, message)
 
-    if (user) {
+    if (users) {
         mg.messages().send(data, (error, body) => {
             if (error) {
                 throw new Error('An error occurred when sending email')
@@ -316,7 +354,7 @@ export const addProfilePhoto = asyncHandler(async (req, res) => {
             }
         }
     } else {
-        res.statusCode(404)
+        res.status(404)
         throw new Error('User not found')
     }
 })

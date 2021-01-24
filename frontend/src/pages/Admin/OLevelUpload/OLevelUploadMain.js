@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import Content from "../Content"
 import OLevelUploadList from "./OLevelUploadList"
 import OLevelUploadDetails from "./OLevelUploadDetails"
@@ -6,6 +6,7 @@ import OLevelUploadDetails from "./OLevelUploadDetails"
 const CardOrders = () => {
     const [value, setValue] = useState(0);
     const labels = ["O Level Upload List", "O Level Upload Details"]
+
 
     return (
         <div>

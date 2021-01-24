@@ -14,90 +14,123 @@ import ActivateAccount from "./pages/ActivateAccount"
 import ResendEmail from "./pages/ResendEmail"
 import ForgotPassword from "./pages/ForgotPassword"
 import ResetPassword from "./pages/ResetPassword"
+import AdminEmailMain from "./pages/Admin/Emails/ManageEmails"
 import AdminUsers from "./pages/Admin/Users/UsersMain"
 import AdminCards from "./pages/Admin/Cards/CardsMain"
 import AdminCardOrders from "./pages/Admin/CardOrders/CardOrdersMain"
 import AdminChangeOfCourse from "./pages/Admin/ChangeOfCourse/ChangeOfCourseMain"
 import AdminOLevelUpload from "./pages/Admin/OLevelUpload/OLevelUploadMain"
 import AdminJambPasswordReset from "./pages/Admin/JambPasswordReset/JambPasswordResetMain"
+import AdminServiceSettings from "./pages/Admin/ServiceSettings/ServiceMain"
+import NotFoundPage from "./pages/NotFoundPage"
+import UnauthorizedPage from "./pages/UnauthorizedPage"
 import { Switch, Route } from "react-router-dom"
 import { AnimatePresence } from "framer-motion"
 import SideDrawer from "./components/SideDrawer"
+import Footer from "./components/Footer"
+import { useHistory, useLocation } from "react-router-dom"
+import { useSelector } from "react-redux"
+
 
 function App() {
+  const location = useLocation()
+  const history = useHistory()
+  const pathname = location.pathname.split(/\//)
+  const { userInfo } = useSelector(state => state.userLogin)
+
+  useEffect(() => {
+    if (pathname.includes('admin')) {
+      if ((userInfo && !userInfo.isAdmin) || !userInfo) {
+        history.push('/unauthorized')
+      }
+    }
+  }, [pathname, userInfo, history])
 
   return (
     <AnimatePresence>
 
       <SideDrawer key="sidedrawer" />
       <Switch>
-        <Route path="/admin/jambpasswordreset" exact>
+        <Route path="/" exact>
+          <HomePage />
+        </Route>
+        <Route path="/admin/service-settings">
+          <AdminServiceSettings />
+        </Route>
+        <Route path="/admin/emails">
+          <AdminEmailMain />
+        </Route>
+        <Route path="/admin/jambpasswordreset">
           <AdminJambPasswordReset />
         </Route>
-        <Route path="/admin/olevelupload" exact>
+        <Route path="/admin/olevelupload">
           <AdminOLevelUpload />
         </Route>
-        <Route path="/admin/changeofcourse" exact>
+        <Route path="/admin/changeofcourse">
           <AdminChangeOfCourse />
         </Route>
-        <Route path="/admin/cardorders" exact>
+        <Route path="/admin/cardorders">
           <AdminCardOrders />
         </Route>
-        <Route path="/admin/cards" exact>
+        <Route path="/admin/cards">
           <AdminCards />
         </Route>
-        <Route path="/admin/users" exact>
+        <Route path="/admin/users">
           <AdminUsers />
         </Route>
         <Route path="/admin" exact>
           <AdminUsers />
         </Route>
-        <Route path="/auth" exact>
+        <Route path="/auth">
           <AuthPage />
         </Route>
-        <Route path="/services/change-of-course-institution" exact>
+        <Route path="/services/change-of-course-institution">
           <ChangeOfCourseInstitutionPage />
         </Route>
-        <Route path="/services/result-upload" exact>
+        <Route path="/services/result-upload">
           <OLevelUploadPage />
         </Route>
-        <Route path="/services/jamb-password-reset" exact>
+        <Route path="/services/jamb-password-reset">
           <JambPasswordResetPage />
         </Route>
-        <Route path="/services" exact>
+        <Route path="/services">
           <AllServicesPage />
         </Route>
-        <Route path="/profile" exact>
+        <Route path="/profile">
           <ProfilePage />
         </Route>
-        <Route path="/buycards/:id" exact>
+        <Route path="/buycards/:id">
           <CardPage />
         </Route>
-        <Route path="/edititem/:item" exact>
+        <Route path="/edititem/:item">
           <EditItem />
         </Route>
-        <Route path="/payorder/:item/" exact>
+        <Route path="/payorder/:item/">
           <PayOrder />
         </Route>
-        <Route path="/auth/activate/:token/" exact>
+        <Route path="/auth/activate/:token/">
           <ActivateAccount />
         </Route>
-        <Route path="/auth/forgotpassword/" exact>
+        <Route path="/auth/forgotpassword/">
           <ForgotPassword />
         </Route>
-        <Route path="/auth/resendemail/" exact>
+        <Route path="/auth/resendemail/">
           <ResendEmail />
         </Route>
-        <Route path="/auth/passwordreset/:token/" exact>
+        <Route path="/auth/passwordreset/:token/">
           <ResetPassword />
         </Route>
-        <Route path="/allcards" exact>
+        <Route path="/allcards">
           <AllCardsPage />
         </Route>
-        <Route path="/" exact>
-          <HomePage />
+        <Route path="/unauthorized">
+          <UnauthorizedPage />
+        </Route>
+        <Route>
+          <NotFoundPage />
         </Route>
       </Switch>
+      <Footer />
     </AnimatePresence>
   );
 }

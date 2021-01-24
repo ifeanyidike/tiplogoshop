@@ -307,7 +307,7 @@ const OLevelUploadDetails = ({ setValue }) => {
                             </CardContent>
                             </Card>
             }
-        </UserProfileContainer >
+        </UserProfileContainer>
     )
 }
 

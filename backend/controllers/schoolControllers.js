@@ -5,9 +5,9 @@ import School from "../models/schoolModels.js"
 // @route   GET /api/schools/
 // @access  Public
 
-export const getAllSchools = asyncHandler(async (req, res)=>{     
+export const getAllSchools = asyncHandler(async (req, res) => {
     const schools = await School.find({})
-    res.json({schools: schools})
+    res.json({ schools: schools })
 })
 
 
@@ -15,9 +15,9 @@ export const getAllSchools = asyncHandler(async (req, res)=>{
 // @route   GET /api/schools/${programme}
 // @access  Public
 
-export const getSchoolsByProgramme = asyncHandler(async (req, res)=>{
-    const programme = req.params.programme    
-    const schools = await School.find({programme: programme})
+export const getSchoolsByProgramme = asyncHandler(async (req, res) => {
+    const programme = req.params.programme
+    const schools = await School.find({ programme: programme })
     res.send(schools)
 })
 
@@ -25,8 +25,8 @@ export const getSchoolsByProgramme = asyncHandler(async (req, res)=>{
 // @route   GET /api/schools/:id/
 // @access  Public
 
-export const getSchoolsById = asyncHandler(async (req, res)=>{    
-    const school = await School.findById(req.params.id)
+export const getSchoolsById = asyncHandler(async (req, res) => {
+    const school = await School.findById(req.params.id).sort({ 'courses': 'asc' })
     res.send(school)
 })
 
@@ -35,11 +35,11 @@ export const getSchoolsById = asyncHandler(async (req, res)=>{
 // @route   POST /api/school
 // @access  Private/Admin
 
-export const createSchool = asyncHandler( async(req, res)=>{
+export const createSchool = asyncHandler(async (req, res) => {
     const school = new School({
         programme: 'degree',
         institution: 'Sample School',
-        courses: []        
+        courses: []
     })
     const createdSchool = await school.save()
     res.status(201).json(createdSchool)
@@ -49,19 +49,51 @@ export const createSchool = asyncHandler( async(req, res)=>{
 // @route   PUT /api/schools/:id
 // @access  Private/Admin
 
-export const updateSchool = asyncHandler( async(req, res)=>{
-    const{programme, institution, courses} = req.body
+export const updateSchool = asyncHandler(async (req, res) => {
+    const { programme, institution, courses } = req.body
     const school = await School.findById(req.params.id)
-    
-    if(school){
-        school.programme = programme
-        school.institution = institution
-        for(course of courses){
-            school.courses.push(course)
-        }        
+
+    if (school) {
+        school.programme = programme || school.programme
+        school.institution = institution || school.institution
+        if (courses) {
+            for (let course of courses) {
+                if (course === '') {
+                    throw new Error("White space not allowed! Course cannot be empty.")
+                }
+                if (!school.courses.includes(course)) {
+                    school.courses.push(course)
+                } else {
+                    throw new Error("Course already exists")
+                }
+
+            }
+        }
         const updatedSchool = await school.save()
         res.json(updatedSchool)
-    }else{
+    } else {
+        res.status(404)
+        throw new Error('School not found')
+    }
+})
+
+
+
+// @desc    DELETE course 
+// @route   delete /api/schools/:id
+// @access  Private/Admin
+
+export const deleteCourse = asyncHandler(async (req, res) => {
+    const { courses } = req.body
+    const school = await School.findById(req.params.id)
+    console.log(courses)
+    if (school) {
+
+        school.courses.splice(0, school.courses.length, ...courses)
+
+        const updatedSchool = await school.save()
+        res.json(updatedSchool)
+    } else {
         res.status(404)
         throw new Error('School not found')
     }

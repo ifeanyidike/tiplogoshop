@@ -1,6 +1,6 @@
 import styled from 'styled-components'
-import {motion} from 'framer-motion'
-import {device, colors} from "./breakpoints"
+import { motion } from 'framer-motion'
+import { device, colors } from "./breakpoints"
 
 export const TestimonialContainer = styled(motion.div)`
     background: rgb(254,254,254);
@@ -20,22 +20,29 @@ export const TestimonialContainer = styled(motion.div)`
         
         .carousel__inner-slide{
                     
-            .slide__item{
+            .slide__item{                
                 display:flex;
                 justify-content: center;
                 align-items: center;
                 @media ${device.tablet}{
                     flex-direction: column;
                 }
+                div{
+                    
+                    p{                        
+                        margin: 0;  
+                    }
+                }
                 
                 height: 100%;
-                img{
-                    width: 180px;                    
+                .avatar{
+                    width: 100px;                    
+                    height: 100px;
                 }
                                
                 p{
                     font-weight: 300;                    
-                    padding: 0 10px;
+                    padding: 3px 10px;
                     font-size: 1rem;   
                                      
                 }

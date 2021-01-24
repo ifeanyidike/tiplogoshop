@@ -150,28 +150,48 @@ const MainHeader = ({ setShowDrawer }) => {
 
                         </motion.li>
 
+
                         {userInfo && (
-                            <motion.li
-                                variants={headerTextVariants}
-                                initial="initial"
-                                whileHover="onHover"
-                            >
-                                <Link
-                                    to="/profile"
-                                    style={{ fontWeight: path === '/profile' && 'bold' }}
-                                >
-                                    <Avatar
-                                        className={classes.small}
-                                        src={
-                                            imageUrl ? imageUrl :
-                                                userInfo.profile && userInfo.profile.picture ?
-                                                    userInfo.profile.picture
-                                                    :
-                                                    'https://www.minervastrategies.com/wp-content/uploads/2016/03/default-avatar.jpg'
-                                        }
-                                    />
+                            <>
+
+                                {
+                                    userInfo.isAdmin &&
+                                    <motion.li
+                                        variants={headerTextVariants}
+                                        initial="initial"
+                                        whileHover="onHover"
+                                    >
+                                        <Link
+                                            to="/admin"
+                                            style={{ fontWeight: path === '/admin' && 'bold' }}
+                                        >
+                                            Admin Page
                                 </Link>
-                            </motion.li>
+                                    </motion.li>
+                                }
+
+                                <motion.li
+                                    variants={headerTextVariants}
+                                    initial="initial"
+                                    whileHover="onHover"
+                                >
+                                    <Link
+                                        to="/profile"
+                                        style={{ fontWeight: path === '/profile' && 'bold' }}
+                                    >
+                                        <Avatar
+                                            className={classes.small}
+                                            src={
+                                                imageUrl ? imageUrl :
+                                                    userInfo.profile && userInfo.profile.picture ?
+                                                        userInfo.profile.picture
+                                                        :
+                                                        '/images/default-avatar.jpg'
+                                            }
+                                        />
+                                    </Link>
+                                </motion.li>
+                            </>
                         )}
                     </ul>
                 </HeaderRightItems>

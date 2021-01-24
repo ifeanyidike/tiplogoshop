@@ -5,9 +5,9 @@ import Service from "../models/serviceModels.js"
 // @route   GET /api/services/
 // @access  Public
 
-export const getAllServices = asyncHandler(async (req, res)=>{     
+export const getAllServices = asyncHandler(async (req, res) => {
     const services = await Service.find({})
-    res.json({services: services})
+    res.send(services)
 })
 
 
@@ -15,9 +15,9 @@ export const getAllServices = asyncHandler(async (req, res)=>{
 // @route   GET /api/schools/:name
 // @access  Public
 
-export const getServicesByName = asyncHandler(async (req, res)=>{
-    const name = req.params.name    
-    const service = await Service.find({name: name})
+export const getServicesByName = asyncHandler(async (req, res) => {
+    const name = req.params.name
+    const service = await Service.find({ name: name })
     res.send(service[0])
 })
 
@@ -25,9 +25,9 @@ export const getServicesByName = asyncHandler(async (req, res)=>{
 // @route   GET /api/services/:id/
 // @access  Public
 
-export const getServicesById = asyncHandler(async (req, res)=>{    
+export const getServicesById = asyncHandler(async (req, res) => {
     const service = await Service.findById(req.params.id)
-    res.json({service: service})
+    res.json(service)
 })
 
 
@@ -35,10 +35,10 @@ export const getServicesById = asyncHandler(async (req, res)=>{
 // @route   POST /api/service
 // @access  Private/Admin
 
-export const createService = asyncHandler( async(req, res)=>{
+export const createService = asyncHandler(async (req, res) => {
     const service = new Service({
         name: 'new service',
-        price: 0.0,        
+        price: 0.0,
     })
     const createdService = await service.save()
     res.status(201).json(createdService)
@@ -47,17 +47,17 @@ export const createService = asyncHandler( async(req, res)=>{
 // @desc    Update a service
 // @route   PUT /api/services/:id
 // @access  Private/Admin
-export const updateService = asyncHandler( async(req, res)=>{
-    const{name, cost} = req.body
+export const updateService = asyncHandler(async (req, res) => {
+    const { name, cost } = req.body
     const service = await Service.findById(req.params.id)
-    
-    if(service){
+
+    if (service) {
         service.name = name
         service.cost = cost
-               
+
         const updatedService = await service.save()
         res.json(updatedService)
-    }else{
+    } else {
         res.status(404)
         throw new Error('Service not found')
     }

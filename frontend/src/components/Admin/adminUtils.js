@@ -16,23 +16,27 @@ import PropTypes from 'prop-types';
 
 export const categories = [
     {
-        id: 'Develop',
+        id: 'Services',
         children: [
             { id: 'Users', icon: <PeopleIcon />, href: 'users' },
             { id: 'Cards', icon: <DnsRoundedIcon />, href: 'cards' },
-            { id: 'Card Orders', icon: <DnsRoundedIcon />, href: 'cardorders' },
+            { id: 'Card Orders', icon: <PhonelinkSetupIcon />, href: 'cardorders' },
             { id: 'Change of Course', icon: <PermMediaOutlinedIcon />, href: 'changeofcourse' },
             { id: 'Jamb Password Reset', icon: <PublicIcon />, href: 'jambpasswordreset' },
             { id: 'O Level Result Uploads', icon: <SettingsEthernetIcon />, href: 'olevelupload' },
-            { id: 'Users Reviews', icon: <SettingsInputComponentIcon />, href: 'reviews' },
+            // { id: 'Users Reviews', icon: <SettingsInputComponentIcon />, href: 'reviews' },
         ],
     },
     {
-        id: 'Quality',
+        id: 'Miscellaneous',
         children: [
-            { id: 'Analytics', icon: <SettingsIcon /> },
-            { id: 'Performance', icon: <TimerIcon /> },
-            { id: 'Test Lab', icon: <PhonelinkSetupIcon /> },
+            { id: 'Email Manager', icon: <SettingsIcon />, href: 'emails' },
+            { id: 'Service Settings', icon: <SettingsInputComponentIcon />, href: 'service-settings' },
+
+
+            // { id: 'Analytics', icon: <SettingsIcon /> },
+            // { id: 'Performance', icon: <TimerIcon /> },
+            // { id: 'Test Lab', icon: <PhonelinkSetupIcon /> },
         ],
     },
 ];

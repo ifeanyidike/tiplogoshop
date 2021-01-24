@@ -22,7 +22,7 @@ export const createSoldCard = asyncHandler(async (req, res) => {
             serialNo: purchasedItem.serialNo,
             token: purchasedItem.token,
             price: card.price,
-            image: card.image,
+            image: card.upload.image,
             user: userId,
             card: cardId
         })

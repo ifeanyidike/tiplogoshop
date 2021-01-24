@@ -169,3 +169,35 @@ export const AdminPrice = styled.div`
         outline: none;
     }
 `
+
+export const SchoolsOverviewContainer = styled(UserProfileContainer)`
+    .courses{
+        margin-top: 40px;
+        display: grid;
+        place-items: center;        
+        .courseitems{
+            span{
+                display: flex;
+                align-items: center;
+                .MuiSvgIcon-root{
+                    color: ${colors.darkred}
+                }
+            }
+        }
+        .addcourse{
+            display: flex;
+        }                
+    }
+    .multiline_courses{
+        text-align: center;
+        padding: 40px;
+        margin-top: 30px;
+        textarea{
+            padding: 10px;
+        }
+        .actions{
+            margin: 10px auto;            
+            width: fit-content;
+        }
+    }
+`

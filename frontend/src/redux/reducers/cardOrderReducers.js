@@ -180,7 +180,7 @@ export const cardOrderDeliverReducer = (state = {}, action) => {
 }
 
 
-export const cardOrderListMyReducer = (state = { orders: [] }, action) => {
+export const cardOrderListMyReducer = (state = {}, action) => {
     switch (action.type) {
         case CARD_ORDER_LIST_MY_REQUEST:
             return {
@@ -190,7 +190,7 @@ export const cardOrderListMyReducer = (state = { orders: [] }, action) => {
         case CARD_ORDER_LIST_MY_SUCCESS:
             return {
                 loading: false,
-                success: action.payload
+                orders: action.payload
             }
 
         case CARD_ORDER_LIST_MY_FAIL:

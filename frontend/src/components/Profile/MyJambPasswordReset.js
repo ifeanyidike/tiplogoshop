@@ -2,10 +2,17 @@ import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from "react-redux"
 import FixedTable from "./ProfileFixedHeaderTable"
 import Loader from "../Loaders/SimpleLoader"
-import { listMyJambPasswordResetOrders } from '../../redux/actions/jambPasswordResetActions'
+import { ItemOverviewContainer } from "../../styles/ProfileStyle"
+import { listMyJambPasswordResetOrders, getJambPasswordResetOrderDetailsById } from '../../redux/actions/jambPasswordResetActions'
+import { useLocation } from "react-router-dom"
+import queryString from 'query-string'
+import { Card, CardContent, Divider } from '@material-ui/core'
 
 const MyJambPasswordReset = () => {
     const dispatch = useDispatch()
+    const location = useLocation()
+
+    const { itemId } = queryString.parse(location.search)
     const headCells = [
         { id: '_id', label: 'Order ID' },
         { id: 'paymentMethod', label: 'Payment Method' },
@@ -21,8 +28,15 @@ const MyJambPasswordReset = () => {
         dispatch(listMyJambPasswordResetOrders())
     }, [dispatch])
 
+    useEffect(() => {
+        dispatch(getJambPasswordResetOrderDetailsById(itemId))
+    }, [dispatch, itemId])
+
+    const jambPasswordResetOrderDetails = useSelector(state => state.jambPasswordResetOrderDetails)
+    const { loading: detailLoading, order } = jambPasswordResetOrderDetails
+
     const { loading, error, orders } = useSelector(state => state.jambPasswordResetOrderListMy)
-    console.log(orders)
+
 
     return (
         <div>
@@ -38,6 +52,90 @@ const MyJambPasswordReset = () => {
                             orderHeaders={orderHeaders}
                         />
             }
+
+            <ItemOverviewContainer>
+
+                {
+                    detailLoading ? <Loader />
+                        :
+                        order ?
+                            <React.Fragment>
+
+                                <Card className="card__content">
+                                    <CardContent>
+                                        <div className="contents">
+                                            <div>
+                                                <span>Candidate's name:</span>
+                                                <span>{order.orderItems && order.orderItems.name}</span>
+                                            </div>
+
+                                            <div>
+                                                <span>Candidate's Email:</span>
+                                                <span>{order.orderItems && order.orderItems.email}</span>
+                                            </div>
+
+                                            <div>
+                                                <span>Candidate's Date of Birth:</span>
+                                                <span>{order.orderItems && new Date(order.orderItems.dateOfBirth).toDateString()}</span>
+                                            </div>
+
+                                            <div>
+                                                <span>Candidate's New Password</span>
+                                                <span>{order.orderItems && order.orderItems.newPassword}</span>
+                                            </div>
+                                            <div className="fullwidth">
+                                                <Divider />
+                                            </div>
+                                            <div>
+                                                <span>Paid on:</span>
+                                                <span>{new Date(order.paidAt).toDateString()}</span>
+                                            </div>
+                                            <div>
+                                                <span>Payment method:</span>
+                                                <span>{order.paymentMethod}</span>
+                                            </div>
+                                            <div>
+                                                <span>Payment ID:</span>
+                                                <span>{order.paymentResult && order.paymentResult.id}</span>
+                                            </div>
+                                            <div>
+                                                <span>Payment Email:</span>
+                                                <span>{order.paymentResult && order.paymentResult.email}</span>
+                                            </div>
+                                            <div>
+                                                <span>Payment Status:</span>
+                                                <span>{order.paymentResult && order.paymentResult.status}</span>
+                                            </div>
+
+                                            <div>
+                                                <span>Created on:</span>
+                                                <span>{new Date(order.createdAt).toDateString()}</span>
+                                            </div>
+
+                                            <div>
+                                                <span>Last update on:</span>
+                                                <span>{new Date(order.updatedAt).toDateString()}</span>
+                                            </div>
+
+                                        </div>
+
+                                    </CardContent>
+                                </Card>
+
+
+
+
+                            </React.Fragment>
+                            :
+                            <Card>
+                                <CardContent>
+                                    You have not selected any user
+                            </CardContent>
+                            </Card>
+                }
+
+
+            </ItemOverviewContainer>
 
         </div>
     )

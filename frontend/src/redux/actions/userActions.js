@@ -49,7 +49,10 @@ import {
     USER_EMAIL_FAIL,
     USERS_EMAIL_REQUEST,
     USERS_EMAIL_SUCCESS,
-    USERS_EMAIL_FAIL
+    USERS_EMAIL_FAIL,
+    USER_EMAIL_BY_EMAIL_REQUEST,
+    USER_EMAIL_BY_EMAIL_SUCCESS,
+    USER_EMAIL_BY_EMAIL_FAIL
 } from "../constants/userConstants"
 import uuid from 'react-uuid'
 import { cardPayOrder } from './cardOrderActions'
@@ -64,7 +67,7 @@ const normalConfig = {
     }
 }
 
-export const emailAllUser = (emailMessage) => async (dispatch, getState) => {
+export const emailAllUsers = (emailMessage) => async (dispatch, getState) => {
     try {
         dispatch({
             type: USERS_EMAIL_REQUEST
@@ -136,6 +139,46 @@ export const emailAUser = (id, emailMessage) => async (dispatch, getState) => {
         dispatch(setMessage(message))
     }
 }
+
+
+export const emailAUserByEmail = (email, emailMessage) => async (dispatch, getState) => {
+    try {
+        dispatch({
+            type: USER_EMAIL_BY_EMAIL_REQUEST
+        })
+
+        const { userLogin: { userInfo } } = getState()
+
+        const config = {
+            headers: {
+                'Content-Type': 'application/json',
+                Authorization: `Bearer ${userInfo.token}`
+            },
+        }
+
+        const { data } = await axios.post(`/api/users/email/${email}`, emailMessage, config)
+
+        console.log(data)
+        dispatch({
+            type: USER_EMAIL_BY_EMAIL_SUCCESS,
+            payload: data
+        })
+
+        dispatch(setMessage(data))
+
+    } catch (error) {
+        const message = error.response && error.response.data.message
+            ? error.response.data.message
+            : error.message
+        dispatch({
+            type: USER_EMAIL_BY_EMAIL_FAIL,
+            payload: message
+        })
+        dispatch(setMessage(message))
+    }
+}
+
+
 
 
 export const makeUserAdmin = (id, adminStatus) => async (dispatch, getState) => {

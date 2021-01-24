@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import Content from "../Content"
 import CardOrdersList from "./CardOrdersList"
 import CardOrderDetails from "./CardOrderDetails"
@@ -6,6 +6,7 @@ import CardOrderDetails from "./CardOrderDetails"
 const CardOrders = () => {
     const [value, setValue] = useState(0);
     const labels = ["Card Order List", "Card Order Details"]
+
 
     return (
         <div>

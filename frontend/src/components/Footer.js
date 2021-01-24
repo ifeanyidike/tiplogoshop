@@ -1,10 +1,21 @@
 import React from 'react'
 import { FooterElement } from "../styles/FooterStyle"
-import SvgIcon from '../svg/sitelogo.js'
+import PublicIcon from '@material-ui/icons/Public';
+import { Link } from 'react-router-dom';
+
 const Footer = () => {
     return (
         <FooterElement>
-            <SvgIcon />
+            <div>
+                <label><PublicIcon /> Tiplogo</label>
+            </div>
+            <div className="footer__items">
+                <small><Link>Contact Tiplogo</Link> </small>
+                <small><Link>Privacy</Link> </small>
+                <small><Link>Terms of use</Link> </small>
+                <small><Link>Help</Link> </small>
+                <small>&copy; {new Date().getFullYear()} </small>
+            </div>
         </FooterElement>
     )
 }

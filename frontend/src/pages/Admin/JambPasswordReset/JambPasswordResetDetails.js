@@ -264,7 +264,7 @@ const OLevelUploadDetails = ({ setValue }) => {
             }
 
 
-        </UserProfileContainer >
+        </UserProfileContainer>
     )
 }
 

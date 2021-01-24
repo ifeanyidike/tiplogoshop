@@ -1,7 +1,7 @@
 import styled from 'styled-components'
-import {motion} from 'framer-motion'
-import {device, colors} from "./breakpoints"
-import {TestimonialContainer} from './TestimonialStyle'
+import { motion } from 'framer-motion'
+import { device, colors } from "./breakpoints"
+import { TestimonialContainer } from './TestimonialStyle'
 
 export const HomeTopContainer = styled.div`
     background: ${colors.background};         
@@ -141,6 +141,9 @@ export const ScreenDiv = styled.div`
     justify-content: space-around;
     align-items: center;
     margin-right: 50px;
+    a{
+        text-decoration: none;
+    }
     
     div{
         .topcards{
@@ -213,26 +216,26 @@ export const ScreenDiv = styled.div`
 
 
 export const Image = styled.img`
-    width: ${props => 
-                props.width ||
-                (props.variant === 'homeTopVector' && '500px')
-                || '500px'};
-    height: ${props => 
-                props.height ||                
-                (props.variant === 'homeTopVector' && '500px')
-                || '500px'};
+    width: ${props =>
+        props.width ||
+        (props.variant === 'homeTopVector' && '500px')
+        || '500px'};
+    height: ${props =>
+        props.height ||
+        (props.variant === 'homeTopVector' && '500px')
+        || '500px'};
     
-    margin: ${props =>  props.variant === 'homeTopVector' && '50px 80px' };
+    margin: ${props => props.variant === 'homeTopVector' && '50px 80px'};
     
     @media ${device.tablet} {        
         width: ${props => (props.variant === 'homeTopVector' && '450px') || '400px'};
-        height: ${props => (props.variant === 'homeTopVector' && '350px')|| '250px'};
-        margin: ${props =>  props.variant === 'homeTopVector' && '20px auto' };
+        height: ${props => (props.variant === 'homeTopVector' && '350px') || '250px'};
+        margin: ${props => props.variant === 'homeTopVector' && '20px auto'};
     }     
     @media ${device.mobile_lg} {        
         width: ${props => (props.variant === 'homeTopVector' && '300px') || '300px'};
-        height: ${props => (props.variant === 'homeTopVector' && '250px')|| '250px'};
-        margin: ${props =>  props.variant === 'homeTopVector' && '20px auto' };
+        height: ${props => (props.variant === 'homeTopVector' && '250px') || '250px'};
+        margin: ${props => props.variant === 'homeTopVector' && '20px auto'};
     }        
     
 `

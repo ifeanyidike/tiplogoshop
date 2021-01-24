@@ -254,7 +254,7 @@ export const adminOLevelResultUploadFileUpload = asyncHandler(async (req, res) =
             }
         }
     } else {
-        res.statusCode(404)
+        res.status(404)
         throw new Error('Order not found')
     }
 })

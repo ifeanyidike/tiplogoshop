@@ -3,7 +3,7 @@ import asyncHandler from "express-async-handler"
 import CardOrder from "../models/cardOrderModels.js"
 import User from "../models/userModels.js"
 import Card from "../models/cardModels.js"
-import { mg, mgOptions, emailMessageCardTemplate } from "../utils/sendEmail.js"
+import { mg, mgOptions, emailMessageCardTemplate, servicesMessageTemplate } from "../utils/sendEmail.js"
 
 //@desc     Create new CardOrder
 //@route    POST /api/CardOrders
@@ -11,6 +11,7 @@ import { mg, mgOptions, emailMessageCardTemplate } from "../utils/sendEmail.js"
 
 export const addCardOrderItems = asyncHandler(async (req, res) => {
     const { orderItems, paymentMethod } = req.body
+    console.log(req.user)
 
     if (orderItems && orderItems.length === 0) {
         throw new Error('No Order items')
@@ -21,8 +22,36 @@ export const addCardOrderItems = asyncHandler(async (req, res) => {
             user: req.user._id,
             paymentMethod: paymentMethod
         })
+
         const createdOrder = await order.save()
-        res.status(201).json(createdOrder)
+
+        if (createdOrder) {
+            const from = "nonreply@tiplogo.com"
+            const subject = "Card order placed"
+
+            const heading = `Hi ${req.user.name}`
+            const msg = `<div> 
+                <p>Thank you for placing an order with us</p>
+                <p>Please proceed to make payment.</p>                
+            </div>`
+
+            const message = servicesMessageTemplate(heading, msg)
+
+            const data = mgOptions(from, req.user.email, subject, message)
+
+            mg.messages().send(data, (error, body) => {
+                if (error) {
+                    console.log(error)
+                    res.send(error)
+                    throw new Error(error)
+
+                } else {
+                    res.status(201).json(createdOrder)
+                }
+            })
+        }
+
+
     }
 })
 
@@ -52,8 +81,8 @@ export const updateCardOrderWithoutPay = asyncHandler(async (req, res) => {
     const order = await CardOrder.findById(req.params.id)
     const { orderItems, paymentMethod } = req.body
 
-    if (orderItems && orderItems.length === 0) {
-        throw new Error('No Order items')
+    if (!orderItems) {
+        throw new Error('No order items')
         return
     }
 
@@ -118,7 +147,13 @@ export const updateCardOrderToPaid = asyncHandler(async (req, res) => {
 
 export const getMyCardOrders = asyncHandler(async (req, res) => {
     const orders = await CardOrder.find({ user: req.user._id })
-    res.json(orders)
+
+    if (orders) {
+        res.json(orders)
+    } else {
+        res.statusCode(404)
+        throw new Error("Order not found")
+    }
 })
 
 //@desc     Get all Card Orders
@@ -141,7 +176,7 @@ export const updateCardOrderToDelivered = asyncHandler(async (req, res) => {
     if (!user) {
         throw new Error("User not found")
     }
-    const card = await Card.findById(order.orderItems[0].card)
+    const card = await Card.findById(order.orderItems.card)
     if (!card) {
         throw new Error("Card not found")
     }
@@ -184,7 +219,7 @@ export const updateCardOrderToDelivered = asyncHandler(async (req, res) => {
                 order.save()
 
                 res.status(200).json({
-                    message: 'Order Delivered'
+                    message: 'Order delivered'
                 })
             }
         })

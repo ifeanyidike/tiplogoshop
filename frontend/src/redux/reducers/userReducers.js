@@ -49,7 +49,37 @@ import {
     USERS_EMAIL_REQUEST,
     USERS_EMAIL_SUCCESS,
     USERS_EMAIL_FAIL,
+    USER_EMAIL_BY_EMAIL_REQUEST,
+    USER_EMAIL_BY_EMAIL_SUCCESS,
+    USER_EMAIL_BY_EMAIL_FAIL
 } from "../constants/userConstants"
+
+
+export const userEmailByEmailReducer = (state = {}, action) => {
+    switch (action.type) {
+        case USER_EMAIL_BY_EMAIL_REQUEST:
+            return {
+                loading: true
+            }
+
+        case USER_EMAIL_BY_EMAIL_SUCCESS:
+            return {
+                loading: false,
+                success: true,
+                message: action.payload
+            }
+
+        case USER_EMAIL_BY_EMAIL_FAIL:
+            return {
+                loading: false,
+                error: action.payload
+            }
+
+        default:
+            return state
+    }
+}
+
 
 
 export const userEmailReducer = (state = {}, action) => {
