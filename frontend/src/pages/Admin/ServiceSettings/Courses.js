@@ -6,10 +6,9 @@ import { useLocation } from "react-router-dom"
 import { Person as PersonIcon, Message as MessageIcon } from '@material-ui/icons'
 import { deleteCourse, listSchoolDetailsById, updateSchool } from '../../../redux/actions/schoolActions'
 import { Avatar, Card, CardContent, colors, Divider } from '@material-ui/core';
-import CurrencyFormat from "react-currency-format"
 import { Input, FormControl } from '@material-ui/core'
 import { TextareaAutosize, InputLabel, InputAdornment, IconButton } from '@material-ui/core'
-import { SchoolsOverviewContainer, AdminButton, AdminButtonAlt, AdminButtonPro } from "../../../styles/AdminStyles"
+import { SchoolsOverviewContainer, AdminButton, AdminButtonPro } from "../../../styles/AdminStyles"
 import Loader from "../../../components/Loaders/SimpleLoader"
 import ClearIcon from '@material-ui/icons/Clear';
 import MessageModal from "../../../components/Utils/MessageModal"

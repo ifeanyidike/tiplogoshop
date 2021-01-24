@@ -103,6 +103,14 @@ import {
     jambPasswordResetOrderDeleteReducer
 } from "./jambPasswordResetReducers"
 
+import {
+    contactCreateReducer,
+    contactDeleteReducer,
+    contactDetailsReducer,
+    contactListByEmailReducer,
+    contactListReducer,
+} from "./contactReducers"
+
 const reducer = combineReducers({
     cardList: cardListReducer,
     cardListFew: cardListFewReducer,
@@ -193,6 +201,12 @@ const reducer = combineReducers({
     reviewCreate: reviewCreateReducer,
     reviewUpdate: reviewUpdateReducer,
     reviewDetailsByUser: reviewDetailsByUserReducer,
+
+    contactCreate: contactCreateReducer,
+    contactDelete: contactDeleteReducer,
+    contactDetails: contactDetailsReducer,
+    contactListByEmail: contactListByEmailReducer,
+    contactList: contactListReducer,
 })
 
 export default reducer

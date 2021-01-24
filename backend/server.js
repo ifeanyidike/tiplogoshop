@@ -10,6 +10,7 @@ import jambChangeRoutes from "./routes/jambChangeRoutes.js"
 import jambPasswordResetRoutes from "./routes/jambPasswordResetRoutes.js"
 import oLevelResultUploadRoutes from "./routes/oLevelResultUploadRoutes.js"
 import reviewRoutes from "./routes/reviewRoutes.js"
+import contactRoutes from "./routes/contactRoutes.js"
 import uploadRoutes from "./routes/uploadRoutes.js"
 import connectDatabase from "./config/db.js"
 import { notFound, errorHandler } from "./middlewares/errorMiddleware.js"
@@ -40,6 +41,7 @@ app.use('/api/changeofcourseinstitution', jambChangeRoutes)
 app.use('/api/jambpasswordreset', jambPasswordResetRoutes)
 app.use('/api/olevelresultupload', oLevelResultUploadRoutes)
 app.use('/api/reviews', reviewRoutes)
+app.use('/api/contacts', contactRoutes)
 app.use('/api/upload', uploadRoutes)
 app.get("/api/config/paystack", (req, res) => res.send(process.env.PAYSTACK_PUBLIC_KEY))
 

@@ -1,30 +1,25 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import { Alert, AlertTitle } from '@material-ui/lab';
+import MuiAlert from '@material-ui/lab/Alert';
 
-const useStyles = makeStyles((theme) => ({
-  root: {
-    width: '100%',
-    '& > * + *': {
-      marginTop: theme.spacing(2),
-    },
-  },
-}));
+function Alert(props) {
+  return <MuiAlert elevation={6} variant="filled" {...props} />;
+}
 
-const Message = ({variant, children}) => {
-  const classes = useStyles();
+const Message = ({ variant, children }) => {
+
   return (
-    <div className={classes.root}>
-      <Alert severity = {variant}>
+    <div >
+      <Alert severity={variant}>
         {/* <AlertTitle>Error</AlertTitle> */}
         {children}
-      </Alert>      
+      </Alert>
     </div>
   );
 }
 
 Message.defaultProps = {
-    severity: "error"
+  severity: "error"
 }
 
 export default Message;

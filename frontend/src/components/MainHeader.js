@@ -118,7 +118,7 @@ const MainHeader = ({ setShowDrawer }) => {
                             whileHover="onHover"
                         >
                             <Link
-                                to="/"
+                                to="/help"
                                 style={{ fontWeight: path === '/help' && 'bold' }}
                             >Get Help</Link>
                         </motion.li>

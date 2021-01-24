@@ -24,6 +24,7 @@ import AdminJambPasswordReset from "./pages/Admin/JambPasswordReset/JambPassword
 import AdminServiceSettings from "./pages/Admin/ServiceSettings/ServiceMain"
 import NotFoundPage from "./pages/NotFoundPage"
 import UnauthorizedPage from "./pages/UnauthorizedPage"
+import HelpPage from "./pages/HelpPage"
 import { Switch, Route } from "react-router-dom"
 import { AnimatePresence } from "framer-motion"
 import SideDrawer from "./components/SideDrawer"
@@ -53,6 +54,9 @@ function App() {
       <Switch>
         <Route path="/" exact>
           <HomePage />
+        </Route>
+        <Route path="/help">
+          <HelpPage />
         </Route>
         <Route path="/admin/service-settings">
           <AdminServiceSettings />
