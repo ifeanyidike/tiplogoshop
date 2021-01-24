@@ -5,6 +5,10 @@ export const FooterElement = styled.div`
     
     background: ${colors.background};
     padding: 80px 80px 20px 80px;
+    @media ${device.tablet_md}{
+        padding: 40px 10px 20px 10px;
+    }
+   
     display: flex;
     justify-content: space-between;
     a{
@@ -22,5 +26,13 @@ export const FooterElement = styled.div`
         flex-grow: 0.3;
         display: flex;
         justify-content: space-between;
+        @media ${device.mobile_lg}{
+            small:first-child{
+                display: none;
+            }
+            small:nth-child(4){
+                display: none;
+            }
+        }
     }
 `

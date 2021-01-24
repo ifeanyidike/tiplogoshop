@@ -30,14 +30,20 @@ import { AnimatePresence } from "framer-motion"
 import SideDrawer from "./components/SideDrawer"
 import Footer from "./components/Footer"
 import { useHistory, useLocation } from "react-router-dom"
-import { useSelector } from "react-redux"
+import { useSelector, useDispatch } from "react-redux"
+import { DRAWER_CLOSE } from "./redux/constants/utilConstants"
 
 
 function App() {
   const location = useLocation()
   const history = useHistory()
+  const dispatch = useDispatch()
   const pathname = location.pathname.split(/\//)
   const { userInfo } = useSelector(state => state.userLogin)
+
+  useEffect(() => {
+    dispatch({ type: DRAWER_CLOSE })
+  }, [dispatch])
 
   useEffect(() => {
     if (pathname.includes('admin')) {

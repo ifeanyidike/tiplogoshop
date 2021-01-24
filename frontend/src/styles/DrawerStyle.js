@@ -1,6 +1,6 @@
 import styled from 'styled-components'
-import {motion} from "framer-motion"
-import {device, colors} from "./breakpoints"
+import { motion } from "framer-motion"
+import { device, colors } from "./breakpoints"
 
 
 export const Backdrop = styled(motion.div)`
@@ -84,7 +84,7 @@ export const DrawerContent = styled(motion.div)`
             border-bottom: 1px solid ${colors.lightergray};
             opacity: 0;
             
-            i{
+            i, .MuiAvatar-root{
                 margin-right: 20px;
                 color: ${colors.lightred};
                 &:hover{
@@ -92,18 +92,18 @@ export const DrawerContent = styled(motion.div)`
                 }
             }
             span{
-                font-size: 1.5rem;
+                font-size: 1.2rem;
                 color: ${colors.darktext}
             }                                 
         }
         
         li.sidedrawer__firstchild {
             margin: 0 !important;            
-            padding: 40px 20px 60px 20px;
+            padding: 30px 20px 40px 20px;
             background-color: ${colors.lightred};
             
             @media ${device.mobile_md}{  
-                padding: 30px 20px 40px 20px;
+                padding: 20px 20px 20px 20px;
             }
             svg{
                 margin-bottom: 30px;                
@@ -113,6 +113,9 @@ export const DrawerContent = styled(motion.div)`
             }
             .cls-2 {
                 fill: ${colors.darktext}; 
+            }
+            span{
+                color: ${colors.white}
             }
             
         }  

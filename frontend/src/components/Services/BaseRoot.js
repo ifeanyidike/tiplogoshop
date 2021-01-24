@@ -2,7 +2,6 @@ import React from 'react'
 import {
     BaseContainer,
 } from "../../styles/ServiceStyle.js"
-import { DRAWER_OPEN, DRAWER_CLOSE } from "../../redux/constants/utilConstants"
 import { useDispatch, useSelector } from "react-redux"
 import Header from "../MainHeader"
 
@@ -11,8 +10,8 @@ const Base = ({
     topText,
     children
 }) => {
-    const dispatch = useDispatch()
-    dispatch({ type: DRAWER_OPEN })
+
+
 
     return (
         <>

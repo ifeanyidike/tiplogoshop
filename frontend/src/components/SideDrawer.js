@@ -2,24 +2,34 @@ import React, { useEffect } from 'react'
 import { Backdrop, Drawer, DrawerContent } from "../styles/DrawerStyle"
 import SvgIcon from '../svg/sitelogo.js'
 import { motion, AnimatePresence } from "framer-motion"
+import { makeStyles } from '@material-ui/core/styles';
 import {
     backdropVariant,
     drawerVariant,
     mainListVariants,
-    firstListVariants,
-    secondListVariants,
-    thirdListVariants,
-    fourthListVariants
 } from "../animationVariants/DrawerVariants"
 import SocialNetworks from "../components/SocialNetworks"
 import CloseIcon from '@material-ui/icons/Close';
-import { Link } from "react-router-dom"
-import { DRAWER_OPEN, DRAWER_CLOSE } from "../redux/constants/utilConstants"
+import { Link, useLocation, useHistory } from "react-router-dom"
+import { DRAWER_CLOSE } from "../redux/constants/utilConstants"
 import { useDispatch, useSelector } from "react-redux"
+import { colors } from "../styles/breakpoints"
+import { logout } from '../redux/actions/userActions'
+import { Avatar } from '@material-ui/core'
+
+const useStyles = makeStyles((theme) => ({
+    small: {
+        width: theme.spacing(4),
+        height: theme.spacing(4),
+    },
+}));
 
 const SideDrawer = () => {
 
     const dispatch = useDispatch()
+    const location = useLocation()
+    const history = useHistory()
+    const path = location.pathname
 
     useEffect(() => {
         dispatch({ type: DRAWER_CLOSE })
@@ -45,6 +55,20 @@ const SideDrawer = () => {
     const handleBackDropClose = () => {
         dispatch({ type: DRAWER_CLOSE })
     }
+
+    const userLogin = useSelector(state => state.userLogin)
+    const { userInfo } = userLogin
+
+    const photo = useSelector(state => state.photo)
+    const { imageUrl } = photo
+
+    const logoutHandler = () => {
+        dispatch(logout())
+        history.push('/auth')
+    }
+
+    const classes = useStyles();
+
 
     return (
         <AnimatePresence>
@@ -79,36 +103,103 @@ const SideDrawer = () => {
                                     className='closeIcon'
                                     onClick={handleCancelClick}
                                 />
-                                <SvgIcon />
+                                <Link to="/">
+                                    <SvgIcon />
+                                </Link>
 
-                                <span>Lorem ipsum dolor sit amet consectetur adipisicing elit. Iure, pariatur.</span>
+                                <span>Welcome to Tiplogo shop!</span>
                             </li>
-                            <Link to='/' className="drawer__link first">
-                                <motion.li className='item' >
-                                    <i className="fas fa-graduation-cap fa-2x"></i>
+                            <Link
+                                onClick={() => dispatch({ type: DRAWER_CLOSE })}
+                                to='/allcards'
+                                className="drawer__link first">
+                                <motion.li
+                                    style={{
+                                        fontWeight: path === '/allcards' && 'bold',
+                                        backgroundColor: path === '/allcards' && colors.lightgray
+                                    }}
+                                    className='item' >
+                                    <i className="fas fa-graduation-cap"></i>
                                     <span>Buy Pin</span>
                                 </motion.li>
                             </Link>
-                            <Link to='/' className="drawer__link">
+                            <Link
+                                onClick={() => dispatch({ type: DRAWER_CLOSE })}
+                                to='/services'
+                                className="drawer__link"
+                                style={{
+                                    fontWeight: path === '/services' && 'bold',
+                                    color: path === '/services' && colors.lightred
+                                }}
+                            >
                                 <motion.li className='item' >
-                                    <i className="fas fa-cogs fa-2x"></i>
+                                    <i className="fas fa-cogs"></i>
                                     <span>Services</span>
                                 </motion.li>
                             </Link>
 
-                            <Link to='/' className="drawer__link">
+                            <Link
+                                onClick={() => dispatch({ type: DRAWER_CLOSE })}
+                                to='/help'
+                                style={{
+                                    fontWeight: path === '/help' && 'bold',
+                                    color: path === '/help' && colors.lightred
+                                }}
+                                className="drawer__link">
                                 <motion.li className='item' >
-                                    <i className="fas fa-file-signature fa-2x"></i>
+                                    <i className="fas fa-file-signature"></i>
                                     <span>Get Help</span>
                                 </motion.li>
                             </Link>
 
-                            <Link to='/' className="drawer__link">
-                                <motion.li className='item' >
-                                    <i className="fas fa-info-circle fa-2x"></i>
-                                    <span>Join</span>
-                                </motion.li>
-                            </Link>
+                            {
+                                userInfo ?
+                                    <>
+                                        <Link
+                                            onClick={logoutHandler}
+                                            to='/' className="drawer__link">
+                                            <motion.li className='item' >
+                                                <i className="fas fa-info-circle"></i>
+                                                <span>Logout</span>
+                                            </motion.li>
+                                        </Link>
+
+                                        <Link
+                                            onClick={() => dispatch({ type: DRAWER_CLOSE })}
+                                            to="/profile"
+                                            style={{
+                                                fontWeight: path === '/profile' && 'bold',
+                                                color: path === '/profile' && colors.lightred
+                                            }}
+                                            className="drawer__link">
+                                            <motion.li className='item' >
+                                                <Avatar
+                                                    className={classes.small}
+                                                    src={
+                                                        imageUrl ? imageUrl :
+                                                            userInfo.profile && userInfo.profile.picture ?
+                                                                userInfo.profile.picture
+                                                                :
+                                                                '/images/default-avatar.jpg'
+                                                    }
+                                                />
+                                                <span>Profile</span>
+                                            </motion.li>
+                                        </Link>
+
+                                    </>
+                                    :
+                                    <Link
+                                        onClick={() => dispatch({ type: DRAWER_CLOSE })}
+                                        to='/auth' className="drawer__link">
+                                        <motion.li className='item' >
+                                            <i className="fas fa-info-circle"></i>
+                                            <span>Join</span>
+                                        </motion.li>
+                                    </Link>
+                            }
+
+
                             <motion.li>
                                 <SocialNetworks />
                             </motion.li>
@@ -117,7 +208,7 @@ const SideDrawer = () => {
                 </Drawer>
             </>
 
-        </AnimatePresence>
+        </AnimatePresence >
     )
 }
 

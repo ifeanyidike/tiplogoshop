@@ -307,12 +307,18 @@ export const ServicesContainer = styled(HomeAltCardContainer)`
     padding: 40px 80px 10px 80px !important;   
     display: grid;
     grid-template-columns: repeat(3, 1fr);
+    @media ${device.tablet_md}{
+        grid-template-columns: 1fr;
+    }
     place-items: center;
     grid-gap: 40px;
 `
 
 export const ServiceTypeContainer = styled(HomeAltCardContainer)`
     padding: 40px 80px 10px 80px !important;   
+    @media ${device.tablet_md}{
+        padding: 40px 5px 10px 5px !important;   
+    }
     display: grid;    
     place-items: center;
     
@@ -350,8 +356,11 @@ export const ServicesCard = styled(CardContainer)`
 `
 
 export const ServicePanel = styled(ServicesCard)`
-    width: 70%;
-    ${'' /* align-items: flex-start; */}
+    width: 70%;      
+   
+    @media ${device.tablet}{
+        width: 100%;
+    }    
     display: block;
     p, span, a{
         margin-top: 0px;

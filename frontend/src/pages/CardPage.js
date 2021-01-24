@@ -1,86 +1,90 @@
-import React, {useEffect} from 'react'
+import React, { useEffect } from 'react'
 import jwt_decode from 'jwt-decode'
 import BaseFile from "../components/Services/Base"
 import BaseChildren from "../components/Services/BaseChildren"
 import Header from "../components/MainHeader"
 import Loader from "../components/Loaders/SimpleLoader"
-import {useHistory, useLocation} from "react-router-dom"
-import {useDispatch, useSelector} from "react-redux"
-import {createOrder} from "../redux/actions/cardOrderActions"
-import {logout} from "../redux/actions/userActions"
-import {Modal} from "../styles/ModalStyle"
-import {Link} from "react-router-dom"
-import { 
+import { useHistory, useLocation } from "react-router-dom"
+import { useDispatch, useSelector } from "react-redux"
+import { createOrder } from "../redux/actions/cardOrderActions"
+import { logout } from "../redux/actions/userActions"
+import { DRAWER_CLOSE } from "../redux/constants/utilConstants"
+import { Modal } from "../styles/ModalStyle"
+import { Link } from "react-router-dom"
+import {
     listCardDetails,
-    listFewCards 
+    listFewCards
 } from '../redux/actions/cardActions'
 import VpnKeyIcon from '@material-ui/icons/VpnKey';
 
 const CardPage = () => {
     const history = useHistory()
-    const location = useLocation()        
-    
+    const location = useLocation()
+
     const userLogin = useSelector(state => state.userLogin)
-    const {userInfo} = userLogin
-    
-    const cardListFew  = useSelector(state => state.cardListFew)
-    const {loading: cardsLoading, cards, error: cardsError} = cardListFew
-    
-    const cardDetails  = useSelector(state => state.cardDetails)
-    const {loading: cardLoading, card, error: cardError} = cardDetails
-    
-    
+    const { userInfo } = userLogin
+
+    const cardListFew = useSelector(state => state.cardListFew)
+    const { loading: cardsLoading, cards, error: cardsError } = cardListFew
+
+    const cardDetails = useSelector(state => state.cardDetails)
+    const { loading: cardLoading, card, error: cardError } = cardDetails
+
     const dispatch = useDispatch()
-    
-    useEffect(()=>{
-        if(userInfo){
-            const {exp} = jwt_decode(userInfo.token)
+
+    useEffect(() => {
+        dispatch({ type: DRAWER_CLOSE })
+    }, [dispatch])
+
+    useEffect(() => {
+        if (userInfo) {
+            const { exp } = jwt_decode(userInfo.token)
             const expirationTime = (exp * 1000) - 6000
-            if(Date.now() >= expirationTime){
+            if (Date.now() >= expirationTime) {
                 dispatch(logout())
-            }              
+            }
         }
-                
+
     }, [dispatch, userInfo, history])
-    
-    useEffect(()=>{
-        const splittedPath = location.pathname.split(/\//)        
+
+    useEffect(() => {
+        const splittedPath = location.pathname.split(/\//)
         const id = splittedPath[splittedPath.length - 1]
-        
+
         dispatch(listCardDetails(id))
-        dispatch(listFewCards(4))        
+        dispatch(listFewCards(4))
     }, [dispatch, location])
-    
+
     return (
-        <div>   
-            
+        <div>
+
             {
                 !userInfo && (
                     <Modal>
                         <div className="modalitem">
                             <p>You are not signed in</p>
                             <div>
-                                <Link to="/auth">Login <VpnKeyIcon /></Link>    
+                                <Link to="/auth">Login <VpnKeyIcon /></Link>
                                 <span>to continue</span>
-                            </div>                    
+                            </div>
                         </div>
                     </Modal>
                 )
             }
-                                                     
+
             <BaseFile
-                loading={cardsLoading} 
-                cards = {cards}        
-                error = {cardsError}   
-                TopImage={<img src={card.image} alt={card.name} />} 
-                topText = {card.name}           
+                loading={cardsLoading}
+                cards={cards}
+                error={cardsError}
+                TopImage={<img src={card.upload && card.upload.image} alt={card.name} />}
+                topText={card.name}
             >
-                <BaseChildren 
-                    baseAmount={card.price}                 
-                    availability= {card.countInStock > 0 ? "In stock" : "Out of stock"}
+                <BaseChildren
+                    baseAmount={card.price}
+                    availability={card.countInStock > 0 ? "In stock" : "Out of stock"}
                     name={card.name}
-                />          
-            </BaseFile>                                    
+                />
+            </BaseFile>
         </div>
     )
 }

@@ -20,7 +20,6 @@ const Base = ({
 }) => {
     const dispatch = useDispatch()
 
-    dispatch({ type: DRAWER_OPEN })
     // const drawerToggle = useSelector(state => state.drawerToggle)
 
     return (
