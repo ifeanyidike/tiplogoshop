@@ -64,7 +64,7 @@ const EnhancedTableToolbar = (props) => {
         )}
 
       {numSelected > 0 ? (
-        <Tooltip title="Delete">
+        <Tooltip title="View details">
           <IconButton aria-label="forward" onClick={() => handleOverview(id)} >
             <ForwardIcon />
           </IconButton>

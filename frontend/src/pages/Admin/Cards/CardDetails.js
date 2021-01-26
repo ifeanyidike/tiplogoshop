@@ -8,7 +8,7 @@ import { colors } from "../../../styles/breakpoints"
 import CurrencyFormat from "react-currency-format"
 import { Avatar, Card, CardContent, Divider } from '@material-ui/core';
 import { useSelector, useDispatch } from "react-redux"
-import Loader from "../../../components/Loaders/SimpleLoader"
+import Loader from "../../../components/Loaders/LinearLoader"
 import { DropzoneDialog } from 'material-ui-dropzone'
 import { addCardItems, listCardDetails, listCards, updateCard } from "../../../redux/actions/cardActions"
 import queryString from "query-string"
@@ -51,7 +51,7 @@ const CardDetails = ({ setValue }) => {
         { id: 'token', label: 'Token' },
     ];
     const { loading, error, card } = useSelector(state => state.cardDetails)
-    const { loading: updateLoading, error: updateError } = useSelector(state => state.cardUpdate)
+    const { loading: updateLoading } = useSelector(state => state.cardUpdate)
     const { loading: addLoading } = useSelector(state => state.cardAddItem)
 
     const [price, setPrice] = useState(0)

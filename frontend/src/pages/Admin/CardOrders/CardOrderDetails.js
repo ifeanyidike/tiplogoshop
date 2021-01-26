@@ -5,7 +5,7 @@ import { UserProfileContainer, AdminButton } from "../../../styles/AdminStyles"
 import CurrencyFormat from "react-currency-format"
 import { Avatar, Card, CardContent, Divider } from '@material-ui/core';
 import { useSelector, useDispatch } from "react-redux"
-import Loader from "../../../components/Loaders/SimpleLoader"
+import Loader from "../../../components/Loaders/LinearLoader"
 import { deleteCardOrder, getCardOrderDetails, listCardOrders } from "../../../redux/actions/cardOrderActions"
 import queryString from "query-string"
 import { useLocation } from "react-router-dom"
@@ -160,7 +160,7 @@ const CardOrderDetails = ({ setValue }) => {
                             :
                             <Card>
                                 <CardContent>
-                                    You have not selected any user
+                                    You have not selected any order
                             </CardContent>
                             </Card>
             }

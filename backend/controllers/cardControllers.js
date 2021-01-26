@@ -89,7 +89,7 @@ export const createCard = asyncHandler(async (req, res) => {
         upload: {
             image: '/images/sample.png'
         },
-        description: 'Lorem ipsum dolor sit amet'
+        description: 'This is a sample card and would soon be updated'
     })
     const createdCard = await card.save()
     res.status(201).json(createdCard)

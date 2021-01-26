@@ -3,12 +3,12 @@ import { makeStyles } from '@material-ui/core/styles';
 import { Person as PersonIcon, Message as MessageIcon } from '@material-ui/icons'
 import { Input, FormControl } from '@material-ui/core'
 import { TextareaAutosize, InputLabel, InputAdornment } from '@material-ui/core'
-import { UserProfileContainer, AdminButton, AdminButtonAlt, AdminButtonPro, RightAlign, AdminHeader } from "../../../styles/AdminStyles"
+import { UserProfileContainer, AdminButton, AdminButtonAlt, AdminButtonPro, AdminHeader } from "../../../styles/AdminStyles"
 import { colors } from "../../../styles/breakpoints"
 import CurrencyFormat from "react-currency-format"
 import { Card, CardContent, Divider } from '@material-ui/core';
 import { useSelector, useDispatch } from "react-redux"
-import Loader from "../../../components/Loaders/SimpleLoader"
+import Loader from "../../../components/Loaders/LinearLoader"
 import { DropzoneDialog } from 'material-ui-dropzone'
 import queryString from "query-string"
 import { useLocation } from "react-router-dom"
@@ -85,131 +85,139 @@ const OLevelUploadDetails = ({ setValue }) => {
         dispatch(listOlevelUploadOrders())
         setValue(0)
     }
+    console.log(loading, order)
 
     return (
         <UserProfileContainer>
             {
                 loading ? <Loader />
-                    : error ? error
+                    : error ?
+                        <Card>
+                            <CardContent>
+                                You have not selected any order
+                            </CardContent>
+                        </Card>
                         :
                         order ?
                             <React.Fragment>
-                                <Card className="card__image">
-                                    <CardContent>
+                                <>
+                                    <Card className="card__image">
+                                        <CardContent>
 
-                                        {
+                                            {
 
-                                            order.admin_upload &&
-                                            <object data={order.admin_upload.image} type="application/pdf" width="300px" height="300px">
-                                                <p>Alternative text - include a link <a href={order.admin_upload && `/${order.admin_upload}`}>to the PDF!</a></p>
-                                            </object>
-                                        }
+                                                order.admin_upload &&
+                                                <img src={order.admin_upload.image}
+                                                    alt="admin upload">
+                                                </img>
+                                            }
 
-                                        <div>
-                                            <AdminButtonAlt onClick={() => setUpload({ ...upload, open: true })}>
-                                                <PhotoCameraIcon />Upload Result</AdminButtonAlt>
-                                            <DropzoneDialog
-                                                open={upload.open}
-                                                filesLimit={1}
-                                                clearOnUnmount={false}
-                                                onChange={(files) => console.log('Files:', files)}
-                                                onSave={handleFileSave}
-                                                submitButtonText="Add file"
-                                                acceptedFiles={['image/jpeg', 'image/png']}
-                                                showPreviews={true}
-                                                maxFileSize={1000000}
-                                                onClose={() => setUpload({ ...upload, open: false })}
-                                            />
-                                        </div>
-                                    </CardContent>
-                                </Card>
-                                <Card className="card__content">
-                                    <CardContent>
-                                        <div className="heading">
-                                            <h2>{order.user && order.user.name}</h2>
                                             <div>
-                                                <span>Balance:</span>
-                                                <CurrencyFormat value={order.price}
-                                                    displayType={'text'}
-                                                    thousandSeparator={true}
-                                                    prefix={'₦'}
-                                                    renderText={value => <h4>{value}</h4>}
+                                                <AdminButtonAlt onClick={() => setUpload({ ...upload, open: true })}>
+                                                    <PhotoCameraIcon />Upload Result</AdminButtonAlt>
+                                                <DropzoneDialog
+                                                    open={upload.open}
+                                                    filesLimit={1}
+                                                    clearOnUnmount={false}
+                                                    onChange={(files) => console.log('Files:', files)}
+                                                    onSave={handleFileSave}
+                                                    submitButtonText="Add file"
+                                                    acceptedFiles={['image/jpeg', 'image/png']}
+                                                    showPreviews={true}
+                                                    maxFileSize={1000000}
+                                                    onClose={() => setUpload({ ...upload, open: false })}
                                                 />
                                             </div>
-                                        </div>
-                                        <Divider />
-                                        <div className="contents">
-                                            <div>
-                                                <span>Candidate's name:</span>
-                                                <span>{order.orderItems && order.orderItems.name}</span>
-                                            </div>
-
-                                            <div>
-                                                <span>Candidate's Profile Code:</span>
-                                                <span>{order.orderItems && order.orderItems.profileCode}</span>
-                                            </div>
-
-                                            <div>
-                                                <span>Candidate's Order Type:</span>
-                                                <span>{order.orderItems && order.orderItems.type}</span>
-                                            </div>
-
-                                            <div className="fullwidth">
-                                                <div className="embossitem">
-                                                    {
-                                                        order.orderItems &&
-                                                        order.orderItems.files &&
-                                                        order.orderItems.files.map((file) => (
-                                                            file && (
-                                                                <div key={file._id}>
-                                                                    <img src={file.image} alt={file.image} />
-
-                                                                </div>
-                                                            )
-                                                        ))
-                                                    }
+                                        </CardContent>
+                                    </Card>
+                                    <Card className="card__content">
+                                        <CardContent>
+                                            <div className="heading">
+                                                <h2>{order.user && order.user.name}</h2>
+                                                <div>
+                                                    <span>Balance:</span>
+                                                    <CurrencyFormat value={order.price}
+                                                        displayType={'text'}
+                                                        thousandSeparator={true}
+                                                        prefix={'₦'}
+                                                        renderText={value => <h4>{value}</h4>}
+                                                    />
                                                 </div>
                                             </div>
-                                            <div>
-                                                <span>Paid on:</span>
-                                                <span>{new Date(order.paidAt).toDateString()}</span>
-                                            </div>
-                                            <div>
-                                                <span>Payment method:</span>
-                                                <span>{order.paymentMethod}</span>
-                                            </div>
-                                            <div>
-                                                <span>Payment ID:</span>
-                                                <span>{order.paymentResult && order.paymentResult.id}</span>
-                                            </div>
-                                            <div>
-                                                <span>Payment Email:</span>
-                                                <span>{order.paymentResult && order.paymentResult.email}</span>
-                                            </div>
-                                            <div>
-                                                <span>Payment Status:</span>
-                                                <span>{order.paymentResult && order.paymentResult.status}</span>
+                                            <Divider />
+                                            <div className="contents">
+                                                <div>
+                                                    <span>Candidate's name:</span>
+                                                    <span>{order.orderItems && order.orderItems.name}</span>
+                                                </div>
+
+                                                <div>
+                                                    <span>Candidate's Profile Code:</span>
+                                                    <span>{order.orderItems && order.orderItems.profileCode}</span>
+                                                </div>
+
+                                                <div>
+                                                    <span>Candidate's Order Type:</span>
+                                                    <span>{order.orderItems && order.orderItems.type}</span>
+                                                </div>
+
+                                                <div className="fullwidth">
+                                                    <div className="embossitem flexemboss">
+                                                        {
+                                                            order.orderItems &&
+                                                            order.orderItems.files &&
+                                                            order.orderItems.files.map((file) => (
+                                                                file && (
+                                                                    <div key={file._id}>
+                                                                        <img src={file.image} alt={file.image} />
+
+                                                                    </div>
+                                                                )
+                                                            ))
+                                                        }
+                                                    </div>
+                                                </div>
+                                                <div>
+                                                    <span>Paid on:</span>
+                                                    <span>{new Date(order.paidAt).toDateString()}</span>
+                                                </div>
+                                                <div>
+                                                    <span>Payment method:</span>
+                                                    <span>{order.paymentMethod}</span>
+                                                </div>
+                                                <div>
+                                                    <span>Payment ID:</span>
+                                                    <span>{order.paymentResult && order.paymentResult.id}</span>
+                                                </div>
+                                                <div>
+                                                    <span>Payment Email:</span>
+                                                    <span>{order.paymentResult && order.paymentResult.email}</span>
+                                                </div>
+                                                <div>
+                                                    <span>Payment Status:</span>
+                                                    <span>{order.paymentResult && order.paymentResult.status}</span>
+                                                </div>
+
+                                                <div>
+                                                    <span>Created on:</span>
+                                                    <span>{new Date(order.createdAt).toDateString()}</span>
+                                                </div>
+
+                                                <div>
+                                                    <span>Last update on:</span>
+                                                    <span>{new Date(order.updatedAt).toDateString()}</span>
+                                                </div>
+
                                             </div>
 
-                                            <div>
-                                                <span>Created on:</span>
-                                                <span>{new Date(order.createdAt).toDateString()}</span>
+                                            <Divider />
+                                            <div className="actions">
+                                                <AdminButton onClick={() => setDeletePrompt(true)}>Delete Order</AdminButton>
                                             </div>
 
-                                            <div>
-                                                <span>Last update on:</span>
-                                                <span>{new Date(order.updatedAt).toDateString()}</span>
-                                            </div>
-
-                                        </div>
-
-                                        <Divider />
-                                        <div className="actions">
-                                            <AdminButton onClick={() => setDeletePrompt(true)}>Delete Order</AdminButton>
-                                        </div>
-
-                                    </CardContent>
-                                </Card>
+                                        </CardContent>
+                                    </Card>
+                                </>
 
 
                                 <form className="messagecontainer" onSubmit={handleMessageSend}>
@@ -303,7 +311,7 @@ const OLevelUploadDetails = ({ setValue }) => {
                             :
                             <Card>
                                 <CardContent>
-                                    You have not selected any user
+                                    You have not selected any order
                             </CardContent>
                             </Card>
             }

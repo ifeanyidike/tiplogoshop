@@ -66,6 +66,7 @@ export default function StickyHeadTable({ columns, rows, setValue }) {
                                     role="checkbox"
                                     tabIndex={-1}
                                     key={row.code}
+                                    style={{ cursor: 'pointer' }}
                                     onClick={() => handleRowClick(row._id)}
                                 >
                                     {columns.map((column) => {

@@ -65,7 +65,7 @@ const LoadCards = ({ loading, cards, error, href }) => {
                 src={feature.upload.image}
                 title={feature.name}
                 desc={feature.description}
-                anchor="See More!"
+                anchor="Buy Now!"
                 color={chooseColor(index)}
                 variants={chooseVariant(index)}
                 href={href}

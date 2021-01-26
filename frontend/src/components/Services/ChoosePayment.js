@@ -33,6 +33,8 @@ const ChoosePayment = ({ num, baseAmount }) => {
     const userLogin = useSelector(state => state.userLogin)
     const { loading: userLoading, userInfo, error: userError } = userLogin
 
+    const { wallet } = useSelector(state => state.userWalletAmount)
+
     const cardDetails = useSelector(state => state.cardDetails)
     const { loading: cardLoading, card, error: cardError } = cardDetails
 
@@ -40,7 +42,7 @@ const ChoosePayment = ({ num, baseAmount }) => {
         history.push(`/payorder/card?orderId=${order._id}`)
     }
 
-    const balance = parseInt(userInfo.wallet - num * baseAmount)
+    const balance = wallet && parseInt(wallet - num * baseAmount)
 
 
     const handleOrderPlacement = () => {

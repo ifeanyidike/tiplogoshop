@@ -58,26 +58,26 @@ export const cardFeatures = [
 export const altCardFeatures = [
     {
         title: 'Buy Waec Scratch Cards, Tokens, e-PIN',
-        anchor: "See More",
+        anchor: "Buy Now!",
         color: 'darkblue',
         variants: firstCardContainerVariants,
     },
     {
 
         title: 'Buy Nabteb Cards, Tokens, and PINs',
-        anchor: "See More",
+        anchor: "Buy Now!",
         color: 'lightgreen',
         variants: secondCardContainerVariants,
     },
     {
         title: 'Buy Neco Cards, Result Checker, PINs',
-        anchor: "See More",
+        anchor: "Buy Now!",
         color: 'lightblue',
         variants: thirdCardContainerVariants,
     },
     {
         title: "Get Jamb UTME, Jamb DE, Cards, PINs",
-        anchor: "See More",
+        anchor: "Buy Now!",
         color: 'goldish',
         variants: fourthCardContainerVariants,
     }
@@ -108,19 +108,19 @@ export const counter = [
 export const topcard_features = [
     {
         icon: "fas fa-exchange-alt",
-        title: "Change course",
+        title: "Data correction",
         bcolor: "darkblue",
         href: '/services/change-of-course-institution'
     },
     {
         icon: "fas fa-sliders-h",
-        title: "Change institution",
+        title: "Password reset",
         bcolor: "darkred",
         href: '/services/jamb-password-reset'
     },
     {
         icon: "fas fa-cloud-upload-alt",
-        title: "Result upload",
+        title: "Jamb result upload",
         bcolor: "lightgray",
         href: '/services/result-upload'
     },

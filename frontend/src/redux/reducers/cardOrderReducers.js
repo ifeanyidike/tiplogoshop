@@ -78,7 +78,7 @@ export const cardOrderDeleteReducer = (state = {}, action) => {
 
 
 export const cardOrderDetailsReducer = (
-    state = { loading: true, orderItems: [] }, action
+    state = { orderItems: [] }, action
 ) => {
     switch (action.type) {
         case CARD_ORDER_DETAILS_REQUEST:

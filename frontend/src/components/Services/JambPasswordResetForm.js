@@ -159,7 +159,7 @@ const CourseChangeForm = ({
                 </FormControl>
 
                 <FormControl fullWidth className={classes.formControl}>
-                    <InputLabel htmlFor="standard-adornment-password">Password</InputLabel>
+                    <InputLabel htmlFor="standard-adornment-password">New Password</InputLabel>
                     <Input
                         id="standard-adornment-password"
                         value={password}
@@ -178,7 +178,7 @@ const CourseChangeForm = ({
                                     onClick={() => setShowPassword(!showPassword)}
                                     onMouseDown={handleMouseDownPassword}
                                 >
-                                    {showPassword ? <Visibility /> : <VisibilityOff />}
+                                    {showPassword ? <Visibility tabindex='-1' /> : <VisibilityOff tabindex='-1' />}
                                 </IconButton>
                             </InputAdornment>
                         }
@@ -186,7 +186,7 @@ const CourseChangeForm = ({
                 </FormControl>
 
                 <FormControl fullWidth className={classes.formControl}>
-                    <InputLabel htmlFor="standard-adornment-amount">Confirm Password</InputLabel>
+                    <InputLabel htmlFor="standard-adornment-amount">Confirm New Password</InputLabel>
                     <Input
                         id="standard-adornment-confirm-password"
                         value={confirmPassword}
@@ -205,7 +205,7 @@ const CourseChangeForm = ({
                                     onClick={() => setShowConfirmPassword(!showConfirmPassword)}
                                     onMouseDown={handleMouseDownPassword}
                                 >
-                                    {showConfirmPassword ? <Visibility /> : <VisibilityOff />}
+                                    {showConfirmPassword ? <Visibility tabindex='-1' /> : <VisibilityOff tabindex='-1' />}
                                 </IconButton>
                             </InputAdornment>
                         }

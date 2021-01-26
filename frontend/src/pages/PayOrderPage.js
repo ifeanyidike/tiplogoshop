@@ -32,25 +32,22 @@ const PayOrder = () => {
     const cardOrderDetails = useSelector(state => state.cardOrderDetails)
     const { error: orderError, order, loading: orderLoading } = cardOrderDetails
 
-    const cardDetails = useSelector(state => state.cardDetails)
-    const { loading: cardLoading, card, error: cardError } = cardDetails
-
     const cardOrderPay = useSelector(state => state.cardOrderPay)
     const { error: payError, loading: payLoading, success: paySuccess } = cardOrderPay
 
     const walletDebit = useSelector(state => state.cardOrderPay)
-    const { error: walletError,
-        loading: walletLoading,
-        success: walletSuccess
-    } =
-        walletDebit
+    const { error: walletError, loading: walletLoading } = walletDebit
+
+    const { wallet } = useSelector(state => state.userWalletAmount)
 
     let orderitem;
     let balance;
     if (order) {
         const { orderItems } = order
         orderitem = orderItems
-        balance = parseInt(userInfo.wallet - orderitem.price)
+
+        balance = wallet &&
+            parseInt(wallet - orderitem.price)
     }
     useEffect(() => {
         if (userInfo) {
@@ -120,15 +117,15 @@ const PayOrder = () => {
                                                     (
                                                         <>
                                                             <CustomTable
-                                                                cost={orderitem.price}
-                                                                qty={orderitem.qty}
-                                                                name={orderitem.name}
-                                                                orderId={order._id}
-                                                                paymentMethod={order.paymentMethod}
+                                                                cost={orderitem && orderitem.price}
+                                                                qty={orderitem && orderitem.qty}
+                                                                name={orderitem && orderitem.name}
+                                                                orderId={order && order._id}
+                                                                paymentMethod={order && order.paymentMethod}
                                                             />
 
                                                             {
-                                                                !order.isPaid && (
+                                                                order && !order.isPaid && (
 
                                                                     <div className="table__action">
                                                                         <Link

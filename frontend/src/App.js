@@ -91,7 +91,7 @@ function App() {
         <Route path="/admin" exact>
           <AdminUsers />
         </Route>
-        <Route path="/auth">
+        <Route path="/auth" exact>
           <AuthPage />
         </Route>
         <Route path="/services/change-of-course-institution">

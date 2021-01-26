@@ -9,7 +9,6 @@ import LaunchIcon from '@material-ui/icons/Launch';
 import ChoosePayment from './ChoosePayment';
 import Wallet from "../Utils/Wallet"
 import CurrencyFormat from 'react-currency-format';
-import { createTransport } from 'nodemailer';
 
 const BaseChildren = ({ baseAmount, availability, name }) => {
 

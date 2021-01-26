@@ -18,7 +18,8 @@ import {
     userDeleteReducer,
     usersEmailReducer,
     userEmailReducer,
-    userEmailByEmailReducer
+    userEmailByEmailReducer,
+    userWalletAmountReducer
 } from "./userReducers"
 
 import {
@@ -138,6 +139,7 @@ const reducer = combineReducers({
     message: messageReducer,
 
 
+    userWalletAmount: userWalletAmountReducer,
     usersEmail: usersEmailReducer,
     userEmail: userEmailReducer,
     userEmailByEmail: userEmailByEmailReducer,

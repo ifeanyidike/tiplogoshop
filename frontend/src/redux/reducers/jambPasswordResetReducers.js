@@ -70,7 +70,7 @@ export const jambPasswordResetOrderCreateReducer = (state = {}, action) => {
 }
 
 export const jambPasswordResetOrderDetailsReducer = (
-    state = { loading: true, orderItems: [] }, action
+    state = { orderItems: [] }, action
 ) => {
     switch (action.type) {
         case JAMB_PASSWORD_RESET_DETAILS_REQUEST:

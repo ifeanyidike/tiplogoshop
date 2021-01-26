@@ -122,7 +122,7 @@ export const oLevelUploadOrderCreateReducer = (state = {}, action) => {
 }
 
 export const oLevelUploadOrderDetailsReducer = (
-    state = { loading: true, orderItems: [] }, action
+    state = { orderItems: [] }, action
 ) => {
     switch (action.type) {
         case OLEVEL_UPLOAD_DETAILS_REQUEST:

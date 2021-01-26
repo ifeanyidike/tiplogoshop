@@ -3,12 +3,12 @@ import { makeStyles } from '@material-ui/core/styles';
 import { Person as PersonIcon, Message as MessageIcon } from '@material-ui/icons'
 import { Input, FormControl } from '@material-ui/core'
 import { TextareaAutosize, InputLabel, InputAdornment } from '@material-ui/core'
-import { UserProfileContainer, AdminButton, AdminButtonAlt, AdminButtonPro, RightAlign, AdminHeader } from "../../../styles/AdminStyles"
+import { UserProfileContainer, AdminButton, AdminButtonAlt, AdminButtonPro, AdminHeader } from "../../../styles/AdminStyles"
 import { colors } from "../../../styles/breakpoints"
 import CurrencyFormat from "react-currency-format"
-import { Avatar, Card, CardContent, Divider } from '@material-ui/core';
+import { Card, CardContent, Divider } from '@material-ui/core';
 import { useSelector, useDispatch } from "react-redux"
-import Loader from "../../../components/Loaders/SimpleLoader"
+import Loader from "../../../components/Loaders/LinearLoader"
 import { DropzoneDialog } from 'material-ui-dropzone'
 import queryString from "query-string"
 import { useLocation } from "react-router-dom"
@@ -97,7 +97,13 @@ const ChangeOfCourseDetails = ({ setValue }) => {
                             <React.Fragment>
                                 <Card className="card__image">
                                     <CardContent>
-                                        <img src={order.admin_upload && order.admin_upload.image} alt="admin upload" />
+                                        {
+
+                                            order.admin_upload &&
+                                            <img src={order.admin_upload.image}
+                                                alt="admin upload">
+                                            </img>
+                                        }
 
                                         <div>
                                             <AdminButtonAlt onClick={() => setUpload({ ...upload, open: true })}>
@@ -109,7 +115,7 @@ const ChangeOfCourseDetails = ({ setValue }) => {
                                                 onChange={(files) => console.log('Files:', files)}
                                                 onSave={handleFileSave}
                                                 submitButtonText="Add image"
-                                                acceptedFiles={['image/jpeg', 'application/pdf', 'image/png']}
+                                                acceptedFiles={['image/jpeg', 'image/png']}
                                                 showPreviews={true}
                                                 maxFileSize={1000000}
                                                 onClose={() => setUpload({ ...upload, open: false })}
@@ -241,7 +247,7 @@ const ChangeOfCourseDetails = ({ setValue }) => {
                                             <Card className="card__content">
                                                 <CardContent>
                                                     <div className="heading">
-                                                        <h2>Send message to {order.user.name}</h2>
+                                                        <h2>Send message to {order && order.user && order.user.name}</h2>
                                                     </div>
                                                     <Divider />
                                                     <div className="contents">
@@ -292,11 +298,11 @@ const ChangeOfCourseDetails = ({ setValue }) => {
                                 <MessageModal
                                     open={deletePrompt}
                                     setOpen={setDeletePrompt}
-                                    caption={`Delete ${order && order.user.name}'s order`}
+                                    caption={`Delete ${order && order.user && order.user.name}'s order`}
                                     message={
                                         <div className='delete'>
                                             <h4 className="deleteheader">This action is not reversable</h4>
-                                            <p>Are you sure you want to delete {order.user.name}'s order?</p>
+                                            <p>Are you sure you want to delete {order && order.user && order.user.name}'s order?</p>
                                             <p>This will also delete the pin, serial no and token</p>
                                             <div className="deleteconfirm">
                                                 <AdminButton onClick={() => setDeletePrompt(false)}>No</AdminButton>

@@ -52,7 +52,10 @@ import {
     USERS_EMAIL_FAIL,
     USER_EMAIL_BY_EMAIL_REQUEST,
     USER_EMAIL_BY_EMAIL_SUCCESS,
-    USER_EMAIL_BY_EMAIL_FAIL
+    USER_EMAIL_BY_EMAIL_FAIL,
+    WALLET_AMOUNT_REQUEST,
+    WALLET_AMOUNT_SUCCESS,
+    WALLET_AMOUNT_FAIL
 } from "../constants/userConstants"
 import uuid from 'react-uuid'
 import { cardPayOrder } from './cardOrderActions'
@@ -66,6 +69,42 @@ const normalConfig = {
         'Content-Type': 'application/json'
     }
 }
+
+export const getWalletAmount = () => async (dispatch, getState) => {
+    try {
+        dispatch({
+            type: WALLET_AMOUNT_REQUEST
+        })
+
+        const { userLogin: { userInfo } } = getState()
+
+        const config = {
+            headers: {
+                'Content-Type': 'application/json',
+                Authorization: `Bearer ${userInfo.token}`
+            },
+        }
+
+        const { data } = await axios.get(`/api/users/wallet/amount`, config)
+
+        dispatch({
+            type: WALLET_AMOUNT_SUCCESS,
+            payload: data
+        })
+
+
+    } catch (error) {
+        const message = error.response && error.response.data.message
+            ? error.response.data.message
+            : error.message
+        dispatch({
+            type: WALLET_AMOUNT_FAIL,
+            payload: message
+        })
+    }
+}
+
+
 
 export const emailAllUsers = (emailMessage) => async (dispatch, getState) => {
     try {
@@ -334,6 +373,7 @@ export const login = (email, password) => async (dispatch) => {
         })
 
         localStorage.setItem('userInfo', JSON.stringify(data))
+        dispatch(getWalletAmount())
 
     } catch (error) {
         dispatch({
@@ -394,6 +434,7 @@ export const updateUser = (user) => async (dispatch, getState) => {
         })
 
         localStorage.setItem('userInfo', JSON.stringify(data))
+        dispatch(getWalletAmount())
 
     } catch (error) {
         dispatch({
@@ -640,6 +681,7 @@ export const debitWallet = ({
         }
 
         localStorage.setItem('userInfo', JSON.stringify(data))
+        dispatch(getWalletAmount())
 
     } catch (error) {
         dispatch({
@@ -679,6 +721,7 @@ export const creditWallet = (amount, paymentResult, method) => async (dispatch, 
         })
 
         localStorage.setItem('userInfo', JSON.stringify(data))
+        dispatch(getWalletAmount())
 
     } catch (error) {
         dispatch({

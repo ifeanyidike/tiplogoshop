@@ -9,6 +9,7 @@ import { DRAWER_OPEN, DRAWER_CLOSE } from "../../redux/constants/utilConstants"
 import { useDispatch, useSelector } from "react-redux"
 import Header from "../MainHeader"
 import Loader from "../Loaders/SimpleLoader"
+import LinearLoader from "../Loaders/LinearLoader"
 import Message from "../Message"
 
 const Base = ({
@@ -34,7 +35,7 @@ const Base = ({
                     </div>
                 </div>
                 {
-                    cardLoading ? <Loader />
+                    cardLoading ? <LinearLoader />
                         :
                         cardError ?
                             <Message variant="error">

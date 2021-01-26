@@ -62,10 +62,7 @@ export const cardListFewReducer = (state = {}, action) => {
   }
 }
 
-export const cardDetailsReducer = (
-  state = { card: {} },
-  action
-) => {
+export const cardDetailsReducer = (state = { card: { price: 0 } }, action) => {
   switch (action.type) {
     case CARD_DETAILS_REQUEST:
       return { ...state, loading: true }

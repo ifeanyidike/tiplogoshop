@@ -9,8 +9,10 @@ import Step from '@material-ui/core/Step';
 import StepLabel from '@material-ui/core/StepLabel';
 import JambPasswordResetReview from '../components/Services/JambPasswordResetReview'
 import ServicePayment from '../components/Services/ServicePayment'
-import { JAMB_PASSWORD_RESET_CREATE_RESET } from '../redux/constants/jambPasswordResetConstants'
 import { WALLET_DEBIT_RESET } from '../redux/constants/userConstants'
+import { OLEVEL_UPLOAD_CREATE_RESET } from '../redux/constants/oLevelResultUploadConstants'
+import { JAMB_PASSWORD_RESET_CREATE_RESET } from '../redux/constants/jambPasswordResetConstants'
+import { COCI_CREATE_RESET } from '../redux/constants/changeOfCourseConstants'
 import { useDispatch, useSelector } from "react-redux"
 import NotLoggedIn from "../components/Utils/NotLoggedIn"
 
@@ -32,9 +34,12 @@ const JambPasswordReset = () => {
     const [activeStep, setActiveStep] = useState(0);
     const dispatch = useDispatch()
 
-    useEffect(() => {
-        dispatch({ type: JAMB_PASSWORD_RESET_CREATE_RESET })
-        dispatch({ type: WALLET_DEBIT_RESET })
+    useEffect(()=>{
+        dispatch({type: WALLET_DEBIT_RESET})
+        dispatch({type: OLEVEL_UPLOAD_CREATE_RESET})
+        dispatch({type: JAMB_PASSWORD_RESET_CREATE_RESET})
+        dispatch({type: COCI_CREATE_RESET})
+        
     }, [dispatch])
 
     const userLogin = useSelector(state => state.userLogin)

@@ -123,7 +123,7 @@ export const changeOfCourseOrderCreateReducer = (state = {}, action) => {
 }
 
 export const changeOfCourseOrderDetailsReducer = (
-    state = { loading: true, orderItems: [] }, action
+    state = { lorderItems: [] }, action
 ) => {
     switch (action.type) {
         case COCI_DETAILS_REQUEST:

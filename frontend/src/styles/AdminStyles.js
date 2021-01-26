@@ -13,9 +13,18 @@ export const UserProfileContainer = styled.div`
     @media ${device.tablet}{
         grid-template-columns: 1fr;
     }
+    .container{
+        
+    }
+
     .card__image{     
         grid-column: 1; 
-        
+        min-width: 200px;
+        height: fit-content;
+        img{
+            width: 100%;
+            
+        }
         @media ${device.tablet}{
             grid-column: auto;
         } 
@@ -107,6 +116,14 @@ export const UserProfileContainer = styled.div`
         box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12);     
         padding: 20px 40px;
         margin-bottom: 20px;
+        div{
+            img{
+                width: 100%;
+            }
+        }
+    }
+    .flexemboss{
+        display: flex;
     }
     
 `

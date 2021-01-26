@@ -52,9 +52,36 @@ import {
     USERS_EMAIL_FAIL,
     USER_EMAIL_BY_EMAIL_REQUEST,
     USER_EMAIL_BY_EMAIL_SUCCESS,
-    USER_EMAIL_BY_EMAIL_FAIL
+    USER_EMAIL_BY_EMAIL_FAIL,
+    WALLET_AMOUNT_REQUEST,
+    WALLET_AMOUNT_SUCCESS,
+    WALLET_AMOUNT_FAIL
 } from "../constants/userConstants"
 
+
+export const userWalletAmountReducer = (state = { wallet: 0 }, action) => {
+    switch (action.type) {
+        case WALLET_AMOUNT_REQUEST:
+            return {
+                loading: true
+            }
+
+        case WALLET_AMOUNT_SUCCESS:
+            return {
+                loading: false,
+                wallet: action.payload
+            }
+
+        case WALLET_AMOUNT_FAIL:
+            return {
+                loading: false,
+                error: action.payload
+            }
+
+        default:
+            return state
+    }
+}
 
 export const userEmailByEmailReducer = (state = {}, action) => {
     switch (action.type) {

@@ -76,7 +76,7 @@ const CardPage = () => {
                 loading={cardsLoading}
                 cards={cards}
                 error={cardsError}
-                TopImage={<img src={card.upload && card.upload.image} alt={card.name} />}
+                TopImage={<img src={card && card.upload && card.upload.image} alt={card.name} />}
                 topText={card.name}
             >
                 <BaseChildren

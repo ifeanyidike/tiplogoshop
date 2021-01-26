@@ -34,7 +34,7 @@ export const updateUserProfile = asyncHandler(async (req, res) => {
             type: updatedUser.type,
             isAdmin: updatedUser.isAdmin,
             token: generateToken(updatedUser._id),
-            wallet: updatedUser.wallet,
+            // wallet: updatedUser.wallet,
             profile: updatedUser.profile
         })
     } else {
@@ -42,6 +42,25 @@ export const updateUserProfile = asyncHandler(async (req, res) => {
         throw new Error('User not found')
     }
 })
+
+
+// @desc    Get user's wallet amount
+// @route   GET /api/users/wallet
+// @access  Private
+
+export const getWalletAmount = asyncHandler(async (req, res) => {
+    const user = await User.findById(req.user._id)
+
+    if (user) {
+        res.send(`${user.wallet}`)
+    } else {
+        res.status(404)
+        throw new Error('User not found')
+    }
+})
+
+
+
 
 // @desc    Debit money from wallet
 // @route   PUT /api/users/wallet/debit
@@ -80,7 +99,7 @@ export const debitWallet = asyncHandler(async (req, res) => {
                 type: updatedUser.type,
                 isAdmin: updatedUser.isAdmin,
                 token: generateToken(updatedUser._id),
-                wallet: updatedUser.wallet,
+                // wallet: updatedUser.wallet,
                 profile: updatedUser.profile
             })
         } else {
@@ -121,7 +140,7 @@ export const creditWallet = asyncHandler(async (req, res) => {
             type: updatedUser.type,
             isAdmin: updatedUser.isAdmin,
             token: generateToken(updatedUser._id),
-            wallet: updatedUser.wallet,
+            // wallet: updatedUser.wallet,
             profile: updatedUser.profile
         })
     } else {

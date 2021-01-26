@@ -142,6 +142,7 @@ export const getMyChangeOfCourseInstitutionOrders = asyncHandler(async (req, res
 export const getChangeOfCourseInstitutionOrders = asyncHandler(async (req, res) => {
     const orders = await ChangeOfCourseInstitutionOrder.find({})
         .populate('user', 'id name')
+        .sort({createdAt: 'desc'})
     res.json(orders)
 })
 

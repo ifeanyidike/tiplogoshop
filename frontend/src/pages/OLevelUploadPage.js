@@ -10,8 +10,10 @@ import StepLabel from '@material-ui/core/StepLabel';
 import OLevelUploadReview from '../components/Services/OLevelUploadReview'
 import ServicePayment from '../components/Services/ServicePayment'
 import { useDispatch, useSelector } from "react-redux"
-import { OLEVEL_UPLOAD_CREATE_RESET } from '../redux/constants/oLevelResultUploadConstants'
 import { WALLET_DEBIT_RESET } from '../redux/constants/userConstants'
+import { OLEVEL_UPLOAD_CREATE_RESET } from '../redux/constants/oLevelResultUploadConstants'
+import { JAMB_PASSWORD_RESET_CREATE_RESET } from '../redux/constants/jambPasswordResetConstants'
+import { COCI_CREATE_RESET } from '../redux/constants/changeOfCourseConstants'
 import NotLoggedIn from "../components/Utils/NotLoggedIn"
 
 const useStyles = makeStyles((theme) => ({
@@ -37,9 +39,12 @@ const ChangeOfCourseInstitution = () => {
 
     const [activeStep, setActiveStep] = useState(0);
 
-    useEffect(() => {
-        dispatch({ type: OLEVEL_UPLOAD_CREATE_RESET })
-        dispatch({ type: WALLET_DEBIT_RESET })
+    useEffect(()=>{
+        dispatch({type: WALLET_DEBIT_RESET})
+        dispatch({type: OLEVEL_UPLOAD_CREATE_RESET})
+        dispatch({type: JAMB_PASSWORD_RESET_CREATE_RESET})
+        dispatch({type: COCI_CREATE_RESET})
+        
     }, [dispatch])
 
     const resultUploadOrder = () => {

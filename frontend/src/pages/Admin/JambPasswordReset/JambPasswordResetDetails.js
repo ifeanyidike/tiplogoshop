@@ -8,11 +8,10 @@ import { colors } from "../../../styles/breakpoints"
 import CurrencyFormat from "react-currency-format"
 import { Card, CardContent, Divider } from '@material-ui/core';
 import { useSelector, useDispatch } from "react-redux"
-import Loader from "../../../components/Loaders/SimpleLoader"
+import Loader from "../../../components/Loaders/LinearLoader"
 import queryString from "query-string"
 import { useLocation } from "react-router-dom"
 import MessageModal from "../../../components/Utils/MessageModal"
-import PhotoCameraIcon from '@material-ui/icons/PhotoCamera';
 
 import {
 

@@ -21,7 +21,8 @@ import {
     emailAUser,
     emailAllUsers,
     addProfilePhoto,
-    emailAUserByEmail
+    emailAUserByEmail,
+    getWalletAmount
 } from "../controllers/userControllers.js"
 import { facebooklogin } from "../controllers/facebookAuthControllers.js"
 import { protect, admin } from "../middlewares/authMiddleware.js"
@@ -34,10 +35,11 @@ router.route('/emailconfirmation/').put(activateAccount)
 router.route('/forgotpassword/').put(forgotPassword)
 router.route('/resetpassword/').put(resetPassword)
 router.route('/resendemail/').patch(resendEmail)
-router.route('/profile/update').put(updateUserProfile)
-router.route('/wallet/credit/').put(creditWallet)
-router.route('/wallet/debit/').put(debitWallet)
-router.route('/').get(getAllUsers)
+router.route('/profile/update').put(protect, updateUserProfile)
+router.route('/wallet/amount').get(protect, getWalletAmount)
+router.route('/wallet/credit/').put(protect, creditWallet)
+router.route('/wallet/debit/').put(protect, debitWallet)
+router.route('/').get(protect, admin, getAllUsers)
 router.route('/:id').get(getUser).delete(protect, admin, deleteUser)
 router.route('/makeadmin/:id').put(protect, admin, makeAdmin)
 router.route('/:id/email').post(protect, admin, emailAUser)

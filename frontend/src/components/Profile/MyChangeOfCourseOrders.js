@@ -6,7 +6,7 @@ import { listMyChangeOfCourseOrders, getChangeOfCourseOrderDetailsById } from '.
 import { useLocation } from "react-router-dom"
 import queryString from 'query-string'
 import { ItemOverviewContainer, ItemOverviewMain } from "../../styles/ProfileStyle"
-import { Avatar, Card, CardContent, Divider } from '@material-ui/core'
+import { Card, CardContent, Divider } from '@material-ui/core'
 
 
 const MyChangeOfCourseOrders = () => {

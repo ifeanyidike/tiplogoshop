@@ -42,8 +42,13 @@ const ServicePayment = ({
         const { transactionType, orderItems } = serviceOrder()
         const amount = parseInt(service.cost)
         dispatch(debitWallet({ transactionType, orderItems, amount }))
-
     }
+
+    useEffect(() => {
+        if (cocSuccess || oluSuccess || jprSuccess || cocError || oluError || jprError || walletError) {
+            history.push('/services')
+        }
+    }, [cocSuccess, oluSuccess, jprSuccess, cocError, jprError, oluError, walletError, history])
 
     return (
         <div>
