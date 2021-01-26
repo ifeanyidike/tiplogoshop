@@ -141,10 +141,14 @@ export const BaseContainer = styled(motion.div)`
         .bottom{
             margin-bottom: 20px;
         }
-        .paymentmethod-alt{                     
+        .paymentmethod-alt{    
+            display: flex;
+            flex-direction: column;
+            align-items: center;                 
             margin: 10px auto;            
             background-color: ${colors.white};            
-            padding: 20px 80px;
+            padding: 20px 0;
+            text-align: center;            
             border-radius: 5px;
             .paymenttitle{                
                 margin-bottom: 15px;
@@ -203,12 +207,28 @@ export const BaseContainer = styled(motion.div)`
     .buyinfo--edit{
         box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12);
         background-color: white;
+        padding: 0 40px;
         width: fit-content;
+        @media ${device.mobile_lg}{
+                width: 100%;
+        }
+        
         margin: 40px auto;    
         padding-bottom: 20px;    
     }
     .editaction{
         margin: 0 auto;
+    }
+    
+    .success{
+        margin-top: 10px;        
+        a{
+            color: ${colors.white};
+            text-decoration:none;
+            font-weight: 800;
+            margin-left: 3px;
+            border-bottom: 2px solid ${colors.goldish};
+        }
     }
 `;
 
@@ -285,9 +305,15 @@ export const NextButton = styled(BackButton)`
 
 export const PayButton = styled(NextButton)`                   
     padding: 0.2rem 1.4rem;
+    
     background: ${colors.lightred};    
     border: 2px solid ${colors.lightred};
     margin: 5px auto !important;
+    i{
+        margin: 0;
+        padding: 0;
+        font-size: ${props => props.customsize + 'px'}
+    }
 `
 
 export const EditButton = styled(NextButton)`                   
@@ -432,12 +458,19 @@ export const ServicePanel = styled(ServicesCard)`
     }
     .paymentinfo{
         display: grid;
-        place-items: center;
-        div{
-            margin: 0 auto;
-            
+        place-items: center;    
+        position: relative;    
+        .paymentresults{
+            position: fixed;
+            left: 0;
+            height:100%;
+            width: 100%;
+            z-index: 3;
         }
-        
+        div{
+            margin: 0 auto;            
+        }
+               
     }
 `
 export const ListFeatureElement = styled.div`

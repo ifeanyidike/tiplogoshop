@@ -1,65 +1,64 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
-import { 
+import {
     firstCardContainerVariants,
     secondCardContainerVariants,
     thirdCardContainerVariants,
     fourthCardContainerVariants
- } from '../../animationVariants/CardVariants'
-import {ServicesCard} from "../../styles/ServiceStyle"
+} from '../../animationVariants/CardVariants'
+import { ServicesCard } from "../../styles/ServiceStyle"
 
 const ServicesItems = () => {
     return (
         <>
-           <ServicesCard  
-                variants={firstCardContainerVariants}                           
+            <ServicesCard
+                variants={firstCardContainerVariants}
                 initial='initial'
                 animate='animate'
                 whileHover='onHover'
                 variant="darkblue"
             >
-            
+
                 <div className="icondiv">
                     <i className="fas fa-cloud-upload-alt"></i>
-                </div>                           
+                </div>
                 <h4>Jamb O-Level Result Upload</h4>
-                <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. 
-                    Atque, itaque. <Link to="/services/result-upload">here</Link>
-                </p>                            
-            </ServicesCard> 
-            <ServicesCard  
-                variants={secondCardContainerVariants}                           
+                <p>Fast Jamb O-Level upload. We offer fast response.
+                <Link to="/services/result-upload"> here</Link>
+                </p>
+            </ServicesCard>
+            <ServicesCard
+                variants={secondCardContainerVariants}
                 initial='initial'
                 animate='animate'
                 whileHover='onHover'
                 variant="lightgreen"
             >
-            
+
                 <div className="icondiv">
                     <i className="fas fa-exchange-alt"></i>
-                </div>                            
+                </div>
                 <h4>Change of Course & Institution</h4>
-                <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. 
-                    Atque, itaque. <Link to="/services/change-of-course-institution">here</Link>
-                </p>                            
+                <p>Change institutions for all Jamb accredited schools.
+                Fast response and exceptional service. <Link to="/services/change-of-course-institution">here</Link>
+                </p>
             </ServicesCard>
-            <ServicesCard  
-                variants={thirdCardContainerVariants}                           
+            <ServicesCard
+                variants={thirdCardContainerVariants}
                 initial='initial'
                 animate='animate'
                 whileHover='onHover'
                 variant="lightblue"
             >
-            
+
                 <div className="icondiv">
                     <i className="fas fa-history"></i>
-                </div>                              
+                </div>
                 <h4>Jamb Password Reset</h4>
-                <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. 
-                    Atque, itaque. <Link to="/services/jamb-password-reset">here</Link>
-                </p>                            
+                <p>Reset your Jamb password with just a few mouse clicks. <Link to="/services/jamb-password-reset">here</Link>
+                </p>
             </ServicesCard>
-            
+
         </>
     )
 }

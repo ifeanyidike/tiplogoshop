@@ -2,7 +2,7 @@ import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from "react-redux"
 import FixedTable from "./ProfileFixedHeaderTable"
 import Loader from "../Loaders/SimpleLoader"
-import { ItemOverviewContainer } from "../../styles/ProfileStyle"
+import { ItemOverviewContainer, ItemOverviewMain } from "../../styles/ProfileStyle"
 import { listMyJambPasswordResetOrders, getJambPasswordResetOrderDetailsById } from '../../redux/actions/jambPasswordResetActions'
 import { useLocation } from "react-router-dom"
 import queryString from 'query-string'
@@ -15,12 +15,11 @@ const MyJambPasswordReset = () => {
     const { itemId } = queryString.parse(location.search)
     const headCells = [
         { id: '_id', label: 'Order ID' },
-        { id: 'paymentMethod', label: 'Payment Method' },
         { id: 'price', label: 'Price' },
     ];
     const orderHeaders = [
         { id: 'email', label: 'Email' },
-        { id: 'name', label: "Candidate's name" },
+        { id: 'name', label: "Name" },
 
     ]
 
@@ -39,7 +38,8 @@ const MyJambPasswordReset = () => {
 
 
     return (
-        <div>
+        <ItemOverviewMain>
+            <h2>My password reset orders</h2>
             {
                 loading ? <Loader />
                     :
@@ -129,7 +129,7 @@ const MyJambPasswordReset = () => {
                             :
                             <Card>
                                 <CardContent>
-                                    You have not selected any user
+                                    You have not selected any order
                             </CardContent>
                             </Card>
                 }
@@ -137,7 +137,7 @@ const MyJambPasswordReset = () => {
 
             </ItemOverviewContainer>
 
-        </div>
+        </ItemOverviewMain>
     )
 }
 

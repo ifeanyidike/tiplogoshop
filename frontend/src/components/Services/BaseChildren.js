@@ -1,10 +1,5 @@
 import React, { useState, useEffect } from 'react'
 import NumRange from "../NumRange"
-import AccountWalletIcon from '@material-ui/icons/AccountBalanceWallet';
-import ArrowBackIosIcon from '@material-ui/icons/ArrowBackIos';
-import ArrowForwardIosIcon from '@material-ui/icons/ArrowForwardIos';
-import CustomTable from "../Tables/CustomTable"
-import { createCardOrder, getCardOrderDetails } from "../../redux/actions/cardOrderActions"
 import { useDispatch, useSelector } from "react-redux"
 import PaymentMethods from "../Payment/PaymentMethods"
 import Loader from "../Loaders/SimpleLoader"

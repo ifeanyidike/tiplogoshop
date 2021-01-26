@@ -3,7 +3,6 @@ import {
     BackButton,
     NextButton,
 } from "../../styles/ServiceStyle.js"
-import ArrowBackIosIcon from '@material-ui/icons/ArrowBackIos';
 import ArrowForwardIosIcon from '@material-ui/icons/ArrowForwardIos';
 import PaymentMethods from "../Payment/PaymentMethods"
 import Loader from "../Loaders/SimpleLoader"

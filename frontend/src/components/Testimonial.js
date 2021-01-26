@@ -19,7 +19,7 @@ const Testimonial = ({ perPage }) => {
 
 
     const { loading, error, reviews } = useSelector(state => state.reviewList)
-    console.log(reviews)
+    
     return (
         <CarouselProvider
             naturalSlideWidth={100}

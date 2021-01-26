@@ -92,7 +92,7 @@ const Services = ({ value }) => {
                                                         {
                                                             services && (
                                                                 services.map(service => (
-                                                                    <option value={service._id}>{service.name}</option>
+                                                                    <option key={service._id} value={service._id}>{service.name}</option>
                                                                 ))
                                                             )
                                                         }

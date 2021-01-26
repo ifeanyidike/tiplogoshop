@@ -5,8 +5,8 @@ import Loader from "../Loaders/SimpleLoader"
 import { listMyChangeOfCourseOrders, getChangeOfCourseOrderDetailsById } from '../../redux/actions/changeOfCourseActions'
 import { useLocation } from "react-router-dom"
 import queryString from 'query-string'
-import { ItemOverviewContainer } from "../../styles/ProfileStyle"
-import { Card, CardContent, Divider } from '@material-ui/core'
+import { ItemOverviewContainer, ItemOverviewMain } from "../../styles/ProfileStyle"
+import { Avatar, Card, CardContent, Divider } from '@material-ui/core'
 
 
 const MyChangeOfCourseOrders = () => {
@@ -17,14 +17,11 @@ const MyChangeOfCourseOrders = () => {
 
     const headCells = [
         { id: '_id', label: 'Order ID' },
-        { id: 'paymentMethod', label: 'Payment Method' },
         { id: 'price', label: 'Price' },
     ];
     const orderHeaders = [
         { id: 'type', label: 'Type' },
         { id: 'name', label: "Candidate's name" },
-        { id: 'regNo', label: "Reg No." },
-        { id: 'profileCode', label: "Profile code" },
     ]
 
     useEffect(() => {
@@ -40,7 +37,8 @@ const MyChangeOfCourseOrders = () => {
     const { loading: detailLoading, error: detailError, order } = changeOfCourseOrderDetails
 
     return (
-        <div>
+        <ItemOverviewMain>
+            <h2>My data correction orders</h2>
             {
                 loading ? <Loader />
                     :
@@ -49,7 +47,7 @@ const MyChangeOfCourseOrders = () => {
                         <FixedTable
                             columns={headCells}
                             rows={orders}
-                            orderItems={["type", "fullName", "regNo", "profileCode"]}
+                            orderItems={["type", "fullName"]}
                             admin_upload={true}
                             orderHeaders={orderHeaders}
                         />
@@ -67,6 +65,7 @@ const MyChangeOfCourseOrders = () => {
                                     <CardContent >
                                         {
                                             order.admin_upload && order.admin_upload.image ?
+
                                                 <img
                                                     className="item__pic"
                                                     src={order.admin_upload.image}
@@ -176,7 +175,7 @@ const MyChangeOfCourseOrders = () => {
 
             </ItemOverviewContainer>
 
-        </div>
+        </ItemOverviewMain>
     )
 }
 

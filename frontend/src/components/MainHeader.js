@@ -77,7 +77,7 @@ const MainHeader = ({ setShowDrawer }) => {
                 <SvgIcon />
                 <HeaderRightItems variants={headerRightVariants} initial="hidden" animate="visible">
                     <ul>
-                        <motion.li
+                        {/* <motion.li
                             variants={headerTextVariants}
                             initial="initial"
                             whileHover="onHover"
@@ -87,7 +87,7 @@ const MainHeader = ({ setShowDrawer }) => {
                                 style={{ fontWeight: path === '/' && 'bold' }}>
                                 About
                         </Link>
-                        </motion.li>
+                        </motion.li> */}
                         <motion.li
                             variants={headerTextVariants}
                             initial="initial"

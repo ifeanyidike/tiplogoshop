@@ -77,7 +77,6 @@ export const getCardOrderById = asyncHandler(async (req, res) => {
 //@access   Private
 
 export const updateCardOrderWithoutPay = asyncHandler(async (req, res) => {
-
     const order = await CardOrder.findById(req.params.id)
     const { orderItems, paymentMethod } = req.body
 
@@ -146,7 +145,7 @@ export const updateCardOrderToPaid = asyncHandler(async (req, res) => {
 //@access   Private
 
 export const getMyCardOrders = asyncHandler(async (req, res) => {
-    const orders = await CardOrder.find({ user: req.user._id })
+    const orders = await CardOrder.find({ user: req.user._id }).sort({ createdAt: 'desc' })
 
     if (orders) {
         res.json(orders)
@@ -161,7 +160,8 @@ export const getMyCardOrders = asyncHandler(async (req, res) => {
 //@access   Private/Admin
 
 export const getCardOrders = asyncHandler(async (req, res) => {
-    const orders = await CardOrder.find({}).populate('user', 'id name').sort({ createdAt: 'desc' })
+    const orders = await CardOrder.find({})
+        .populate('user', 'id name').sort({ createdAt: 'desc' })
     res.json(orders)
 
 })
@@ -193,9 +193,9 @@ export const updateCardOrderToDelivered = asyncHandler(async (req, res) => {
         const heading = `Your ${card.name} details`
         const msg = 'Thanks for the purchase. Here are the details'
 
-        const cardbody = purchasedItems.map(item => (
+        const cardbody = purchasedItems.map((item, index) => (
             `
-                <tr>
+                <tr key={index}>
                     <td>${item._id}</td>
                     <td>${item.pin && item.pin}</td>
                     <td>${item.serialNo && item.serialNo}</td>

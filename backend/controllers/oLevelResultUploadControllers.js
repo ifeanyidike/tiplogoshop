@@ -145,7 +145,7 @@ export const getOLevelResultUploadBlobById = asyncHandler(async (req, res) => {
 //@route    GET /api/olevelresultupload/myorders
 //@access   Private
 export const getMyOLevelResultUploadOrders = asyncHandler(async (req, res) => {
-    const orders = await OLevelResultUploadOrder.find({ user: req.user._id })
+    const orders = await OLevelResultUploadOrder.find({ user: req.user._id }).sort({ createdAt: 'desc' })
     res.json(orders)
 })
 

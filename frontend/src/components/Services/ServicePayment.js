@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import Wallet from "../Utils/Wallet"
 import { ButtonGroup, NextButton, NoMarginBackButton } from "../../styles/ServiceStyle"
 import NavigateBeforeIcon from '@material-ui/icons/NavigateBefore';
@@ -9,6 +9,8 @@ import { useDispatch, useSelector } from 'react-redux'
 import { debitWallet } from "../../redux/actions/userActions"
 import PaystackPayment from "../Payment/PayStackServicesPayment"
 import Loader from "../Loaders/SimpleLoader"
+import Message from "../Message"
+import { Link, useHistory } from "react-router-dom"
 
 const ServicePayment = ({
     activeStep,
@@ -16,6 +18,8 @@ const ServicePayment = ({
     serviceOrder,
 
 }) => {
+    const history = useHistory()
+
     const [paymentMethod, setPaymentMethod] = useState('PayStack')
     const { service } = useSelector(state => state.serviceByName)
     const changeOfCourseOrderCreate = useSelector(state => state.changeOfCourseOrderCreate)
@@ -26,6 +30,11 @@ const ServicePayment = ({
 
     const jambPasswordResetOrderCreate = useSelector(state => state.jambPasswordResetOrderCreate)
     const { loading: jprLoading, error: jprError, success: jprSuccess } = jambPasswordResetOrderCreate
+
+    const walletDebit = useSelector(state => state.walletDebit)
+    const { loading: walletLoading, error: walletError } = walletDebit
+
+
 
     const dispatch = useDispatch()
 
@@ -40,29 +49,62 @@ const ServicePayment = ({
         <div>
             <Wallet width={300} />
             <div className="paymentinfo">
-                {
-                    cocLoading ? <Loader /> :
-                        cocError ? cocError :
-                            cocSuccess ?
-                                <div>Successful. We'll get back to you soon. </div>
-                                : ''
-                }
 
-                {
-                    oluLoading ? <Loader /> :
-                        oluError ? oluError :
-                            oluSuccess ?
-                                <div>Successful. We'll get back to you soon. </div>
-                                : ''
-                }
+                <div className={(walletError || cocError || oluError || jprError) && 'paymentresults'}>
+                    {
+                        walletLoading ? <Loader /> :
+                            walletError ?
+                                <Message variant="error">
+                                    {walletError}
+                                    <Link onClick={() => setActiveStep(0)} >
+                                        Try again
+                                </Link>
+                                </Message>
+                                :
+                                null
+                    }
+                    {
+                        cocLoading ? <Loader /> :
+                            cocError ?
+                                <Message variant="error">{cocError}</Message>
+                                :
+                                cocSuccess ?
+                                    <div>
+                                        <Message variant="info">
+                                            Successful. We'll get back to you soon.
+                                    </Message>
+                                    </div>
+                                    : ''
+                    }
 
-                {
-                    jprLoading ? <Loader /> :
-                        jprError ? jprError :
-                            jprSuccess ?
-                                <div>Successful. We'll get back to you soon. </div>
-                                : ''
-                }
+                    {
+                        oluLoading ? <Loader /> :
+                            oluError ?
+                                <Message variant="error">
+                                    {oluError}
+                                </Message>
+                                :
+                                oluSuccess ?
+                                    <Message variant="info">
+                                        Successful. We'll get back to you soon.
+                                </Message>
+                                    : ''
+                    }
+
+                    {
+                        jprLoading ? <Loader /> :
+                            jprError ?
+                                <Message variant="error">
+                                    {jprError}
+                                </Message>
+                                :
+                                jprSuccess ?
+                                    <div><Message variant="info">
+                                        Successful. We'll get back to you soon.
+                                </Message> </div>
+                                    : ''
+                    }
+                </div>
 
                 <PaymentMethods
                     value={paymentMethod}

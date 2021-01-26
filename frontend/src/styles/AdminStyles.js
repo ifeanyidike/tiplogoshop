@@ -52,9 +52,15 @@ export const UserProfileContainer = styled.div`
         .contents{
             margin: 10px 0;
             display: grid;
-            grid-template-columns: repeat(2, 1fr);
             
+            grid-template-columns: repeat(2, 1fr);            
             grid-gap: 20px;
+            .fullwidth{
+                grid-column: 1/span 2;
+                @media ${device.tablet}{
+                    grid-column: 1/1;
+                }
+            }
             @media ${device.tablet}{
                 grid-template-columns: 1fr;
                 place-items: start;
@@ -64,9 +70,7 @@ export const UserProfileContainer = styled.div`
                 margin-right: 5px;
                 font-weight: bold;
             }
-            .fullwidth{
-                grid-column: 1/span 2
-            }
+            
             textarea{
                 padding: 10px;
                 border: 1px solid ${colors.midtext};

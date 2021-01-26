@@ -76,6 +76,7 @@ export default function StickyHeadTable({ columns, rows, admin_upload, orderItem
                         {rows && rows.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((row) => {
                             return (
                                 <TableRow
+                                    style={{ cursor: 'pointer' }}
                                     onClick={() => history.push(`/profile/?itemId=${row._id}`)}
                                     hover
                                     role="checkbox"
@@ -94,8 +95,8 @@ export default function StickyHeadTable({ columns, rows, admin_upload, orderItem
                                     })}
                                     {
                                         orderItems &&
-                                        orderItems.map(item => (
-                                            <TableCell align="left" >
+                                        orderItems.map((item, index) => (
+                                            <TableCell align="left" key={index} >
                                                 { row.orderItems.[item]}
                                             </TableCell>
                                         ))

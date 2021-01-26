@@ -12,6 +12,7 @@ import ServicePayment from '../components/Services/ServicePayment'
 import { debitWallet } from "../redux/actions/userActions.js"
 import { useDispatch, useSelector } from "react-redux"
 import { COCI_CREATE_RESET } from '../redux/constants/changeOfCourseConstants'
+import { WALLET_DEBIT_RESET } from '../redux/constants/userConstants'
 import NotLoggedIn from "../components/Utils/NotLoggedIn"
 
 const useStyles = makeStyles((theme) => ({
@@ -39,6 +40,7 @@ const ChangeOfCourseInstitution = () => {
 
     useEffect(() => {
         dispatch({ type: COCI_CREATE_RESET })
+        dispatch({ type: WALLET_DEBIT_RESET })
     }, [dispatch])
 
     const [programme, setProgramme] = useState({

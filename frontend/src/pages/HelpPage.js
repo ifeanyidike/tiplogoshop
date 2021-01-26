@@ -44,6 +44,8 @@ const Help = () => {
     return (
         <HelpContainer>
             <MainHeader />
+            <div className="topimage"></div>
+            <h2>Need any help? Contact us</h2>
             <main className="content">
 
                 <div className="topcontent">

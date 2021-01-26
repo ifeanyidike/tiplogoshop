@@ -2,8 +2,47 @@ import React, { useEffect } from 'react'
 import { altCardFeatures } from "./JsonAPIs"
 import AltCard from "./Cards/AltCard"
 import Loader from "./Loaders/SimpleLoader"
+import Message from "./Message"
+import {
+  firstCardContainerVariants,
+  secondCardContainerVariants,
+  thirdCardContainerVariants,
+  fourthCardContainerVariants
+} from '../animationVariants/CardVariants'
 
 const LoadCards = ({ loading, cards, error, href }) => {
+
+  const chooseVariant = (index) => {
+    if (index === (10 % 10)) {
+      return firstCardContainerVariants
+    } else if (index === ((10 % 10) + 1)) {
+      return secondCardContainerVariants
+    } else if (index % 2 === 0) {
+      return thirdCardContainerVariants
+    } else if (index === ((10 % 10) + 3)) {
+      return fourthCardContainerVariants
+    } else if ((index % 2) !== 0) {
+      return thirdCardContainerVariants
+    } else {
+      return fourthCardContainerVariants
+    }
+  }
+
+  const chooseColor = (index) => {
+    if (index === (10 % 10)) {
+      return "darkblue"
+    } else if (index === ((10 % 10) + 1)) {
+      return "lightgreen"
+    } else if (index % 2 === 0) {
+      return "lightblue"
+    } else if (index === ((10 % 10) + 3)) {
+      return "goldish"
+    } else if ((index % 2) !== 0) {
+      return "lightblue"
+    } else {
+      return "goldish"
+    }
+  }
 
   return (
     <>
@@ -15,7 +54,10 @@ const LoadCards = ({ loading, cards, error, href }) => {
         {loading ?
           <Loader /> :
           error ?
-            "Error" :
+            <Message variant="error">
+              {error}
+            </Message>
+            :
             cards && cards.map((feature, index) => (
               <AltCard
                 key={feature._id}
@@ -23,14 +65,9 @@ const LoadCards = ({ loading, cards, error, href }) => {
                 src={feature.upload.image}
                 title={feature.name}
                 desc={feature.description}
-                anchor={altCardFeatures[index] &&
-                  altCardFeatures[index].anchor}
-                color={
-                  altCardFeatures[index] &&
-                  altCardFeatures[index].color}
-                variants={
-                  altCardFeatures[index] &&
-                  altCardFeatures[index].variants}
+                anchor="See More!"
+                color={chooseColor(index)}
+                variants={chooseVariant(index)}
                 href={href}
               />
             ))

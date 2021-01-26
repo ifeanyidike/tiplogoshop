@@ -5,7 +5,7 @@ import FixedTable from "./ProfileFixedHeaderTable"
 import Loader from "../Loaders/SimpleLoader"
 import { useLocation } from "react-router-dom"
 import queryString from 'query-string'
-import { ItemOverviewContainer } from "../../styles/ProfileStyle"
+import { ItemOverviewContainer, ItemOverviewMain } from "../../styles/ProfileStyle"
 import { Card, CardContent, Divider } from '@material-ui/core'
 
 const MyResultUploadOrders = () => {
@@ -16,13 +16,11 @@ const MyResultUploadOrders = () => {
 
     const headCells = [
         { id: '_id', label: 'Order ID' },
-        { id: 'paymentMethod', label: 'Payment Method' },
         { id: 'price', label: 'Price' },
     ];
     const orderHeaders = [
-        { id: 'Type', label: 'Order Type' },
-        { id: 'Name', label: "Candidate's name" },
-        { id: 'profileCode', label: 'Profile Code' },
+        { id: 'Type', label: 'Type' },
+        { id: 'Name', label: "Name" },
     ]
 
     useEffect(() => {
@@ -37,7 +35,8 @@ const MyResultUploadOrders = () => {
 
 
     return (
-        <div>
+        <ItemOverviewMain>
+            <h2>My result upload orders</h2>
             {
                 loading ? <Loader />
                     :
@@ -47,7 +46,7 @@ const MyResultUploadOrders = () => {
                             columns={headCells}
                             rows={orders}
                             admin_upload={orders}
-                            orderItems={["type", "name", "profileCode"]}
+                            orderItems={["type", "name"]}
                             orderHeaders={orderHeaders}
                         />
             }
@@ -156,7 +155,7 @@ const MyResultUploadOrders = () => {
 
             </ItemOverviewContainer>
 
-        </div>
+        </ItemOverviewMain>
     )
 }
 

@@ -1,11 +1,11 @@
 import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from "react-redux"
 import { getCardOrderDetails, listMyCardOrders } from "../../redux/actions/cardOrderActions"
-import { useLocation } from "react-router-dom"
+import { useLocation, useHistory } from "react-router-dom"
 import queryString from 'query-string'
 import FixedTable from "./ProfileFixedHeaderTable"
 import Loader from "../Loaders/SimpleLoader"
-import { ItemOverviewContainer } from "../../styles/ProfileStyle"
+import { ItemOverviewContainer, ProfileButtonAlt, ItemOverviewMain } from "../../styles/ProfileStyle"
 import { Card, CardContent } from '@material-ui/core'
 import { Avatar } from '@material-ui/core'
 
@@ -13,6 +13,7 @@ import { Avatar } from '@material-ui/core'
 const MyCardOrders = () => {
     const dispatch = useDispatch()
     const location = useLocation()
+    const history = useHistory()
 
     const { itemId } = queryString.parse(location.search)
 
@@ -36,7 +37,8 @@ const MyCardOrders = () => {
     const { loading: detailLoading, order } = useSelector(state => state.cardOrderDetails)
 
     return (
-        <div>
+        <ItemOverviewMain>
+            <h2>My card orders</h2>
             {
                 loading ? <Loader />
                     :
@@ -88,14 +90,19 @@ const MyCardOrders = () => {
                                                 <span style={{ color: order.isDelivered ? 'green' : 'red' }}
                                                 >{order.isDelivered ? "Delivered" : "Not Delivered"}</span>
                                             </div>
-                                            <div>
-                                                <span>Paid At:</span>
-                                                <span>{new Date(order.paidAt).toDateString()}</span>
-                                            </div>
-                                            <div>
-                                                <span>Delivered At:</span>
-                                                <span>{new Date(order.deliveredAt).toDateString()}</span>
-                                            </div>
+                                            {
+                                                order.isPaid &&
+                                                <>
+                                                    <div>
+                                                        <span>Paid At:</span>
+                                                        <span>{new Date(order.paidAt).toDateString()}</span>
+                                                    </div>
+                                                    <div>
+                                                        <span>Delivered At:</span>
+                                                        <span>{new Date(order.deliveredAt).toDateString()}</span>
+                                                    </div>
+                                                </>
+                                            }
                                             <div>
                                                 <span>Created on:</span>
                                                 <span>{new Date(order.createdAt).toDateString()}</span>
@@ -125,11 +132,13 @@ const MyCardOrders = () => {
                                                     </div>
                                                 </>
                                             }
-
-
-
                                         </div>
-
+                                        {
+                                            !order.isPaid &&
+                                            <ProfileButtonAlt onClick={() => history.push(`/payorder/card?orderId=${order._id}`)}>
+                                                Make Payment
+                                            </ProfileButtonAlt>
+                                        }
                                     </CardContent>
                                 </Card>
 
@@ -142,7 +151,7 @@ const MyCardOrders = () => {
                             </Card>
                 }
             </ItemOverviewContainer>
-        </div>
+        </ItemOverviewMain>
     )
 }
 

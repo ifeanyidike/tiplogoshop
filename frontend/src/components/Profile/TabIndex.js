@@ -122,7 +122,7 @@ export default function FullWidthTabs({
           {...a11yProps(2)}
           style={{ backgroundColor: activeFifth && colors.lightergray }}
           onClick={handleFifthTab} />
-        <Tab label="Other Services"
+        <Tab label="Leave Review"
           {...a11yProps(2)}
           style={{ backgroundColor: activeSixth && colors.lightergray }}
           onClick={handleSixthTab} />
@@ -139,19 +139,16 @@ export default function FullWidthTabs({
           <Editables values={values} setValues={setValues} />
         </TabPanel>
         <TabPanel value={value} index={1} dir={theme.direction}>
-          <h1>Card Orders</h1>
+
           <MyCardOrders />
         </TabPanel>
         <TabPanel value={value} index={2} dir={theme.direction}>
-          <h1>Data Correction Orders</h1>
           <MyChangeOfCourseOrders />
         </TabPanel>
         <TabPanel value={value} index={3} dir={theme.direction}>
-          <h1>Result Upload Orders</h1>
           <MyResultUploadOrders />
         </TabPanel>
         <TabPanel value={value} index={4} dir={theme.direction}>
-          <h1>Password reset</h1>
           <MyJambPasswordReset />
         </TabPanel>
         <TabPanel value={value} index={5} dir={theme.direction}>

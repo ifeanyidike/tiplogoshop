@@ -1,7 +1,7 @@
 import styled from "styled-components"
-import {motion} from "framer-motion"
-import {device, colors} from "./breakpoints"
-import {Button} from "./HomeStyle"
+import { motion } from "framer-motion"
+import { device, colors } from "./breakpoints"
+import { Button } from "./HomeStyle"
 
 export const CardDeck = styled(motion.div)`
     font-family: 'Didact Gothic', sans-serif;
@@ -126,30 +126,30 @@ export const CardButton = styled(Button)`
 export const CardContainer = styled(motion.div)`
     max-width: 300px;    
     padding: 20px;
-    background-color: ${props => 
-                props.variant === 'darkblue' ? colors.darkblue :
-                props.variant === 'lightgreen' ? colors.lightgreen :
+    background-color: ${props =>
+        props.variant === 'darkblue' ? colors.darkblue :
+            props.variant === 'lightgreen' ? colors.lightgreen :
                 props.variant === 'lightblue' ? colors.lightblue :
-                props.variant === 'goldish' ? colors.goldish
-                : null
-            };
-    color: ${props => 
-                props.variant === 'darkblue' ? colors.white :
-                props.variant === 'lightgreen' ? colors.darktext :
+                    props.variant === 'goldish' ? colors.goldish
+                        : null
+    };
+    color: ${props =>
+        props.variant === 'darkblue' ? colors.white :
+            props.variant === 'lightgreen' ? colors.darktext :
                 props.variant === 'lightblue' ? colors.white :
-                props.variant === 'goldish' ? colors.darktext
-                : null
-            };
+                    props.variant === 'goldish' ? colors.darktext
+                        : null
+    };
     .cardimage__panel{
         border-radius: 50%;
         width: 140px;
-        background-color: ${props => 
-                props.variant === 'darkblue' ? colors.lightergray :
-                props.variant === 'lightgreen' ? colors.bluetext :
+        background-color: ${props =>
+        props.variant === 'darkblue' ? colors.lightergray :
+            props.variant === 'lightgreen' ? colors.bluetext :
                 props.variant === 'lightblue' ? colors.lightgray :
-                props.variant === 'goldish' ? colors.bluetext
-                : null
-            };                                
+                    props.variant === 'goldish' ? colors.bluetext
+                        : null
+    };                                
         padding: 15px;
         img{            
             width: 100%;
@@ -159,13 +159,13 @@ export const CardContainer = styled(motion.div)`
     i{
         border-radius: 50%;
         color: ${colors.white};
-        background-color: ${props => 
-                props.variant === 'darkblue' ? colors.lightergray :
-                props.variant === 'lightgreen' ? colors.bluetext :
+        background-color: ${props =>
+        props.variant === 'darkblue' ? colors.lightergray :
+            props.variant === 'lightgreen' ? colors.bluetext :
                 props.variant === 'lightblue' ? colors.lightgray :
-                props.variant === 'goldish' ? colors.bluetext
-                : null
-            };                                
+                    props.variant === 'goldish' ? colors.bluetext
+                        : null
+    };                                
         padding: 30px;
         font-size: 4rem;
     };      
@@ -178,13 +178,13 @@ export const CardContainer = styled(motion.div)`
     a{
         text-decoration: none;     
         margin-top: 20px !important;
-        color: ${props => 
-                props.variant === 'darkblue' ? colors.white :
-                props.variant === 'lightgreen' ? colors.bluetext :
+        color: ${props =>
+        props.variant === 'darkblue' ? colors.white :
+            props.variant === 'lightgreen' ? colors.bluetext :
                 props.variant === 'lightblue' ? colors.white :
-                props.variant === 'goldish' ? colors.bluetext
-                : null
-            }   
+                    props.variant === 'goldish' ? colors.bluetext
+                        : null
+    }   
     };
     p,span, a{
         margin-top: 20px;
@@ -231,19 +231,19 @@ export const TopCardPane = styled(motion.div)`
         transform: scale(1.1);
         border-radius: 0 0 8px 8px;
         border-top: 2px solid ${props =>
-            props.bcolor === 'darkblue' ? colors.darkblue :
-            props.bcolor === 'darkred' ? colors.darkred:
-            props.bcolor === 'lightgray' ? colors.lightgray :
-            props.bcolor === 'goldish' ? colors.goldish :
-            colors.lightred
-        };
+        props.bcolor === 'darkblue' ? colors.darkblue :
+            props.bcolor === 'darkred' ? colors.darkred :
+                props.bcolor === 'lightgray' ? colors.lightgray :
+                    props.bcolor === 'goldish' ? colors.goldish :
+                        colors.lightred
+    };
         i{
           color: ${props =>
-            props.bcolor === 'darkblue' ? colors.darkblue :
-            props.bcolor === 'darkred' ? colors.darkred:
-            props.bcolor === 'lightgray' ? colors.lightgray :
-            props.bcolor === 'goldish' ? colors.goldish :
-            colors.lightred};
+        props.bcolor === 'darkblue' ? colors.darkblue :
+            props.bcolor === 'darkred' ? colors.darkred :
+                props.bcolor === 'lightgray' ? colors.lightgray :
+                    props.bcolor === 'goldish' ? colors.goldish :
+                        colors.lightred};
             transform: rotate(360deg) scale(1.4);
             
         }

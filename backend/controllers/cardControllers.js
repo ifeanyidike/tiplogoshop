@@ -23,6 +23,7 @@ export const getCards = asyncHandler(async (req, res) => {
 
     const count = await Card.countDocuments({ ...keyword })
     const cards = await Card.find({ ...keyword })
+        .sort({ createdAt: 'asc' })
         .limit(pageSize)
         .skip(pageSize * (page - 1))
 
@@ -35,7 +36,10 @@ export const getCards = asyncHandler(async (req, res) => {
 
 export const getFewCards = asyncHandler(async (req, res) => {
     const num = req.params.num
-    const cards = await Card.find({}).limit(parseInt(num))
+    const cards = await Card.find({})
+        .limit(parseInt(num))
+        .sort({ createdAt: 'asc' })
+
     res.json({ cards: cards })
 })
 
@@ -83,7 +87,7 @@ export const createCard = asyncHandler(async (req, res) => {
         price: 0,
         user: req.user._id,
         upload: {
-            image: '/images/sample.jpg'
+            image: '/images/sample.png'
         },
         description: 'Lorem ipsum dolor sit amet'
     })

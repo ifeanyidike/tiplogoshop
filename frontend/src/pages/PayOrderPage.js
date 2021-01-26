@@ -16,6 +16,7 @@ import Wallet from "../components/Utils/Wallet"
 import MessageModal from "../components/Utils/MessageModal"
 import WalletPayment from "../components/Payment/WalletPayment"
 import { CARD_ORDER_PAY_RESET } from '../redux/constants/cardOrderConstants';
+import Message from "../components/Message"
 
 const PayOrder = () => {
     const dispatch = useDispatch()
@@ -77,27 +78,41 @@ const PayOrder = () => {
             TopImage={<img src={orderitem && orderitem.image} alt={orderitem && orderitem.name} />}
             topText={orderitem && orderitem.name}
         >
+            {walletError &&
+                <Message variant="error">
+                    {walletError}
+                </Message>
+            }
             <div
                 className="buyinfo--third"
             >
                 {walletLoading && <Loader />}
-                {walletError && walletError}
+
                 {
                     orderLoading ?
                         <Loader /> :
                         orderError ?
-                            orderError :
+                            <Message variant="error">
+                                {orderError}
+                            </Message>
+                            :
                             (
                                 <div className="table">
                                     <Wallet mt={20} />
                                     {
                                         payLoading ? <Loader /> :
-                                            payError ? payError :
+                                            payError ?
+                                                <Message variant="error">
+                                                    {payError}
+                                                </Message>
+                                                :
                                                 paySuccess ?
                                                     <>
-                                                        <div>
-                                                            Success!
-                                        <Link to="/profile"> View Purchase Info</Link>
+                                                        <div className="success">
+                                                            <Message variant="info">
+                                                                Success!
+                                                                <Link to="/profile"> View Purchase Info</Link>
+                                                            </Message>
                                                         </div>
 
                                                     </>

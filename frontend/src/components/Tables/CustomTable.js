@@ -7,14 +7,14 @@ import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
-import {TablePane} from "../../styles/TableStyle"
-import {colors} from "../../styles/breakpoints"
+import { TablePane } from "../../styles/TableStyle"
+import { colors } from "../../styles/breakpoints"
 
 const StyledTableCell = withStyles((theme) => ({
-  head: {    
+  head: {
     backgroundColor: colors.lightgray,
     color: theme.palette.common.white,
-  },  
+  },
   tableContainer: {
     maxWidth: 400,
   },
@@ -35,43 +35,43 @@ const useStyles = makeStyles({
   },
 });
 
-export default function CustomizedTables({cost, qty, name, orderId, paymentMethod}) {
+export default function CustomizedTables({ cost, qty, name, orderId, paymentMethod }) {
   const classes = useStyles();
-  
+
   function createData(name, value) {
     return { name, value };
   }
-  
+
   const rows = [
-    createData('order Id',  orderId), 
+    createData('order Id', orderId),
     createData('Item Name', name),
     createData('Quantity', qty),
-    createData('Price',  `₦${cost}`),  
-    createData('Payment Method ',  paymentMethod),       
+    createData('Price', `₦${cost}`),
+    createData('Payment Method ', paymentMethod),
   ];
 
   return (
     <TablePane>
-    <TableContainer component={Paper}>
-      <Table className={classes.table} aria-label="customized table">
-        <TableHead>
-          <TableRow>
-            <StyledTableCell></StyledTableCell>
-            <StyledTableCell align="right">Value</StyledTableCell>
-          </TableRow>
-        </TableHead>
-        <TableBody>
-          {rows.map((row) => (
-            <StyledTableRow key={row.name}>
-              <StyledTableCell component="th" scope="row">
-                {row.name}
-              </StyledTableCell>
-              <StyledTableCell align="right">{row.value}</StyledTableCell>              
-            </StyledTableRow>
-          ))}
-        </TableBody>
-      </Table>
-    </TableContainer>
+      <TableContainer component={Paper}>
+        <Table className={classes.table} aria-label="customized table">
+          <TableHead>
+            <TableRow>
+              <StyledTableCell></StyledTableCell>
+              <StyledTableCell align="right">Value</StyledTableCell>
+            </TableRow>
+          </TableHead>
+          <TableBody>
+            {rows.map((row) => (
+              <StyledTableRow key={row.name}>
+                <StyledTableCell component="th" scope="row">
+                  {row.name}
+                </StyledTableCell>
+                <StyledTableCell align="right">{row.value}</StyledTableCell>
+              </StyledTableRow>
+            ))}
+          </TableBody>
+        </Table>
+      </TableContainer>
     </TablePane>
   );
 }

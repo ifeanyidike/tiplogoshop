@@ -127,12 +127,30 @@ export const WalletButton = styled(Button)`
     width: 100%;
 `
 
+export const ItemOverviewMain = styled.div`
+    font-family: 'Jost', sans-serif;
+    h2{
+         font-family: 'Aclonica', sans-serif;
+         text-align: center;
+         font-size: 1.3rem;
+         margin: 10px auto;
+         border-bottom: 2px solid ${colors.goldish};
+         width: fit-content;
+         
+    }
+ 
+`
+
 export const ItemOverviewContainer = styled(UserProfileContainer)`
-margin-top: 40px;
+    margin-top: 40px;
+    display: grid;
+    place-items: center;
     .card__image{
+        width: 200px;
+        height: 200px;
         .item__pic{
-            width: 200px;
-            height: 200px;
+            width: 100%;
+            height: 100%;
         }
     }
 `

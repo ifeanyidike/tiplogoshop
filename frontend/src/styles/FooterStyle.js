@@ -1,10 +1,10 @@
 import styled from 'styled-components'
 import { device, colors } from "./breakpoints"
 
-export const FooterElement = styled.div`
+export const FooterElement = styled.footer`
     
     background: ${colors.background};
-    padding: 80px 80px 20px 80px;
+    padding: 40px 80px 20px 80px;
     @media ${device.tablet_md}{
         padding: 40px 10px 20px 10px;
     }

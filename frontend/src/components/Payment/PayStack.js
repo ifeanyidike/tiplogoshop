@@ -1,22 +1,23 @@
-import React, {useEffect, useState} from 'react'
+import React, { useEffect, useState } from 'react'
 import axios from "axios"
 import { usePaystackPayment } from 'react-paystack';
-import { PayButton } from "../../styles/ServiceStyle.js"
-import {useSelector} from "react-redux"
-import {WalletButton} from "../../styles/ProfileStyle"
+import { PayButton, NextButton } from "../../styles/ServiceStyle.js"
+import { useSelector } from "react-redux"
+import { WalletButton } from "../../styles/ProfileStyle"
 
-const PayStackPayment = ({amount, onSuccess, simple}) => {    
-    
-    const userLogin  = useSelector(state => state.userLogin)
-    const {userInfo } = userLogin           
-    
+
+const PayStackPayment = ({ amount, onSuccess, simple }) => {
+
+    const userLogin = useSelector(state => state.userLogin)
+    const { userInfo } = userLogin
+
     const [key, setKey] = useState("")
     useEffect(() => {
         const getKey = async () => {
-            const { data: clientKey } = await axios.get('/api/config/paystack')            
+            const { data: clientKey } = await axios.get('/api/config/paystack')
             setKey(clientKey)
         }
-        getKey()        
+        getKey()
     }, [key])
 
     const config = {
@@ -30,31 +31,34 @@ const PayStackPayment = ({amount, onSuccess, simple}) => {
         const initializePayment = usePaystackPayment(config);
         return (
             <>
-            {
-                simple ? 
-                    <WalletButton 
-                        mr={10}
-                        onClick={() => {
-                        initializePayment(onSuccess, onClose)
-                        }}
-                    >
-                        <i className="fab fa-amazon-pay fa-2x"></i>
-                    </WalletButton>
-                    :
-                    <PayButton 
-                        onClick={() => {
-                            initializePayment(onSuccess, onClose)
-                        }}
-                    >
-                        <i className="fab fa-amazon-pay fa-2x"></i>
-                    </PayButton>
-            }
-            
+                {
+                    simple ?
+                        <WalletButton
+                            mr={10}
+                            onClick={() => {
+                                initializePayment(onSuccess, onClose)
+                            }}
+                        >
+                            <i className="fab fa-amazon-pay fa-2x"></i>
+                        </WalletButton>
+                        :
+                        <PayButton
+                            onClick={() => {
+                                initializePayment(onSuccess, onClose)
+                            }}
+                            customsize={40}
+                        >
+                            <i
+
+                                className="fab fa-amazon-pay"></i>
+                        </PayButton>
+                }
+
             </>
-            
+
         );
     };
-    
+
     const onClose = (ref) => console.log(ref)
 
     return (

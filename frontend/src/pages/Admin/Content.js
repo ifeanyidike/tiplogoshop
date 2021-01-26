@@ -57,7 +57,7 @@ function Paperbase({ labels, TabContent, value, setValue }) {
                             {
                                 TabContent &&
                                 TabContent.map((content, index) => (
-                                    <TabPanel value={value} index={index} dir={theme.direction}>
+                                    <TabPanel key={index} value={value} index={index} dir={theme.direction}>
                                         {content}
                                     </TabPanel>
                                 ))
@@ -65,9 +65,9 @@ function Paperbase({ labels, TabContent, value, setValue }) {
 
                         </SwipeableViews>
                     </main>
-                    <footer className={classes.footer}>
+                    {/* <footer className={classes.footer}>
                         <Copyright />
-                    </footer>
+                    </footer> */}
                 </div>
             </div>
         </ThemeProvider>

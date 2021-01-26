@@ -5,10 +5,8 @@ import { useLocation } from "react-router-dom"
 
 
 const AltCard = ({ id, src, title, desc, href, anchor, color, variants }) => {
-    const location = useLocation()
-    const splittedPath = location.pathname.split(/\//);
-    const refUrl = splittedPath.includes('buycards') ? `${id}` : `buycards/${id}`
-    const loc = href === 'all' ? '/allcards' : refUrl
+
+    const loc = href === 'all' ? '/allcards' : `/buycards/${id}`
 
     return (
         <CardContainer

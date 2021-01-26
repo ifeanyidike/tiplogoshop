@@ -9,6 +9,7 @@ import { DRAWER_OPEN, DRAWER_CLOSE } from "../../redux/constants/utilConstants"
 import { useDispatch, useSelector } from "react-redux"
 import Header from "../MainHeader"
 import Loader from "../Loaders/SimpleLoader"
+import Message from "../Message"
 
 const Base = ({
     cardLoading,
@@ -18,7 +19,6 @@ const Base = ({
     topText,
     children
 }) => {
-    const dispatch = useDispatch()
 
     // const drawerToggle = useSelector(state => state.drawerToggle)
 
@@ -36,7 +36,10 @@ const Base = ({
                 {
                     cardLoading ? <Loader />
                         :
-                        cardError ? cardError
+                        cardError ?
+                            <Message variant="error">
+                                {cardError}
+                            </Message>
                             :
                             <>
                                 {children}

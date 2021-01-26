@@ -28,6 +28,7 @@ import {
     WALLET_DEBIT_REQUEST,
     WALLET_DEBIT_SUCCESS,
     WALLET_DEBIT_FAIL,
+    WALLET_DEBIT_RESET,
     WALLET_CREDIT_REQUEST,
     WALLET_CREDIT_SUCCESS,
     WALLET_CREDIT_FAIL,
@@ -293,6 +294,9 @@ export const walletDebitReducer = (state = {}, action) => {
 
         case WALLET_DEBIT_FAIL:
             return { loading: false, error: action.payload }
+
+        case WALLET_DEBIT_RESET:
+            return {}
 
         default:
             return state

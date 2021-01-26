@@ -206,6 +206,7 @@ export default function EnhancedTable({
                               hover
                               onClick={(event) => handleClick(event, item.[anchor], item._id)}
                               role="checkbox"
+                              style={{ cursor: 'pointer' }}
                               aria-checked={isItemSelected}
                               tabIndex={-1}
                               key={item.[anchor]}
@@ -221,7 +222,7 @@ export default function EnhancedTable({
                               {
                                 item.hasOwnProperty('orderItems') ?
                                   displayArr.map((el, index) =>
-                                    <TableCell align={index === 0 ? 'left' : 'right'}>
+                                    <TableCell key={index} align={index === 0 ? 'left' : 'right'}>
                                       {item.orderItems.isArray ?
                                         item.orderItems[0].[el] :
                                         item.orderItems.[el]
@@ -230,7 +231,7 @@ export default function EnhancedTable({
                                   )
                                   :
                                   displayArr.map((el, index) =>
-                                    <TableCell align={index === 0 ? 'left' : 'right'}>
+                                    <TableCell key={index} align={index === 0 ? 'left' : 'right'}>
                                       {item.[el]}</TableCell>
                                   )
                               }

@@ -14,6 +14,7 @@ import { DropzoneDialog } from 'material-ui-dropzone'
 import NavigationIcon from '@material-ui/icons/Navigation';
 import MessageModal from "../Utils/MessageModal"
 import { useDispatch, useSelector } from "react-redux"
+import { WALLET_DEBIT_RESET } from '../../redux/constants/userConstants'
 import { listServiceByName } from "../../redux/actions/serviceActions"
 
 
@@ -48,6 +49,7 @@ const OLevelUploadForm = ({
 
     useEffect(() => {
         dispatch(listServiceByName('o level result upload'))
+        dispatch({ type: WALLET_DEBIT_RESET })
     }, [dispatch])
 
     const onSubmit = e => {

@@ -131,7 +131,7 @@ export const getChangeOfCourseBlobById = asyncHandler(async (req, res) => {
 //@access   Private
 
 export const getMyChangeOfCourseInstitutionOrders = asyncHandler(async (req, res) => {
-    const orders = await ChangeOfCourseInstitutionOrder.find({ user: req.user._id })
+    const orders = await ChangeOfCourseInstitutionOrder.find({ user: req.user._id }).sort({ createdAt: 'desc' })
     res.json(orders)
 })
 

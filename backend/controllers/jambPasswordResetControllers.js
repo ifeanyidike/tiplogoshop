@@ -103,7 +103,7 @@ export const getJambPasswordResetOrderById = asyncHandler(async (req, res) => {
 //@access   Private
 
 export const getMyJambPasswordResetOrders = asyncHandler(async (req, res) => {
-    const orders = await JambPasswordResetOrder.find({ user: req.user._id })
+    const orders = await JambPasswordResetOrder.find({ user: req.user._id }).sort({ createdAt: 'desc' })
     res.json(orders)
 })
 
