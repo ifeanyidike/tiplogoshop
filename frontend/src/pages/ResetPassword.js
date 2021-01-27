@@ -59,12 +59,12 @@ const ResetPassword = () => {
                 <form className="content" onSubmit={handleSubmit}>
                     <div className="message">
                         {
-                            values.message && values.message
+                            values && values.message && values.message
                         }
                         {
                             loading ? <Loader />
                                 : error ? error
-                                    : result.message
+                                    : result && result.message
                         }
                     </div>
                     <h2>Please Enter Your New Password</h2>
