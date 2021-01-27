@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react"
+import React, { useEffect } from "react"
 import HomePage from "./pages/HomePage"
 import AuthPage from "./pages/AuthPage"
 import AllServicesPage from "./pages/AllServicesPage"
@@ -26,7 +26,7 @@ import NotFoundPage from "./pages/NotFoundPage"
 import UnauthorizedPage from "./pages/UnauthorizedPage"
 import HelpPage from "./pages/HelpPage"
 import { Switch, Route } from "react-router-dom"
-import { AnimatePresence } from "framer-motion"
+// import { AnimatePresence } from "framer-motion"
 import SideDrawer from "./components/SideDrawer"
 import Footer from "./components/Footer"
 import { useHistory, useLocation } from "react-router-dom"
@@ -54,8 +54,7 @@ function App() {
   }, [pathname, userInfo, history])
 
   return (
-    <AnimatePresence>
-
+    <>
       <SideDrawer key="sidedrawer" />
       <Switch>
         <Route path="/" exact>
@@ -141,7 +140,7 @@ function App() {
         </Route>
       </Switch>
       <Footer />
-    </AnimatePresence>
+    </>
   );
 }
 

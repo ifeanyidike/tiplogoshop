@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { Card, CardContent, FormControl, InputAdornment, TextField } from '@material-ui/core';
 import { AdminPrice, AdminButtonAlt } from '../../../styles/AdminStyles';
 import CurrencyFormat from 'react-currency-format'
-import { listServiceByName, listServiceDetailsById, listServices, updateService } from '../../../redux/actions/serviceActions'
+import { listServiceDetailsById, listServices, updateService } from '../../../redux/actions/serviceActions'
 import { useDispatch, useSelector } from "react-redux"
 import LoyaltyIcon from '@material-ui/icons/Loyalty';
 import { makeStyles } from '@material-ui/core/styles';

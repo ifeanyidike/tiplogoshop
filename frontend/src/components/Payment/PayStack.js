@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import axios from "axios"
 import { usePaystackPayment } from 'react-paystack';
-import { PayButton, NextButton } from "../../styles/ServiceStyle.js"
+import { PayButton } from "../../styles/ServiceStyle.js"
 import { useSelector } from "react-redux"
 import { WalletButton } from "../../styles/ProfileStyle"
 

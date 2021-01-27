@@ -1,6 +1,5 @@
 import styled from 'styled-components'
-import { motion } from 'framer-motion'
-import { device, colors } from "./breakpoints"
+import { colors } from "./breakpoints"
 import { Button } from "./HomeStyle"
 
 export const NotFoundContainer = styled.div`

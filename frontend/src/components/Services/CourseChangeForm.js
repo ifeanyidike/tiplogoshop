@@ -14,7 +14,6 @@ import CurrencyFormat from 'react-currency-format';
 import { useDispatch, useSelector } from "react-redux"
 import { listServiceByName } from "../../redux/actions/serviceActions"
 import { WALLET_DEBIT_RESET } from '../../redux/constants/userConstants'
-import { listSchoolDetailsByProgramme } from "../../redux/actions/schoolActions"
 
 
 const useStyles = makeStyles((theme) => ({

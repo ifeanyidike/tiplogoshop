@@ -2,7 +2,6 @@ import React, { useEffect } from 'react'
 import Content from "../TableContent"
 import { useDispatch, useSelector } from "react-redux"
 import { useHistory } from "react-router-dom"
-import { AdminButtonPro, RightAlign } from "../../../styles/AdminStyles"
 import { listJambPasswordResetOrders } from '../../../redux/actions/jambPasswordResetActions'
 
 const OLevelUploadList = ({ setValue }) => {

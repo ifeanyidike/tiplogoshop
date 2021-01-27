@@ -7,16 +7,16 @@ import { useLocation, Link } from "react-router-dom"
 import BaseFile from "../components/Services/Base"
 import queryString from "query-string"
 import PayStack from "../components/Payment/PayStackCardPayment"
-import { getCardOrderDetails, cardPayOrder } from "../redux/actions/cardOrderActions"
-import { listCardDetails, listFewCards } from "../redux/actions/cardActions"
+import { getCardOrderDetails } from "../redux/actions/cardOrderActions"
+import { listFewCards } from "../redux/actions/cardActions"
 import Loader from "../components/Loaders/SimpleLoader"
-import { logout, debitWallet } from "../redux/actions/userActions"
-import { PayButton } from "../styles/ServiceStyle.js"
+import { logout } from "../redux/actions/userActions"
 import Wallet from "../components/Utils/Wallet"
 import MessageModal from "../components/Utils/MessageModal"
 import WalletPayment from "../components/Payment/WalletPayment"
 import { CARD_ORDER_PAY_RESET } from '../redux/constants/cardOrderConstants';
 import Message from "../components/Message"
+import Meta from "../components/Meta"
 
 const PayOrder = () => {
     const dispatch = useDispatch()
@@ -75,6 +75,7 @@ const PayOrder = () => {
             TopImage={<img src={orderitem && orderitem.image} alt={orderitem && orderitem.name} />}
             topText={orderitem && orderitem.name}
         >
+            <Meta />
             {walletError &&
                 <Message variant="error">
                     {walletError}

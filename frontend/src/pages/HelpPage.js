@@ -5,7 +5,7 @@ import { Person as PersonIcon, Message as MessageIcon } from '@material-ui/icons
 import EmailIcon from '@material-ui/icons/Email';
 import MenuBookIcon from "@material-ui/icons/MenuBook"
 import {
-    Input, FormControl, InputLabel, InputAdornment, Card, CardContent, Divider,
+    Input, FormControl, InputLabel, InputAdornment, Card, CardContent,
 } from '@material-ui/core'
 import { TextField } from '@material-ui/core';
 import { FormHelperText } from '@material-ui/core';
@@ -16,6 +16,7 @@ import { useDispatch, useSelector } from "react-redux"
 import { createContact } from '../redux/actions/contactActions';
 import Loader from "../components/Loaders/SimpleLoader"
 import Message from "../components/Message"
+import Meta from "../components/Meta"
 
 const Help = () => {
     const [name, setName] = useState("")
@@ -43,6 +44,7 @@ const Help = () => {
 
     return (
         <HelpContainer>
+            <Meta />
             <MainHeader />
             <div className="topimage"></div>
             <h2>Need any help? Contact us</h2>

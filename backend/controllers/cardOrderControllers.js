@@ -216,6 +216,7 @@ export const updateCardOrderToDelivered = asyncHandler(async (req, res) => {
             } else {
                 order.isDelivered = true
                 order.deliveredAt = Date.now()
+                order.purchasedItems = purchasedItems
                 order.save()
 
                 res.status(200).json({

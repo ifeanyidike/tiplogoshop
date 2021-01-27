@@ -1,9 +1,9 @@
 import React, { useEffect } from 'react'
-import Header from "../components/MainHeader"
 import Base from "../components/Services/Base"
 import { useDispatch, useSelector } from "react-redux"
 import { listCards } from '../redux/actions/cardActions'
 import { DRAWER_CLOSE } from "../redux/constants/utilConstants"
+import Meta from "../components/Meta"
 
 
 const AllCardsPage = () => {
@@ -23,6 +23,7 @@ const AllCardsPage = () => {
 
     return (
         <div>
+            <Meta />
             <Base
                 loading={cardsLoading}
                 cards={cards}

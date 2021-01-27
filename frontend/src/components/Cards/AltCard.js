@@ -1,7 +1,6 @@
 import React from 'react'
 import { CardContainer } from "../../styles/CardStyle"
 import { Link } from 'react-router-dom'
-import { useLocation } from "react-router-dom"
 
 
 const AltCard = ({ id, src, title, desc, href, anchor, color, variants }) => {

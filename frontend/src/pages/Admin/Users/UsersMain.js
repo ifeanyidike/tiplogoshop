@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import Content from "../Content"
 import UsersList from "./UsersList"
 import UserProfile from "./UserProfile"

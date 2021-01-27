@@ -3,7 +3,6 @@ import { CarouselProvider, Slider, Slide, ButtonBack, ButtonNext } from 'pure-re
 import 'pure-react-carousel/dist/react-carousel.es.css';
 import ArrowForwardIcon from '@material-ui/icons/ArrowForwardIos';
 import ArrowBackIcon from '@material-ui/icons/ArrowBackIos';
-import { testimonial_features } from "../components/JsonAPIs"
 import Loader from "./Loaders/SimpleLoader"
 import { useSelector, useDispatch } from 'react-redux'
 import { listReviews } from '../redux/actions/reviewActions';
@@ -19,7 +18,7 @@ const Testimonial = ({ perPage }) => {
 
 
     const { loading, error, reviews } = useSelector(state => state.reviewList)
-    
+
     return (
         <CarouselProvider
             naturalSlideWidth={100}

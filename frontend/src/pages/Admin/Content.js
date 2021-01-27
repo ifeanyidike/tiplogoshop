@@ -4,7 +4,6 @@ import CssBaseline from '@material-ui/core/CssBaseline';
 import Hidden from '@material-ui/core/Hidden';
 import Navigator from './Navigator';
 import Header from './Header';
-import Copyright from "../../components/Utils/Copyright"
 import { theme, drawerWidth, useStyles } from "../../components/Admin/adminThemes"
 import SwipeableViews from 'react-swipeable-views';
 import TabPanel from "../../components/TabContainer/TabPanel"

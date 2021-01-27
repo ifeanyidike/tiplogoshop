@@ -34,7 +34,7 @@ const MyChangeOfCourseOrders = () => {
 
     const { loading, error, orders } = useSelector(state => state.changeOfCourseOrderListMy)
     const changeOfCourseOrderDetails = useSelector(state => state.changeOfCourseOrderDetails)
-    const { loading: detailLoading, error: detailError, order } = changeOfCourseOrderDetails
+    const { loading: detailLoading, order } = changeOfCourseOrderDetails
 
     return (
         <ItemOverviewMain>

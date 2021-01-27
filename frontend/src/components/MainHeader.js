@@ -1,5 +1,4 @@
-import React, { useEffect, useState } from 'react'
-import SvgIcon from '../svg/sitelogo.js'
+import React, { useEffect } from 'react'
 import { Avatar } from "@material-ui/core"
 import { makeStyles } from '@material-ui/core/styles';
 import { Header, HeaderRightItems, Hamburger } from "../styles/HeaderStyle"
@@ -13,7 +12,7 @@ import { motion } from "framer-motion"
 import { Link, useHistory, useLocation } from "react-router-dom"
 import { useSelector, useDispatch } from "react-redux"
 import { logout } from "../redux/actions/userActions"
-import { DRAWER_OPEN, DRAWER_CLOSE } from "../redux/constants/utilConstants"
+import { DRAWER_OPEN } from "../redux/constants/utilConstants"
 import { setUserImage } from "../redux/actions/userActions"
 
 const useStyles = makeStyles((theme) => ({
@@ -74,7 +73,10 @@ const MainHeader = ({ setShowDrawer }) => {
                     <motion.div variants={hamburgerItemsVariants} className="line2"></motion.div>
                     <motion.div variants={hamburgerItemsVariants} className="line3"></motion.div>
                 </Hamburger>
-                <SvgIcon />
+                {/* <SvgIcon /> */}
+                <Link to='/' className="logo">
+                    <img src='/images/tiplogo.png' alt='tiplogo logo' />
+                </Link>
                 <HeaderRightItems variants={headerRightVariants} initial="hidden" animate="visible">
                     <ul>
                         {/* <motion.li

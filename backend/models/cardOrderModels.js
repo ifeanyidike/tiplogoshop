@@ -25,12 +25,26 @@ const orderSchema = mongoose.Schema({
             type: Number,
             required: true
         },
+
         card: {
             type: mongoose.Schema.Types.ObjectId,
             required: true,
             ref: 'Cards',
         },
     },
+    purchasedItems: [
+        {
+            pin: {
+                type: String,
+            },
+            serialNo: {
+                type: String
+            },
+            token: {
+                type: String
+            }
+        }
+    ],
 
     paymentMethod: {
         type: String,

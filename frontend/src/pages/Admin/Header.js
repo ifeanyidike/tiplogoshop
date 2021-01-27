@@ -1,9 +1,7 @@
-import React, { useState } from 'react';
+import React from 'react';
 import AppBar from '@material-ui/core/AppBar';
 import Avatar from '@material-ui/core/Avatar';
-import Button from '@material-ui/core/Button';
 import Grid from '@material-ui/core/Grid';
-import HelpIcon from '@material-ui/icons/Help';
 import Hidden from '@material-ui/core/Hidden';
 import IconButton from '@material-ui/core/IconButton';
 import Link from '@material-ui/core/Link';

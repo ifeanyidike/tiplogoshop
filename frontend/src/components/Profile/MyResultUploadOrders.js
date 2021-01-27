@@ -6,7 +6,7 @@ import Loader from "../Loaders/SimpleLoader"
 import { useLocation } from "react-router-dom"
 import queryString from 'query-string'
 import { ItemOverviewContainer, ItemOverviewMain } from "../../styles/ProfileStyle"
-import { Card, CardContent, Divider } from '@material-ui/core'
+import { Card, CardContent } from '@material-ui/core'
 
 const MyResultUploadOrders = () => {
     const dispatch = useDispatch()
@@ -31,7 +31,7 @@ const MyResultUploadOrders = () => {
     const { loading, error, orders } = useSelector(state => state.oLevelUploadOrderListMy)
 
     const oLevelUploadOrderDetails = useSelector(state => state.oLevelUploadOrderDetails)
-    const { loading: detailLoading, error: detailError, order } = oLevelUploadOrderDetails
+    const { loading: detailLoading, order } = oLevelUploadOrderDetails
 
 
     return (

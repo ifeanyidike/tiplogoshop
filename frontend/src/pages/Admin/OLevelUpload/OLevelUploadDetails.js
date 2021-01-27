@@ -18,7 +18,6 @@ import PhotoCameraIcon from '@material-ui/icons/PhotoCamera';
 import {
     adminOlevelFileUpload,
     getOlevelUploadOrderDetailsById,
-    getOlevelUploadBlob,
     deleteOlevelUploadOrder,
     listOlevelUploadOrders
 } from '../../../redux/actions/oLevelResultUploadActions';
@@ -85,7 +84,6 @@ const OLevelUploadDetails = ({ setValue }) => {
         dispatch(listOlevelUploadOrders())
         setValue(0)
     }
-    console.log(loading, order)
 
     return (
         <UserProfileContainer>

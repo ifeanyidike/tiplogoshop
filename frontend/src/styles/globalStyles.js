@@ -1,7 +1,6 @@
-import React from "react"
-import styled, {createGlobalStyle} from "styled-components"
-import {device, colors} from "./breakpoints"
-  
+import styled, { createGlobalStyle } from "styled-components"
+import { colors } from "./breakpoints"
+
 export const globalStyle = createGlobalStyle`
     body{
         margin: 0;

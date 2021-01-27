@@ -14,10 +14,7 @@ import VisibilityOff from '@material-ui/icons/VisibilityOff';
 import AlternateEmailIcon from '@material-ui/icons/AlternateEmail';
 import MomentUtils from '@date-io/moment';
 import { WALLET_DEBIT_RESET } from '../../redux/constants/userConstants'
-import {
-    MuiPickersUtilsProvider,
-    DatePicker
-} from '@material-ui/pickers';
+import { MuiPickersUtilsProvider, DatePicker } from '@material-ui/pickers';
 import MessageModal from "../Utils/MessageModal"
 import { listServiceByName } from '../../redux/actions/serviceActions';
 import { useDispatch, useSelector } from "react-redux"
@@ -49,7 +46,6 @@ const CourseChangeForm = ({
     setActiveStep,
 }) => {
     const classes = useStyles();
-    const [num, setNum] = useState(1)
     const [confirmPassword, setConfirmPassword] = useState("")
     const [showPassword, setShowPassword] = useState(false)
     const [showConfirmPassword, setShowConfirmPassword] = useState(false)

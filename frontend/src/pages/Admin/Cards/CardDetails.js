@@ -153,7 +153,7 @@ const CardDetails = ({ setValue }) => {
 
                                                     <CurrencyFormat value={price} thousandSeparator={true} prefix={'₦'}
                                                         onValueChange={(values) => {
-                                                            const { formattedValue, value } = values;
+                                                            const { value } = values;
                                                             setPrice(value)
                                                         }}
                                                     />

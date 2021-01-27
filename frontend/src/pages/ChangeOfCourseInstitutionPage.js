@@ -9,13 +9,13 @@ import Step from '@material-ui/core/Step';
 import StepLabel from '@material-ui/core/StepLabel';
 import CourseChangeReview from '../components/Services/CourseChangeReview'
 import ServicePayment from '../components/Services/ServicePayment'
-import { debitWallet } from "../redux/actions/userActions.js"
 import { useDispatch, useSelector } from "react-redux"
 import { WALLET_DEBIT_RESET } from '../redux/constants/userConstants'
 import { OLEVEL_UPLOAD_CREATE_RESET } from '../redux/constants/oLevelResultUploadConstants'
 import { JAMB_PASSWORD_RESET_CREATE_RESET } from '../redux/constants/jambPasswordResetConstants'
 import { COCI_CREATE_RESET } from '../redux/constants/changeOfCourseConstants'
 import NotLoggedIn from "../components/Utils/NotLoggedIn"
+import Meta from "../components/Meta"
 
 const useStyles = makeStyles((theme) => ({
     stepper: {
@@ -36,16 +36,15 @@ const ChangeOfCourseInstitution = () => {
     const [moreInfo, setMoreInfo] = useState("");
     const dispatch = useDispatch()
 
-    const { service } = useSelector(state => state.serviceByName)
     const userLogin = useSelector(state => state.userLogin)
     const { userInfo } = userLogin
 
-    useEffect(()=>{
-        dispatch({type: WALLET_DEBIT_RESET})
-        dispatch({type: OLEVEL_UPLOAD_CREATE_RESET})
-        dispatch({type: JAMB_PASSWORD_RESET_CREATE_RESET})
-        dispatch({type: COCI_CREATE_RESET})
-        
+    useEffect(() => {
+        dispatch({ type: WALLET_DEBIT_RESET })
+        dispatch({ type: OLEVEL_UPLOAD_CREATE_RESET })
+        dispatch({ type: JAMB_PASSWORD_RESET_CREATE_RESET })
+        dispatch({ type: COCI_CREATE_RESET })
+
     }, [dispatch])
 
     const [programme, setProgramme] = useState({
@@ -94,6 +93,7 @@ const ChangeOfCourseInstitution = () => {
 
     return (
         <BaseRoot topText="Services">
+            <Meta />
             {
                 !userInfo ?
                     <NotLoggedIn />

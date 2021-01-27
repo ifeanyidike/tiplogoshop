@@ -17,7 +17,7 @@ export default function Register() {
     const history = useHistory()
     
     const userRegister = useSelector(state => state.userRegister)
-    const{loading, error, success, result } = userRegister
+    const{loading, error, result } = userRegister
     
     useEffect(()=>{
     

@@ -1,12 +1,9 @@
-import React, { useState, useEffect } from 'react'
+import React, { useEffect } from 'react'
 import Content from "../TableContent"
 import { useDispatch, useSelector } from "react-redux"
 import { listChangeOfCourseOrders } from "../../../redux/actions/changeOfCourseActions"
 import { useHistory } from "react-router-dom"
-import { AdminButtonAlt, AdminPrice, RightAlign } from "../../../styles/AdminStyles"
-import { listServiceByName, updateService } from '../../../redux/actions/serviceActions'
-import { Card, CardContent } from '@material-ui/core'
-import CurrencyFormat from 'react-currency-format'
+import { listServiceByName } from '../../../redux/actions/serviceActions'
 
 const ChangeOfCourseList = ({ setValue }) => {
     const dispatch = useDispatch()
@@ -32,21 +29,10 @@ const ChangeOfCourseList = ({ setValue }) => {
 
     const { error, loading, orders } = useSelector(state => state.changeOfCourseOrderList)
 
-    const [price, setPrice] = useState(0)
-
-    const { service } = useSelector(state => state.serviceByName)
-
-
-    useEffect(() => {
-        if (service) {
-            setPrice(service.cost)
-        }
-    }, [service])
-
     return (
         <div>
             <Content
-                caption="Change of course order List"
+                caption="Data correction order list"
                 headCells={headCells}
                 setValue={setValue}
                 error={error && error}

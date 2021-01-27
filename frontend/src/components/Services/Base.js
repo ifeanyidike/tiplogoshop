@@ -1,14 +1,10 @@
-import React, { useEffect, useState } from 'react'
-import axios from "axios"
+import React from 'react'
 import {
     BaseContainer,
     CardMoreContainer,
 } from "../../styles/ServiceStyle.js"
 import LoadCards from "../LoadCards"
-import { DRAWER_OPEN, DRAWER_CLOSE } from "../../redux/constants/utilConstants"
-import { useDispatch, useSelector } from "react-redux"
 import Header from "../MainHeader"
-import Loader from "../Loaders/SimpleLoader"
 import LinearLoader from "../Loaders/LinearLoader"
 import Message from "../Message"
 

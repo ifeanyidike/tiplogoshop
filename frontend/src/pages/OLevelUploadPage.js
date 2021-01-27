@@ -15,6 +15,7 @@ import { OLEVEL_UPLOAD_CREATE_RESET } from '../redux/constants/oLevelResultUploa
 import { JAMB_PASSWORD_RESET_CREATE_RESET } from '../redux/constants/jambPasswordResetConstants'
 import { COCI_CREATE_RESET } from '../redux/constants/changeOfCourseConstants'
 import NotLoggedIn from "../components/Utils/NotLoggedIn"
+import Meta from "../components/Meta"
 
 const useStyles = makeStyles((theme) => ({
     stepper: {
@@ -39,12 +40,12 @@ const ChangeOfCourseInstitution = () => {
 
     const [activeStep, setActiveStep] = useState(0);
 
-    useEffect(()=>{
-        dispatch({type: WALLET_DEBIT_RESET})
-        dispatch({type: OLEVEL_UPLOAD_CREATE_RESET})
-        dispatch({type: JAMB_PASSWORD_RESET_CREATE_RESET})
-        dispatch({type: COCI_CREATE_RESET})
-        
+    useEffect(() => {
+        dispatch({ type: WALLET_DEBIT_RESET })
+        dispatch({ type: OLEVEL_UPLOAD_CREATE_RESET })
+        dispatch({ type: JAMB_PASSWORD_RESET_CREATE_RESET })
+        dispatch({ type: COCI_CREATE_RESET })
+
     }, [dispatch])
 
     const resultUploadOrder = () => {
@@ -63,6 +64,7 @@ const ChangeOfCourseInstitution = () => {
 
     return (
         <BaseRoot topText="Services">
+            <Meta />
             {
                 !userInfo ?
                     <NotLoggedIn />

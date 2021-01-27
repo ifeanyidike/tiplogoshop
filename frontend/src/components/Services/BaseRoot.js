@@ -1,17 +1,8 @@
 import React from 'react'
-import {
-    BaseContainer,
-} from "../../styles/ServiceStyle.js"
-import { useDispatch, useSelector } from "react-redux"
+import { BaseContainer } from "../../styles/ServiceStyle.js"
 import Header from "../MainHeader"
 
-const Base = ({
-    TopImage,
-    topText,
-    children
-}) => {
-
-
+const Base = ({ TopImage, topText, children }) => {
 
     return (
         <>

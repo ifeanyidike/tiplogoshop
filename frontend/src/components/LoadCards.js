@@ -1,5 +1,4 @@
-import React, { useEffect } from 'react'
-import { altCardFeatures } from "./JsonAPIs"
+import React from 'react'
 import AltCard from "./Cards/AltCard"
 import Loader from "./Loaders/SimpleLoader"
 import Message from "./Message"

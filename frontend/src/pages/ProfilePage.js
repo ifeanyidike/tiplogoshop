@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { useDispatch, useSelector } from "react-redux"
-import { getAUser, setProfilePhoto, setUserImage, updateUser } from "../redux/actions/userActions"
+import { getAUser, setProfilePhoto, setUserImage } from "../redux/actions/userActions"
 import { ProfileContainer } from "../styles/ProfileStyle"
 import Header from "../components/MainHeader"
 import NotLoggedIn from "../components/Utils/NotLoggedIn"
@@ -10,6 +10,7 @@ import TabIndex from "../components/Profile/TabIndex"
 import Loader from "../components/Loaders/SimpleLoader"
 import Wallet from "../components/Utils/Wallet"
 import { DropzoneDialog } from 'material-ui-dropzone'
+import Meta from "../components/Meta"
 
 const ProfilePage = () => {
     const [upload, setUpload] = useState({
@@ -52,6 +53,7 @@ const ProfilePage = () => {
 
     return (
         <div>
+            <Meta />
             <Header />
             {
                 !userInfo ? <NotLoggedIn /> :

@@ -10,17 +10,17 @@ const tabitems = [
                 desc: "Jamb result checker, Jamb DE, etc"
             },
             {
-                icon: "fas fa-project-diagram",
+                icon: "fas fa-drafting-compass",
                 head: "NECO pins/tokens",
                 desc: "Neco result checkers, pins, tokens,etc"
             },
             {
-                icon: "fas fa-project-diagram",
+                icon: "fas fa-compass",
                 head: "WAEC pins/cards",
                 desc: "Waec scratch cards, tokens, pins"
             },
             {
-                icon: "fas fa-project-diagram",
+                icon: "fas fa-chart-pie",
                 head: "Other cards",
                 desc: "Nabteb cards, school exam cards, bced card, etc."
             }
@@ -37,7 +37,7 @@ const tabitems = [
                 desc: "Change course for any institution in Nigeria"
             },
             {
-                icon: "fas fa-project-diagram",
+                icon: "fas fa-drafting-compass",
                 head: "Change of institution",
                 desc: "Change institution with just a mouse click"
             }
@@ -54,12 +54,12 @@ const tabitems = [
                 desc: "Upload single sitting O level results easily"
             },
             {
-                icon: "fas fa-project-diagram",
+                icon: "fas fa-drafting-compass",
                 head: "Result upload for two  sittings",
                 desc: "Upload single sitting O level results easily"
             },
             {
-                icon: "fas fa-project-diagram",
+                icon: "fas fa-chart-pie",
                 head: "Track changes and get instant response",
                 desc: "We respond to you in real time. Just hit us up and get it done."
             }
@@ -76,12 +76,12 @@ const tabitems = [
                 desc: "Reset your Jamb password with us today"
             },
             {
-                icon: "fas fa-project-diagram",
+                icon: "fas fa-chart-pie",
                 head: "Manage your account",
                 desc: "View your profile and your activities."
             },
             {
-                icon: "fas fa-project-diagram",
+                icon: "fas fa-compass",
                 head: "We value your opinion.",
                 desc: "Drop a review for on our services. We value your opinion"
             }

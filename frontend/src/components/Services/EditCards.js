@@ -17,8 +17,7 @@ const EditCards = ({ id, cardObj, paymentMethod }) => {
         dispatch(listCardDetails(cardObj.card))
     }, [dispatch, cardObj.card])
 
-    const cardDetails = useSelector(state => state.cardDetails)
-    const { loading: cardLoading, card, error: cardError } = cardDetails
+    const { card } = useSelector(state => state.cardDetails)
 
     const [num, setNum] = useState(cardObj.qty)
     const [totalCost, setTotalCost] = useState(parseInt(cardObj.price))
@@ -42,7 +41,6 @@ const EditCards = ({ id, cardObj, paymentMethod }) => {
             history.push(`/payorder/card?orderId=${id}`)
         }
     }
-    console.log(paymentMeans)
 
     return (
         <div className="buyinfo--edit">

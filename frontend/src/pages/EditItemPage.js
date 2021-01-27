@@ -2,17 +2,15 @@ import React, { useEffect } from 'react'
 import jwt_decode from 'jwt-decode'
 import BaseFile from "../components/Services/Base"
 import Loader from "../components/Loaders/SimpleLoader"
-import { useHistory, useLocation } from "react-router-dom"
+import { useLocation } from "react-router-dom"
 import { useDispatch, useSelector } from "react-redux"
-import { createOrder, getCardOrderDetails } from "../redux/actions/cardOrderActions"
-import {
-    listCardDetails,
-    listFewCards
-} from '../redux/actions/cardActions'
+import { getCardOrderDetails } from "../redux/actions/cardOrderActions"
+import { listFewCards } from '../redux/actions/cardActions'
 import queryString from "query-string"
 import EditCards from '../components/Services/EditCards'
 import NotLoggedIn from "../components/Utils/NotLoggedIn"
 import { logout } from "../redux/actions/userActions"
+import Meta from "../components/Meta"
 
 const CardPage = () => {
 
@@ -46,6 +44,7 @@ const CardPage = () => {
 
     return (
         <div>
+            <Meta />
             {
 
                 !userInfo ?

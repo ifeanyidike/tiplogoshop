@@ -1,16 +1,12 @@
 import React, { useState, useEffect } from 'react'
-import {
-    BackButton,
-    NextButton,
-} from "../../styles/ServiceStyle.js"
+import { NextButton } from "../../styles/ServiceStyle.js"
 import ArrowForwardIosIcon from '@material-ui/icons/ArrowForwardIos';
 import PaymentMethods from "../Payment/PaymentMethods"
 import Loader from "../Loaders/SimpleLoader"
 import { useDispatch, useSelector } from "react-redux"
-import { useHistory, Link } from "react-router-dom"
+import { useHistory } from "react-router-dom"
 import { createCardOrder } from "../../redux/actions/cardOrderActions"
 import { CARD_ORDER_CREATE_RESET } from "../../redux/constants/cardOrderConstants"
-import NotLoggedIn from "../Utils/NotLoggedIn"
 import MessageModal from "../Utils/MessageModal"
 
 
@@ -30,13 +26,11 @@ const ChoosePayment = ({ num, baseAmount }) => {
     const { loading: createLoading, order, success: createSuccess, error: createError }
         = cardOrderCreate
 
-    const userLogin = useSelector(state => state.userLogin)
-    const { loading: userLoading, userInfo, error: userError } = userLogin
+    const { userInfo } = useSelector(state => state.userLogin)
 
     const { wallet } = useSelector(state => state.userWalletAmount)
 
-    const cardDetails = useSelector(state => state.cardDetails)
-    const { loading: cardLoading, card, error: cardError } = cardDetails
+    const { card } = useSelector(state => state.cardDetails)
 
     const handleOrderOverview = () => {
         history.push(`/payorder/card?orderId=${order._id}`)
@@ -74,8 +68,6 @@ const ChoosePayment = ({ num, baseAmount }) => {
 
     return (
         <div className="buyinfo--second">
-
-
 
             <div className="paymentmethod-alt"
             >

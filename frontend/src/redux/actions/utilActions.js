@@ -1,6 +1,4 @@
 import {
-    DRAWER_OPEN,
-    DRAWER_CLOSE,
     MESSAGE_SET
 } from "../constants/utilConstants"
 

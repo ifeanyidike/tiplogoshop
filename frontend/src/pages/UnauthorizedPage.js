@@ -2,12 +2,14 @@ import React from 'react'
 import MainHeader from '../components/MainHeader.js'
 import { UnAuthorizedContainer, AccessButton } from "../styles/NotFoundStyles.js"
 import { useHistory } from "react-router-dom"
+import Meta from "../components/Meta"
 
 const NotFoundPage = () => {
     const history = useHistory()
 
     return (
         <UnAuthorizedContainer >
+            <Meta />
             <MainHeader />
 
             <div className="notfound">

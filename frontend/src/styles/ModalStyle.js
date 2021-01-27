@@ -1,6 +1,6 @@
 import styled from "styled-components"
-import {motion} from "framer-motion"
-import {device, colors} from "./breakpoints"
+import { motion } from "framer-motion"
+import { colors } from "./breakpoints"
 
 
 export const Modal = styled(motion.div)`

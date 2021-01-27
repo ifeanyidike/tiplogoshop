@@ -6,11 +6,17 @@ export const Header = styled.div`
     display: flex;
     justify-content: space-around;
     align-items: center;
-    padding: 10px 0;            
+    padding: 10px 0;         
+    .logo{
+        height: 60px;
+        img{
+            height: 100%;
+        }
+    }   
     @media ${device.tablet}{
         margin-bottom: 10px;
         justify-content: unset;
-        .svgDiv{
+        .svgDiv, .logo{
             margin: 0 auto; 
         }
         

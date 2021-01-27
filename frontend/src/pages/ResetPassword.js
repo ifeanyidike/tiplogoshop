@@ -1,60 +1,61 @@
-import React, {useState, useEffect} from 'react'
-import {Grid, TextField, IconButton, InputAdornment} from '@material-ui/core';
+import React, { useState } from 'react'
+import { Grid, TextField, IconButton, InputAdornment } from '@material-ui/core';
 import Visibility from '@material-ui/icons/Visibility';
 import VisibilityOff from '@material-ui/icons/VisibilityOff';
-
-import { useHistory, useLocation, Link } from "react-router-dom"
-import {useDispatch, useSelector} from "react-redux"
-import {resetPassword} from "../redux/actions/userActions"
+import { useLocation } from "react-router-dom"
+import { useDispatch, useSelector } from "react-redux"
+import { resetPassword } from "../redux/actions/userActions"
 import Header from "../components/MainHeader"
-import {ResetButton, PasswordResetContainer} from "../styles/AuthStyle"
+import { ResetButton, PasswordResetContainer } from "../styles/AuthStyle"
 import Loader from "../components/Loaders/SimpleLoader"
+import Meta from "../components/Meta"
 
 const ResetPassword = () => {
-    const [values, setValues] = useState({        
-        password: '',        
+    const [values, setValues] = useState({
+        password: '',
         showPassword: false,
         confirmPassword: '',
-        showConfirmPassword: false,        
-        message: ''                        
+        showConfirmPassword: false,
+        message: ''
     });
-    
+
     const location = useLocation()
     const dispatch = useDispatch()
-    const splittedPath = location.pathname.split(/\//)        
-    const token = splittedPath[splittedPath.length - 1]            
-    
+    const splittedPath = location.pathname.split(/\//)
+    const token = splittedPath[splittedPath.length - 1]
+
     const handleChange = (prop) => (event) => {
         setValues({ ...values, [prop]: event.target.value });
-      };
-    
+    };
+
     const handleClickShowPassword = () => {
         setValues({ ...values, showPassword: !values.showPassword });
-      };
-    
+    };
+
     const handleClickShowConfirmPassword = () => {
         setValues({ ...values, showConfirmPassword: !values.showConfirmPassword });
     };
-    
+
     const handleMouseDownPassword = (event) => {
         event.preventDefault();
     };
-    
-    const {loading, error, success, result} = useSelector(state => state.passwordReset)
-    
-    const handleSubmit = (e) =>{
+
+    const { loading, error, result } = useSelector(state => state.passwordReset)
+
+    const handleSubmit = (e) => {
         e.preventDefault()
-        if(values.password !== values.confirmPassword){
-            setValues({...values, message: 'Passwords do not match'})
-        }else{
+        if (values.password !== values.confirmPassword) {
+            setValues({ ...values, message: 'Passwords do not match' })
+        } else {
             dispatch(resetPassword(token, values.password))
         }
     }
-    
+
     return (
-        <div>            
+        <div>
+            <Meta />
             <Header />
-            <PasswordResetContainer>                
+            <PasswordResetContainer>
                 <form className="content" onSubmit={handleSubmit}>
                     <div className="message">
                         {
@@ -62,14 +63,14 @@ const ResetPassword = () => {
                         }
                         {
                             loading ? <Loader />
-                            : error ? error
-                            : result.message 
+                                : error ? error
+                                    : result.message
                         }
                     </div>
                     <h2>Please Enter Your New Password</h2>
                     <Grid item xs={12}>
-                        <TextField   
-                            required                     
+                        <TextField
+                            required
                             label="Password"
                             type={values.showPassword ? 'text' : 'password'}
                             value={values.password}
@@ -96,10 +97,10 @@ const ResetPassword = () => {
                             }}
                         />
                     </Grid>
-        
+
                     <Grid item xs={12}>
-                        <TextField         
-                            required               
+                        <TextField
+                            required
                             label="Confirm Password"
                             value={values.confirmPassword}
                             type={values.showConfirmPassword ? 'text' : 'password'}

@@ -130,6 +130,39 @@ const MyCardOrders = () => {
                                                         <span>Payment Email:</span>
                                                         <span>{order.paymentResult.email}</span>
                                                     </div>
+
+                                                    <div className="fullwidth">
+                                                        {
+                                                            order.purchasedItems &&
+                                                            order.purchasedItems.map((item) => (
+                                                                (
+                                                                    <div className="embossitem" key={item._id}>
+                                                                        {
+                                                                            item.pin &&
+                                                                            <div>
+                                                                                <span>PIN: </span>
+                                                                                <span>{item.pin}</span>
+                                                                            </div>
+                                                                        }
+                                                                        {
+                                                                            item.token &&
+                                                                            <div>
+                                                                                <span>Token: </span>
+                                                                                <span>{item.token}</span>
+                                                                            </div>
+                                                                        }
+                                                                        {
+                                                                            item.serialNo &&
+                                                                            <div>
+                                                                                <span>Serial Number: </span>
+                                                                                <span>{item.serialNo}</span>
+                                                                            </div>
+                                                                        }
+                                                                    </div>
+                                                                )
+                                                            ))
+                                                        }
+                                                    </div>
                                                 </>
                                             }
                                         </div>

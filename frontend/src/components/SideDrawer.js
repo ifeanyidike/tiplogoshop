@@ -1,6 +1,5 @@
 import React, { useEffect } from 'react'
 import { Backdrop, Drawer, DrawerContent } from "../styles/DrawerStyle"
-import SvgIcon from '../svg/sitelogo.js'
 import { motion, AnimatePresence } from "framer-motion"
 import { makeStyles } from '@material-ui/core/styles';
 import {
@@ -103,8 +102,12 @@ const SideDrawer = () => {
                                     className='closeIcon'
                                     onClick={handleCancelClick}
                                 />
-                                <Link to="/">
+                                {/* <Link to="/">
                                     <SvgIcon />
+                                </Link> */}
+
+                                <Link to='/' className="logo">
+                                    <img src='/images/tiplogo.png' alt='tiplogo logo' />
                                 </Link>
 
                                 <span>Welcome to Tiplogo shop!</span>

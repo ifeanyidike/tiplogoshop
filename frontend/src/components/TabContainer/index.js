@@ -1,21 +1,21 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import SwipeableViews from 'react-swipeable-views';
-import { makeStyles, useTheme } from '@material-ui/core/styles';
-import {TabContainer} from "../../styles/TabStyle"
+import { useTheme } from '@material-ui/core/styles';
+import { TabContainer } from "../../styles/TabStyle"
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import TabPanel from "./TabPanel"
 import a11yProps from "./allProps"
-import {colors} from "../../styles/breakpoints"
+import { colors } from "../../styles/breakpoints"
 import TabItems from "./tabJsonAPI"
 import TabChildren from "./TabChildren"
 
-export default function FullWidthTabs({firstChild, secondChild, thirdChild, fourthChild}) {  
+export default function FullWidthTabs({ firstChild, secondChild, thirdChild, fourthChild }) {
   const [activeFirst, setActiveFirst] = useState(true)
   const [activeSecond, setActiveSecond] = useState(false)
   const [activeThird, setActiveThird] = useState(false)
   const [activeFourth, setActiveFourth] = useState(false)
-  
+
   const theme = useTheme();
   const [value, setValue] = useState(0);
 
@@ -26,29 +26,29 @@ export default function FullWidthTabs({firstChild, secondChild, thirdChild, four
   const handleChangeIndex = (index) => {
     setValue(index);
   };
-  
-  const handleFirstTab = () =>{
+
+  const handleFirstTab = () => {
     setActiveFirst(true)
     setActiveSecond(false)
     setActiveThird(false)
     setActiveFourth(false)
   }
-  
-  const handleSecondTab = () =>{
+
+  const handleSecondTab = () => {
     setActiveFirst(false)
     setActiveSecond(true)
     setActiveThird(false)
     setActiveFourth(false)
   }
-  
-  const handleThirdTab = () =>{
+
+  const handleThirdTab = () => {
     setActiveFirst(false)
     setActiveSecond(false)
     setActiveThird(true)
     setActiveFourth(false)
   }
 
-  const handleFourthTab = () =>{
+  const handleFourthTab = () => {
     setActiveFirst(false)
     setActiveSecond(false)
     setActiveThird(false)
@@ -56,56 +56,56 @@ export default function FullWidthTabs({firstChild, secondChild, thirdChild, four
   }
   return (
     <TabContainer >
-      
-        <Tabs
-          className="tabs"
-          value={value}
-          onChange={handleChange}
-          indicatorColor="primary"
-          textColor="primary"
-          variant="fullWidth"
-          aria-label="Features tabs"
-          
-        >
-          <Tab label="Buy Tokens/Pins" 
-            {...a11yProps(0)} 
-            style={{backgroundColor: activeFirst && colors.lightergray}}
-            onClick={handleFirstTab} />
-          <Tab label="Correction of Data " 
-            {...a11yProps(1)}             
-            style={{backgroundColor: activeSecond && colors.lightergray}}
-            onClick={handleSecondTab} />
-          <Tab label="Result Upload" 
-            {...a11yProps(2)}
-            style={{backgroundColor: activeThird && colors.lightergray}}
-            onClick={handleThirdTab} />   
-          <Tab label="Other Services" 
-            {...a11yProps(2)}
-            style={{backgroundColor: activeFourth && colors.lightergray}}
-            onClick={handleFourthTab} />           
-        </Tabs>
-      
+
+      <Tabs
+        className="tabs"
+        value={value}
+        onChange={handleChange}
+        indicatorColor="primary"
+        textColor="primary"
+        variant="fullWidth"
+        aria-label="Features tabs"
+
+      >
+        <Tab label="Buy Tokens/Pins"
+          {...a11yProps(0)}
+          style={{ backgroundColor: activeFirst && colors.lightergray }}
+          onClick={handleFirstTab} />
+        <Tab label="Correction of Data "
+          {...a11yProps(1)}
+          style={{ backgroundColor: activeSecond && colors.lightergray }}
+          onClick={handleSecondTab} />
+        <Tab label="Result Upload"
+          {...a11yProps(2)}
+          style={{ backgroundColor: activeThird && colors.lightergray }}
+          onClick={handleThirdTab} />
+        <Tab label="Other Services"
+          {...a11yProps(2)}
+          style={{ backgroundColor: activeFourth && colors.lightergray }}
+          onClick={handleFourthTab} />
+      </Tabs>
+
       <SwipeableViews
         axis={theme.direction === 'rtl' ? 'x-reverse' : 'x'}
         index={value}
         onChangeIndex={handleChangeIndex}
-      >        
+      >
         {
-          TabItems.map((item, index) =>(
+          TabItems.map((item, index) => (
             <TabPanel value={value} key={index} index={index} dir={theme.direction}>
               <TabChildren
-                heading = {item.heading}
-                description={item.description}   
-                image = {item.image}             
+                heading={item.heading}
+                description={item.description}
+                image={item.image}
               >
                 {
-                  item.details.map((detail, ind) =>(
+                  item.details.map((detail, ind) => (
                     <div key={ind} className="child__item">
-                        <i className={detail.icon}></i>
-                        <div>
-                          <h4>{detail.head}</h4>
-                          <span>{detail.desc}</span>
-                        </div>
+                      <i className={detail.icon}></i>
+                      <div>
+                        <h4>{detail.head}</h4>
+                        <span>{detail.desc}</span>
+                      </div>
                     </div>
                   ))
                 }

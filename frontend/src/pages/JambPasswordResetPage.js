@@ -15,6 +15,7 @@ import { JAMB_PASSWORD_RESET_CREATE_RESET } from '../redux/constants/jambPasswor
 import { COCI_CREATE_RESET } from '../redux/constants/changeOfCourseConstants'
 import { useDispatch, useSelector } from "react-redux"
 import NotLoggedIn from "../components/Utils/NotLoggedIn"
+import Meta from "../components/Meta"
 
 const useStyles = makeStyles((theme) => ({
     stepper: {
@@ -34,12 +35,12 @@ const JambPasswordReset = () => {
     const [activeStep, setActiveStep] = useState(0);
     const dispatch = useDispatch()
 
-    useEffect(()=>{
-        dispatch({type: WALLET_DEBIT_RESET})
-        dispatch({type: OLEVEL_UPLOAD_CREATE_RESET})
-        dispatch({type: JAMB_PASSWORD_RESET_CREATE_RESET})
-        dispatch({type: COCI_CREATE_RESET})
-        
+    useEffect(() => {
+        dispatch({ type: WALLET_DEBIT_RESET })
+        dispatch({ type: OLEVEL_UPLOAD_CREATE_RESET })
+        dispatch({ type: JAMB_PASSWORD_RESET_CREATE_RESET })
+        dispatch({ type: COCI_CREATE_RESET })
+
     }, [dispatch])
 
     const userLogin = useSelector(state => state.userLogin)
@@ -59,6 +60,7 @@ const JambPasswordReset = () => {
 
     return (
         <BaseRoot topText="Services">
+            <Meta />
             {
                 !userInfo ?
                     <NotLoggedIn />

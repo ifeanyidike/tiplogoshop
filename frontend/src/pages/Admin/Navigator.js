@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { DrawerContainer } from "../../styles/AdminStyles"
 import clsx from 'clsx';
 import Divider from '@material-ui/core/Divider';
@@ -11,11 +11,10 @@ import HomeIcon from '@material-ui/icons/Home';
 import { Link } from "react-router-dom"
 import { useStyles } from "../../components/Admin/adminThemes"
 import { categories } from '../../components/Admin/adminUtils';
-import { useHistory, useLocation } from "react-router-dom"
+import { useLocation } from "react-router-dom"
 
 
 function Navigator(props) {
-  const [active, setActive] = useState(false)
   const classes = useStyles();
   const { ...other } = props;
   const location = useLocation()
@@ -60,7 +59,7 @@ function Navigator(props) {
                 <Link to={`/admin/${href}`} key={childId}>
                   <ListItem
                     button
-                    className={clsx(classes.item, active && classes.itemActiveItem)}
+                    className={clsx(classes.item)}
                     style={{ color: path === href && '#4fc3f7' }}
                   >
                     <ListItemIcon className={classes.itemIcon}>{icon}</ListItemIcon>

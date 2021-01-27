@@ -1,8 +1,8 @@
 import styled from 'styled-components'
-import {motion} from 'framer-motion'
-import {device, colors} from "./breakpoints"
-import {TabContainer} from "./TabStyle"
-import {Button} from "./HomeStyle"
+import { motion } from 'framer-motion'
+import { device } from "./breakpoints"
+import { TabContainer } from "./TabStyle"
+import { Button } from "./HomeStyle"
 
 export const AuthTabContainer = styled(TabContainer)`
     
@@ -61,14 +61,19 @@ export const FacebookButton = styled(motion.div)`
     display: flex;
     justify-content: center;
     align-items: center;
+    span{
+        border-radius: 30px;
+    }
+    
     .MuiSvgIcon-root{
         margin-right: 5px;
     }
     .kep-login-facebook{
         font-family: 'Jost', sans-serif !important;
-        text-transform: capitalize !important;
         font-weight: 500 !important;
+        text-transform: capitalize;
         width: 500px !important;
+       
     }
 `
 

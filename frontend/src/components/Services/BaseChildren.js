@@ -1,11 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import NumRange from "../NumRange"
-import { useDispatch, useSelector } from "react-redux"
-import PaymentMethods from "../Payment/PaymentMethods"
-import Loader from "../Loaders/SimpleLoader"
-import { useHistory, Link } from "react-router-dom"
-import { listCardDetails } from '../../redux/actions/cardActions'
-import LaunchIcon from '@material-ui/icons/Launch';
+import { useSelector } from "react-redux"
 import ChoosePayment from './ChoosePayment';
 import Wallet from "../Utils/Wallet"
 import CurrencyFormat from 'react-currency-format';
@@ -19,7 +14,7 @@ const BaseChildren = ({ baseAmount, availability, name }) => {
     const [totalCost, setTotalCost] = useState(null)
 
     const cardOrderCreate = useSelector(state => state.cardOrderCreate)
-    const { order, success: createSuccess } = cardOrderCreate
+    const { success: createSuccess } = cardOrderCreate
 
     useEffect(() => {
         if (!cardLoading && !cardError) {

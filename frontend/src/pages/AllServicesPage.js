@@ -1,12 +1,11 @@
-import React, { useEffect } from 'react'
-import LoadCards from '../components/LoadCards'
+import React from 'react'
 import BaseRoot from "../components/Services/BaseRoot"
-import { ServicesContainer, ServicesCard } from "../styles/ServiceStyle"
+import { ServicesContainer } from "../styles/ServiceStyle"
 import ServicesItems from "../components/Services/ServicesItems"
 import { useSelector } from "react-redux"
-import { Link } from "react-router-dom"
 import Loader from "../components/Loaders/SimpleLoader"
 import Message from "../components/Message"
+import Meta from "../components/Meta"
 
 const AllServices = () => {
 
@@ -24,6 +23,7 @@ const AllServices = () => {
 
     return (
         <BaseRoot topText="Services">
+            <Meta />
 
             {
                 walletLoading ? <Loader /> :

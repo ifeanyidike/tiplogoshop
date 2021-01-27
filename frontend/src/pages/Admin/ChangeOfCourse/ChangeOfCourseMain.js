@@ -1,11 +1,11 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import Content from "../Content"
 import ChangeOfCourseList from "./ChangeOfCourseList"
 import ChangeOfCourseDetails from "./ChangeOfCourseDetails"
 
 const CardOrders = () => {
     const [value, setValue] = useState(0);
-    const labels = ["Change of Course Order List", "Change of Course Order Details"]
+    const labels = ["Data Correction Order List", "Data Correction Order Details"]
 
     return (
         <div>

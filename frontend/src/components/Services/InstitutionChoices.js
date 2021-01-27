@@ -1,12 +1,10 @@
 import axios from "axios"
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import { FormControl, InputAdornment, TextField } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles';
 import LoyaltyIcon from '@material-ui/icons/Loyalty';
 import SchoolIcon from '@material-ui/icons/School';
 import MenuBookIcon from '@material-ui/icons/MenuBook';
-import { useDispatch, useSelector } from "react-redux"
-import { listSchoolDetailsByProgramme } from "../../redux/actions/schoolActions"
 
 const useStyles = makeStyles((theme) => ({
     formControl: {
@@ -28,7 +26,6 @@ const InstitutionChoice = ({ stage, programme, setProgramme,
     const [courses, setCourses] = useState([])
     const [tempInstitution, setTempInstitution] = useState()
 
-
     const onProgrammeChange = (stage) => async (e) => {
         setProgramme({ ...programme, [stage]: e.target.value })
         const { data } = await axios.get(`/api/schools/programme/${e.target.value}`)
@@ -36,7 +33,6 @@ const InstitutionChoice = ({ stage, programme, setProgramme,
     }
 
     const onInstitutionChange = (stage) => async (e) => {
-
         const index = e.target.selectedIndex
         const selectedText = e.target[index].text
         setTempInstitution(e.target.value)

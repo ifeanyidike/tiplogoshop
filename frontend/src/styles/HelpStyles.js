@@ -1,5 +1,4 @@
 import styled from 'styled-components'
-import { motion } from 'framer-motion'
 import { device, colors } from "./breakpoints"
 import { AdminButtonPro } from "./AdminStyles"
 

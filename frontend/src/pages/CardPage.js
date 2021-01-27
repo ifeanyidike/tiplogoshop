@@ -2,11 +2,9 @@ import React, { useEffect } from 'react'
 import jwt_decode from 'jwt-decode'
 import BaseFile from "../components/Services/Base"
 import BaseChildren from "../components/Services/BaseChildren"
-import Header from "../components/MainHeader"
 import Loader from "../components/Loaders/SimpleLoader"
 import { useHistory, useLocation } from "react-router-dom"
 import { useDispatch, useSelector } from "react-redux"
-import { createOrder } from "../redux/actions/cardOrderActions"
 import { logout } from "../redux/actions/userActions"
 import { DRAWER_CLOSE } from "../redux/constants/utilConstants"
 import { Modal } from "../styles/ModalStyle"
@@ -16,6 +14,7 @@ import {
     listFewCards
 } from '../redux/actions/cardActions'
 import VpnKeyIcon from '@material-ui/icons/VpnKey';
+import Meta from "../components/Meta"
 
 const CardPage = () => {
     const history = useHistory()
@@ -28,7 +27,7 @@ const CardPage = () => {
     const { loading: cardsLoading, cards, error: cardsError } = cardListFew
 
     const cardDetails = useSelector(state => state.cardDetails)
-    const { loading: cardLoading, card, error: cardError } = cardDetails
+    const { loading: cardLoading, card } = cardDetails
 
     const dispatch = useDispatch()
 
@@ -57,6 +56,7 @@ const CardPage = () => {
 
     return (
         <div>
+            <Meta />
 
             {
                 !userInfo && (
@@ -71,19 +71,24 @@ const CardPage = () => {
                     </Modal>
                 )
             }
-
             <BaseFile
                 loading={cardsLoading}
                 cards={cards}
                 error={cardsError}
-                TopImage={<img src={card && card.upload && card.upload.image} alt={card.name} />}
-                topText={card.name}
+                TopImage={<img src={card && card.upload && card.upload.image} alt={card && card.name} />}
+                topText={card && card.name}
             >
-                <BaseChildren
-                    baseAmount={card.price}
-                    availability={card.countInStock > 0 ? "In stock" : "Out of stock"}
-                    name={card.name}
-                />
+                {
+                    cardLoading ? <Loader />
+                        :
+
+                        <BaseChildren
+                            baseAmount={card && card.price}
+                            availability={card && card.countInStock > 0 ? "In stock" : "Out of stock"}
+                            name={card && card.name}
+                        />
+
+                }
             </BaseFile>
         </div>
     )

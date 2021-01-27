@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import Content from "../Content"
 import JambPasswordResetList from "./JambPasswordResetList"
 import JambPasswordResetDetails from "./JambPasswordResetDetails"

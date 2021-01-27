@@ -3,7 +3,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import { Person as PersonIcon, Message as MessageIcon } from '@material-ui/icons'
 import { Input, FormControl } from '@material-ui/core'
 import { TextareaAutosize, InputLabel, InputAdornment } from '@material-ui/core'
-import { UserProfileContainer, AdminButton, AdminButtonAlt, AdminButtonPro, RightAlign, AdminHeader } from "../../../styles/AdminStyles"
+import { UserProfileContainer, AdminButton, AdminButtonPro, AdminHeader } from "../../../styles/AdminStyles"
 import { colors } from "../../../styles/breakpoints"
 import CurrencyFormat from "react-currency-format"
 import { Card, CardContent, Divider } from '@material-ui/core';
@@ -52,11 +52,6 @@ const OLevelUploadDetails = ({ setValue }) => {
             dispatch(getJambPasswordResetOrderDetailsById(orderId))
         }
     }, [dispatch, orderId])
-
-    const [upload, setUpload] = useState({
-        open: false,
-        files: []
-    })
 
     const jambPasswordResetOrderDetails = useSelector(state => state.jambPasswordResetOrderDetails)
     const { loading, error, order } = jambPasswordResetOrderDetails

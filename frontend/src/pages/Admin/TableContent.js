@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import clsx from 'clsx';
 import Table from '@material-ui/core/Table';
@@ -17,35 +17,13 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Switch from '@material-ui/core/Switch';
 import Loader from "../../components/Loaders/SimpleLoader"
 import ForwardIcon from '@material-ui/icons/Forward';
-import { useHistory, useLocation } from 'react-router-dom'
-import { descendingComparator, getComparator, stableSort, EnhancedTableHead } from "../../components/Admin/adminUtils"
+import { getComparator, stableSort, EnhancedTableHead } from "../../components/Admin/adminUtils"
 import { useToolbarStyles, useTableStyles } from "../../components/Admin/adminThemes"
 
 
 const EnhancedTableToolbar = (props) => {
   const classes = useToolbarStyles();
-  const { caption, handleOverview, setValue, setDescDisplay, id, numSelected } = props;
-  const history = useHistory()
-  const location = useLocation()
-  const itemsArray = location.pathname.split(/\//)
-  const itemName = itemsArray[itemsArray.length - 1]
-
-  // const handleOverview = () => {
-  //   if (setValue) {
-  //     setValue(1)
-  //     if (itemName === 'admin') {
-  //       history.push(`/admin/?userId=${id}`)
-  //     } else if (itemName === 'cards') {
-  //       history.push(`/admin/cards/?cardId=${id}`)
-  //     } else {
-  //       history.push(`/admin/${itemName}?userId=${id}`)
-  //     }
-  //   } else if (setDescDisplay) {
-  //     setDescDisplay(true)
-  //   }
-
-
-  // }
+  const { caption, handleOverview, id, numSelected } = props;
 
   return (
     <Toolbar

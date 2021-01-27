@@ -105,6 +105,14 @@ export const DrawerContent = styled(motion.div)`
             @media ${device.mobile_md}{  
                 padding: 20px 20px 20px 20px;
             }
+            .logo{
+               
+                height: 5px;
+                img{
+                   width: 90%;
+                    height: 50%;
+                }
+            } 
             svg{
                 margin-bottom: 30px;                
             }

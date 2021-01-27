@@ -106,6 +106,7 @@ const OLevelUploadForm = ({
                     >
                         <option value="WAEC">WAEC</option>
                         <option value="NECO">NECO</option>
+                        <option value="NABTEB">NABTEB</option>
                     </NativeSelect>
                     <FormHelperText>Select Type</FormHelperText>
                 </FormControl>

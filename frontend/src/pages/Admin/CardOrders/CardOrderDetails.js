@@ -1,6 +1,4 @@
 import React, { useState, useEffect } from 'react'
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import Switch from '@material-ui/core/Switch';
 import { UserProfileContainer, AdminButton } from "../../../styles/AdminStyles"
 import CurrencyFormat from "react-currency-format"
 import { Avatar, Card, CardContent, Divider } from '@material-ui/core';
@@ -121,6 +119,38 @@ const CardOrderDetails = ({ setValue }) => {
                                                     <div>
                                                         <span>Payment Email:</span>
                                                         <span>{order.paymentResult.email}</span>
+                                                    </div>
+                                                    <div className="fullwidth">
+                                                        {
+                                                            order.purchasedItems &&
+                                                            order.purchasedItems.map((item) => (
+                                                                (
+                                                                    <div className="embossitem" key={item._id}>
+                                                                        {
+                                                                            item.pin &&
+                                                                            <div>
+                                                                                <span>PIN: </span>
+                                                                                <span>{item.pin}</span>
+                                                                            </div>
+                                                                        }
+                                                                        {
+                                                                            item.token &&
+                                                                            <div>
+                                                                                <span>Token: </span>
+                                                                                <span>{item.token}</span>
+                                                                            </div>
+                                                                        }
+                                                                        {
+                                                                            item.serialNo &&
+                                                                            <div>
+                                                                                <span>Serial Number: </span>
+                                                                                <span>{item.serialNo}</span>
+                                                                            </div>
+                                                                        }
+                                                                    </div>
+                                                                )
+                                                            ))
+                                                        }
                                                     </div>
                                                 </>
                                             }

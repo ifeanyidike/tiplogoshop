@@ -3,9 +3,7 @@ import Header from "../components/MainHeader"
 import {
     HomeTopContainer,
     HomeTabContainer,
-    HomeCardContainer,
     HomeAltCardContainer,
-    HomeCounterContainer,
     HomeTestimonialContainer,
 } from "../styles/HomeStyle"
 import { Divider } from "../styles/globalStyles"
@@ -14,11 +12,10 @@ import Wavebottom from "../svg/wavebottom.js"
 import Tabs from "../components/TabContainer"
 import Testimonial from "../components/Testimonial"
 import TopSection from "../components/TopSection"
-import { cardFeatures, altCardFeatures, counter } from "../components/JsonAPIs"
-import Footer from "../components/Footer"
 import { useDispatch, useSelector } from "react-redux"
 import { listFewCards } from '../redux/actions/cardActions'
 import LoadCards from "../components/LoadCards"
+import Meta from "../components/Meta"
 
 const HomePage = ({ setShowDrawer }) => {
     const dispatch = useDispatch()
@@ -34,6 +31,7 @@ const HomePage = ({ setShowDrawer }) => {
 
     return (
         <React.Fragment>
+            <Meta />
             <HomeTopContainer>
                 <Header setShowDrawer={setShowDrawer} />
                 <TopSection />

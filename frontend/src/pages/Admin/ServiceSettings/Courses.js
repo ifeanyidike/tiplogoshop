@@ -5,7 +5,7 @@ import queryString from "query-string"
 import { useLocation } from "react-router-dom"
 import { Person as PersonIcon, Message as MessageIcon } from '@material-ui/icons'
 import { deleteCourse, listSchoolDetailsById, updateSchool } from '../../../redux/actions/schoolActions'
-import { Avatar, Card, CardContent, colors, Divider } from '@material-ui/core';
+import { Card, CardContent, colors, Divider } from '@material-ui/core';
 import { Input, FormControl } from '@material-ui/core'
 import { TextareaAutosize, InputLabel, InputAdornment, IconButton } from '@material-ui/core'
 import { SchoolsOverviewContainer, AdminButton, AdminButtonPro } from "../../../styles/AdminStyles"
