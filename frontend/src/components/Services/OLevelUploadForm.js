@@ -74,7 +74,6 @@ const OLevelUploadForm = ({
         setNum(newNum)
     }
     const { service } = useSelector(state => state.serviceByName)
-    console.log(upload)
 
     return (
         <div>
@@ -161,7 +160,7 @@ const OLevelUploadForm = ({
                         filesLimit={num}
                         required
                         clearOnUnmount={false}
-                        onChange={(files) => console.log('Files:', files)}
+                        // onChange={(files) => console.log('Files:', files)}
                         onSave={(files) => setUpload({ files: files, open: false })}
                         submitButtonText={` Add File${num === 2 ? 's' : ''}`}
                         acceptedFiles={['image/jpeg', 'image/png']}

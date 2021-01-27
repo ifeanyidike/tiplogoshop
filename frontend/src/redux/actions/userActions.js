@@ -159,7 +159,6 @@ export const emailAUser = (id, emailMessage) => async (dispatch, getState) => {
 
         const { data } = await axios.post(`/api/users/${id}/email`, emailMessage, config)
 
-        console.log(data)
         dispatch({
             type: USER_EMAIL_SUCCESS,
             payload: data
@@ -197,7 +196,6 @@ export const emailAUserByEmail = (email, emailMessage) => async (dispatch, getSt
 
         const { data } = await axios.post(`/api/users/email/${email}`, emailMessage, config)
 
-        console.log(data)
         dispatch({
             type: USER_EMAIL_BY_EMAIL_SUCCESS,
             payload: data

@@ -1,18 +1,21 @@
 import styled from 'styled-components'
-import { colors } from "./breakpoints"
+import { device, colors } from "./breakpoints"
 import { Button } from "./HomeStyle"
 
 export const NotFoundContainer = styled.div`
-    height: 82vh;    
+    height: 88vh;    
     
     .notfound{
         display: grid;
         place-items: center;   
-        margin-top: 50px; 
+        margin-top: 85px; 
         
         p {
             color: ${colors.white};        
             font-size: 10rem;
+            @media ${device.mobile_lg}{
+                font-size: 5rem;
+            }
             font-weight: 700;
             display: flex;
             font-family: 'Aclonica', sans-serif;
@@ -57,15 +60,40 @@ export const NotFoundContainer = styled.div`
             font-family: 'Aclonica', sans-serif;
             margin: 20px 0 10px 0;
             font-size: 2rem;
+            @media ${device.mobile_lg}{
+                font-size: 1rem;
+            }
         }
-        .text:{
+        .text{
             font-size: 1rem;
             margin-bottom: 5px;
+            text-align: center;
+            @media ${device.mobile_lg}{
+                font-size: 0.75rem;
+            }
         }
     }
 `
 
 export const UnAuthorizedContainer = styled(NotFoundContainer)`
+    .notfound {
+        p{
+            @media ${device.tablet_md}{
+                font-size: 7rem;
+            }
+            @media ${device.mobile_lg}{
+                font-size: 5rem;
+            }
+            @media ${device.mobile_md}{
+                font-size: 4rem;
+            }
+            @media ${device.mobile_sm}{
+                font-size: 3rem;
+            }
+        }
+        
+    }
+    
     
 `
 export const AccessButton = styled(Button)`
