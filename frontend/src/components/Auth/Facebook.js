@@ -22,7 +22,7 @@ const Facebook = () => {
             <FacebookLogin
                 icon="fa-facebook"
                 appId="634436600775486"
-                autoLoad={true}
+                autoLoad={false}
                 fields="name,email,picture"
                 onClick={componentClicked}
                 callback={clicked && responseFacebook}
