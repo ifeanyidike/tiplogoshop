@@ -48,7 +48,7 @@ export const documentsUpload = multer({
         fileSize: 1000 * 1000
     },
     fileFilter: function (req, file, cb) {
-        checkFileType(false, file, cb)
+        checkFileType(true, file, cb)
     }
 })
 
@@ -58,7 +58,7 @@ export const documentsUploadMemory = multer({
         fileSize: 1000 * 1000
     },
     fileFilter: function (req, file, cb) {
-        checkFileType(false, file, cb)
+        checkFileType(true, file, cb)
     }
 })
 

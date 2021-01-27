@@ -164,7 +164,7 @@ const OLevelUploadForm = ({
                         onChange={(files) => console.log('Files:', files)}
                         onSave={(files) => setUpload({ files: files, open: false })}
                         submitButtonText={` Add File${num === 2 ? 's' : ''}`}
-                        acceptedFiles={['image/jpeg', 'image/png', 'application/pdf']}
+                        acceptedFiles={['image/jpeg', 'image/png']}
                         showPreviews={true}
                         maxFileSize={5000000}
                         onClose={() => setUpload({ ...upload, open: false })}

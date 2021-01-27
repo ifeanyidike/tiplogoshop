@@ -103,7 +103,7 @@ const Services = ({ value }) => {
 
                                             <CurrencyFormat value={price} thousandSeparator={true} prefix={'₦'}
                                                 onValueChange={(values) => {
-                                                    const { formattedValue, value } = values;
+                                                    const { value } = values;
                                                     setPrice(value)
                                                 }}
                                             />
