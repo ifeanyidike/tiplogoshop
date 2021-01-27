@@ -252,7 +252,6 @@ export const deliverCardItems = (
         type: CARD_ITEM_DELIVER_SUCCESS,
         payload: data,
       })
-      console.log(data)
 
       if (data) {
         dispatch(cardDeliverOrder(orderId, data.purchasedItems, id))

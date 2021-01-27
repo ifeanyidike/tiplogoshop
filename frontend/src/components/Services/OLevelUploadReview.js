@@ -30,7 +30,6 @@ const OLevelUploadReview = ({
   setActiveStep
 }) => {
   const classes = useStyles();
-  console.log(upload)
   return (
     <div>
       <List>

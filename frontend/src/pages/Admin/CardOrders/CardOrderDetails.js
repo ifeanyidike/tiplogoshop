@@ -24,7 +24,6 @@ const CardOrderDetails = ({ setValue }) => {
     }, [dispatch, orderId])
 
     const { loading, error, order } = useSelector(state => state.cardOrderDetails)
-    console.log(order)
 
     const handleOrderDelete = () => {
         dispatch(deleteCardOrder(orderId))

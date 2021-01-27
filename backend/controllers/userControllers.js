@@ -229,9 +229,8 @@ export const emailAUserByEmail = asyncHandler(async (req, res) => {
     const users = await User.find({ email: req.params.email })
     const { subject, message: info } = req.body
 
-    const from = "nonreply@tiplogo.com"
+    const from = "noreply@tiplogo.com"
     const [user] = users
-    console.log(user)
 
     const recipients = [user.email, process.env.ADMIN_EMAIL]
     const heading = `Hi ${user.name}`
@@ -266,8 +265,7 @@ export const emailAUserByEmail = asyncHandler(async (req, res) => {
 export const emailAUser = asyncHandler(async (req, res) => {
     const user = await User.findById(req.params.id)
     const { subject, message: info } = req.body
-    console.log(req.body)
-    const from = "nonreply@tiplogo.com"
+    const from = "noreply@tiplogo.com"
     const recipients = [user.email, process.env.ADMIN_EMAIL]
     const heading = `Hi ${user.name}`
     const msg =
@@ -298,7 +296,7 @@ export const emailAllUsers = asyncHandler(async (req, res) => {
     const users = await User.find({})
     const { subject, message: info } = req.body
 
-    const from = "nonreply@tiplogo.com"
+    const from = "noreply@tiplogo.com"
     const recipients = users.map(user => user.email)
 
     const heading = `Dear valued customer,`
@@ -330,7 +328,7 @@ export const addProfilePhoto = asyncHandler(async (req, res) => {
 
     if (user) {
         // const attachment = request(req.file.path)
-        const from = "nonreply@tiplogo.com"
+        const from = "noreply@tiplogo.com"
         const subject = "Profile Picture Changed"
 
         const heading = `Hi ${user.name}`

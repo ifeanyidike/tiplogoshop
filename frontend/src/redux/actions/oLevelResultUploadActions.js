@@ -45,7 +45,6 @@ export const getOlevelUploadBlob = (orderId) => async (dispatch, getState) => {
 
         const { data } = await axios.get(`/api/olevelresultupload/${orderId}/blob`,
             { responseType: 'blob' }, config)
-        console.log(data)
         const file = new Blob([data], { type: 'application/pdf' })
         const fileURL = URL.createObjectURL(file);
 
@@ -53,7 +52,6 @@ export const getOlevelUploadBlob = (orderId) => async (dispatch, getState) => {
             type: OLEVEL_UPLOAD_BLOB_SUCCESS,
             payload: fileURL
         })
-        console.log(fileURL)
     } catch (error) {
         const message = error.response && error.response.data.message
             ? error.response.data.message

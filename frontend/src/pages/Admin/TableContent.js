@@ -87,8 +87,6 @@ export default function EnhancedTable({
   const [rowsPerPage, setRowsPerPage] = useState(3);
   const [itemId, setItemId] = useState("")
 
-  console.log(items)
-
   // const itemsList = useSelector(state => state.itemsList)
   // const { loading, error, items } = itemsList
 

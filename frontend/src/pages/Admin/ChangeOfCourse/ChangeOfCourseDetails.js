@@ -112,7 +112,7 @@ const ChangeOfCourseDetails = ({ setValue }) => {
                                                 open={upload.open}
                                                 filesLimit={1}
                                                 clearOnUnmount={false}
-                                                onChange={(files) => console.log('Files:', files)}
+                                                // onChange={(files) => console.log('Files:', files)}
                                                 onSave={handleFileSave}
                                                 submitButtonText="Add image"
                                                 acceptedFiles={['image/jpeg', 'image/png']}

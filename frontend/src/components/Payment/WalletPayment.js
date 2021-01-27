@@ -11,12 +11,9 @@ const WalletPayment = ({ orderitem, balance, order, setInsufficientAmount }) => 
     const cardId = orderitem.card
 
     const walletDebit = useSelector(state => state.walletDebit)
-    const { loading, error, userInfo } = walletDebit
-    console.log(userInfo)
+    const { loading, error } = walletDebit
 
     const handleWalletPay = async () => {
-        console.log(amount)
-
 
         if (balance && balance > 0) {
             //Update order as paid

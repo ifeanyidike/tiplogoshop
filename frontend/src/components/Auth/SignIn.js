@@ -32,7 +32,6 @@ export default function SignIn() {
   const dispatch = useDispatch()
   const userLogin = useSelector(state => state.userLogin)
   const { error, loading, userInfo } = userLogin
-  console.log(userLogin)
 
   const handleSubmit = e => {
     e.preventDefault()

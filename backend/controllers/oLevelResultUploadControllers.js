@@ -46,7 +46,6 @@ export const createOLevelResultUploadOrder = asyncHandler(async (req, res) => {
             //file removed
         })
     }
-    console.log(upload)
 
     // if (card.upload.cloudinary_id) {
     //     await cloudinary.uploader.destroy(card.upload.cloudinary_id);
@@ -55,7 +54,7 @@ export const createOLevelResultUploadOrder = asyncHandler(async (req, res) => {
         throw new Error('No order items or order items are incomplete')
     }
 
-    const from = "nonreply@tiplogo.com"
+    const from = "noreply@tiplogo.com"
     const subject = "O Level Result Upload Order"
 
     const heading = `Your O Level Result Upload Order`
@@ -208,7 +207,7 @@ export const adminOLevelResultUploadFileUpload = asyncHandler(async (req, res) =
 
     if (order) {
 
-        const from = "nonreply@tiplogo.com"
+        const from = "noreply@tiplogo.com"
         const subject = "O level result upload completed"
 
         const heading = `We have completed your o level result upload`
@@ -252,7 +251,6 @@ export const adminOLevelResultUploadFileUpload = asyncHandler(async (req, res) =
                         throw new Error('An error occurred when sending email')
                     } else {
                         res.send(result.secure_url)
-                        console.log(result.secure_url)
                     }
                 })
             }

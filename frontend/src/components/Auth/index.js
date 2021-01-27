@@ -29,7 +29,6 @@ export default function Auth() {
   const userLogin = useSelector(state => state.userLogin)
   const { userInfo } = userLogin
 
-  console.log(userInfo)
   useEffect(() => {
     if (userInfo) {
       // history.goBack()

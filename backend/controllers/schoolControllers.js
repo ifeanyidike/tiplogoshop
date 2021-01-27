@@ -86,7 +86,6 @@ export const updateSchool = asyncHandler(async (req, res) => {
 export const deleteCourse = asyncHandler(async (req, res) => {
     const { courses } = req.body
     const school = await School.findById(req.params.id)
-    console.log(courses)
     if (school) {
 
         school.courses.splice(0, school.courses.length, ...courses)

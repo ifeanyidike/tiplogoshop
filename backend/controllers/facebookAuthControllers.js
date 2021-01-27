@@ -14,7 +14,6 @@ export const facebooklogin = asyncHandler(async (req, res) => {
     fetch(urlGraphFacebook, { method: 'GET' })
         .then(response => response.json())
         .then(response => {
-            console.log(response)
             const { name, email, picture } = response
             const image = picture.data.url
             const profile = { picture: image }

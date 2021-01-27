@@ -32,7 +32,6 @@ export const createContact = asyncHandler(async (req, res) => {
 
         mg.messages().send(data, (error, body) => {
             if (error) {
-                console.log(error)
                 throw new Error(error)
             } else {
                 res.status(201).send("Message sent")

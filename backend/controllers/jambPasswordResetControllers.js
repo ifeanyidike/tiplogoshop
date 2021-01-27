@@ -21,7 +21,7 @@ export const createJambPasswordResetOrder = asyncHandler(async (req, res) => {
     if (orderItems && orderItems.length === 0) {
         throw new Error('No Order items')
     } else {
-        const from = "nonreply@tiplogo.com"
+        const from = "noreply@tiplogo.com"
         const subject = "Jamb Password Reset Order"
 
         const heading = `Your Jamb Password Reset Order`
@@ -114,7 +114,7 @@ export const getMyJambPasswordResetOrders = asyncHandler(async (req, res) => {
 export const getJambPasswordResetOrders = asyncHandler(async (req, res) => {
     const orders = await JambPasswordResetOrder.find({})
         .populate('user', 'id name')
-        .sort({createdAt: 'desc'})
+        .sort({ createdAt: 'desc' })
     res.json(orders)
 })
 

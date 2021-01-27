@@ -15,8 +15,7 @@ import datauri from 'datauri'
 
 export const createChangeOfCourseInstitutionOrder = asyncHandler(async (req, res) => {
     const { orderItems, price, paymentMethod, paymentResult } = req.body
-    console.log(req.user)
-    console.log(orderItems)
+
     if (!orderItems) {
         throw new Error('No order items')
     }
@@ -29,7 +28,7 @@ export const createChangeOfCourseInstitutionOrder = asyncHandler(async (req, res
         throw new Error('No Order items')
     } else {
 
-        const from = "nonreply@tiplogo.com"
+        const from = "noreply@tiplogo.com"
         const subject = "Jamb Change of Course and Institution Order"
 
         const heading = `Your Change of Course and Institution Order`
@@ -142,7 +141,7 @@ export const getMyChangeOfCourseInstitutionOrders = asyncHandler(async (req, res
 export const getChangeOfCourseInstitutionOrders = asyncHandler(async (req, res) => {
     const orders = await ChangeOfCourseInstitutionOrder.find({})
         .populate('user', 'id name')
-        .sort({createdAt: 'desc'})
+        .sort({ createdAt: 'desc' })
     res.json(orders)
 })
 
@@ -183,7 +182,7 @@ export const adminChangeOfCourseFileUpload = asyncHandler(async (req, res) => {
 
     if (order) {
         // const attachment = request(req.file.path)
-        const from = "nonreply@tiplogo.com"
+        const from = "noreply@tiplogo.com"
         const subject = "Change of course completed"
 
         const heading = `We have completed your change of course`

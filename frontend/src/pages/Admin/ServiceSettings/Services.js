@@ -45,8 +45,6 @@ const Services = ({ value }) => {
         const [serviceToUpdate] = servicesToUpdate
         const newService = { ...serviceToUpdate, cost: price }
         dispatch(updateService(newService))
-
-        // console.log(serviceToUpdate, serviceValue)
     }
 
     const handleServiceChange = (e) => {
@@ -54,7 +52,6 @@ const Services = ({ value }) => {
         setServiceValue(newService)
         dispatch(listServiceDetailsById(newService))
     }
-    console.log(value)
 
     return (
         <div>

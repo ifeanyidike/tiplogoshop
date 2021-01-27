@@ -26,7 +26,7 @@ export const registerUsers = asyncHandler(async (req, res) => {
 
     if (user) {
         const emailToken = generateShortToken(user._id, jwtEmailActivate, '30m')
-        const from = "nonreply@tiplogo.com"
+        const from = "noreply@tiplogo.com"
         const url = `${process.env.CLIENT_URL}/auth/activate/${emailToken}`
         const subject = "Email confirmation"
 
@@ -39,12 +39,10 @@ export const registerUsers = asyncHandler(async (req, res) => {
         const data = mgOptions(from, email, subject, message)
         mg.messages().send(data, (error, body) => {
             if (error) {
-                console.log(error)
                 res.send(error)
                 throw new Error(error)
 
             } else {
-                console.log(body)
                 res.status(201).json({
                     token: emailToken,
                     message: `Email sent, please activate your account to login`
@@ -77,7 +75,7 @@ export const resendEmail = asyncHandler(async (req, res) => {
 
     if (user) {
         const emailToken = generateShortToken(user._id, jwtEmailActivate, '30m')
-        const from = "nonreply@tiplogo.com"
+        const from = "noreply@tiplogo.com"
         const url = `${process.env.CLIENT_URL}/auth/activate/${emailToken}`
         const subject = "Email confirmation"
         const heading = 'Confirm your email'
@@ -89,7 +87,6 @@ export const resendEmail = asyncHandler(async (req, res) => {
         const data = mgOptions(from, email, subject, message)
         mg.messages().send(data, (error, body) => {
             if (error) {
-                console.log(error)
                 res.send(error)
                 throw new Error(error)
 
@@ -144,7 +141,7 @@ export const forgotPassword = asyncHandler(async (req, res) => {
     const user = await User.findOne({ email })
     const resetToken = generateShortToken(user._id, jwtPassReset, '30m')
 
-    const from = "nonreply@tiplogo.com"
+    const from = "noreply@tiplogo.com"
     const url = `${process.env.CLIENT_URL}/auth/passwordreset/${resetToken}`
     const subject = "Password Reset"
 
@@ -156,9 +153,9 @@ export const forgotPassword = asyncHandler(async (req, res) => {
 
     const data = mgOptions(from, email, subject, message)
 
-    if (user && user.confirmed) {
+    if (user && !user.confirmed) {
         res.status(401)
-        throw new Error("The email is not confirmed")
+        throw new Error("Confirm your email first before changing passwords")
     }
 
     if (user) {
@@ -168,7 +165,6 @@ export const forgotPassword = asyncHandler(async (req, res) => {
         if (updatedUser) {
             mg.messages().send(data, (error, body) => {
                 if (error) {
-                    console.log(error)
                     res.send(error)
                     throw new Error(error)
                 } else {

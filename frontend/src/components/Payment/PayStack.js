@@ -15,12 +15,10 @@ const PayStackPayment = ({ amount, onSuccess, simple }) => {
     useEffect(() => {
         const getKey = async () => {
             const { data: clientKey } = await axios.get('/api/config/paystack')
-            console.log(clientKey)
             setKey(clientKey)
         }
         getKey()
     }, [key])
-    console.log(key, amount)
 
     const config = {
         reference: (new Date()).getTime(),

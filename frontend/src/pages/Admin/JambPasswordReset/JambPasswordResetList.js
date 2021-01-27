@@ -25,7 +25,6 @@ const OLevelUploadList = ({ setValue }) => {
     }
 
     const { error, loading, orders } = useSelector(state => state.jambPasswordResetOrderList)
-    console.log(orders)
 
     return (
         <div>

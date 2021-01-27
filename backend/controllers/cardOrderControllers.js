@@ -11,7 +11,6 @@ import { mg, mgOptions, emailMessageCardTemplate, servicesMessageTemplate } from
 
 export const addCardOrderItems = asyncHandler(async (req, res) => {
     const { orderItems, paymentMethod } = req.body
-    console.log(req.user)
 
     if (orderItems && orderItems.length === 0) {
         throw new Error('No Order items')
@@ -26,7 +25,7 @@ export const addCardOrderItems = asyncHandler(async (req, res) => {
         const createdOrder = await order.save()
 
         if (createdOrder) {
-            const from = "nonreply@tiplogo.com"
+            const from = "noreply@tiplogo.com"
             const subject = "Card order placed"
 
             const heading = `Hi ${req.user.name}`
@@ -41,7 +40,6 @@ export const addCardOrderItems = asyncHandler(async (req, res) => {
 
             mg.messages().send(data, (error, body) => {
                 if (error) {
-                    console.log(error)
                     res.send(error)
                     throw new Error(error)
 
@@ -187,7 +185,7 @@ export const updateCardOrderToDelivered = asyncHandler(async (req, res) => {
     }
 
     if (order && order.isDelivered === false) {
-        const from = "nonreply@tiplogo.com"
+        const from = "noreply@tiplogo.com"
         const subject = `${card.name} Purchase`
 
         const heading = `Your ${card.name} details`
@@ -209,7 +207,6 @@ export const updateCardOrderToDelivered = asyncHandler(async (req, res) => {
         const data = mgOptions(from, user.email, subject, message)
         mg.messages().send(data, (error, body) => {
             if (error) {
-                console.log(error)
                 res.send(error)
                 throw new Error(error)
 

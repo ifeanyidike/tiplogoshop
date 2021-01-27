@@ -31,7 +31,6 @@ const JambPasswordReset = () => {
     const [email, setEmail] = useState("")
     const [dateOfBirth, setDateOfBirth] = useState(new Date())
     const [password, setPassword] = useState("")
-    console.log(dateOfBirth)
     const [activeStep, setActiveStep] = useState(0);
     const dispatch = useDispatch()
 

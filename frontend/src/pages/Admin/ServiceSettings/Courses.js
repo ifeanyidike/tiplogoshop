@@ -59,7 +59,6 @@ const Courses = ({ value }) => {
     const handleSchoolUpdate = e => {
         e.preventDefault()
         const newSchool = { ...school, programme: programme, institution: institution, courses: [] }
-        console.log(newSchool)
         dispatch(updateSchool(newSchool))
         dispatch(listSchoolDetailsById(schoolId))
     }
@@ -95,11 +94,9 @@ const Courses = ({ value }) => {
         const courses = multiLineCourses.split("\n")
 
         const newCourses = school.courses.map(prevCourse => prevCourse)
-        console.log(courses)
         for (let course of courses) {
             if (newCourses.includes(course)) {
                 dispatch(setMessage(`${course} already exists`))
-                console.log(`${course} already exists`)
                 return
             }
             if (course === '') {
