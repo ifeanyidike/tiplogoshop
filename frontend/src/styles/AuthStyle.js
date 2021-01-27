@@ -57,12 +57,15 @@ export const AuthButton = styled(Button)`
 `
 
 export const FacebookButton = styled(motion.div)`
-    width: 100% !important;        
+    
+    width: 500px !important;        
     display: flex;
     justify-content: center;
     align-items: center;
+    border-radius: 20px;
     span{
-        border-radius: 30px;
+        border-radius: 10px !important;
+        width: 100%
     }
     
     .MuiSvgIcon-root{
@@ -72,7 +75,7 @@ export const FacebookButton = styled(motion.div)`
         font-family: 'Jost', sans-serif !important;
         font-weight: 500 !important;
         text-transform: capitalize;
-        width: 500px !important;
+        width: 100% !important;
        
     }
 `
