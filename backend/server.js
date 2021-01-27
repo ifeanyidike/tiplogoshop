@@ -68,11 +68,3 @@ const PORT = process.env.PORT || 4000
 
 app.listen(PORT,
   console.log(`Server running on ${process.env.NODE_ENV} mode or port ${PORT}`))
-
-
-process.on('SIGINT', function () {
-  mongoose.connection.close(function () {
-    console.log('Mongoose disconnected on app termination');
-    process.exit(0);
-  });
-});
