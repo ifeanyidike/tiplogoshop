@@ -155,7 +155,7 @@ export const getMyOLevelResultUploadOrders = asyncHandler(async (req, res) => {
 export const getOLevelResultUploadOrders = asyncHandler(async (req, res) => {
     const orders = await OLevelResultUploadOrder.find({})
         .populate('user', 'id name')
-        .sort({createdAt: 'desc'})
+        .sort({ createdAt: 'desc' })
     res.json(orders)
 })
 
@@ -246,7 +246,7 @@ export const adminOLevelResultUploadFileUpload = asyncHandler(async (req, res) =
             const updatedOrder = await order.save()
 
             if (updatedOrder) {
-                
+
                 mg.messages().send(data, (error, body) => {
                     if (error) {
                         throw new Error('An error occurred when sending email')
