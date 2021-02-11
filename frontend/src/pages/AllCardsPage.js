@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from "react-redux"
 import { listCards } from '../redux/actions/cardActions'
 import { DRAWER_CLOSE } from "../redux/constants/utilConstants"
 import Meta from "../components/Meta"
+import { animateScroll as scroll } from 'react-scroll'
 
 
 const AllCardsPage = () => {
@@ -20,6 +21,10 @@ const AllCardsPage = () => {
     useEffect(() => {
         dispatch(listCards())
     }, [dispatch])
+
+    useEffect(() => {
+        scroll.scrollToTop()
+    }, [])
 
     return (
         <div>

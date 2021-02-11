@@ -4,10 +4,15 @@ import { useDispatch, useSelector } from "react-redux"
 import { activateAccount } from "../redux/actions/userActions"
 import { useLocation, Link } from "react-router-dom"
 import { EmailConfirmation } from "../styles/AuthStyle"
+import { animateScroll as scroll } from 'react-scroll'
 
 const ActivateAccount = () => {
     const location = useLocation()
     const dispatch = useDispatch()
+
+    useEffect(() => {
+        scroll.scrollToTop()
+    }, [])
 
     useEffect(() => {
         const splittedPath = location.pathname.split(/\//)

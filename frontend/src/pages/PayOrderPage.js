@@ -17,6 +17,7 @@ import WalletPayment from "../components/Payment/WalletPayment"
 import { CARD_ORDER_PAY_RESET } from '../redux/constants/cardOrderConstants';
 import Message from "../components/Message"
 import Meta from "../components/Meta"
+import { animateScroll as scroll } from 'react-scroll'
 
 const PayOrder = () => {
     const dispatch = useDispatch()
@@ -39,6 +40,10 @@ const PayOrder = () => {
     const { error: walletError, loading: walletLoading } = walletDebit
 
     const { wallet } = useSelector(state => state.userWalletAmount)
+
+    useEffect(() => {
+        scroll.scrollToTop()
+    }, [])
 
     let orderitem;
     let balance;

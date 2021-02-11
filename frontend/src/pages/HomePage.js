@@ -16,6 +16,7 @@ import { useDispatch, useSelector } from "react-redux"
 import { listFewCards } from '../redux/actions/cardActions'
 import LoadCards from "../components/LoadCards"
 import Meta from "../components/Meta"
+import { animateScroll as scroll } from 'react-scroll'
 
 const HomePage = ({ setShowDrawer }) => {
     const dispatch = useDispatch()
@@ -23,6 +24,10 @@ const HomePage = ({ setShowDrawer }) => {
     useEffect(() => {
         dispatch(listFewCards(4))
     }, [dispatch])
+
+    useEffect(() => {
+        scroll.scrollToTop()
+    }, [])
 
     const cardListFew = useSelector(state => state.cardListFew)
     const { loading: cardsLoading, cards, error: cardsError } = cardListFew

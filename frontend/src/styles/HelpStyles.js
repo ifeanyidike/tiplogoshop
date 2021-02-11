@@ -12,6 +12,9 @@ export const HelpContainer = styled.div`
         height: 30vh;        
          display: grid; 
          place-items: center; 
+         h2{
+             color: ${colors.white}
+         }
     }
     
     h2{

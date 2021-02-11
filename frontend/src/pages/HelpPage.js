@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import MainHeader from "../components/MainHeader"
 import { HelpContainer, HelpButtonPro } from "../styles/HelpStyles"
 import { Person as PersonIcon, Message as MessageIcon } from '@material-ui/icons'
@@ -17,6 +17,7 @@ import { createContact } from '../redux/actions/contactActions';
 import Loader from "../components/Loaders/SimpleLoader"
 import Message from "../components/Message"
 import Meta from "../components/Meta"
+import { animateScroll as scroll } from 'react-scroll'
 
 const Help = () => {
     const [name, setName] = useState("")
@@ -25,6 +26,10 @@ const Help = () => {
     const [purpose, setPurpose] = useState("")
 
     const dispatch = useDispatch()
+
+    useEffect(() => {
+        scroll.scrollToTop()
+    }, [])
 
     const handleSubmit = e => {
         e.preventDefault()
@@ -46,8 +51,10 @@ const Help = () => {
         <HelpContainer>
             <Meta />
             <MainHeader />
-            <div className="topimage"></div>
-            <h2>Need any help? Contact us</h2>
+            <div className="topimage">
+                <h2>Need any help?</h2>
+            </div>
+            <h2> Contact us</h2>
             <main className="content">
 
                 <div className="topcontent">

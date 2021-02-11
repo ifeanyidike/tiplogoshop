@@ -33,7 +33,8 @@ import Footer from "./components/Footer"
 import { useHistory, useLocation } from "react-router-dom"
 import { useSelector, useDispatch } from "react-redux"
 import { DRAWER_CLOSE } from "./redux/constants/utilConstants"
-
+import ScrollButton from "./components/ScrollButton"
+import { animateScroll as scroll } from 'react-scroll'
 
 function App() {
   const location = useLocation()
@@ -42,10 +43,9 @@ function App() {
   const pathname = location.pathname.split(/\//)
   const { userInfo } = useSelector(state => state.userLogin)
 
-  const tawkToPropertyId = '6024f0b0918aa261273ddbcf'
 
   useEffect(() => {
-    tawkTo(tawkToPropertyId)
+    scroll.scrollToTop()
   }, [])
 
   useEffect(() => {
@@ -172,8 +172,9 @@ function App() {
           <NotFoundPage />
           <Footer />
         </Route>
-      </Switch>
 
+      </Switch>
+      <ScrollButton />
     </>
   );
 }

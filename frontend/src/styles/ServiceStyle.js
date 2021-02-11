@@ -23,9 +23,12 @@ export const BaseContainer = styled(motion.div)`
         background-color: ${colors.darktext};
         background-blend-mode: lighten;
         background-position: center;
-        height: 40vh;        
-         display: grid; 
-         place-items: center; 
+        height: 30vh;        
+        @media ${device.laptop}{
+            height: 20vh;
+        }
+        display: grid; 
+        place-items: center; 
                 
         .centeritem{            
             width: fit-content;                

@@ -25,6 +25,12 @@ const Footer = ({ hide }) => {
                             <Link to='/'>Home</Link>
                         </li>
                         <li>
+                            <Link to='/allcards'>Buy cards</Link>
+                        </li>
+                        <li>
+                            <Link to='/services'>Jamb services</Link>
+                        </li>
+                        <li>
                             <Link to='/help'>Contact Us</Link>
                         </li>
                         <li>

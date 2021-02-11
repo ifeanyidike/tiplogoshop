@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { Grid, TextField, InputAdornment } from '@material-ui/core';
 import DraftsIcon from '@material-ui/icons/Drafts';
 import { useDispatch, useSelector } from "react-redux"
@@ -7,6 +7,7 @@ import Header from "../components/MainHeader"
 import { ResetButton, PasswordResetContainer } from "../styles/AuthStyle"
 import Loader from "../components/Loaders/SimpleLoader"
 import Meta from "../components/Meta"
+import { animateScroll as scroll } from 'react-scroll'
 
 const ResendEmail = () => {
 
@@ -14,6 +15,10 @@ const ResendEmail = () => {
     const [email, setEmail] = useState('')
 
     const { loading, error, result } = useSelector(state => state.emailResend)
+
+    useEffect(() => {
+        scroll.scrollToTop()
+    }, [])
 
     const handleSubmit = (e) => {
         e.preventDefault()

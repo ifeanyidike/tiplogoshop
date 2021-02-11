@@ -15,6 +15,7 @@ import {
 } from '../redux/actions/cardActions'
 import VpnKeyIcon from '@material-ui/icons/VpnKey';
 import Meta from "../components/Meta"
+import { animateScroll as scroll } from 'react-scroll'
 
 const CardPage = () => {
     const history = useHistory()
@@ -28,6 +29,10 @@ const CardPage = () => {
 
     const cardDetails = useSelector(state => state.cardDetails)
     const { loading: cardLoading, card } = cardDetails
+
+    useEffect(() => {
+        scroll.scrollToTop()
+    }, [])
 
     const dispatch = useDispatch()
 

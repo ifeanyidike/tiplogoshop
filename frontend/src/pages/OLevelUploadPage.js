@@ -16,6 +16,8 @@ import { JAMB_PASSWORD_RESET_CREATE_RESET } from '../redux/constants/jambPasswor
 import { COCI_CREATE_RESET } from '../redux/constants/changeOfCourseConstants'
 import NotLoggedIn from "../components/Utils/NotLoggedIn"
 import Meta from "../components/Meta"
+import { animateScroll as scroll } from 'react-scroll'
+
 
 const useStyles = makeStyles((theme) => ({
     stepper: {
@@ -39,6 +41,10 @@ const ChangeOfCourseInstitution = () => {
     const { userInfo } = userLogin
 
     const [activeStep, setActiveStep] = useState(0);
+
+    useEffect(() => {
+        scroll.scrollToTop()
+    }, [])
 
     useEffect(() => {
         dispatch({ type: WALLET_DEBIT_RESET })

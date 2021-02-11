@@ -1,11 +1,16 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import MainHeader from '../components/MainHeader.js'
 import { UnAuthorizedContainer, AccessButton } from "../styles/NotFoundStyles.js"
 import { useHistory } from "react-router-dom"
 import Meta from "../components/Meta"
+import { animateScroll as scroll } from 'react-scroll'
 
 const NotFoundPage = () => {
     const history = useHistory()
+
+    useEffect(() => {
+        scroll.scrollToTop()
+    }, [])
 
     return (
         <UnAuthorizedContainer >

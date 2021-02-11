@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import BaseRoot from "../components/Services/BaseRoot"
 import { ServicesContainer } from "../styles/ServiceStyle"
 import ServicesItems from "../components/Services/ServicesItems"
@@ -7,8 +7,13 @@ import Loader from "../components/Loaders/SimpleLoader"
 import Message from "../components/Message"
 import Meta from "../components/Meta"
 import JambServiceHowTo from '../components/Services/JambServiceHowTo'
+import { animateScroll as scroll } from 'react-scroll'
 
 const AllServices = () => {
+
+    useEffect(() => {
+        scroll.scrollToTop()
+    }, [])
 
     const changeOfCourseOrderCreate = useSelector(state => state.changeOfCourseOrderCreate)
     const { loading: cocLoading, error: cocError, success: cocSuccess } = changeOfCourseOrderCreate

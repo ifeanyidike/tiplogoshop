@@ -11,6 +11,7 @@ import Loader from "../components/Loaders/SimpleLoader"
 import Wallet from "../components/Utils/Wallet"
 import { DropzoneDialog } from 'material-ui-dropzone'
 import Meta from "../components/Meta"
+import { animateScroll as scroll } from 'react-scroll'
 
 const ProfilePage = () => {
     const [upload, setUpload] = useState({
@@ -34,6 +35,10 @@ const ProfilePage = () => {
 
     const userLogin = useSelector(state => state.userLogin)
     const { userInfo } = userLogin
+
+    useEffect(() => {
+        scroll.scrollToTop()
+    }, [])
 
     useEffect(() => {
         dispatch(setUserImage())
