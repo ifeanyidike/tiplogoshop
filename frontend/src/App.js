@@ -1,4 +1,5 @@
 import React, { useEffect } from "react"
+import tawkTo from 'tawkto-react'
 import HomePage from "./pages/HomePage"
 import AuthPage from "./pages/AuthPage"
 import AllServicesPage from "./pages/AllServicesPage"
@@ -40,6 +41,12 @@ function App() {
   const dispatch = useDispatch()
   const pathname = location.pathname.split(/\//)
   const { userInfo } = useSelector(state => state.userLogin)
+
+  const tawkToPropertyId = '6024f0b0918aa261273ddbcf'
+
+  useEffect(() => {
+    tawkTo(tawkToPropertyId)
+  }, [])
 
   useEffect(() => {
     dispatch({ type: DRAWER_CLOSE })
