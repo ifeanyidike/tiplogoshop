@@ -1,5 +1,6 @@
 import asyncHandler from "express-async-handler"
 import Review from "../models/reviewModels.js"
+import User from "../models/userModels.js"
 
 // @desc    Fetch all reviews
 // @route   GET /api/reviews
@@ -57,6 +58,11 @@ export const getReviewByUserId = asyncHandler(async (req, res) => {
 // @access  Private/Admin
 export const deleteReview = asyncHandler(async (req, res) => {
     const review = await Review.findById(req.params.id)
+    const operatingUser = await User.findById(req.user._id)
+
+    if (!operatingUser.isAdmin) {
+        throw new Error('Only admin can delete a review')
+    }
 
     if (review) {
 

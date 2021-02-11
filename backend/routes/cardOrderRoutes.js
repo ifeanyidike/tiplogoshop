@@ -13,10 +13,10 @@ import {
     deleteOrder
 } from "../controllers/cardOrderControllers.js"
 
-import { protect, admin } from "../middlewares/authMiddleware.js"
+import { protect, admin, managers } from "../middlewares/authMiddleware.js"
 
 router.route("/").post(protect, addCardOrderItems)
-    .get(protect, admin, getCardOrders)
+    .get(protect, managers, getCardOrders)
 
 router.route('/myorders').get(protect, getMyCardOrders)
 

@@ -14,9 +14,9 @@ import {
 
 import { profilePhotoUpload, imageMemoryUpload } from "../controllers/uploadControllers.js"
 import { createSoldCard, getMySoldCards } from "../controllers/soldCardControllers.js"
-import { protect, admin } from "../middlewares/authMiddleware.js"
+import { protect, admin, managers } from "../middlewares/authMiddleware.js"
 
-router.route("/").get(getCards).post(protect, admin, createCard)
+router.route("/").get(getCards).post(protect, managers, createCard)
 router.route("/few/:num").get(getFewCards)
 router.route('/:id').get(getCardById)
     .delete(protect, admin, deleteCard)
@@ -24,7 +24,7 @@ router.route('/:id').get(getCardById)
 
 router.route("/:id/items")
     .patch(protect, deliverCardItem)
-    .put(protect, admin, addCardItem)
+    .put(protect, managers, addCardItem)
 
 router.route("/sold/:cardId/:userId")
     .post(protect, createSoldCard)

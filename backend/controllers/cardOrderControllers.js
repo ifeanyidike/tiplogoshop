@@ -242,6 +242,11 @@ export const getMyNotPaidCardOrders = asyncHandler(async (req, res) => {
 // @access  Private/Admin
 export const deleteOrder = asyncHandler(async (req, res) => {
     const order = await CardOrder.findById(req.params.id)
+    const operatingUser = await User.findById(req.user._id)
+
+    if (!operatingUser.isAdmin) {
+        throw new Error('Only admin can delete an order')
+    }
 
     if (order) {
         order.remove()

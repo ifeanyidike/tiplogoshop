@@ -21,12 +21,19 @@ export const HomeTabContainer = styled.div`
     background: linear-gradient(180deg, rgba(254,254,254,1) 12%, rgba(253,254,254,1) 27%, rgba(253,253,253,1) 41%, rgba(248,248,250,1) 57%, rgba(245,246,248,1) 70%, rgba(244,245,247,1) 83%);
     height: fit-content; 
     padding: 120px 80px 80px 80px;
+    @media ${device.mobile_lg}{
+        padding: 40px;
+    }
     
 `
 
 export const HomeAltCardContainer = styled.div`
     background: ${colors.background};   
     padding: 80px;    
+
+    @media ${device.mobile_lg}{
+        padding: 40px;
+    }
     
     h2{
         font-family: 'Aclonica', sans-serif;  
@@ -122,6 +129,9 @@ export const HomeCounterContainer = styled.div`
 `
 export const HomeTestimonialContainer = styled(TestimonialContainer)`
     padding: 80px;
+    @media ${device.mobile_lg}{
+        padding: 40px;
+    }
     .testimonial__content{
         h2{
             font-family: 'Aclonica', sans-serif;

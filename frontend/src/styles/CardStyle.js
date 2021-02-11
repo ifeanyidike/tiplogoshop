@@ -189,7 +189,7 @@ export const CardContainer = styled(motion.div)`
     p,span, a{
         margin-top: 20px;
         font-family: 'Jost', sans-serif;
-        font-size: 1rem;        
+        font-size: 1.1rem;        
     }            
     p{
         margin-bottom: 20px;
@@ -224,7 +224,7 @@ export const TopCardPane = styled(motion.div)`
     }
     span{
         font-family: 'Jost', sans-serif;
-        font-size: 0.875rem;
+        font-size: 0.9rem;
     }
     
     &:hover{

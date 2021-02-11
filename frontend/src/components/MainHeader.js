@@ -157,7 +157,7 @@ const MainHeader = ({ setShowDrawer }) => {
                             <>
 
                                 {
-                                    userInfo.isAdmin &&
+                                    (userInfo.isAdmin || userInfo.isEditor) &&
                                     <motion.li
                                         variants={headerTextVariants}
                                         initial="initial"

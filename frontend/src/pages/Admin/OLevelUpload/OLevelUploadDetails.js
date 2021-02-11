@@ -60,6 +60,8 @@ const OLevelUploadDetails = ({ setValue }) => {
         files: []
     })
 
+    const { userInfo } = useSelector(state => state.userLogin)
+
     const oLevelUploadOrderDetails = useSelector(state => state.oLevelUploadOrderDetails)
     const { loading, error, order } = oLevelUploadOrderDetails
 
@@ -209,9 +211,11 @@ const OLevelUploadDetails = ({ setValue }) => {
                                             </div>
 
                                             <Divider />
-                                            <div className="actions">
-                                                <AdminButton onClick={() => setDeletePrompt(true)}>Delete Order</AdminButton>
-                                            </div>
+                                            {
+                                                userInfo.isAdmin && <div className="actions">
+                                                    <AdminButton onClick={() => setDeletePrompt(true)}>Delete Order</AdminButton>
+                                                </div>
+                                            }
 
                                         </CardContent>
                                     </Card>

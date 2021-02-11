@@ -67,7 +67,7 @@ const Services = ({ value }) => {
                                 <AdminPrice >
                                     <Card >
                                         <CardContent>
-                                            <h3>Set Change of Course Cost</h3>
+                                            <h3>Set Service Cost</h3>
 
                                             <FormControl fullWidth className={classes.formControl}>
                                                 <TextField

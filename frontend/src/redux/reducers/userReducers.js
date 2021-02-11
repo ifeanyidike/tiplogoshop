@@ -55,7 +55,10 @@ import {
     USER_EMAIL_BY_EMAIL_FAIL,
     WALLET_AMOUNT_REQUEST,
     WALLET_AMOUNT_SUCCESS,
-    WALLET_AMOUNT_FAIL
+    WALLET_AMOUNT_FAIL,
+    USER_MAKEEDITOR_REQUEST,
+    USER_MAKEEDITOR_SUCCESS,
+    USER_MAKEEDITOR_FAIL
 } from "../constants/userConstants"
 
 
@@ -176,6 +179,31 @@ export const userMakeAdminReducer = (state = {}, action) => {
             }
 
         case USER_MAKEADMIN_FAIL:
+            return {
+                loading: false,
+                error: action.payload
+            }
+
+        default:
+            return state
+    }
+}
+
+
+export const userMakeEditorReducer = (state = {}, action) => {
+    switch (action.type) {
+        case USER_MAKEEDITOR_REQUEST:
+            return {
+                loading: true
+            }
+
+        case USER_MAKEEDITOR_SUCCESS:
+            return {
+                loading: false,
+                success: true
+            }
+
+        case USER_MAKEEDITOR_FAIL:
             return {
                 loading: false,
                 error: action.payload

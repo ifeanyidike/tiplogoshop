@@ -9,15 +9,15 @@ import {
     deleteContact,
 } from "../controllers/contactControllers.js"
 
-import { protect, admin } from "../middlewares/authMiddleware.js"
+import { protect, admin, managers } from "../middlewares/authMiddleware.js"
 
 router.route("/").post(createContact)
-    .get(protect, admin, getAllContacts)
+    .get(protect, managers, getAllContacts)
 
 router.route("/:id")
-    .get(protect, admin, getContactById)
+    .get(protect, managers, getContactById)
     .delete(protect, admin, deleteContact)
 
-router.route("/byemail/:email").get(protect, admin, getContactByEmail)
+router.route("/byemail/:email").get(protect, managers, getContactByEmail)
 
 export default router

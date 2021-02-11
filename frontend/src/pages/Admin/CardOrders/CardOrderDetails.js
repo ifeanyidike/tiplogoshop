@@ -23,6 +23,7 @@ const CardOrderDetails = ({ setValue }) => {
 
     }, [dispatch, orderId])
 
+    const { userInfo } = useSelector(state => state.userLogin)
     const { loading, error, order } = useSelector(state => state.cardOrderDetails)
 
     const handleOrderDelete = () => {
@@ -159,10 +160,12 @@ const CardOrderDetails = ({ setValue }) => {
                                         </div>
 
                                         <Divider />
-                                        <div className="actions">
-
-                                            <AdminButton onClick={() => setDeletePrompt(true)}>Delete Order</AdminButton>
-                                        </div>
+                                        {
+                                            userInfo.isAdmin &&
+                                            <div className="actions">
+                                                <AdminButton onClick={() => setDeletePrompt(true)}>Delete Order</AdminButton>
+                                            </div>
+                                        }
 
                                     </CardContent>
                                 </Card>

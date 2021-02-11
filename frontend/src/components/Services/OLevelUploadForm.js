@@ -16,6 +16,7 @@ import MessageModal from "../Utils/MessageModal"
 import { useDispatch, useSelector } from "react-redux"
 import { WALLET_DEBIT_RESET } from '../../redux/constants/userConstants'
 import { listServiceByName } from "../../redux/actions/serviceActions"
+import ServiceAlert from './ServiceAlert';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -77,6 +78,7 @@ const OLevelUploadForm = ({
 
     return (
         <div>
+            <ServiceAlert />
 
             <div className="topmainitem">
                 <div>

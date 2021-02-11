@@ -236,6 +236,7 @@ export const loginUsers = asyncHandler(async (req, res) => {
             email: user.email,
             type: user.type,
             isAdmin: user.isAdmin,
+            isEditor: user.isEditor,
             token: generateToken(user._id),
             wallet: user.wallet,
             profile: user.profile

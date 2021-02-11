@@ -9,6 +9,7 @@ import TableHead from '@material-ui/core/TableHead';
 import TablePagination from '@material-ui/core/TablePagination';
 import TableRow from '@material-ui/core/TableRow';
 import { useHistory } from "react-router-dom"
+import { useSelector } from "react-redux"
 
 const useStyles = makeStyles({
     root: {
@@ -24,6 +25,7 @@ export default function StickyHeadTable({ columns, rows, setValue }) {
     const [page, setPage] = React.useState(0);
     const [rowsPerPage, setRowsPerPage] = React.useState(10);
     const history = useHistory()
+    const { userInfo } = useSelector(state => state.userLogin)
 
     const handleChangePage = (event, newPage) => {
         setPage(newPage);
@@ -36,7 +38,7 @@ export default function StickyHeadTable({ columns, rows, setValue }) {
 
     const handleRowClick = (id) => {
         history.push(`?schoolId=${id}`)
-        setValue(2)
+        userInfo.isAdmin ? setValue(2) : setValue(1)
     }
 
     return (

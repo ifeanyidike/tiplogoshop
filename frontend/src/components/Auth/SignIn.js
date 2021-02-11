@@ -141,11 +141,13 @@ export default function SignIn() {
 
           </Grid>
 
-          <AuthButton>Sign In</AuthButton>
+          <div className="actioncontainer">
+            <AuthButton>Sign In</AuthButton>
 
-          <FacebookButton>
-            <FacebookIcon /> <span>Signin with Facebook</span>
-          </FacebookButton>
+            <FacebookButton>
+              <FacebookIcon /> <span>Signin with Facebook</span>
+            </FacebookButton>
+          </div>
 
         </Grid>
       </form>

@@ -11,10 +11,10 @@ import {
     deleteJambPasswordResetOrder
 } from "../controllers/jambPasswordResetControllers.js"
 
-import { protect, admin } from "../middlewares/authMiddleware.js"
+import { protect, admin, managers } from "../middlewares/authMiddleware.js"
 
 router.route("/").post(protect, createJambPasswordResetOrder)
-    .get(protect, admin, getJambPasswordResetOrders)
+    .get(protect, managers, getJambPasswordResetOrders)
 
 router.route('/myorders').get(protect, getMyJambPasswordResetOrders)
 router.route('/myorders/:userId').get(protect, adminGetMyJambPasswordResetOrders)

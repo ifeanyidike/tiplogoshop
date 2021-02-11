@@ -21,7 +21,7 @@ const OLevelUploadList = ({ setValue }) => {
 
     const handleOverview = (id) => {
         setValue(1)
-        history.push(`/admin/jambpasswordreset/?orderId=${id}`)
+        history.push(`/admin/jambpasswordreset?orderId=${id}`)
     }
 
     const { error, loading, orders } = useSelector(state => state.jambPasswordResetOrderList)

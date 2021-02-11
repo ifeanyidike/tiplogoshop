@@ -49,6 +49,11 @@ const userSchema = mongoose.Schema({
         required: true,
         default: false,
     },
+    isEditor: {
+        type: Boolean,
+        required: true,
+        default: false,
+    },
     resetLink: {
         type: String,
         default: '',

@@ -1,12 +1,11 @@
 import mongoose from "mongoose"
 import asyncHandler from "express-async-handler"
 import ChangeOfCourseInstitutionOrder from "../models/jambChangeModels.js"
+import User from "../models/userModels.js"
 import { mg, mgOptions, servicesMessageTemplate, mgOptionsWithAttachment } from "../utils/sendEmail.js"
 import request from "request"
-import path from "path"
 import fs from "fs"
 import { uploader } from 'cloudinary'
-import datauri from 'datauri'
 
 
 //@desc     Create new changeofcourseinstitution
@@ -151,8 +150,13 @@ export const getChangeOfCourseInstitutionOrders = asyncHandler(async (req, res) 
 
 export const deleteChangeOfCourseInstitutionOrder = asyncHandler(async (req, res) => {
     const order = await ChangeOfCourseInstitutionOrder.findById(req.params.id)
-    if (order) {
+    const operatingUser = await User.findById(req.user._id)
 
+    if (!operatingUser.isAdmin) {
+        throw new Error('Only admin can delete an order')
+    }
+
+    if (order) {
         if (order.admin_upload.cloudinary) {
             await uploader.destroy(order.admin_upload.cloudinary_id);
         }

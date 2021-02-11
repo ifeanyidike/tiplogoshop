@@ -24,7 +24,7 @@ const ChangeOfCourseList = ({ setValue }) => {
 
     const handleOverview = (id) => {
         setValue(1)
-        history.push(`/admin/changeofcourse/?orderId=${id}`)
+        history.push(`/admin/changeofcourse?orderId=${id}`)
     }
 
     const { error, loading, orders } = useSelector(state => state.changeOfCourseOrderList)

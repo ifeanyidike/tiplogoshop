@@ -18,6 +18,7 @@ import {
     getUser,
     deleteUser,
     makeAdmin,
+    makeEditor,
     emailAUser,
     emailAllUsers,
     addProfilePhoto,
@@ -25,7 +26,7 @@ import {
     getWalletAmount
 } from "../controllers/userControllers.js"
 import { facebooklogin } from "../controllers/facebookAuthControllers.js"
-import { protect, admin } from "../middlewares/authMiddleware.js"
+import { protect, admin, managers } from "../middlewares/authMiddleware.js"
 import { profilePhotoMemoryUpload } from "../controllers/uploadControllers.js"
 
 router.post('/register', registerUsers)
@@ -39,12 +40,13 @@ router.route('/profile/update').put(protect, updateUserProfile)
 router.route('/wallet/amount').get(protect, getWalletAmount)
 router.route('/wallet/credit/').put(protect, creditWallet)
 router.route('/wallet/debit/').put(protect, debitWallet)
-router.route('/').get(protect, admin, getAllUsers)
+router.route('/').get(protect, managers, getAllUsers)
 router.route('/:id').get(getUser).delete(protect, admin, deleteUser)
 router.route('/makeadmin/:id').put(protect, admin, makeAdmin)
-router.route('/:id/email').post(protect, admin, emailAUser)
-router.route('/email').post(protect, admin, emailAllUsers)
-router.route('/email/:email').post(protect, admin, emailAUserByEmail)
+router.route('/makeeditor/:id').put(protect, admin, makeEditor)
+router.route('/:id/email').post(protect, managers, emailAUser)
+router.route('/email').post(protect, managers, emailAllUsers)
+router.route('/email/:email').post(protect, managers, emailAUserByEmail)
 
 router.route('/:id/profilephoto')
     .put(protect, profilePhotoMemoryUpload.single('image'),

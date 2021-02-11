@@ -55,6 +55,7 @@ export const createCardOrder = (order) => async (dispatch, getState) => {
             type: CARD_ORDER_CREATE_SUCCESS,
             payload: data
         })
+
     } catch (error) {
         dispatch({
             type: CARD_ORDER_CREATE_FAIL,

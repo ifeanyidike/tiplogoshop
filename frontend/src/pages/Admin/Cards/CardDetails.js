@@ -38,6 +38,8 @@ const CardDetails = ({ setValue }) => {
     const location = useLocation()
     const { cardId } = queryString.parse(location.search)
 
+    const { userInfo } = useSelector(state => state.userLogin)
+
     useEffect(() => {
         if (cardId) {
             dispatch(listCardDetails(cardId))
@@ -201,11 +203,16 @@ const CardDetails = ({ setValue }) => {
 
                                             <Divider />
                                             <div className="actions">
+                                                {
+                                                    userInfo.isAdmin &&
+                                                    <>
+                                                        <AdminButtonPro color={colors.goldish}
+                                                            onClick={handleCardUpdate}
+                                                        >Save Card</AdminButtonPro>
+                                                        <AdminButton onClick={() => setDeletePrompt(true)}>Delete Card</AdminButton>
+                                                    </>
+                                                }
 
-                                                <AdminButtonPro color={colors.goldish}
-                                                    onClick={handleCardUpdate}
-                                                >Save Card</AdminButtonPro>
-                                                <AdminButton onClick={() => setDeletePrompt(true)}>Delete Card</AdminButton>
                                             </div>
 
                                         </CardContent>

@@ -1,5 +1,6 @@
 import asyncHandler from "express-async-handler"
 import Contact from "../models/contactModels.js"
+import User from "../models/userModels.js"
 import { mg, mgOptions, emailMessageCardTemplate, servicesMessageTemplate } from "../utils/sendEmail.js"
 
 
@@ -93,6 +94,11 @@ export const getAllContacts = asyncHandler(async (req, res) => {
 // @access  Private/Admin
 export const deleteContact = asyncHandler(async (req, res) => {
     const contact = await Contact.findById(req.params.id)
+    const operatingUser = await User.findById(req.user._id)
+
+    if (!operatingUser.isAdmin) {
+        throw new Error('Only admin can delete an order')
+    }
 
     if (contact) {
         contact.remove()

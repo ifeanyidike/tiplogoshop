@@ -60,6 +60,8 @@ const ChangeOfCourseDetails = ({ setValue }) => {
         files: []
     })
 
+    const { userInfo } = useSelector(state => state.userLogin)
+
     const changeOfCourseOrderDetails = useSelector(state => state.changeOfCourseOrderDetails)
     const { loading, error, order } = changeOfCourseOrderDetails
 
@@ -218,9 +220,12 @@ const ChangeOfCourseDetails = ({ setValue }) => {
                                         </div>
 
                                         <Divider />
-                                        <div className="actions">
-                                            <AdminButton onClick={() => setDeletePrompt(true)}>Delete Order</AdminButton>
-                                        </div>
+                                        {
+                                            userInfo.isAdmin &&
+                                            <div className="actions">
+                                                <AdminButton onClick={() => setDeletePrompt(true)}>Delete Order</AdminButton>
+                                            </div>
+                                        }
 
                                     </CardContent>
                                 </Card>

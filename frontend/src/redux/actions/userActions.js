@@ -55,7 +55,10 @@ import {
     USER_EMAIL_BY_EMAIL_FAIL,
     WALLET_AMOUNT_REQUEST,
     WALLET_AMOUNT_SUCCESS,
-    WALLET_AMOUNT_FAIL
+    WALLET_AMOUNT_FAIL,
+    USER_MAKEEDITOR_REQUEST,
+    USER_MAKEEDITOR_SUCCESS,
+    USER_MAKEEDITOR_FAIL
 } from "../constants/userConstants"
 import uuid from 'react-uuid'
 import { cardPayOrder } from './cardOrderActions'
@@ -253,6 +256,43 @@ export const makeUserAdmin = (id, adminStatus) => async (dispatch, getState) => 
         ))
     }
 }
+
+export const makeUserEditor = (id, editorStatus) => async (dispatch, getState) => {
+    try {
+        dispatch({
+            type: USER_MAKEEDITOR_REQUEST
+        })
+
+        const { userLogin: { userInfo } } = getState()
+
+        const config = {
+            headers: {
+                Authorization: `Bearer ${userInfo.token}`
+            },
+        }
+
+        const { data } = await axios.put(`/api/users/makeeditor/${id}`, { editorStatus }, config)
+
+        dispatch({
+            type: USER_MAKEEDITOR_SUCCESS,
+            payload: data
+        })
+
+    } catch (error) {
+        dispatch({
+            type: USER_MAKEEDITOR_FAIL,
+            payload: error.response && error.response.data.message
+                ? error.response.data.message
+                : error.message
+        })
+        dispatch(setMessage(
+            error.response && error.response.data.message
+                ? error.response.data.message
+                : error.message
+        ))
+    }
+}
+
 
 export const deleteAUser = (id) => async (dispatch, getState) => {
     try {

@@ -21,7 +21,7 @@ const CardsList = ({ setValue }) => {
 
     const handleOverview = (id) => {
         setValue(1)
-        history.push(`/admin/cards/?cardId=${id}`)
+        history.push(`/admin/cards?cardId=${id}`)
     }
 
     const { error, loading, cards } = useSelector(state => state.cardList)

@@ -1,5 +1,6 @@
 import asyncHandler from "express-async-handler"
 import Card from "../models/cardModels.js"
+import User from "../models/userModels.js"
 import { uploader } from 'cloudinary'
 import fs from "fs"
 // import {mg, mgOptions, emailMessageCardTemplate} from "../utils/sendEmail.js"
@@ -63,6 +64,11 @@ export const getCardById = asyncHandler(async (req, res) => {
 // @access  Private/Admin
 export const deleteCard = asyncHandler(async (req, res) => {
     const card = await Card.findById(req.params.id)
+    const operatingUser = await User.findById(req.user._id)
+
+    if (!operatingUser.isAdmin) {
+        throw new Error('Only admin can delete an order')
+    }
 
     if (card) {
         if (card.upload.cloudinary_id) {
@@ -102,20 +108,21 @@ export const updateCard = asyncHandler(async (req, res) => {
     const { name, price, description } = req.body
     const card = await Card.findById(req.params.id)
 
-
     if (card) {
         const result = req.file && await uploader.upload(req.file.path)
         card.name = name || card.name
         card.price = price || card.price
         card.description = description || card.description
 
-        fs.unlink(req.file.path, (err) => {
-            if (err) {
-                console.error(err)
-                return
-            }
-            //file removed
-        })
+        if (req.file) {
+            fs.unlink(req.file.path, (err) => {
+                if (err) {
+                    console.error(err)
+                    return
+                }
+                //file removed
+            })
+        }
 
         card.upload = result ? {
             cloudinary_id: result.public_id,

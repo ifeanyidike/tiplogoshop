@@ -33,6 +33,7 @@ export const updateUserProfile = asyncHandler(async (req, res) => {
             email: updatedUser.email,
             type: updatedUser.type,
             isAdmin: updatedUser.isAdmin,
+            isEditor: updatedUser.isEditor,
             token: generateToken(updatedUser._id),
             // wallet: updatedUser.wallet,
             profile: updatedUser.profile
@@ -98,6 +99,7 @@ export const debitWallet = asyncHandler(async (req, res) => {
                 email: updatedUser.email,
                 type: updatedUser.type,
                 isAdmin: updatedUser.isAdmin,
+                isEditor: updatedUser.isEditor,
                 token: generateToken(updatedUser._id),
                 // wallet: updatedUser.wallet,
                 profile: updatedUser.profile
@@ -139,6 +141,7 @@ export const creditWallet = asyncHandler(async (req, res) => {
             email: updatedUser.email,
             type: updatedUser.type,
             isAdmin: updatedUser.isAdmin,
+            isEditor: updatedUser.isEditor,
             token: generateToken(updatedUser._id),
             // wallet: updatedUser.wallet,
             profile: updatedUser.profile
@@ -187,6 +190,11 @@ export const getUser = asyncHandler(async (req, res) => {
 
 export const deleteUser = asyncHandler(async (req, res) => {
     const user = await User.findById(req.params.id)
+    const operatingUser = await User.findById(req.user._id)
+
+    if (!operatingUser.isAdmin) {
+        throw new Error('Only admin can delete a user')
+    }
 
     if (user && user.isAdmin) {
         throw new Error("You cant delete an admin user. Contact central support")
@@ -209,7 +217,12 @@ export const deleteUser = asyncHandler(async (req, res) => {
 
 export const makeAdmin = asyncHandler(async (req, res) => {
     const user = await User.findById(req.params.id)
+    const operatingUser = await User.findById(req.user._id)
     const { adminStatus } = req.body
+
+    if (!operatingUser.isAdmin) {
+        throw new Error('Only admin can make or remove an admin')
+    }
 
     if (user) {
         user.isAdmin = adminStatus
@@ -218,7 +231,29 @@ export const makeAdmin = asyncHandler(async (req, res) => {
         res.status(404)
         throw new Error('User not found')
     }
+})
 
+
+// @desc    PUT make a user an editor
+// @route   GET /api/users/:id/editor
+// @access  Private/Admin
+
+export const makeEditor = asyncHandler(async (req, res) => {
+    const user = await User.findById(req.params.id)
+    const operatingUser = await User.findById(req.user._id)
+    const { editorStatus } = req.body
+
+    if (!operatingUser.isAdmin) {
+        throw new Error('Only admin can make or remove an editor')
+    }
+
+    if (user) {
+        user.isEditor = editorStatus
+        await user.save()
+    } else {
+        res.status(404)
+        throw new Error('User not found')
+    }
 })
 
 // @desc    POST send email to a user by email (also send to admin)

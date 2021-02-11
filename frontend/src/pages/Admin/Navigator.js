@@ -42,7 +42,8 @@ function Navigator(props) {
               }}
             >
               App Overview
-          </ListItemText>
+              
+            </ListItemText>
           </ListItem>
           {categories.map(({ id, children }) => (
             <React.Fragment key={id}>

@@ -53,6 +53,8 @@ const OLevelUploadDetails = ({ setValue }) => {
         }
     }, [dispatch, orderId])
 
+    const { userInfo } = useSelector(state => state.userLogin)
+
     const jambPasswordResetOrderDetails = useSelector(state => state.jambPasswordResetOrderDetails)
     const { loading, error, order } = jambPasswordResetOrderDetails
 
@@ -153,9 +155,12 @@ const OLevelUploadDetails = ({ setValue }) => {
                                         </div>
 
                                         <Divider />
-                                        <div className="actions">
-                                            <AdminButton onClick={() => setDeletePrompt(true)}>Delete Order</AdminButton>
-                                        </div>
+                                        {
+                                            userInfo.isAdmin &&
+                                            <div className="actions">
+                                                <AdminButton onClick={() => setDeletePrompt(true)}>Delete Order</AdminButton>
+                                            </div>
+                                        }
 
                                     </CardContent>
                                 </Card>

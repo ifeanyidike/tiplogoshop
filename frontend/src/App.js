@@ -54,7 +54,7 @@ function App() {
 
   useEffect(() => {
     if (pathname.includes('admin')) {
-      if ((userInfo && !userInfo.isAdmin) || !userInfo) {
+      if ((userInfo && !userInfo.isAdmin && !userInfo.isEditor) || !userInfo) {
         history.push('/unauthorized')
       }
     }
@@ -66,87 +66,114 @@ function App() {
       <Switch>
         <Route path="/" exact>
           <HomePage />
+          <Footer />
         </Route>
         <Route path="/help">
           <HelpPage />
+          <Footer />
         </Route>
         <Route path="/admin/service-settings">
           <AdminServiceSettings />
+          <Footer hide={true} />
         </Route>
         <Route path="/admin/emails">
           <AdminEmailMain />
+          <Footer hide={true} />
         </Route>
         <Route path="/admin/jambpasswordreset">
           <AdminJambPasswordReset />
+          <Footer hide={true} />
         </Route>
         <Route path="/admin/olevelupload">
           <AdminOLevelUpload />
+          <Footer hide={true} />
         </Route>
         <Route path="/admin/changeofcourse">
           <AdminChangeOfCourse />
+          <Footer hide={true} />
         </Route>
         <Route path="/admin/cardorders">
           <AdminCardOrders />
+          <Footer hide={true} />
         </Route>
         <Route path="/admin/cards">
           <AdminCards />
+          <Footer hide={true} />
         </Route>
         <Route path="/admin/users">
           <AdminUsers />
+          <Footer hide={true} />
         </Route>
         <Route path="/admin" exact>
           <AdminUsers />
+          <Footer hide={true} />
         </Route>
         <Route path="/auth" exact>
           <AuthPage />
+          <Footer />
         </Route>
         <Route path="/services/change-of-course-institution">
           <ChangeOfCourseInstitutionPage />
+          <Footer />
         </Route>
         <Route path="/services/result-upload">
           <OLevelUploadPage />
+          <Footer />
         </Route>
         <Route path="/services/jamb-password-reset">
           <JambPasswordResetPage />
+          <Footer />
         </Route>
         <Route path="/services">
           <AllServicesPage />
+          <Footer />
         </Route>
         <Route path="/profile">
           <ProfilePage />
+          <Footer />
         </Route>
         <Route path="/buycards/:id">
           <CardPage />
+          <Footer />
         </Route>
         <Route path="/edititem/:item">
           <EditItem />
+          <Footer />
         </Route>
         <Route path="/payorder/:item/">
           <PayOrder />
+          <Footer />
         </Route>
         <Route path="/auth/activate/:token/">
           <ActivateAccount />
+          <Footer />
         </Route>
         <Route path="/auth/forgotpassword/">
           <ForgotPassword />
+          <Footer />
         </Route>
         <Route path="/auth/resendemail/">
           <ResendEmail />
+          <Footer />
         </Route>
         <Route path="/auth/passwordreset/:token/">
           <ResetPassword />
+          <Footer />
         </Route>
         <Route path="/allcards">
           <AllCardsPage />
+          <Footer />
         </Route>
         <Route path="/unauthorized">
           <UnauthorizedPage />
+          <Footer />
         </Route>
         <Route>
           <NotFoundPage />
+          <Footer />
         </Route>
       </Switch>
-      <Footer />
+
     </>
   );
 }

@@ -55,6 +55,7 @@ const registerFacebookUser = async (res, name, email, profile) => {
             type: newUser.type,
             confirmed: newUser.confirmed,
             isAdmin: newUser.isAdmin,
+            isEditor: newUser.isEditor,
             token: generateToken(newUser._id),
             wallet: newUser.wallet,
             profile: newUser.profile
@@ -63,7 +64,6 @@ const registerFacebookUser = async (res, name, email, profile) => {
         res.status(400)
         throw new Error('Invalid user data')
     }
-
 }
 
 const loginFacebookUser = (res, user) => {
@@ -73,6 +73,7 @@ const loginFacebookUser = (res, user) => {
         email: user.email,
         type: user.type,
         isAdmin: user.isAdmin,
+        isEditor: user.isEditor,
         token: generateToken(user._id),
         wallet: user.wallet,
         profile: user.profile

@@ -32,9 +32,11 @@ const ChoosePayment = ({ num, baseAmount }) => {
 
     const { card } = useSelector(state => state.cardDetails)
 
-    const handleOrderOverview = () => {
-        history.push(`/payorder/card?orderId=${order._id}`)
-    }
+    useEffect(() => {
+        if (createSuccess) {
+            history.push(`/payorder/card?orderId=${order._id}`)
+        }
+    }, [createSuccess, history, order])
 
     const balance = wallet && parseInt(wallet - num * baseAmount)
 
@@ -76,40 +78,29 @@ const ChoosePayment = ({ num, baseAmount }) => {
                         createError ?
                             createError
                             :
-                            createSuccess ?
-                                (
-                                    <>
-                                        Order placed!
-                                <NextButton
-                                            onClick={handleOrderOverview}>
-                                            Confirm Order and Pay <ArrowForwardIosIcon />
-                                        </NextButton>
-                                    </>
-                                )
-                                :
-                                (
-                                    <>
-                                        <PaymentMethods
-                                            value={paymentMeans}
-                                            setValue={setPaymentMeans}
-                                        />
-                                        {
-                                            userInfo ?
+                            (
+                                <>
+                                    <PaymentMethods
+                                        value={paymentMeans}
+                                        setValue={setPaymentMeans}
+                                    />
+                                    {
+                                        userInfo ?
 
-                                                <NextButton
-                                                    onClick={handleOrderPlacement}
-                                                >
-                                                    Place Order <ArrowForwardIosIcon />
-                                                </NextButton>
-                                                :
-                                                <NextButton
-                                                    onClick={() => history.push("/auth")}>
-                                                    Login to Place Order <ArrowForwardIosIcon />
-                                                </NextButton>
-                                        }
+                                            <NextButton
+                                                onClick={handleOrderPlacement}
+                                            >
+                                                Place Order <ArrowForwardIosIcon />
+                                            </NextButton>
+                                            :
+                                            <NextButton
+                                                onClick={() => history.push("/auth")}>
+                                                Login to Place Order <ArrowForwardIosIcon />
+                                            </NextButton>
+                                    }
 
-                                    </>
-                                )
+                                </>
+                            )
                 }
 
             </div>

@@ -9,14 +9,14 @@ import {
     updateSchool,
     deleteCourse
 } from "../controllers/schoolControllers.js"
-import { protect, admin } from "../middlewares/authMiddleware.js"
+import { protect, managers, admin } from "../middlewares/authMiddleware.js"
 
 router.route("/").get(getAllSchools)
-    .post(protect, admin, createSchool)
+    .post(protect, managers, createSchool)
 
 router.get('/programme/:programme', getSchoolsByProgramme)
 router.route('/:id')
     .get(getSchoolsById)
-    .put(protect, admin, updateSchool)
+    .put(protect, managers, updateSchool)
 router.route('/:id/course').put(deleteCourse)
 export default router

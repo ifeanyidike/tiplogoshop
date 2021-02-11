@@ -14,6 +14,7 @@ import CurrencyFormat from 'react-currency-format';
 import { useDispatch, useSelector } from "react-redux"
 import { listServiceByName } from "../../redux/actions/serviceActions"
 import { WALLET_DEBIT_RESET } from '../../redux/constants/userConstants'
+import ServiceAlert from './ServiceAlert';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -82,7 +83,7 @@ const CourseChangeForm = ({
 
     return (
         <div>
-
+            <ServiceAlert />
             <div className="topmainitem">
                 <div>
                     <i className="fas fa-tags"></i>

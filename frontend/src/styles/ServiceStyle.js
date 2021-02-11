@@ -49,6 +49,49 @@ export const BaseContainer = styled(motion.div)`
         align-items: center;
         padding-top: 20px !important;   
     }
+
+    .card__content__info{
+       display: flex;
+       justify-content: center;
+        margin: 50px 80px;    
+        @media ${device.tablet}{
+            flex-direction: column;
+            margin: 50px 0;    
+        }
+    }
+
+
+    .howto{
+        flex: 0.5;
+        margin: 0 50px;
+
+        @media ${device.tablet}{
+            flex: 1;
+            margin: 0 50px;
+            border-bottom: 2px solid ${colors.goldish}
+        }
+        
+        h2{
+            font-family: 'Aclonica', sans-serif;
+        }
+        ul{
+            list-style:none;
+            li{
+                padding: 10px 0;
+                display: flex;
+                align-items: center;
+                .MuiSvgIcon-root{
+                    color: ${colors.darkred};
+                    margin-right: 3px;
+                }
+            }
+        }
+        
+    }
+
+    .howto_services{
+        flex: 1;
+    }
     
     .buyinfo--first{
         display:flex;
@@ -205,15 +248,24 @@ export const BaseContainer = styled(motion.div)`
     }
     
     .buyinfo--edit{
+        flex: 0.5;
+        @media ${device.tablet}{
+            flex: 1;
+            align-items: center;
+            justify-content: center;
+          
+            padding: 0 40px;
+            margin: 0 auto;
+            margin-bottom: 40px;
+        }
+    
         box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12);
         background-color: white;
-        padding: 0 40px;
+       
         width: fit-content;
         @media ${device.mobile_lg}{
                 width: 100%;
         }
-        
-        margin: 40px auto;    
         padding-bottom: 20px;    
     }
     .editaction{
@@ -327,16 +379,32 @@ export const EditButton = styled(NextButton)`
 
 export const CardMoreContainer = styled(HomeAltCardContainer)`
     padding: 0 80px 10px 80px !important;   
+    
+    @media ${device.mobile_lg}{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: 0 20px 10px 20px !important;
+    }
 `
 
 export const ServicesContainer = styled(HomeAltCardContainer)`
     padding: 40px 80px 10px 80px !important;   
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    @media ${device.tablet_md}{
-        grid-template-columns: 1fr;
+    
+    @media ${device.mobile_lg}{
+        padding: 40px 20px 10px 20px !important;
     }
-    place-items: center;
+    .items{
+        display: grid;
+        place-items: center;
+        grid-template-columns: repeat(3, 1fr);
+        grid-gap: 20px;
+         @media ${device.tablet_md}{
+            grid-template-columns: 1fr;
+         }
+    }
+    
+   
     grid-gap: 40px;
 `
 
@@ -491,4 +559,13 @@ export const ButtonSingle = styled.div`
     display: flex;
     justify-content: center;
     margin-top: 10px;
+`
+
+export const ServiceAlertContainer = styled.div`
+    font-family: 'Jost', sans-serif;
+    .amount{
+        color: ${colors.goldish};
+        font-weight: 800;
+        border-bottom: 2px solid ${colors.goldish}
+    }
 `

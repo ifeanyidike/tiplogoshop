@@ -6,6 +6,7 @@ import { useSelector } from "react-redux"
 import Loader from "../components/Loaders/SimpleLoader"
 import Message from "../components/Message"
 import Meta from "../components/Meta"
+import JambServiceHowTo from '../components/Services/JambServiceHowTo'
 
 const AllServices = () => {
 
@@ -78,7 +79,10 @@ const AllServices = () => {
             }
 
             <ServicesContainer>
-                <ServicesItems />
+                <div className="items">
+                    <ServicesItems />
+                </div>
+                <JambServiceHowTo />
             </ServicesContainer>
         </BaseRoot>
     )

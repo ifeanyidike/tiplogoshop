@@ -4,6 +4,12 @@ import { device } from "./breakpoints"
 import { TabContainer } from "./TabStyle"
 import { Button } from "./HomeStyle"
 
+export const AuthMainContainer = styled.div`
+    min-height: 70vh;
+    display: grid;
+    place-items: center;
+`
+
 export const AuthTabContainer = styled(TabContainer)`
     
     -webkit-box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12);
@@ -11,6 +17,7 @@ export const AuthTabContainer = styled(TabContainer)`
     box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12);
     width:40%;
     margin: 50px auto; 
+    
     
     @media ${device.tablet}{
         width:100%;
@@ -28,8 +35,12 @@ export const AuthTabContainer = styled(TabContainer)`
         }
         p{
             font-weight: 300 !important;
-        }
-        
+        }   
+    }
+
+    .actioncontainer{
+        margin: 0 auto;
+        width: 100%;
     }
     
     .tabs div div{
@@ -53,12 +64,12 @@ export const AuthTabContainer = styled(TabContainer)`
 `;
 
 export const AuthButton = styled(Button)`
-    width: 500px !important;
+    width: 100% !important;
 `
 
 export const FacebookButton = styled(motion.div)`
     
-    width: 500px !important;        
+    width: 100% !important;        
     display: flex;
     justify-content: center;
     align-items: center;

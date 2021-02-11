@@ -15,12 +15,12 @@ import {
 
 import { documentsUpload, imageMemoryUpload } from "../controllers/uploadControllers.js"
 
-import { protect, admin } from "../middlewares/authMiddleware.js"
+import { protect, admin, managers } from "../middlewares/authMiddleware.js"
 
 router.route("/").post(protect,
     imageMemoryUpload.array('document'),
     createOLevelResultUploadOrder)
-    .get(protect, admin, getOLevelResultUploadOrders)
+    .get(protect, managers, getOLevelResultUploadOrders)
 
 router.route('/myorders').get(protect, getMyOLevelResultUploadOrders)
 router.route('/myorders/:userId').get(protect, adminGetMyOLevelResultUploadOrders)
@@ -30,7 +30,7 @@ router.route('/:id/blob').get(getOLevelResultUploadBlobById)
 router.route("/:id").get(protect, getOLevelResultUploadOrderById)
     .delete(protect, admin, deleteOLevelResultUploadOrder)
 
-router.route("/:id/adminupload").put(protect, admin,
+router.route("/:id/adminupload").put(protect, managers,
     imageMemoryUpload.single('document'), adminOLevelResultUploadFileUpload)
 
 

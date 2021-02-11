@@ -50,7 +50,7 @@ const InstitutionChoice = ({ stage, programme, setProgramme,
                     select
                     id={`programme-${stage}`}
                     required={required}
-                    label="Programme Programme"
+                    label="Preferred Programme"
                     value={programme.[stage]}
                     onChange={onProgrammeChange(stage)}
                     SelectProps={{
@@ -63,10 +63,11 @@ const InstitutionChoice = ({ stage, programme, setProgramme,
                 >
                     <>
                         <option value="" ></option>
-                        <option value="degree">Degree</option>
-                        <option value="HND">HND</option>
-                        <option value="OND">OND</option>
-
+                        <option value="degree">Do not change</option>
+                        <option value="HND">Degree</option>
+                        <option value="OND">HND</option>
+                        <option value="OND">NCE/OND</option>
+                        <option value="OND">IEI</option>
                     </>
                 </TextField>
             </FormControl>

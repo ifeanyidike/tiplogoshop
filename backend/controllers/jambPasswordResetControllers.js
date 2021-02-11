@@ -1,6 +1,7 @@
 import mongoose from "mongoose"
 import asyncHandler from "express-async-handler"
 import JambPasswordResetOrder from "../models/jambPasswordResetModels.js"
+import User from "../models/userModels.js"
 import { mg, mgOptions, servicesMessageTemplate } from "../utils/sendEmail.js"
 
 //@desc     Create new jambpasswordreset
@@ -124,6 +125,13 @@ export const getJambPasswordResetOrders = asyncHandler(async (req, res) => {
 
 export const deleteJambPasswordResetOrder = asyncHandler(async (req, res) => {
     const order = await JambPasswordResetOrder.findById(req.params.id)
+
+    const operatingUser = await User.findById(req.user._id)
+
+    if (!operatingUser.isAdmin) {
+        throw new Error('Only admin can delete an order')
+    }
+
     if (order) {
         order.remove()
         res.json({ message: 'order removed' })

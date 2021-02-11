@@ -21,7 +21,7 @@ const OLevelUploadList = ({ setValue }) => {
 
     const handleOverview = (id) => {
         setValue(1)
-        history.push(`/admin/olevelupload/?orderId=${id}`)
+        history.push(`/admin/olevelupload?orderId=${id}`)
     }
 
     const { error, loading, orders } = useSelector(state => state.oLevelUploadOrderList)

@@ -1,6 +1,7 @@
 import mongoose from "mongoose"
 import asyncHandler from "express-async-handler"
 import OLevelResultUploadOrder from "../models/oLevelResultUploadModels.js"
+import User from "../models/userModels.js"
 import request from "request"
 import fs from "fs"
 import path from 'path'
@@ -179,6 +180,12 @@ export const adminGetMyOLevelResultUploadOrders = asyncHandler(async (req, res) 
 
 export const deleteOLevelResultUploadOrder = asyncHandler(async (req, res) => {
     const order = await OLevelResultUploadOrder.findById(req.params.id)
+
+    const operatingUser = await User.findById(req.user._id)
+
+    if (!operatingUser.isAdmin) {
+        throw new Error('Only admin can delete an order')
+    }
 
     if (order) {
 
