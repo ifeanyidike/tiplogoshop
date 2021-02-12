@@ -7,6 +7,7 @@ import PaymentMethods from "../Payment/PaymentMethods"
 import { EditButton } from "../../styles/ServiceStyle"
 import EditIcon from '@material-ui/icons/Edit';
 import { useHistory } from "react-router-dom"
+import ServiceHowTo from './ServiceHowTo'
 
 const EditCards = ({ id, cardObj, paymentMethod }) => {
 
@@ -43,60 +44,62 @@ const EditCards = ({ id, cardObj, paymentMethod }) => {
     }
 
     return (
-        <div className="buyinfo--edit">
+        <div className="card__content__info" id='buypane'>
+            <div className="buyinfo--edit">
+                <div className="buyinfo--first edit">
+                    <div className="number" >
+                        <span>1</span>
+                    </div>
 
-            <div className="buyinfo--first edit">
-                <div className="number" >
-                    <span>1</span>
-                </div>
-
-                <div className="contents">
-                    <div className="numrange">
-                        <h5>How many cards?
+                    <div className="contents">
+                        <div className="numrange">
+                            <h5>How many cards?
                             <hr />
-                        </h5>
-                        <NumRange
-                            num={num}
-                            setNum={setNum}
-                            setPrice={setTotalCost}
-                            amount={card && parseInt(card.price)}
-                            limit={card && card.items && card.items.length}
-                        />
-                        <div className="price__items">
-                            <span className="price">₦{totalCost}</span>
+                            </h5>
+                            <NumRange
+                                num={num}
+                                setNum={setNum}
+                                setPrice={setTotalCost}
+                                amount={card && parseInt(card.price)}
+                                limit={card && card.items && card.items.length}
+                            />
+                            <div className="price__items">
+                                <span className="price">₦{totalCost}</span>
 
-                            <small>
-                                <div></div>
-                                <span>
-                                    {
-                                        card && card.items &&
-                                        (card.items.length > 0 ?
-                                            "In stock" : "Out of stock")
-                                    }
-                                </span>
-                            </small>
+                                <small>
+                                    <div></div>
+                                    <span>
+                                        {
+                                            card && card.items &&
+                                            (card.items.length > 0 ?
+                                                "In stock" : "Out of stock")
+                                        }
+                                    </span>
+                                </small>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
 
-            <div className="buyinfo--second">
-                <hr />
+                <div className="buyinfo--second">
+                    <hr />
 
-                <div className="paymentmethod-alt">
-                    <div className="number bottom" >
-                        <span>2</span>
+                    <div className="paymentmethod-alt">
+                        <div className="number bottom" >
+                            <span>2</span>
+                        </div>
+                        <PaymentMethods
+                            value={paymentMeans}
+                            setValue={setPaymentMeans}
+                        />
                     </div>
-                    <PaymentMethods
-                        value={paymentMeans}
-                        setValue={setPaymentMeans}
-                    />
                 </div>
-            </div>
 
-            <EditButton onClick={handleCardOrderEdit}>
-                Edit <EditIcon />
-            </EditButton>
+                <EditButton onClick={handleCardOrderEdit}>
+                    Edit <EditIcon />
+                </EditButton>
+            </div>
+            <ServiceHowTo />
         </div>
     )
 }

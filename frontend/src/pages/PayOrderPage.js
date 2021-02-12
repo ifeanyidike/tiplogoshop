@@ -42,7 +42,7 @@ const PayOrder = () => {
     const { wallet } = useSelector(state => state.userWalletAmount)
 
     useEffect(() => {
-        scroll.scrollToTop()
+        scroll.scrollTo(300)
     }, [])
 
     let orderitem;

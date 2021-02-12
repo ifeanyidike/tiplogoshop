@@ -170,7 +170,6 @@ const OLevelUploadDetails = ({ setValue }) => {
                                                                 file && (
                                                                     <div key={file._id}>
                                                                         <img src={file.image} alt={file.image} />
-
                                                                     </div>
                                                                 )
                                                             ))

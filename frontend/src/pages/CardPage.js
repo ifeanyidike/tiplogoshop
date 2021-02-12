@@ -31,7 +31,8 @@ const CardPage = () => {
     const { loading: cardLoading, card } = cardDetails
 
     useEffect(() => {
-        scroll.scrollToTop()
+        scroll.scrollTo(350)
+
     }, [])
 
     const dispatch = useDispatch()

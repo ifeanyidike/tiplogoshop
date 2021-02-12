@@ -62,7 +62,7 @@ const ProfilePage = () => {
             <Header />
             {
                 !userInfo ? <NotLoggedIn /> :
-                    <div>
+                    <>
 
                         <ProfileContainer>
                             <div className="backgroundheader">
@@ -109,7 +109,7 @@ const ProfilePage = () => {
 
                         </ProfileContainer>
 
-                    </div>
+                    </>
             }
         </div>
     )

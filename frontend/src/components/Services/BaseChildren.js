@@ -30,7 +30,7 @@ const BaseChildren = ({ baseAmount, availability, name }) => {
         <div className="children">
 
             <Wallet mt={50} width={300} />
-            <div className="card__content__info">
+            <div className="card__content__info" id='buypane'>
                 <div className="buyinfo--edit">
                     {
                         !createSuccess &&
@@ -48,7 +48,7 @@ const BaseChildren = ({ baseAmount, availability, name }) => {
                                         num={num}
                                         setNum={setNum}
                                         setPrice={setTotalCost}
-                                        amount={parseInt(card.price)}
+                                        amount={parseInt(card && card.price)}
                                         limit={card && card.items && card.items.length}
                                     />
                                     <div className="price__items">

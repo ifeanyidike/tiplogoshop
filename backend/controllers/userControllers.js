@@ -72,6 +72,10 @@ export const debitWallet = asyncHandler(async (req, res) => {
     const { id, amount, paymentResult } = req.body
     const user = await User.findById(id)
 
+    if (amount <= 0) {
+        throw new Error('Amount must be greater than 0')
+    }
+
     if (user) {
         const balance = parseInt(user.wallet) - parseInt(amount)
 

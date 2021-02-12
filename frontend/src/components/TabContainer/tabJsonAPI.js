@@ -25,7 +25,8 @@ const tabitems = [
                 desc: "Nabteb cards, school exam cards, bced card, etc."
             }
         ],
-        image: "/images/webdesign1.png"
+        image: "/images/webdesign1.png",
+        link: '/allcards'
     },
     {
         heading: "Correct your Jamb data with just a click.",
@@ -42,7 +43,8 @@ const tabitems = [
                 desc: "Change institution with just a mouse click"
             }
         ],
-        image: "/images/webdesign2.png"
+        image: "/images/webdesign2.png",
+        link: '/services/change-of-course-institution'
     },
     {
         heading: "Get O Level Result Upload up and Running.",
@@ -64,7 +66,8 @@ const tabitems = [
                 desc: "We respond to you in real time. Just hit us up and get it done."
             }
         ],
-        image: "/images/webdesign3.jpg"
+        image: "/images/webdesign3.jpg",
+        link: '/services/result-upload'
     },
     {
         heading: "We offer a bunch of other awesome services",
@@ -86,7 +89,7 @@ const tabitems = [
                 desc: "Drop a review for on our services. We value your opinion"
             }
         ],
-        image: "/images/webdev4.png"
+        link: '/services/jamb-password-reset'
     }
 ]
 

@@ -1,19 +1,20 @@
 import React from 'react'
 import { FooterElement } from "../styles/FooterStyle"
 import PublicIcon from '@material-ui/icons/Public';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import LocationOnIcon from '@material-ui/icons/LocationOn';
 import MailOutlineIcon from '@material-ui/icons/MailOutline';
 import PhoneIcon from '@material-ui/icons/Phone';
 import { useSelector } from 'react-redux'
 
 const Footer = ({ hide }) => {
+    const history = useHistory()
     return (
         <FooterElement>
 
             <div className="topfooter" style={{ display: hide ? 'none' : 'grid' }}>
                 <div className="description">
-                    <img src="/images/tiplogo.png" alt="Logo" />
+                    <img src="/images/tiplogo.png" alt="Logo" onClick={() => history.push('/')} />
                     <p>
                         Buy WAEC/NECO Scratch Cards, all JAMB correction of data, JAMB Regularisation, etc.
                     </p>

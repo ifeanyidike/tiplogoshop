@@ -7,7 +7,7 @@ const Base = ({ TopImage, topText, children }) => {
     return (
         <>
             <Header />
-            <BaseContainer>
+            <BaseContainer height='20vh'>
                 <div className="topimage">
                     <div className="centeritem">
                         {TopImage}

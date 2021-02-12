@@ -117,7 +117,7 @@ export const UserProfileContainer = styled.div`
         margin-bottom: 20px;
         div{
             img{
-                width: 100%;
+                width: 50%;
             }
         }
     }

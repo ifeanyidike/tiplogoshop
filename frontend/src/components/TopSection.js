@@ -8,6 +8,7 @@ import examPerson from "../svg/proctor.svg"
 import { buttonVariants } from "../animationVariants/HomeVariants"
 import TopCard from "./Cards/TopCard"
 import { topcard_features } from "./JsonAPIs"
+import { Link } from 'react-scroll'
 
 const TopSection = () => {
     return (
@@ -28,7 +29,7 @@ const TopSection = () => {
                 <h1>CBT Solutions</h1>
                 <p>Access topnotch CBT solutions including <span>cards, pins & tokens</span></p>
                 <p>Join thousands of learners today.</p>
-                <a href="#services">
+                <Link to="services" smooth={true} >
                     <Button
                         variants={buttonVariants}
                         initial="initial"
@@ -37,7 +38,7 @@ const TopSection = () => {
                     >
                         Get started
                 </Button>
-                </a>
+                </Link>
             </div>
         </ScreenDiv>
     )

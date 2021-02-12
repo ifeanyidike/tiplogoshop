@@ -24,9 +24,9 @@ export const BaseContainer = styled(motion.div)`
         background-color: ${colors.darktext};
         background-blend-mode: lighten;
         background-position: center;
-        height: 30vh;        
+        height: 30vh;     
         @media ${device.laptop}{
-            height: 20vh;
+            height: ${props => props.height}
         }
         display: grid; 
         place-items: center; 
@@ -403,7 +403,7 @@ export const ServicesContainer = styled(HomeAltCardContainer)`
         place-items: center;
         grid-template-columns: repeat(3, 1fr);
         grid-gap: 20px;
-         @media ${device.tablet_md}{
+         @media ${device.tablet}{
             grid-template-columns: 1fr;
          }
     }

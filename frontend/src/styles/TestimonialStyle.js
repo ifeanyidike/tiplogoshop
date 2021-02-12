@@ -78,7 +78,7 @@ export const TestimonialContainer = styled(motion.div)`
             border: none;
             outline: none;
             background-color: transparent;
-            color: ${colors.bluetext};
+            color: ${colors.darkred};
         };
         .carousel__back-button{
             left: -20px;

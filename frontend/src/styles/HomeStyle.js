@@ -20,7 +20,7 @@ export const HomeTabContainer = styled.div`
     background: rgb(254,254,254);
     background: linear-gradient(180deg, rgba(254,254,254,1) 12%, rgba(253,254,254,1) 27%, rgba(253,253,253,1) 41%, rgba(248,248,250,1) 57%, rgba(245,246,248,1) 70%, rgba(244,245,247,1) 83%);
     height: fit-content; 
-    padding: 120px 80px 80px 80px;
+    padding: 120px 80px 40px 80px;
     @media ${device.mobile_lg}{
         padding: 40px;
     }
@@ -29,7 +29,7 @@ export const HomeTabContainer = styled.div`
 
 export const HomeAltCardContainer = styled.div`
     background: ${colors.background};   
-    padding: 80px;    
+    padding: 40px 80px;    
 
     @media ${device.mobile_lg}{
         padding: 40px;
@@ -128,7 +128,7 @@ export const HomeCounterContainer = styled.div`
     
 `
 export const HomeTestimonialContainer = styled(TestimonialContainer)`
-    padding: 80px;
+    padding: 40px 80px;
     @media ${device.mobile_lg}{
         padding: 40px;
     }

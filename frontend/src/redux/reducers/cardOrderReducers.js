@@ -28,7 +28,8 @@ import {
     CARD_NOTPAID_ORDER_LIST_MY_FAIL,
     CARD_ORDER_DELETE_FAIL,
     CARD_ORDER_DELETE_SUCCESS,
-    CARD_ORDER_DELETE_REQUEST
+    CARD_ORDER_DELETE_REQUEST,
+    CARD_ORDER_UPDATE_RESET
 } from "../constants/cardOrderConstants"
 
 export const cardOrderCreateReducer = (state = {}, action) => {
@@ -122,6 +123,8 @@ export const cardOrderUpdateReducer = (state = {}, action) => {
                 loading: false,
                 error: action.payload
             }
+        case CARD_ORDER_UPDATE_RESET:
+            return {}
 
         default:
             return state

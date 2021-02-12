@@ -1,12 +1,13 @@
 import styled from 'styled-components'
-import {motion} from 'framer-motion'
-import {device, colors} from "./breakpoints"
+import { motion } from 'framer-motion'
+import { device, colors } from "./breakpoints"
 
 export const TabContainer = styled(motion.div)`
     display: ${props => props.variant === 'center' ? 'grid' : null};
     place-items: ${props => props.variant === 'center' ? 'center' : null};
     
     .tabs{            
+        
         div div{            
             width: 80vw;
             
@@ -42,6 +43,8 @@ export const ChildContainer = styled(motion.div)`
     @media ${device.tablet}{
         grid-template-columns: 1fr;        
     }
+
+    
     
     .leftchild{
         
@@ -67,8 +70,15 @@ export const ChildContainer = styled(motion.div)`
                 width: 70%;
             }        
         }
+        .cta{
+            margin-top: 10px;
+            display: block;
+            font-size: 1rem;
+        }
+        
         
         .child__items{
+            
             .child__item{
                 display:flex;
                 align-items:center;  

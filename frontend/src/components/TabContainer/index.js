@@ -9,6 +9,7 @@ import a11yProps from "./allProps"
 import { colors } from "../../styles/breakpoints"
 import TabItems from "./tabJsonAPI"
 import TabChildren from "./TabChildren"
+import { Link } from 'react-router-dom';
 
 export default function FullWidthTabs({ firstChild, secondChild, thirdChild, fourthChild }) {
   const [activeFirst, setActiveFirst] = useState(true)
@@ -109,6 +110,7 @@ export default function FullWidthTabs({ firstChild, secondChild, thirdChild, fou
                     </div>
                   ))
                 }
+                <span className='cta'>Click <Link to={item.link}>here</Link> to proceed</span>
               </TabChildren>
             </TabPanel>
           ))

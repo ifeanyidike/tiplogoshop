@@ -55,6 +55,7 @@ export const FooterElement = styled.footer`
           
             img{
                 height: 70px;
+                cursor: pointer;
             }
             p{
                 font-family: 'Jost', sans-serif;

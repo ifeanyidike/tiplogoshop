@@ -5,6 +5,8 @@ import { listCards } from '../redux/actions/cardActions'
 import { DRAWER_CLOSE } from "../redux/constants/utilConstants"
 import Meta from "../components/Meta"
 import { animateScroll as scroll } from 'react-scroll'
+import { CARD_ORDER_CREATE_RESET, CARD_ORDER_UPDATE_RESET } from "../redux/constants/cardOrderConstants"
+import { WALLET_DEBIT_RESET } from '../redux/constants/userConstants'
 
 
 const AllCardsPage = () => {
@@ -16,6 +18,9 @@ const AllCardsPage = () => {
 
     useEffect(() => {
         dispatch({ type: DRAWER_CLOSE })
+        dispatch({ type: CARD_ORDER_CREATE_RESET })
+        dispatch({ type: CARD_ORDER_UPDATE_RESET })
+        dispatch({ type: WALLET_DEBIT_RESET })
     }, [dispatch])
 
     useEffect(() => {

@@ -1,6 +1,6 @@
 import styled from 'styled-components'
 import { motion } from 'framer-motion'
-import { colors } from "./breakpoints"
+import { colors, device } from "./breakpoints"
 import { Button } from "./HomeStyle"
 import { UserProfileContainer } from "./AdminStyles"
 
@@ -61,8 +61,7 @@ export const ProfileContainer = styled(motion.div)`
     .contentpane{
         background-color: white;
         margin: 20px auto;
-        padding: 20px 40px;
-        width: 60vw;
+        padding: 20px;
         border-radius: 10px;
         -webkit-box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.16), 0 1px 3px 0 rgba(0, 0, 0, 0.12);
         -moz-box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.16), 0 1px 3px 0 rgba(0, 0, 0, 0.12);
@@ -163,7 +162,9 @@ export const ReviewContainer = styled.form`
     box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.16), 0 1px 3px 0 rgba(0, 0, 0, 0.12);    
     width: 50vw;
     font-family: 'Jost', sans-serif;
-
+    @media ${device.tablet}{
+        width: 90vw;
+    }
     
     h2{
         font-family: 'Aclonica', sans-serif;

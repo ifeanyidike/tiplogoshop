@@ -92,7 +92,7 @@ const MyResultUploadOrders = () => {
                                             </div>
 
                                             <div className="fullwidth">
-                                                <div className="embossitem">
+                                                <div className="embossitem flexemboss">
                                                     {
                                                         order.orderItems &&
                                                         order.orderItems.files &&

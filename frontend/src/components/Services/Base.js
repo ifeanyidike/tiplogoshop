@@ -14,7 +14,8 @@ const Base = ({
     cards,
     TopImage,
     topText,
-    children
+    children,
+    bgHeight
 }) => {
 
     // const drawerToggle = useSelector(state => state.drawerToggle)
@@ -22,7 +23,7 @@ const Base = ({
     return (
         <>
             <Header />
-            <BaseContainer>
+            <BaseContainer >
                 <div className="topimage">
                     <div className="centeritem">
                         {TopImage}

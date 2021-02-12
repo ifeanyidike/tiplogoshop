@@ -11,6 +11,8 @@ import EditCards from '../components/Services/EditCards'
 import NotLoggedIn from "../components/Utils/NotLoggedIn"
 import { logout } from "../redux/actions/userActions"
 import Meta from "../components/Meta"
+import { WALLET_DEBIT_RESET } from '../redux/constants/userConstants'
+import { animateScroll as scroll } from 'react-scroll'
 
 const CardPage = () => {
 
@@ -21,6 +23,15 @@ const CardPage = () => {
     const { userInfo } = userLogin
 
     const dispatch = useDispatch()
+
+    useEffect(() => {
+        scroll.scrollTo(300)
+
+    }, [])
+
+    useEffect(() => {
+        dispatch({ type: WALLET_DEBIT_RESET })
+    }, [dispatch])
 
     useEffect(() => {
         if (userInfo) {
