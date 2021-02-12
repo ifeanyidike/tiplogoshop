@@ -9,7 +9,8 @@ const numrangeDim = '200px'
 const numCircle = '50px'
 
 export const BaseContainer = styled(motion.div)`
-    background-color: ${colors.background};        
+    background-color: ${colors.background};      
+    min-height: 65vh;  
     
     font-family: 'Jost', sans-serif;
     h1{
@@ -480,6 +481,9 @@ export const ServicePanel = styled(ServicesCard)`
     .choices{
         display: grid;        
         grid-template-columns: repeat(2, 1fr);
+        @media ${device.mobile_lg}{
+            grid-template-columns: 1fr;
+        }
         grid-gap: 20px;                
         place-items: center;
         margin: 20px 0;
@@ -497,10 +501,17 @@ export const ServicePanel = styled(ServicesCard)`
             }
         }
     }
+
     
     .topmainitem{
         display: flex;        
-        justify-content: space-between;        
+        justify-content: space-between;    
+        @media ${device.mobile_lg}{
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            
+        }    
         
         div{            
             i{

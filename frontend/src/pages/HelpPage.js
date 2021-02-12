@@ -25,6 +25,7 @@ const Help = () => {
     const [email, setEmail] = useState("")
     const [purpose, setPurpose] = useState("")
 
+
     const dispatch = useDispatch()
 
     useEffect(() => {
@@ -44,6 +45,7 @@ const Help = () => {
         setPurpose("")
         setMessage("")
     }
+
 
     const { loading, error, message: contactMessage } = useSelector(state => state.contactCreate)
 
