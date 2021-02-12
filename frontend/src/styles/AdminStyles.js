@@ -64,6 +64,7 @@ export const UserProfileContainer = styled.div`
             grid-template-columns: repeat(2, 1fr);            
             grid-gap: 20px;
             .fullwidth{
+                width: 100%;
                 grid-column: 1/span 2;
                 @media ${device.tablet}{
                     grid-column: 1/1;
@@ -115,14 +116,24 @@ export const UserProfileContainer = styled.div`
         box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12);     
         padding: 20px 40px;
         margin-bottom: 20px;
-        div{
+       
+        div{    
             img{
                 width: 50%;
+                @media ${device.tablet}{
+                    width: 100px;
+                }
             }
         }
     }
     .flexemboss{
         display: flex;
+        width: 100%;
+        @media ${device.tablet}{
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
     }
     
 `
