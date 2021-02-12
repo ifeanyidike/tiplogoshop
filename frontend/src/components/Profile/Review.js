@@ -81,10 +81,11 @@ export default function Review() {
                                             <TextareaAutosize
                                                 aria-label="minimum height"
                                                 onChange={e => setDescription(e.target.value)}
+                                                required
                                                 value={description}
                                                 rowsMin={5}
                                                 startAdornment={<InputAdornment position="start"><MessageIcon /> </InputAdornment>}
-                                                placeholder="Additional Information (Optional)" />
+                                                placeholder="Additional Information" />
                                         </FormControl>
                                     </div>
                                     <div className="button">

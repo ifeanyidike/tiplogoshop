@@ -107,6 +107,7 @@ export default function FullWidthTabs({
           style={{ backgroundColor: activeFirst && colors.lightergray }}
           onClick={handleFirstTab} />
         <Tab label="Card Order Details"
+
           {...a11yProps(1)}
           style={{ backgroundColor: activeSecond && colors.lightergray }}
           onClick={handleSecondTab} />
@@ -138,8 +139,7 @@ export default function FullWidthTabs({
         <TabPanel value={value} index={0} dir={theme.direction}>
           <Editables values={values} setValues={setValues} />
         </TabPanel>
-        <TabPanel value={value} index={1} dir={theme.direction}>
-
+        <TabPanel value={value} index={1} dir={theme.direction} id='cardorderpane'>
           <MyCardOrders />
         </TabPanel>
         <TabPanel value={value} index={2} dir={theme.direction}>

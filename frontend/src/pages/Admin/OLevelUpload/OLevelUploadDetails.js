@@ -262,12 +262,13 @@ const OLevelUploadDetails = ({ setValue }) => {
                                                         <div className="fullwidth">
                                                             <FormControl className={classes.formControl}>
                                                                 <TextareaAutosize
+                                                                    required
                                                                     aria-label="minimum height"
                                                                     onChange={e => setEmailBody(e.target.value)}
                                                                     value={emailBody}
                                                                     rowsMin={5}
                                                                     startAdornment={<InputAdornment position="start"><MessageIcon /> </InputAdornment>}
-                                                                    placeholder="Additional Information (Optional)" />
+                                                                    placeholder="Additional Information" />
                                                             </FormControl>
                                                         </div>
 

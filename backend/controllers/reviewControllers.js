@@ -82,6 +82,10 @@ export const createReview = asyncHandler(async (req, res) => {
     const usersReview = await Review.find({ user: req.user._id })
     const { value, description } = req.body
 
+    if (!description) {
+        throw new Error('Please give us a brief description')
+    }
+
     if (usersReview.length > 0) {
         res.status(401)
         throw new Error("You already left a review")

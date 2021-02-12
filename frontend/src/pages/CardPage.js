@@ -16,6 +16,7 @@ import {
 import VpnKeyIcon from '@material-ui/icons/VpnKey';
 import Meta from "../components/Meta"
 import { animateScroll as scroll } from 'react-scroll'
+import { CARD_ORDER_CREATE_RESET, CARD_ORDER_UPDATE_RESET } from '../redux/constants/cardOrderConstants'
 
 const CardPage = () => {
     const history = useHistory()
@@ -38,6 +39,8 @@ const CardPage = () => {
     const dispatch = useDispatch()
 
     useEffect(() => {
+        dispatch({ type: CARD_ORDER_CREATE_RESET })
+        dispatch({ type: CARD_ORDER_UPDATE_RESET })
         dispatch({ type: DRAWER_CLOSE })
     }, [dispatch])
 

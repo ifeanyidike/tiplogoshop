@@ -14,7 +14,7 @@ import { logout } from "../redux/actions/userActions"
 import Wallet from "../components/Utils/Wallet"
 import MessageModal from "../components/Utils/MessageModal"
 import WalletPayment from "../components/Payment/WalletPayment"
-import { CARD_ORDER_PAY_RESET } from '../redux/constants/cardOrderConstants';
+import { CARD_ORDER_CREATE_RESET, CARD_ORDER_PAY_RESET, CARD_ORDER_UPDATE_RESET } from '../redux/constants/cardOrderConstants';
 import Message from "../components/Message"
 import Meta from "../components/Meta"
 import { animateScroll as scroll } from 'react-scroll'
@@ -40,6 +40,11 @@ const PayOrder = () => {
     const { error: walletError, loading: walletLoading } = walletDebit
 
     const { wallet } = useSelector(state => state.userWalletAmount)
+
+    useEffect(() => {
+        dispatch({ type: CARD_ORDER_CREATE_RESET })
+        dispatch({ type: CARD_ORDER_UPDATE_RESET })
+    }, [dispatch])
 
     useEffect(() => {
         scroll.scrollTo(300)
@@ -114,7 +119,7 @@ const PayOrder = () => {
                                                         <div className="success">
                                                             <Message variant="info">
                                                                 Success!
-                                                                <Link to="/profile"> View Purchase Info</Link>
+                                                                <Link to="/profile#full-width-tab-2"> View Purchase Info</Link>
                                                             </Message>
                                                         </div>
 

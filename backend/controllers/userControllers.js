@@ -304,6 +304,10 @@ export const emailAUserByEmail = asyncHandler(async (req, res) => {
 export const emailAUser = asyncHandler(async (req, res) => {
     const user = await User.findById(req.params.id)
     const { subject, message: info } = req.body
+
+    if (!subject || !info) {
+        throw new Error('Subject or message cannot be empty')
+    }
     const from = "noreply@tiplogo.com"
     const recipients = [user.email, process.env.ADMIN_EMAIL]
     const heading = `Hi ${user.name}`
@@ -334,6 +338,10 @@ export const emailAUser = asyncHandler(async (req, res) => {
 export const emailAllUsers = asyncHandler(async (req, res) => {
     const users = await User.find({})
     const { subject, message: info } = req.body
+
+    if (!subject || !info) {
+        throw new Error('Subject or message cannot be empty')
+    }
 
     const from = "noreply@tiplogo.com"
     const recipients = users.map(user => user.email)

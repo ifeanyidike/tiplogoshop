@@ -211,8 +211,9 @@ const OLevelUploadDetails = ({ setValue }) => {
                                                                     onChange={e => setEmailBody(e.target.value)}
                                                                     value={emailBody}
                                                                     rowsMin={5}
+                                                                    required
                                                                     startAdornment={<InputAdornment position="start"><MessageIcon /> </InputAdornment>}
-                                                                    placeholder="Additional Information (Optional)" />
+                                                                    placeholder="Additional Information" />
                                                             </FormControl>
                                                         </div>
 
