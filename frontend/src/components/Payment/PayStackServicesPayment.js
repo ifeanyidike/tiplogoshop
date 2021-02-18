@@ -35,16 +35,9 @@ const PayStackCardPayment = ({ transactionType, orderItems }) => {
                 })
             )
         } else if (transactionType === 'olevelresultupload') {
-            const uploadOrderItems = {
-                type: orderItems.type,
-                name: orderItems.name,
-                profileCode: orderItems.profileCode,
-            }
-            const files = orderItems.files
 
             dispatch(createOlevelUploadOrder(
-                files,
-                uploadOrderItems,
+                orderItems,
                 parseInt(service.cost),
                 'PayStack',
                 paymentResult

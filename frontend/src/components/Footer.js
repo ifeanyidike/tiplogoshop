@@ -42,7 +42,7 @@ const Footer = ({ hide }) => {
                 <div className="contact">
                     <h4>Contacts</h4>
                     <ul>
-                        <li><LocationOnIcon /> 2 John Kay Avenue Okitipupa, Ondo State</li>
+                        <li><LocationOnIcon /> 19 Alli Balogun Street Off Maryland Junction, Okitipupa, Ondo State.</li>
                         <li><MailOutlineIcon /> tiplogocafe@gmail.com</li>
                         <li><PhoneIcon /> <span>08069598685, 08057740422</span></li>
                     </ul>
