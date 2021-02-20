@@ -39,7 +39,7 @@ and **Node.js**, **Express**, **JSON web token**, **REST API**, **MongoDB**, **M
 - **dotenv**
 - **Express Async Handler**
 
-It is a complex app but thanks to redux dev tools, I was able to effect debug the redux states and make necessary corrections.
+It is a complex app but thanks to redux dev tools, I was able to effectively debug the redux states and make necessary corrections.
 
 The app makes use of `full local authentication` and `facebook authentication` (both with JSON web token). This includes both users registration and login.
 It also features `email confirmation` for registered users (Users cannot login until they confirm their emails), thanks to mailgun. 
