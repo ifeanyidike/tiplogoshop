@@ -1,6 +1,6 @@
 # tiplogoshop
 
-This project is temporarily hosted in [https://tiplogo.herokuapp.com](https://tiplogo.herokuapp.com)
+This project is temporarily hosted on [https://tiplogo.herokuapp.com](https://tiplogo.herokuapp.com)
 
 This is a full MERN stack build with *React*, **Redux**, **Redux Thunk**, **Styled Components**, **Material UI**, **routing with React Router DOM**, **Advanced CSS** in the frontend 
 and **Node.js**, **Express**, **JSON web token**, **REST API**, **MongoDB**, **Mongoose** in the backend.
