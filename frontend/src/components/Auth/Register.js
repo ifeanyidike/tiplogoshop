@@ -75,7 +75,7 @@ export default function Register() {
           </Typography>
       
         <p>
-            SignUp with Tiplogo shop to get started
+            SignUp with Tiplogo Nigeria Limited to get started
         </p>  
         <p> 
           {values.message && <Message variant="error">{values.message}</Message>}  

@@ -110,7 +110,7 @@ const SideDrawer = () => {
                                     <img src='/images/tiplogo.png' alt='tiplogo logo' />
                                 </Link>
 
-                                <span>Welcome to Tiplogo shop!</span>
+                                <span>Welcome to Tiplogo Nigeria Limited!</span>
                             </li>
                             <Link
                                 onClick={() => dispatch({ type: DRAWER_CLOSE })}
