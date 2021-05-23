@@ -8,7 +8,7 @@
         "start": "node backend/server",
         "server": "nodemon backend/server",
         "client": "yarn --cwd ./frontend run start",
-        "dev": "concurrently \"yarn server\" \"yarn client\"",
+        "dev": "concurrently \"yarn server\" \"yarn client\""
     },
     "author": "Ifeanyi Desmond Dike",
     "license": "ISC",
