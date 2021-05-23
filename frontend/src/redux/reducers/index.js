@@ -60,6 +60,8 @@ import {
     serviceUpdateReducer
 } from "./serviceReducers"
 
+import { subjectListReducer, subjectCreateReducer } from './subjectReducers'
+
 import { soldCardCreateReducer, cardMyReducer } from "./soldCardReducers"
 
 import {
@@ -211,6 +213,9 @@ const reducer = combineReducers({
     contactDetails: contactDetailsReducer,
     contactListByEmail: contactListByEmailReducer,
     contactList: contactListReducer,
+
+    subjectList: subjectListReducer,
+    subjectCreate: subjectCreateReducer
 })
 
 export default reducer

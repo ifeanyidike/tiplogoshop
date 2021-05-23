@@ -108,10 +108,10 @@ const MainHeader = ({ setShowDrawer }) => {
                             whileHover="onHover"
                         >
                             <Link
-                                to="/services"
-                                style={{ fontWeight: path === '/services' && 'bold' }}
+                                to="/data-correction"
+                                style={{ fontWeight: path === '/data-correction' && 'bold' }}
                             >
-                                Services
+                                Data Correction
                         </Link>
                         </motion.li>
                         <motion.li

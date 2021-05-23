@@ -538,6 +538,19 @@ export const ServicePanel = styled(ServicesCard)`
     .filesection{
         margin-bottom: 50px;
     }
+
+    .subjectselect{
+        div.entry{
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            span{
+                align-self: flex-end;
+                padding-bottom: 8px;
+            }
+        }
+       
+    }
     .paymentinfo{
         display: grid;
         place-items: center;    
@@ -558,7 +571,12 @@ export const ServicePanel = styled(ServicesCard)`
 export const ListFeatureElement = styled.div`
     margin: 20px 0;
     padding: 0 10px;
-    border: 1px solid ${colors.background}
+    border: 1px solid ${colors.background};
+
+    .entriesrow{
+        display: flex;
+        justify-content: space-between;
+    }
 `
 export const NoMarginBackButton = styled(NextButton)`
 `

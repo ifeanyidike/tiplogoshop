@@ -151,11 +151,15 @@ export const createOlevelUploadOrder = (
                 }
             }
             const formData = new FormData()
+            console.log(orderItems.subjectUpload)
 
             orderItems.files.forEach(file => formData.append('document', file))
             formData.append('type', orderItems.type)
             formData.append('name', orderItems.name)
             formData.append('profileCode', orderItems.profileCode)
+            formData.append('schoolAttended', orderItems.schoolAttended)
+            formData.append('schoolType', orderItems.schoolType)
+            formData.append('subjectUpload', JSON.stringify(orderItems.subjectUpload))
             formData.append('price', amount)
             formData.append('paymentMethod', paymentMethod)
             formData.append('paymentResultId', paymentResult.id)

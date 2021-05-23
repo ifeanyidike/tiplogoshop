@@ -7,6 +7,7 @@ import { useLocation, Link } from "react-router-dom"
 import BaseFile from "../components/Services/Base"
 import queryString from "query-string"
 import PayStack from "../components/Payment/PayStackCardPayment"
+import Flutterwave from "../components/Payment/FlutterwaveCardPayment"
 import { getCardOrderDetails } from "../redux/actions/cardOrderActions"
 import { listFewCards } from "../redux/actions/cardActions"
 import Loader from "../components/Loaders/SimpleLoader"
@@ -75,7 +76,7 @@ const PayOrder = () => {
     }, [dispatch, location, userInfo])
 
 
-
+    console.log(order, orderitem)
     return (
 
         <BaseFile
@@ -151,16 +152,23 @@ const PayOrder = () => {
                                                                                     amount={parseInt(orderitem.price)}
                                                                                 />
                                                                                 :
-                                                                                order.paymentMethod === 'Wallet' ?
-                                                                                    orderitem &&
-                                                                                    <WalletPayment
+                                                                                order.paymentMethod === 'Flutterwave' ?
+                                                                                    <Flutterwave
+                                                                                        orderId={order._id}
                                                                                         orderitem={orderitem}
-                                                                                        balance={balance}
-                                                                                        order={order}
-                                                                                        setInsufficientAmount={setInsufficientAmount}
+                                                                                        amount={parseInt(orderitem.price)}
                                                                                     />
                                                                                     :
-                                                                                    null
+                                                                                    order.paymentMethod === 'Wallet' ?
+                                                                                        orderitem &&
+                                                                                        <WalletPayment
+                                                                                            orderitem={orderitem}
+                                                                                            balance={balance}
+                                                                                            order={order}
+                                                                                            setInsufficientAmount={setInsufficientAmount}
+                                                                                        />
+                                                                                        :
+                                                                                        null
                                                                         }
 
 

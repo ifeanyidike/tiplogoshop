@@ -24,7 +24,7 @@ const ServicesItems = () => {
                 </div>
                 <h4>Jamb O-Level Result Upload</h4>
                 <p>Fast Jamb O-Level upload. We offer fast response.
-                <Link to="/services/result-upload"> here</Link>
+                <Link to="/data-correction/result-upload"> here</Link>
                 </p>
             </ServicesCard>
             <ServicesCard
@@ -40,7 +40,7 @@ const ServicesItems = () => {
                 </div>
                 <h4>Change of Course & Institution</h4>
                 <p>Change institutions for all Jamb accredited schools.
-                Fast response and exceptional service. <Link to="/services/change-of-course-institution">here</Link>
+                Fast response and exceptional service. <Link to="/data-correction/change-of-course-institution">here</Link>
                 </p>
             </ServicesCard>
             <ServicesCard
@@ -55,7 +55,7 @@ const ServicesItems = () => {
                     <i className="fas fa-history"></i>
                 </div>
                 <h4>Jamb Password Reset</h4>
-                <p>Reset your Jamb password with just a few mouse clicks. <Link to="/services/jamb-password-reset">here</Link>
+                <p>Reset your Jamb password with just a few mouse clicks. <Link to="/data-correction/jamb-password-reset">here</Link>
                 </p>
             </ServicesCard>
 

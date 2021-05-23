@@ -112,19 +112,19 @@ function App() {
           <AuthPage />
           <Footer />
         </Route>
-        <Route path="/services/change-of-course-institution">
+        <Route path="/data-correction/change-of-course-institution">
           <ChangeOfCourseInstitutionPage />
           <Footer />
         </Route>
-        <Route path="/services/result-upload">
+        <Route path="/data-correction/result-upload">
           <OLevelUploadPage />
           <Footer />
         </Route>
-        <Route path="/services/jamb-password-reset">
+        <Route path="/data-correction/jamb-password-reset">
           <JambPasswordResetPage />
           <Footer />
         </Route>
-        <Route path="/services">
+        <Route path="/data-correction">
           <AllServicesPage />
           <Footer />
         </Route>

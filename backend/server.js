@@ -5,6 +5,7 @@ import authRoutes from "./routes/authRoutes.js"
 import cardRoutes from "./routes/cardRoutes.js"
 import schoolRoutes from "./routes/schoolRoutes.js"
 import serviceRoutes from "./routes/serviceRoutes.js"
+import subjectRoutes from "./routes/subjectRoutes.js"
 import cardOrderRoutes from "./routes/cardOrderRoutes.js"
 import jambChangeRoutes from "./routes/jambChangeRoutes.js"
 import jambPasswordResetRoutes from "./routes/jambPasswordResetRoutes.js"
@@ -36,6 +37,7 @@ app.use('/api/users', authRoutes)
 app.use('/api/cards', cardRoutes)
 app.use('/api/schools', schoolRoutes)
 app.use('/api/services', serviceRoutes)
+app.use('/api/subjects', subjectRoutes)
 app.use('/api/cardorders', cardOrderRoutes)
 app.use('/api/changeofcourseinstitution', jambChangeRoutes)
 app.use('/api/jambpasswordreset', jambPasswordResetRoutes)

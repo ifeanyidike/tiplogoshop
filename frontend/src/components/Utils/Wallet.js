@@ -10,6 +10,7 @@ import Loader from "../Loaders/SimpleLoader"
 import MessageModal from "../Utils/MessageModal"
 import { creditWallet, getWalletAmount } from '../../redux/actions/userActions';
 import PayStack from "../Payment/PayStack"
+import Flutterwave from "../Payment/Flutterwave"
 
 const Wallet = ({ mt, mb, width }) => {
     const dispatch = useDispatch()
@@ -102,6 +103,12 @@ const Wallet = ({ mt, mb, width }) => {
 
                                 <PayStack
                                     amount={amount}
+                                    onSuccess={onSuccess}
+                                    simple={true}
+                                />
+                                <Flutterwave
+                                    amount={amount}
+                                    service="wallet funding"
                                     onSuccess={onSuccess}
                                     simple={true}
                                 />

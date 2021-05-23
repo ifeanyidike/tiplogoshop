@@ -21,6 +21,30 @@ const OLevelResultUploadSchema = mongoose.Schema({
             type: String,
             required: true
         },
+        schoolAttended: {
+            type: String,
+            required: true
+        },
+        schoolType: {
+            type: String,
+            required: true
+        },
+        subjectUpload: [
+            {
+                subject: {
+                    type: String
+                },
+                grade: {
+                    type: String
+                },
+                examNumber: {
+                    type: String
+                },
+                examType: {
+                    type: String
+                }
+            }
+        ],
         files: [
             {
                 cloudinary_id: {

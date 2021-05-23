@@ -136,6 +136,18 @@ export const UserProfileContainer = styled.div`
         }
     }
     
+    .results{
+        .head{
+            margin-bottom: 10px;
+            font-weight: 700;
+            border-bottom: 3px solid ${colors.lightergray};
+        }
+        .result_item{
+            display: flex;
+            justify-content: space-between;
+            margin-top: 10px;
+        }
+    }
 `
 
 export const AdminButton = styled(Button)`

@@ -5,7 +5,7 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 import FormControl from '@material-ui/core/FormControl';
 import FormLabel from '@material-ui/core/FormLabel';
 
-export default function RadioButtonsGroup({value, setValue}) {  
+export default function PaymentMethods({ value, setValue }) {
 
   const handleChange = (event) => {
     setValue(event.target.value);
@@ -14,14 +14,15 @@ export default function RadioButtonsGroup({value, setValue}) {
   return (
     <FormControl component="fieldset">
       <FormLabel component="legend" className="paymenttitle">Choose Payment Methods</FormLabel>
-      <RadioGroup 
-        aria-label="payment methods" 
-        className="paymentitem" 
-        value={value} 
+      <RadioGroup
+        aria-label="payment methods"
+        className="paymentitem"
+        value={value}
         onChange={handleChange}
-        >
+      >
         <FormControlLabel value="PayStack" control={<Radio />} label="PayStack" />
-        <FormControlLabel value="Wallet" control={<Radio />} label="Wallet" />        
+        <FormControlLabel value="Flutterwave" control={<Radio />} label="Flutterwave" />
+        <FormControlLabel value="Wallet" control={<Radio />} label="Wallet" />
       </RadioGroup>
     </FormControl>
   );

@@ -16,7 +16,11 @@ import MessageModal from "../Utils/MessageModal"
 import { useDispatch, useSelector } from "react-redux"
 import { WALLET_DEBIT_RESET } from '../../redux/constants/userConstants'
 import { listServiceByName } from "../../redux/actions/serviceActions"
+import { listSubjects } from "../../redux/actions/subjectActions"
 import ServiceAlert from './ServiceAlert';
+import SchoolIcon from '@material-ui/icons/School';
+import MergeTypeIcon from '@material-ui/icons/MergeType';
+import UploadEntry from './UploadEntry';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -30,6 +34,22 @@ const useStyles = makeStyles((theme) => ({
     }
 }));
 
+const Options = () => {
+
+    const { loading, error, subjects } = useSelector(state => state.subjectList)
+
+    return <>
+        {
+            loading ? "Loading..."
+                :
+                error ? { error }
+                    : subjects.map(subject =>
+                        <option key={subject._id} value={subject.name} >{subject.name}</option>
+                    )
+        }
+    </>
+}
+
 
 const OLevelUploadForm = ({
     type,
@@ -42,13 +62,21 @@ const OLevelUploadForm = ({
     setUpload,
     activeStep,
     setActiveStep,
+    entries,
+    setEntries,
+    schoollAttended,
+    setSchoolAttended,
+    schoolType,
+    setSchoolType
 }) => {
     const classes = useStyles();
     const [num, setNum] = useState(1)
     const [noFiles, setNoFiles] = useState(false)
     const dispatch = useDispatch()
 
+
     useEffect(() => {
+        dispatch(listSubjects())
         dispatch(listServiceByName('o level result upload'))
         dispatch({ type: WALLET_DEBIT_RESET })
     }, [dispatch])
@@ -75,6 +103,7 @@ const OLevelUploadForm = ({
         setNum(newNum)
     }
     const { service } = useSelector(state => state.serviceByName)
+
 
     return (
         <div>
@@ -134,6 +163,36 @@ const OLevelUploadForm = ({
                     />
                 </FormControl>
 
+                <FormControl fullWidth className={classes.formControl}>
+                    <InputLabel htmlFor="standard-adornment-amount">Secondary School Attended</InputLabel>
+                    <Input
+                        id="standard-adornment-amount"
+                        value={schoollAttended}
+                        required
+                        onChange={(e) => setSchoolAttended(e.target.value)}
+                        startAdornment={<InputAdornment position="start"><SchoolIcon /> </InputAdornment>}
+                    />
+                </FormControl>
+
+                <FormControl className={classes.formControl}>
+                    <NativeSelect
+                        fullWidth
+                        required
+                        className={classes.selectEmpty}
+                        value={schoolType}
+                        onChange={(e) => setSchoolType(e.target.value)}
+                        inputProps={{ 'aria-label': 'type' }}
+                        startAdornment={
+                            <InputAdornment position="start">
+                                <MergeTypeIcon />
+                            </InputAdornment>}
+                    >
+                        <option value="PUBLIC">PUBLIC</option>
+                        <option value="PRIVATE">PRIVATE</option>
+                    </NativeSelect>
+                    <FormHelperText>Select School Type</FormHelperText>
+                </FormControl>
+
                 <div className="numrange--services">
                     <div className="label">
                         Number of Sittings
@@ -169,6 +228,56 @@ const OLevelUploadForm = ({
                         showPreviews={true}
                         maxFileSize={5000000}
                         onClose={() => setUpload({ ...upload, open: false })}
+                    />
+                </div>
+
+                <h1>Please enter the subjects manually</h1>
+
+                <div className='subjectselect'>
+                    <UploadEntry
+                        num="1"
+                        entryState={entries.first}
+                        setEntryState={setEntries.first}
+                    />
+                    <UploadEntry
+                        num="2"
+                        entryState={entries.second}
+                        setEntryState={setEntries.second}
+                    />
+                    <UploadEntry
+                        num="3"
+                        entryState={entries.third}
+                        setEntryState={setEntries.third}
+                    />
+                    <UploadEntry
+                        num="4"
+                        entryState={entries.fourth}
+                        setEntryState={setEntries.fourth}
+                    />
+                    <UploadEntry
+                        num="5"
+                        entryState={entries.fifth}
+                        setEntryState={setEntries.fifth}
+                    />
+                    <UploadEntry
+                        num="6"
+                        entryState={entries.sixth}
+                        setEntryState={setEntries.sixth}
+                    />
+                    <UploadEntry
+                        num="7"
+                        entryState={entries.seventh}
+                        setEntryState={setEntries.seventh}
+                    />
+                    <UploadEntry
+                        num="8"
+                        entryState={entries.eighth}
+                        setEntryState={setEntries.eighth}
+                    />
+                    <UploadEntry
+                        num="9"
+                        entryState={entries.nineth}
+                        setEntryState={setEntries.nineth}
                     />
                 </div>
 

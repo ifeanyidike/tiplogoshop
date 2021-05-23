@@ -24,7 +24,7 @@ const PayStackPayment = ({ amount, onSuccess, simple }) => {
         reference: (new Date()).getTime(),
         email: userInfo.email,
         amount: amount * 100,
-        publicKey: key,
+        publicKey: process.env.REACT_APP_PAYSTACK_PUBLIC_KEY,
     };
 
     const PayStackHooks = () => {
@@ -39,7 +39,7 @@ const PayStackPayment = ({ amount, onSuccess, simple }) => {
                                 initializePayment(onSuccess, onClose)
                             }}
                         >
-                            <i className="fab fa-amazon-pay fa-2x"></i>
+                            Paystack
                         </WalletButton>
                         :
                         <PayButton

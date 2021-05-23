@@ -32,6 +32,88 @@ const ChangeOfCourseInstitution = () => {
     const [type, setType] = useState("WAEC")
     const [name, setName] = useState("")
     const [profileCode, setProfileCode] = useState("")
+    const [schoolAttended, setSchoolAttended] = useState("")
+    const [schoolType, setSchoolType] = useState("PUBLIC")
+
+    const [firstEntry, setFirstEntry] = useState({
+        subject: 'English Language',
+        grade: '',
+        examNumber: '',
+        examType: ''
+    })
+    const [secondEntry, setSecondEntry] = useState({
+        subject: 'English Language',
+        grade: '',
+        examNumber: '',
+        examType: ''
+    })
+    const [thirdEntry, setThirdEntry] = useState({
+        subject: 'English Language',
+        grade: '',
+        examNumber: '',
+        examType: ''
+    })
+    const [fourthEntry, setFourthEntry] = useState({
+        subject: 'English Language',
+        grade: '',
+        examNumber: '',
+        examType: ''
+    })
+    const [fifthEntry, setFifthEntry] = useState({
+        subject: 'English Language',
+        grade: '',
+        examNumber: '',
+        examType: ''
+    })
+    const [sixthEntry, setSixthEntry] = useState({
+        subject: 'English Language',
+        grade: '',
+        examNumber: '',
+        examType: ''
+    })
+    const [seventhEntry, setSeventhEntry] = useState({
+        subject: 'English Language',
+        grade: '',
+        examNumber: '',
+        examType: ''
+    })
+    const [eighthEntry, setEighthEntry] = useState({
+        subject: 'English Language',
+        grade: '',
+        examNumber: '',
+        examType: ''
+    })
+    const [ninethEntry, setNinethEntry] = useState({
+        subject: 'English Language',
+        grade: '',
+        examNumber: '',
+        examType: ''
+    })
+
+    const manualEntries = {
+        first: firstEntry,
+        second: secondEntry,
+        third: thirdEntry,
+        fourth: fourthEntry,
+        fifth: fifthEntry,
+        sixth: sixthEntry,
+        seventh: seventhEntry,
+        eighth: eighthEntry,
+        nineth: ninethEntry
+    }
+
+    const setManualEntries = {
+        first: setFirstEntry,
+        second: setSecondEntry,
+        third: setThirdEntry,
+        fourth: setFourthEntry,
+        fifth: setFifthEntry,
+        sixth: setSixthEntry,
+        seventh: setSeventhEntry,
+        eighth: setEighthEntry,
+        nineth: setNinethEntry
+    }
+
     const [upload, setUpload] = useState({
         open: false,
         files: []
@@ -55,6 +137,26 @@ const ChangeOfCourseInstitution = () => {
     }, [dispatch])
 
     const resultUploadOrder = () => {
+        const subjectUpload = []
+        if (manualEntries.first.grade || manualEntries.first.examNumber || manualEntries.first.examType) {
+            subjectUpload.push(manualEntries.first)
+        } else if (manualEntries.second.grade || manualEntries.second.examNumber || manualEntries.second.examType) {
+            subjectUpload.push(manualEntries.second)
+        } else if (manualEntries.third.grade || manualEntries.third.examNumber || manualEntries.third.examType) {
+            subjectUpload.push(manualEntries.third)
+        } else if (manualEntries.fourth.grade || manualEntries.fourth.examNumber || manualEntries.fourth.examType) {
+            subjectUpload.push(manualEntries.fourth)
+        } else if (manualEntries.fifth.grade || manualEntries.fifth.examNumber || manualEntries.fifth.examType) {
+            subjectUpload.push(manualEntries.fifth)
+        } else if (manualEntries.sixth.grade || manualEntries.sixth.examNumber || manualEntries.sixth.examType) {
+            subjectUpload.push(manualEntries.sixth)
+        } else if (manualEntries.seventh.grade || manualEntries.seventh.examNumber || manualEntries.seventh.examType) {
+            subjectUpload.push(manualEntries.seventh)
+        } else if (manualEntries.eighth.grade || manualEntries.eighth.examNumber || manualEntries.eighth.examType) {
+            subjectUpload.push(manualEntries.eighth)
+        } else if (manualEntries.nineth.grade || manualEntries.nineth.examNumber || manualEntries.nineth.examType) {
+            subjectUpload.push(manualEntries.nineth)
+        }
 
         return {
             transactionType: 'olevelresultupload',
@@ -63,7 +165,10 @@ const ChangeOfCourseInstitution = () => {
                 type,
                 name,
                 profileCode,
+                schoolAttended,
+                schoolType,
                 files: upload.files,
+                subjectUpload
             }
         }
     }
@@ -102,8 +207,14 @@ const ChangeOfCourseInstitution = () => {
                                         setProfileCode={setProfileCode}
                                         upload={upload}
                                         setUpload={setUpload}
+                                        entries={manualEntries}
+                                        setEntries={setManualEntries}
                                         activeStep={activeStep}
                                         setActiveStep={setActiveStep}
+                                        schoolAttended={schoolAttended}
+                                        setSchoolAttended={setSchoolAttended}
+                                        schoolType={schoolType}
+                                        setSchoolType={setSchoolType}
                                     />
                                     :
                                     activeStep === 1 ?
@@ -112,6 +223,9 @@ const ChangeOfCourseInstitution = () => {
                                             name={name}
                                             profileCode={profileCode}
                                             upload={upload}
+                                            entries={manualEntries}
+                                            schoolAttended={schoolAttended}
+                                            schoolType={schoolType}
                                             activeStep={activeStep}
                                             setActiveStep={setActiveStep}
                                         />

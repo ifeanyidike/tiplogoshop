@@ -161,6 +161,23 @@ const OLevelUploadDetails = ({ setValue }) => {
                                                     <span>{order.orderItems && order.orderItems.type}</span>
                                                 </div>
 
+                                                <div>
+                                                    <span>Candidate's Order Type:</span>
+                                                    <span>{order.orderItems && order.orderItems.type}</span>
+                                                </div>
+
+                                                <div>
+                                                    <span>School Attended: </span>
+                                                    <span>{order.orderItems
+                                                        && order.orderItems.schoolAttended}</span>
+                                                </div>
+
+                                                <div>
+                                                    <span>School Type: </span>
+                                                    <span>{order.orderItems
+                                                        && order.orderItems.schoolType}</span>
+                                                </div>
+
                                                 <div className="fullwidth">
                                                     <div className="embossitem flexemboss">
                                                         {
@@ -206,6 +223,32 @@ const OLevelUploadDetails = ({ setValue }) => {
                                                     <span>Last update on:</span>
                                                     <span>{new Date(order.updatedAt).toDateString()}</span>
                                                 </div>
+
+                                                <div className='fullwidth'>
+                                                    {
+                                                        order.orderItems.subjectUpload &&
+                                                        <div className='results'>
+                                                            <h2>Result details</h2>
+                                                            <div className="result_item head">
+                                                                <span>Subjects</span>
+                                                                <span>Grade</span>
+                                                                <span>Exam Number</span>
+                                                                <span>Exam Type</span>
+                                                            </div>
+                                                            {
+                                                                order.orderItems.subjectUpload.map(result => (
+                                                                    <div className="result_item" key={result._id}>
+                                                                        <span>{result.subject}</span>
+                                                                        <span>{result.grade}</span>
+                                                                        <span>{result.examNumber}</span>
+                                                                        <span>{result.examType}</span>
+                                                                    </div>
+                                                                ))
+                                                            }
+                                                        </div>
+                                                    }
+                                                </div>
+
 
                                             </div>
 

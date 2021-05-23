@@ -26,8 +26,11 @@ const OLevelUploadReview = ({
   name,
   profileCode,
   upload,
+  schoolAttended,
+  schoolType,
   activeStep,
-  setActiveStep
+  setActiveStep,
+  entries
 }) => {
   const classes = useStyles();
   return (
@@ -44,6 +47,14 @@ const OLevelUploadReview = ({
         <ListItem className={classes.listItem} key={profileCode}>
           <ListItemText primary="Candidate's Profile Code" secondary={`Profile Code ${type} candidate`} />
           <Typography variant="body2">{profileCode}</Typography>
+        </ListItem>
+        <ListItem className={classes.listItem} key={schoolAttended}>
+          <ListItemText primary="Candidate's School Attended Code" secondary={`Profile Code ${type} candidate`} />
+          <Typography variant="body2">{schoolAttended}</Typography>
+        </ListItem>
+        <ListItem className={classes.listItem} key={schoolType}>
+          <ListItemText primary="Candidate's School Type Code" secondary={`Profile Code ${type} candidate`} />
+          <Typography variant="body2">{schoolType}</Typography>
         </ListItem>
 
         {
@@ -72,6 +83,90 @@ const OLevelUploadReview = ({
             </ListFeatureElement>
           ))
         }
+
+        <ListFeatureElement >
+          <ListItem className="entriesrow" >
+            <ListItemText primary="Subjects" />
+            <ListItemText primary="Grades" />
+            <ListItemText primary="Exam No." />
+            <ListItemText primary="Exam Types" />
+          </ListItem>
+          {(entries.first.grade || entries.first.examNumber || entries.first.examType) &&
+            <ListItem className="entriesrow" >
+              <ListItemText primary={entries.first.subject} />
+              <ListItemText primary={entries.first.grade} />
+              <ListItemText primary={entries.first.examNumber} />
+              <ListItemText primary={entries.first.examType} />
+            </ListItem>
+          }
+
+          {(entries.second.grade || entries.second.examNumber || entries.second.examType) &&
+            <ListItem className="entriesrow" >
+              <ListItemText primary={entries.second.subject} />
+              <ListItemText primary={entries.second.grade} />
+              <ListItemText primary={entries.second.examNumber} />
+              <ListItemText primary={entries.second.examType} />
+            </ListItem>
+          }
+          {(entries.third.grade || entries.third.examNumber || entries.third.examType) &&
+            <ListItem className="entriesrow" >
+              <ListItemText primary={entries.third.subject} />
+              <ListItemText primary={entries.third.grade} />
+              <ListItemText primary={entries.third.examNumber} />
+              <ListItemText primary={entries.third.examType} />
+            </ListItem>
+          }
+          {(entries.fourth.grade || entries.fourth.examNumber || entries.fourth.examType) &&
+            <ListItem className="entriesrow" >
+              <ListItemText primary={entries.fourth.subject} />
+              <ListItemText primary={entries.fourth.grade} />
+              <ListItemText primary={entries.fourth.examNumber} />
+              <ListItemText primary={entries.fourth.examType} />
+            </ListItem>
+          }
+          {(entries.fifth.grade || entries.fifth.examNumber || entries.fifth.examType) &&
+            <ListItem className="entriesrow" >
+              <ListItemText primary={entries.fifth.subject} />
+              <ListItemText primary={entries.fifth.grade} />
+              <ListItemText primary={entries.fifth.examNumber} />
+              <ListItemText primary={entries.fifth.examType} />
+            </ListItem>
+          }
+          {(entries.sixth.grade || entries.sixth.examNumber || entries.sixth.examType) &&
+            <ListItem className="entriesrow" >
+              <ListItemText primary={entries.sixth.subject} />
+              <ListItemText primary={entries.sixth.grade} />
+              <ListItemText primary={entries.sixth.examNumber} />
+              <ListItemText primary={entries.sixth.examType} />
+            </ListItem>
+          }
+          {(entries.seventh.grade || entries.seventh.examNumber || entries.seventh.examType) &&
+            <ListItem className="entriesrow" >
+              <ListItemText primary={entries.seventh.subject} />
+              <ListItemText primary={entries.seventh.grade} />
+              <ListItemText primary={entries.seventh.examNumber} />
+              <ListItemText primary={entries.seventh.examType} />
+            </ListItem>
+          }
+          {(entries.eighth.grade || entries.eighth.examNumber || entries.eighth.examType) &&
+            <ListItem className="entriesrow" >
+              <ListItemText primary={entries.eighth.subject} />
+              <ListItemText primary={entries.eighth.grade} />
+              <ListItemText primary={entries.eighth.examNumber} />
+              <ListItemText primary={entries.eighth.examType} />
+            </ListItem>
+          }
+          {(entries.nineth.grade || entries.nineth.examNumber || entries.nineth.examType) &&
+            <ListItem className="entriesrow" >
+              <ListItemText primary={entries.nineth.subject} />
+              <ListItemText primary={entries.nineth.grade} />
+              <ListItemText primary={entries.nineth.examNumber} />
+              <ListItemText primary={entries.nineth.examType} />
+            </ListItem>
+          }
+
+
+        </ListFeatureElement>
 
         <ButtonGroup>
           <NoMarginBackButton

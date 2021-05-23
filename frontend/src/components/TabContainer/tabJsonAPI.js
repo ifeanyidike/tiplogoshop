@@ -44,7 +44,7 @@ const tabitems = [
             }
         ],
         image: "/images/webdesign2.png",
-        link: '/services/change-of-course-institution'
+        link: '/data-correction/change-of-course-institution'
     },
     {
         heading: "Get O Level Result Upload up and Running.",
@@ -67,7 +67,7 @@ const tabitems = [
             }
         ],
         image: "/images/webdesign3.jpg",
-        link: '/services/result-upload'
+        link: '/data-correction/result-upload'
     },
     {
         heading: "We offer a bunch of other awesome services",
@@ -89,7 +89,7 @@ const tabitems = [
                 desc: "Drop a review for on our services. We value your opinion"
             }
         ],
-        link: '/services/jamb-password-reset'
+        link: '/data-correction/jamb-password-reset'
     }
 ]
 

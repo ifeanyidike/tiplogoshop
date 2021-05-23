@@ -29,7 +29,7 @@ const Footer = ({ hide }) => {
                             <Link to='/allcards'>Buy cards</Link>
                         </li>
                         <li>
-                            <Link to='/services'>Jamb services</Link>
+                            <Link to='/data-correction'>Jamb services</Link>
                         </li>
                         <li>
                             <Link to='/help'>Contact Us</Link>

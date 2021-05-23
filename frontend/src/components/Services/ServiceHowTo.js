@@ -8,7 +8,7 @@ const ServiceHowTo = () => {
             <ul>
                 <li>
                     <CheckBoxIcon /> Choose the number of cards you want to buy and select your
-                    payment method (Paystack or Wallet).
+                    payment method (Paystack, Flutterwave or Wallet).
                 </li>
                 <li>
                     <CheckBoxIcon /> Want to pay by wallet? Fund your wallet with a click.

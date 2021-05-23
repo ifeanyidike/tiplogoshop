@@ -27,7 +27,7 @@ const JambServiceHowTo = () => {
                     <CheckBoxIcon /> Go through the overview and ensure your information is correct. Click next.
                 </li>
                 <li>
-                    <CheckBoxIcon /> Pay either with wallet or paystack. Fund your wallet to use wallet.
+                    <CheckBoxIcon /> Pay either with wallet, paystack, or flutterwave. Fund your wallet to use wallet.
                 </li>
 
             </ul>

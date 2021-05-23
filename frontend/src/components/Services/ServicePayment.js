@@ -8,6 +8,7 @@ import { colors } from "../../styles/breakpoints"
 import { useDispatch, useSelector } from 'react-redux'
 import { debitWallet } from "../../redux/actions/userActions"
 import PaystackPayment from "../Payment/PayStackServicesPayment"
+import FlutterwavePayment from "../Payment/FlutterwaveServicesPayment"
 import Loader from "../Loaders/SimpleLoader"
 import Message from "../Message"
 import { Link, useHistory } from "react-router-dom"
@@ -46,7 +47,7 @@ const ServicePayment = ({
 
     useEffect(() => {
         if (cocSuccess || oluSuccess || jprSuccess || cocError || oluError || jprError || walletError) {
-            history.push('/services')
+            history.push('/data-correction')
         }
     }, [cocSuccess, oluSuccess, jprSuccess, cocError, jprError, oluError, walletError, history])
 
@@ -130,12 +131,18 @@ const ServicePayment = ({
                             orderItems={serviceOrder().orderItems}
                         />
                         :
-                        <NextButton
-                            variant={colors.darkblue}
-                            onClick={handleWalletPayment}
-                        >
-                            Pay <NavigateNextIcon />
-                        </NextButton>
+                        paymentMethod === 'Flutterwave' ?
+                            <FlutterwavePayment
+                                transactionType={serviceOrder().transactionType}
+                                orderItems={serviceOrder().orderItems}
+                            />
+                            :
+                            <NextButton
+                                variant={colors.darkblue}
+                                onClick={handleWalletPayment}
+                            >
+                                Pay <NavigateNextIcon />
+                            </NextButton>
                 }
 
             </ButtonGroup>

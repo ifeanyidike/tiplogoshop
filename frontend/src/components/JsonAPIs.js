@@ -63,19 +63,19 @@ export const topcard_features = [
         icon: "fas fa-exchange-alt",
         title: "Data correction",
         bcolor: "darkblue",
-        href: '/services/change-of-course-institution'
+        href: '/data-correction/change-of-course-institution'
     },
     {
         icon: "fas fa-sliders-h",
         title: "Password reset",
         bcolor: "darkred",
-        href: '/services/jamb-password-reset'
+        href: '/data-correction/jamb-password-reset'
     },
     {
         icon: "fas fa-cloud-upload-alt",
         title: "Result upload",
         bcolor: "lightgray",
-        href: '/services/result-upload'
+        href: '/data-correction/result-upload'
     },
     {
         icon: "fas fa-shopping-cart",

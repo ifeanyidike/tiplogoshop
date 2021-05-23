@@ -4,11 +4,8 @@ import OLevelResultUploadOrder from "../models/oLevelResultUploadModels.js"
 import User from "../models/userModels.js"
 import request from "request"
 import fs from "fs"
-import path from 'path'
 import { mg, mgOptions, servicesMessageTemplate, mgOptionsWithAttachment } from "../utils/sendEmail.js"
 import { uploader } from "cloudinary"
-import { Readable } from "stream"
-import streamify from "stream-array"
 
 
 //@desc     Create new OLevelResultUpload
@@ -16,11 +13,11 @@ import streamify from "stream-array"
 //@access   Private
 export const createOLevelResultUploadOrder = asyncHandler(async (req, res) => {
     const {
-        type, name, profileCode, price, paymentMethod, paymentResultId,
+        type, name, profileCode, price, schoolAttended, schoolType,
+        subjectUpload, paymentMethod, paymentResultId,
         paymentResultStatus, paymentResultUpdateTime, paymentResultEmail
     }
         = req.body
-
 
     if (!req.files || req.files.length === 0) {
         throw new Error('No file supplied')
@@ -69,10 +66,13 @@ export const createOLevelResultUploadOrder = asyncHandler(async (req, res) => {
 
     const order = new OLevelResultUploadOrder({
         orderItems: {
-            type: type,
-            name: name,
-            profileCode: profileCode,
-            files: upload
+            type,
+            name,
+            profileCode,
+            schoolAttended,
+            schoolType,
+            files: upload,
+            subjectUpload: JSON.parse(subjectUpload)
         },
         user: req.user._id,
         price,

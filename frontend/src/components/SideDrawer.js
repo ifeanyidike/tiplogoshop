@@ -128,16 +128,16 @@ const SideDrawer = () => {
                             </Link>
                             <Link
                                 onClick={() => dispatch({ type: DRAWER_CLOSE })}
-                                to='/services'
+                                to='/data-correction'
                                 className="drawer__link"
                                 style={{
-                                    fontWeight: path === '/services' && 'bold',
-                                    color: path === '/services' && colors.lightred
+                                    fontWeight: path === '/data-correction' && 'bold',
+                                    color: path === '/data-correction' && colors.lightred
                                 }}
                             >
                                 <motion.li className='item' >
                                     <i className="fas fa-cogs"></i>
-                                    <span>Services</span>
+                                    <span>Data Correction</span>
                                 </motion.li>
                             </Link>
 
