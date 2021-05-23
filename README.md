@@ -1,6 +1,6 @@
 # tiplogoshop
 
-This project is temporarily hosted in [https://tiplogo.herokuapp.com](https://tiplogo.herokuapp.com)
+This project is temporarily hosted on [https://tiplogo.herokuapp.com](https://tiplogo.herokuapp.com)
 
 This is a full MERN stack build with *React*, **Redux**, **Redux Thunk**, **Styled Components**, **Material UI**, **routing with React Router DOM**, **Advanced CSS** in the frontend 
 and **Node.js**, **Express**, **JSON web token**, **REST API**, **MongoDB**, **Mongoose** in the backend.
@@ -39,7 +39,7 @@ and **Node.js**, **Express**, **JSON web token**, **REST API**, **MongoDB**, **M
 - **dotenv**
 - **Express Async Handler**
 
-It is a complex app but thanks to redux dev tools, I was able to effect debug the redux states and make necessary corrections.
+It is a complex app but thanks to redux dev tools, I was able to effectively debug the redux states and make necessary corrections.
 
 The app makes use of `full local authentication` and `facebook authentication` (both with JSON web token). This includes both users registration and login.
 It also features `email confirmation` for registered users (Users cannot login until they confirm their emails), thanks to mailgun. 
@@ -62,5 +62,5 @@ The backend is also structured in a simple way. The backend routes are organized
 The `controllers` folder contain the controllers which supply the functions needed by the routes. This contains the functionality that define the behavior of the app.
 The routes are fed into the `server.js` app which controls the entire app. Also, the `middlewares` are stored in the middleware folder, and other utilities are stored in utils.
 
-The app also has a robust admin backend to enable the site administrators seamlessly manage users, create and add cards, manage all orders and even upload files depending on user's actions. Users receive immediate update via their mail and their profiles (built into the app) when they perform any useful actions or when an admin responds to their queries. It also has a nice user profile that allows users to see and manage their ordoers, make payments for pending orders and so on.
+The app also has a robust admin backend to enable the site administrators seamlessly manage users, create and add cards, manage all orders and even upload files depending on user's actions. Users receive immediate update via their mail and their profiles (built into the app) when they perform any useful actions or when an admin responds to their queries. It also has a nice user profile that allows users to see and manage their orders, make payments for pending orders and so on.
 
