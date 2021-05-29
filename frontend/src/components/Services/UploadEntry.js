@@ -66,7 +66,7 @@ const UploadEntry = ({ num, entryState, setEntryState }) => {
                 options={<GradeOptions />}
             />
             <TextField
-                label="Exam Number"
+                label="Exam No"
                 value={entryState.examNumber}
                 onChange={handleChange('examNumber')}
                 autoComplete="Enter phonenumber"

@@ -41,7 +41,7 @@ const Footer = ({ hide }) => {
                 <div className="contact">
                     <h4>Contacts</h4>
                     <ul>
-                        <li><LocationOnIcon /> 5 John Kay Avenue, Okitipupa, Ondo State.</li>
+                        <li><LocationOnIcon /> 2 John Kay Street, Okitipupa, Ondo State.</li>
                         <li><MailOutlineIcon /> pincafes@gmail.com</li>
                         <li><PhoneIcon /> <span>08066120596</span></li>
                     </ul>
