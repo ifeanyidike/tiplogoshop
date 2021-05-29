@@ -43,7 +43,7 @@ const Footer = ({ hide }) => {
                     <ul>
                         <li><LocationOnIcon /> 2 John Kay Avenue, Okitipupa, Ondo State.</li>
                         <li><MailOutlineIcon /> pincafes@gmail.com</li>
-                        <li><PhoneIcon /> <span>08069598685, 08057740422</span></li>
+                        <li><PhoneIcon /> <span>08066120596</span></li>
                     </ul>
                 </div>
 
