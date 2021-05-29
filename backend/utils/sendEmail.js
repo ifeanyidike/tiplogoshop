@@ -106,7 +106,7 @@ const servicesMessageTemplate = (heading = '', msg) => `
         
 
         <small>&copy; ${new Date().getFullYear()} Pin Cafes.</small><br />
-        <small>5 John Kay Avenue, Okitipupa, Ondo State, Nigeria</small> <br />
+        <small>2 John Kay Street, Okitipupa, Ondo State, Nigeria</small> <br />
         <small>
             <a href="${process.env.CLIENT_URL}/legal#privacy">Privacy Policy</a>  |  
             <a href="${process.env.CLIENT_URL}/legal#terms">Terms</a>  |
@@ -141,7 +141,7 @@ const emailMessageTemplate = (heading, msg, url, text, timeNotice = '') => `
     ${timeNotice}
     
     <small>&copy; ${new Date().getFullYear()} Pin Cafes.</small><br />
-    <small>5 John Kay Avenue, Okitipupa, Ondo State, Nigeria</small> <br />
+    <small>2 John Kay Street, Okitipupa, Ondo State, Nigeria</small> <br />
     <small>
         <a href="${process.env.CLIENT_URL}/legal#privacy">Privacy Policy</a>  |  
         <a href="${process.env.CLIENT_URL}/legal#terms">Terms</a>  |
@@ -214,7 +214,7 @@ const emailMessageCardTemplate = (heading, msg, cardbody) => `
         </table>
 
         <small>&copy; ${new Date().getFullYear()} Pin Cafes.</small><br />
-        <small>5 John Kay Avenue, Okitipupa, Ondo State, Nigeria</small> <br />
+        <small>2 John Kay Street, Okitipupa, Ondo State, Nigeria</small> <br />
         <small>
             <a href="${process.env.CLIENT_URL}/legal#privacy">Privacy Policy</a>  |  
             <a href="${process.env.CLIENT_URL}/legal#terms">Terms</a>  |
