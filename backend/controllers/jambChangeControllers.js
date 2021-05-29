@@ -27,7 +27,7 @@ export const createChangeOfCourseInstitutionOrder = asyncHandler(async (req, res
         throw new Error('No Order items')
     } else {
 
-        const from = "noreply@tiplogo.com"
+        const from = "noreply@pincafes.com"
         const subject = "Jamb Change of Course and Institution Order"
 
         const heading = `Your Change of Course and Institution Order`
@@ -186,7 +186,7 @@ export const adminChangeOfCourseFileUpload = asyncHandler(async (req, res) => {
 
     if (order) {
         // const attachment = request(req.file.path)
-        const from = "noreply@tiplogo.com"
+        const from = "noreply@pincafes.com"
         const subject = "Change of course completed"
 
         const heading = `We have completed your change of course`

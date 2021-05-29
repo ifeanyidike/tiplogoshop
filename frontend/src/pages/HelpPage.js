@@ -171,8 +171,8 @@ const Help = () => {
                             <div>
                                 <span>Email us</span>
                                 <HelpButtonPro color={colors.goldish}>
-                                    <a href="mailto:tiplogocafe@gmail.com">
-                                        <AlternateEmailIcon /> tiplogocafe@gmail.com
+                                    <a href="mailto:pincafes@gmail.com">
+                                        <AlternateEmailIcon /> pincafes@gmail.com
                                 </a>
                                 </HelpButtonPro>
                             </div>

@@ -47,7 +47,7 @@ const LoadCards = ({ loading, cards, error, href }) => {
     <>
       <h2>Our Cards</h2>
       <p className="top__paragraph">
-        At Tiplogo, we are a step ahead in providing you the best card services. Buy cards from our pool of cards today.</p>
+        At Pin Cafes, we are a step ahead in providing you the best card services. Buy cards from our pool of cards today.</p>
 
       <div className="card__container">
         {loading ?

@@ -98,14 +98,14 @@ const servicesMessageTemplate = (heading = '', msg) => `
         <a style="text-decoration: none; 
             color: #0077CC; font-size: 25px; 
             margin-bottom: 5px;font-weight:bold">
-            Tiplogo Nigeria Limited
+            Pin Cafes
         </a>
         <h2 style="margin: 10px 0">${heading}</h2>
 
         <div style="margin: 20px 0">${msg}</div>    
         
 
-        <small>&copy; ${new Date().getFullYear()} Tiplogo Nig. Ltd.</small><br />
+        <small>&copy; ${new Date().getFullYear()} Pin Cafes.</small><br />
         <small>5 John Kay Avenue, Okitipupa, Ondo State, Nigeria</small> <br />
         <small>
             <a href="${process.env.CLIENT_URL}/legal#privacy">Privacy Policy</a>  |  
@@ -124,7 +124,7 @@ const emailMessageTemplate = (heading, msg, url, text, timeNotice = '') => `
     <a style="text-decoration: none; 
         color: #0077CC; font-size: 25px; 
         margin-bottom: 5px;font-weight:bold">
-        Tiplogo Nigeria Limited
+        Pin Cafes
     </a>
     <h2 style="margin: 10px 0">${heading}</h2>
     
@@ -140,7 +140,7 @@ const emailMessageTemplate = (heading, msg, url, text, timeNotice = '') => `
     
     ${timeNotice}
     
-    <small>&copy; ${new Date().getFullYear()} Tiplogo Nig. Ltd.</small><br />
+    <small>&copy; ${new Date().getFullYear()} Pin Cafes.</small><br />
     <small>5 John Kay Avenue, Okitipupa, Ondo State, Nigeria</small> <br />
     <small>
         <a href="${process.env.CLIENT_URL}/legal#privacy">Privacy Policy</a>  |  
@@ -193,7 +193,7 @@ const emailMessageCardTemplate = (heading, msg, cardbody) => `
         <a style="text-decoration: none; 
             color: #0077CC; font-size: 25px; 
             margin-bottom: 5px;font-weight:bold">
-            Tiplogo Nigeria Limited
+            Pin Cafes
         </a>
         <h2 style="margin: 10px 0">${heading}</h2>
 
@@ -213,7 +213,7 @@ const emailMessageCardTemplate = (heading, msg, cardbody) => `
             </tbody>
         </table>
 
-        <small>&copy; ${new Date().getFullYear()} Tiplogo Nig. Ltd.</small><br />
+        <small>&copy; ${new Date().getFullYear()} Pin Cafes.</small><br />
         <small>5 John Kay Avenue, Okitipupa, Ondo State, Nigeria</small> <br />
         <small>
             <a href="${process.env.CLIENT_URL}/legal#privacy">Privacy Policy</a>  |  

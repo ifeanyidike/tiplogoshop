@@ -29,7 +29,7 @@ function Navigator(props) {
             <Link to="/"
               className={clsx(classes.item)}
             >
-              Tiplogo Admin
+              Pin Cafes Admin
             </Link>
           </ListItem>
           <ListItem className={clsx(classes.item, classes.itemCategory)}>

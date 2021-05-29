@@ -64,7 +64,7 @@ const HomePage = ({ setShowDrawer }) => {
                 <Divider />
                 <div className="testimonial__content">
                     <h2>Client testimonials</h2>
-                    <p>Hear what other customers say about Tiplogo Nigeria Limited.</p>
+                    <p>Hear what other customers say about Pin Cafes.</p>
 
                     <Testimonial
                         perPage={

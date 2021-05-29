@@ -268,7 +268,7 @@ export const emailAUserByEmail = asyncHandler(async (req, res) => {
     const users = await User.find({ email: req.params.email })
     const { subject, message: info } = req.body
 
-    const from = "noreply@tiplogo.com"
+    const from = "noreply@pincafes.com"
     const [user] = users
 
     const recipients = [user.email, process.env.ADMIN_EMAIL]
@@ -308,7 +308,7 @@ export const emailAUser = asyncHandler(async (req, res) => {
     if (!subject || !info) {
         throw new Error('Subject or message cannot be empty')
     }
-    const from = "noreply@tiplogo.com"
+    const from = "noreply@pincafes.com"
     const recipients = [user.email, process.env.ADMIN_EMAIL]
     const heading = `Hi ${user.name}`
     const msg =
@@ -343,7 +343,7 @@ export const emailAllUsers = asyncHandler(async (req, res) => {
         throw new Error('Subject or message cannot be empty')
     }
 
-    const from = "noreply@tiplogo.com"
+    const from = "noreply@pincafes.com"
     const recipients = users.map(user => user.email)
 
     const heading = `Dear valued customer,`
@@ -375,7 +375,7 @@ export const addProfilePhoto = asyncHandler(async (req, res) => {
 
     if (user) {
         // const attachment = request(req.file.path)
-        const from = "noreply@tiplogo.com"
+        const from = "noreply@pincafes.com"
         const subject = "Profile Picture Changed"
 
         const heading = `Hi ${user.name}`

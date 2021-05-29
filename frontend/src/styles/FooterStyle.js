@@ -9,7 +9,7 @@ export const FooterElement = styled.footer`
     .topfooter{
         background: ${colors.lightred};
         display: grid;
-        grid-template-columns: repeat(4, 1fr);
+        grid-template-columns: repeat(3, 1fr);
 
         @media ${device.tablet}{
             grid-template-columns: repeat(2, 1fr);
@@ -59,7 +59,7 @@ export const FooterElement = styled.footer`
             }
             p{
                 font-family: 'Jost', sans-serif;
-                
+                width: 80%;
             }
         }
         .links{

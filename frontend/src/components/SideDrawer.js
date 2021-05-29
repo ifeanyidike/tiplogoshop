@@ -107,10 +107,10 @@ const SideDrawer = () => {
                                 </Link> */}
 
                                 <Link to='/' className="logo">
-                                    <img src='/images/tiplogo.png' alt='tiplogo logo' />
+                                    <img src='/images/pincafes-logo.png' alt='Pin Cafes logo' />
                                 </Link>
 
-                                <span>Welcome to Tiplogo Nigeria Limited!</span>
+                                <span>Welcome to Pin Cafes!</span>
                             </li>
                             <Link
                                 onClick={() => dispatch({ type: DRAWER_CLOSE })}

@@ -25,7 +25,7 @@ export const addCardOrderItems = asyncHandler(async (req, res) => {
         const createdOrder = await order.save()
 
         if (createdOrder) {
-            const from = "noreply@tiplogo.com"
+            const from = "noreply@pincafes.com"
             const subject = "Card order placed"
 
             const heading = `Hi ${req.user.name}`
@@ -185,7 +185,7 @@ export const updateCardOrderToDelivered = asyncHandler(async (req, res) => {
     }
 
     if (order && order.isDelivered === false) {
-        const from = "noreply@tiplogo.com"
+        const from = "noreply@pincafes.com"
         const subject = `${card.name} Purchase`
 
         const heading = `Your ${card.name} details`

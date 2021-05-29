@@ -71,7 +71,7 @@ const tabitems = [
     },
     {
         heading: "We offer a bunch of other awesome services",
-        description: "We do our best to stay on top of the industry. Tiplogo has got you covered",
+        description: "We do our best to stay on top of the industry. Pin Cafes has got you covered",
         details: [
             {
                 icon: "fas fa-project-diagram",

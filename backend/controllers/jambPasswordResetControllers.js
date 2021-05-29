@@ -22,7 +22,7 @@ export const createJambPasswordResetOrder = asyncHandler(async (req, res) => {
     if (orderItems && orderItems.length === 0) {
         throw new Error('No Order items')
     } else {
-        const from = "noreply@tiplogo.com"
+        const from = "noreply@pincafes.com"
         const subject = "Jamb Password Reset Order"
 
         const heading = `Your Jamb Password Reset Order`

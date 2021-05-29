@@ -26,7 +26,7 @@ export const registerUsers = asyncHandler(async (req, res) => {
 
     if (user) {
         const emailToken = generateShortToken(user._id, jwtEmailActivate, '30m')
-        const from = "noreply@tiplogo.com"
+        const from = "noreply@pincafes.com"
         const url = `${process.env.CLIENT_URL}/auth/activate/${emailToken}`
         const subject = "Email confirmation"
 
@@ -75,7 +75,7 @@ export const resendEmail = asyncHandler(async (req, res) => {
 
     if (user) {
         const emailToken = generateShortToken(user._id, jwtEmailActivate, '30m')
-        const from = "noreply@tiplogo.com"
+        const from = "noreply@pincafes.com"
         const url = `${process.env.CLIENT_URL}/auth/activate/${emailToken}`
         const subject = "Email confirmation"
         const heading = 'Confirm your email'
@@ -141,7 +141,7 @@ export const forgotPassword = asyncHandler(async (req, res) => {
     const user = await User.findOne({ email })
     const resetToken = generateShortToken(user._id, jwtPassReset, '30m')
 
-    const from = "noreply@tiplogo.com"
+    const from = "noreply@pincafes.com"
     const url = `${process.env.CLIENT_URL}/auth/passwordreset/${resetToken}`
     const subject = "Password Reset"
 

@@ -52,7 +52,7 @@ export const createOLevelResultUploadOrder = asyncHandler(async (req, res) => {
         throw new Error('No order items or order items are incomplete')
     }
 
-    const from = "noreply@tiplogo.com"
+    const from = "noreply@pincafes.com"
     const subject = "O Level Result Upload Order"
 
     const heading = `Your O Level Result Upload Order`
@@ -214,7 +214,7 @@ export const adminOLevelResultUploadFileUpload = asyncHandler(async (req, res) =
 
     if (order) {
 
-        const from = "noreply@tiplogo.com"
+        const from = "noreply@pincafes.com"
         const subject = "O level result upload completed"
 
         const heading = `We have completed your o level result upload`

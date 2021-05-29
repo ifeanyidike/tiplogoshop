@@ -21,8 +21,8 @@ export default function App({ amount, service, simple, onSuccess }) {
             name: userInfo.name,
         },
         customizations: {
-            title: 'Payment to Tiplogo Nigeria Limited',
-            description: `Payment for Tiplogo ${service} services`,
+            title: 'Payment to Pin Cafes',
+            description: `Payment for Pin Cafes ${service} services`,
             logo: 'https://st2.depositphotos.com/4403291/7418/v/450/depositphotos_74189661-stock-illustration-online-shop-log.jpg',
         },
     };

@@ -6,7 +6,7 @@ export default function Copyright() {
         <Typography variant="body2" color="textSecondary" align="center">
             {'Copyright © '}
             <Link color="inherit" to="/">
-                Tiplogo admin
+                Pin Cafes admin
         </Link>{' '}
             {new Date().getFullYear()}
             {'.'}

@@ -75,7 +75,7 @@ const MainHeader = ({ setShowDrawer }) => {
                 </Hamburger>
                 {/* <SvgIcon /> */}
                 <Link to='/' className="logo">
-                    <img src='/images/tiplogo.png' alt='tiplogo logo' />
+                    <img src='/images/pincafes-logo.png' alt='Pin Cafes logo' />
                 </Link>
                 <HeaderRightItems variants={headerRightVariants} initial="hidden" animate="visible">
                     <ul>

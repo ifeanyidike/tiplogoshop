@@ -13,8 +13,8 @@ const Meta = ({ title, description, keywords }) => {
 }
 
 Meta.defaultProps = {
-    title: 'Welcome To Tiplogo Nigeria Limited',
-    description: 'Tiplogo is the number one place to purchase WAEC, NECO, NABTEB and other exam scratch cards. You can also do Jamb data correction, O level upload and passport reset.',
+    title: 'Welcome To Pin Cafes',
+    description: 'Pin Cafes is the number one place to purchase WAEC, NECO, NABTEB and other exam scratch cards. You can also do Jamb data correction, O level upload and passport reset.',
     keywords: 'cards, scratch cards, PINs, Tokens, result checkers, Jamb password reset, data correction, o level upload, JAMB, UTME, DE, Direct Entry',
 }
 
