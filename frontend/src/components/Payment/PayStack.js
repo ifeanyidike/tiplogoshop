@@ -24,7 +24,7 @@ const PayStackPayment = ({ amount, onSuccess, simple }) => {
         reference: (new Date()).getTime(),
         email: userInfo.email,
         amount: amount * 100,
-        publicKey: process.env.REACT_APP_PAYSTACK_PUBLIC_KEY,
+        publicKey: key,
     };
 
     const PayStackHooks = () => {

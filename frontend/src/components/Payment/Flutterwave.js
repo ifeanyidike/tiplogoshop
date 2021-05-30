@@ -1,16 +1,26 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { useFlutterwave, closePaymentModal } from 'flutterwave-react-v3';
 import { WalletButton } from '../../styles/ProfileStyle';
 import { PayButton } from '../../styles/ServiceStyle';
 import { useDispatch, useSelector } from 'react-redux'
+import axios from 'axios';
 
 export default function App({ amount, service, simple, onSuccess }) {
 
     const userLogin = useSelector(state => state.userLogin)
     const { userInfo } = userLogin
 
+    const [key, setKey] = useState("")
+    useEffect(() => {
+        const getKey = async () => {
+            const { data: clientKey } = await axios.get('/api/config/flutterwave')
+            setKey(clientKey)
+        }
+        getKey()
+    }, [key])
+
     const config = {
-        public_key: process.env.REACT_APP_FLUTTERWAVE_PUBLIC_KEY,
+        public_key: key,
         tx_ref: Date.now(),
         amount,
         currency: 'NGN',

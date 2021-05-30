@@ -46,6 +46,7 @@ app.use('/api/reviews', reviewRoutes)
 app.use('/api/contacts', contactRoutes)
 app.use('/api/upload', uploadRoutes)
 app.get("/api/config/paystack", (req, res) => res.send(process.env.PAYSTACK_PUBLIC_KEY))
+app.get("/api/config/flutterwave", (req, res) => res.send(process.env.FLUTTERWAVE_PUBLIC_KEY))
 
 const __dirname = path.resolve()
 app.use('/uploads', express.static(path.join(__dirname, '/uploads')))
