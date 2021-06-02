@@ -6,7 +6,7 @@ import School from "../models/schoolModels.js"
 // @access  Public
 
 export const getAllSchools = asyncHandler(async (req, res) => {
-    const schools = await School.find({})
+    const schools = await School.find({}).sort({ "institution": "asc" })
     res.json({ schools: schools })
 })
 
@@ -17,7 +17,7 @@ export const getAllSchools = asyncHandler(async (req, res) => {
 
 export const getSchoolsByProgramme = asyncHandler(async (req, res) => {
     const programme = req.params.programme
-    const schools = await School.find({ programme: programme })
+    const schools = await School.find({ programme: programme }).sort({ "institution": "asc" })
     res.send(schools)
 })
 
@@ -54,7 +54,7 @@ export const updateSchool = asyncHandler(async (req, res) => {
     const school = await School.findById(req.params.id)
 
     if (school) {
-        school.programme = programme || school.programme
+        school.programme = programme.toLowerCase() || school.programme
         school.institution = institution || school.institution
         if (courses) {
             for (let course of courses) {
