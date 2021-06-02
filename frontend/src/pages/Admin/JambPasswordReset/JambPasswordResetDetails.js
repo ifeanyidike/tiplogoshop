@@ -187,7 +187,7 @@ const OLevelUploadDetails = ({ setValue }) => {
                                             <Card className="card__content">
                                                 <CardContent>
                                                     <div className="heading">
-                                                        <h2>Send message to {order.user.name}</h2>
+                                                        <h2>Send message to {order && order.user && order.user.name}</h2>
                                                     </div>
                                                     <Divider />
                                                     <div className="contents">
@@ -239,11 +239,11 @@ const OLevelUploadDetails = ({ setValue }) => {
                                 <MessageModal
                                     open={deletePrompt}
                                     setOpen={setDeletePrompt}
-                                    caption={`Delete ${order && order.user.name}'s order`}
+                                    caption={`Delete ${order && order.user && order.user.name}'s order`}
                                     message={
                                         <div className='delete'>
                                             <h4 className="deleteheader">This action is not reversable</h4>
-                                            <p>Are you sure you want to delete {order.user.name}'s order?</p>
+                                            <p>Are you sure you want to delete {order && order.user && order.user.name}'s order?</p>
                                             <p>This will also delete the pin, serial no and token</p>
                                             <div className="deleteconfirm">
                                                 <AdminButton onClick={() => setDeletePrompt(false)}>No</AdminButton>

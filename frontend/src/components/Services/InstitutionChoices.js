@@ -30,6 +30,7 @@ const InstitutionChoice = ({ stage, programme, setProgramme,
         setProgramme({ ...programme, [stage]: e.target.value })
         const { data } = await axios.get(`/api/schools/programme/${e.target.value}`)
         setSchools(data)
+        console.log(data)
     }
 
     const onInstitutionChange = (stage) => async (e) => {

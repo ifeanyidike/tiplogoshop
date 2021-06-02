@@ -17,7 +17,6 @@ import { useDispatch, useSelector } from "react-redux"
 import { WALLET_DEBIT_RESET } from '../../redux/constants/userConstants'
 import { listServiceByName } from "../../redux/actions/serviceActions"
 import { listSubjects } from "../../redux/actions/subjectActions"
-import ServiceAlert from './ServiceAlert';
 import SchoolIcon from '@material-ui/icons/School';
 import MergeTypeIcon from '@material-ui/icons/MergeType';
 import UploadEntry from './UploadEntry';
@@ -107,7 +106,6 @@ const OLevelUploadForm = ({
 
     return (
         <div>
-            <ServiceAlert />
 
             <div className="topmainitem">
                 <div>

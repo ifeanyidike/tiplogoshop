@@ -20,7 +20,6 @@ import { listServiceByName } from '../../redux/actions/serviceActions';
 import { useDispatch, useSelector } from "react-redux"
 import Message from "../Message"
 import Loader from "../Loaders/SimpleLoader"
-import ServiceAlert from './ServiceAlert';
 
 const useStyles = makeStyles((theme) => ({
     formControl: {
@@ -82,7 +81,6 @@ const CourseChangeForm = ({
 
     return (
         <div>
-            <ServiceAlert />
 
             {
                 jprLoading ? <Loader /> :
