@@ -66,9 +66,9 @@ const InstitutionChoice = ({ stage, programme, setProgramme,
                         <option value="" ></option>
                         <option value="donotchange">Do not change</option>
                         <option value="degree">Degree</option>
-                        <option value="HND">HND</option>
-                        <option value="NCEOND">NCE/OND</option>
-                        <option value="IEI">IEI</option>
+                        <option value="hnd">HND</option>
+                        <option value="nce">NCE</option>
+                        <option value="iei">IEI</option>
                     </>
                 </TextField>
             </FormControl>
