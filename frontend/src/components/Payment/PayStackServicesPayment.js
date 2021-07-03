@@ -1,57 +1,64 @@
 import React from 'react'
-import { useDispatch, useSelector } from "react-redux"
+import { useDispatch, useSelector } from 'react-redux'
 import { createChangeOfCourseOrder } from '../../redux/actions/changeOfCourseActions'
 import { createJambPasswordResetOrder } from '../../redux/actions/jambPasswordResetActions'
 import { createOlevelUploadOrder } from '../../redux/actions/oLevelResultUploadActions'
-import PayStack from "./PayStack"
+import PayStack from './PayStack'
 
-const PayStackCardPayment = ({ transactionType, orderItems }) => {
-    const dispatch = useDispatch()
-    const { service } = useSelector(state => state.serviceByName)
-    const userLogin = useSelector(state => state.userLogin)
-    const { userInfo } = userLogin
+const PayStackServicePayment = ({
+  transactionType,
+  orderItems,
+  jambAmountPay,
+}) => {
+  const dispatch = useDispatch()
+  const { service } = useSelector((state) => state.serviceByName)
+  const userLogin = useSelector((state) => state.userLogin)
+  const { userInfo } = userLogin
 
+  let price = parseInt(service?.cost)
+  if (!jambAmountPay) {
+    price = parseInt(service?.cost + 2500)
+  }
 
-    const onSuccess = (reference) => {
-        const paymentResult = {
-            id: reference.trxref,
-            status: reference.status,
-            update_time: String((new Date()).getTime()),
-            email: userInfo.email
-        }
-
-        if (transactionType === 'changeofcourse') {
-            dispatch(createChangeOfCourseOrder(
-                {
-                    orderItems, price: parseInt(service.cost),
-                    paymentMethod: 'PayStack', paymentResult
-                })
-            )
-        } else if (transactionType === 'jambpasswordreset') {
-            dispatch(createJambPasswordResetOrder(
-                {
-                    orderItems, price: parseInt(service.cost),
-                    paymentMethod: 'PayStack', paymentResult
-                })
-            )
-        } else if (transactionType === 'olevelresultupload') {
-
-            dispatch(createOlevelUploadOrder(
-                orderItems,
-                parseInt(service.cost),
-                'PayStack',
-                paymentResult
-            )
-            )
-        }
+  const onSuccess = (reference) => {
+    const paymentResult = {
+      id: reference.trxref,
+      status: reference.status,
+      update_time: String(new Date().getTime()),
+      email: userInfo.email,
     }
 
-    return (
-        <PayStack
-            amount={service && service.cost}
-            onSuccess={onSuccess}
-        />
-    )
+    if (transactionType === 'changeofcourse') {
+      dispatch(
+        createChangeOfCourseOrder({
+          orderItems,
+          price,
+          paymentMethod: 'PayStack',
+          paymentResult,
+        }),
+      )
+    } else if (transactionType === 'jambpasswordreset') {
+      dispatch(
+        createJambPasswordResetOrder({
+          orderItems,
+          price: parseInt(service.cost),
+          paymentMethod: 'PayStack',
+          paymentResult,
+        }),
+      )
+    } else if (transactionType === 'olevelresultupload') {
+      dispatch(
+        createOlevelUploadOrder(
+          orderItems,
+          parseInt(service.cost),
+          'PayStack',
+          paymentResult,
+        ),
+      )
+    }
+  }
+
+  return <PayStack amount={price} onSuccess={onSuccess} />
 }
 
-export default PayStackCardPayment
+export default PayStackServicePayment
